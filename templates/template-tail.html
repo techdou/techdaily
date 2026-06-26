@@ -1,0 +1,1054 @@
+<script>
+
+// ============================================================
+// 1. Runtime Configuration
+// ============================================================
+const CONFIG = window.TechDailyConfig || {
+  scrollOffset: 86,
+  backToTopThreshold: 420,
+  revealThreshold: 0.12
+};
+
+// 术语表兜底：模板生成器未注入 GLOSSARY 时，提供常见 AI/计算机术语解释，不再阻断关键词点击解释。
+const DEFAULT_GLOSSARY = {
+  "Nex": { tag: "模型 / 机构", def: "这里指被新闻提及的开源模型或相关团队名称。文中它被用作对比对象，用来判断某个新模型是否直接继承了原有模型能力与身份特征。" },
+  "Qwen": { tag: "大模型", def: "Qwen 是阿里通义系列大模型。新闻上下文里，它作为被融合的底座模型之一，用来说明 Rio 3.5 的权重来源。" },
+  "权重": { tag: "机器学习", def: "权重是神经网络中存储知识的参数。模型的能力、风格与偏好主要由这些参数决定。" },
+  "Gemini": { tag: "大模型", def: "Gemini 是 Google DeepMind 推出的多模态大模型系列，可处理文本、图像等多种输入。" },
+  "蒸馏": { tag: "训练方法", def: "蒸馏（Distillation）是让小模型或新模型学习大模型行为的一种方法，本质上是把教师模型的输出模式转移给学生模型。" },
+  "线性融合": { tag: "模型合并", def: "线性融合是按一定比例把两个模型的参数逐元素加权合并，例如 0.6 × A + 0.4 × B。" },
+  "On-Policy": { tag: "强化学习", def: "On-Policy 指使用当前策略自己采样的数据进行优化的一类方法，强调“边做边学、按当前策略更新”。" },
+  "SFT": { tag: "训练阶段", def: "SFT 是监督微调（Supervised Fine-Tuning），通常用高质量问答或指令数据，把基础模型调整成更会听指令的助手。" },
+  "RL": { tag: "训练阶段", def: "RL 是强化学习（Reinforcement Learning），通过奖励机制让模型朝更符合目标的方向优化。" },
+  "Token": { tag: "基础概念", def: "Token 是大模型处理文本时的最小片段单位，可以理解为“模型读写时计数的文字块”。" },
+  "KYC": { tag: "合规", def: "KYC 是 Know Your Customer（了解你的客户），指平台通过证件等方式做实名或身份核验。" },
+  "Anthropic": { tag: "AI 公司", def: "Anthropic 是一家专注大模型研发的 AI 公司，以 Claude 系列模型闻名。" },
+  "出口管制": { tag: "政策", def: "出口管制指政府对技术、产品、芯片或模型能力跨境流动设置限制，以控制安全与合规风险。" },
+  "Seedance": { tag: "视频模型", def: "Seedance 是用于视频生成的模型或系列名称，文中讨论的是它的版本与定价策略。" },
+  "张量": { tag: "数学 / 深度学习", def: "张量可以理解为多维数组，是神经网络中表示参数、特征和中间结果的基本数据结构。" },
+  "余弦相似度": { tag: "相似度度量", def: "余弦相似度用来衡量两个向量方向是否接近，越接近 1，说明两者越相似。" },
+  "Mythos": { tag: "模型名", def: "这里指新闻中的一个具体模型名称。模板把它作为术语处理，便于读者点击查看解释。" },
+  "剪映": { tag: "创作工具", def: "剪映是字节跳动推出的视频剪辑与内容创作工具，常与短视频生产场景结合。" },
+  "fable": { tag: "模型 / 项目", def: "这里指新闻语境中的特定模型或项目名称，常与访问权限、平台策略等讨论一起出现。" }
+};
+const GLOSSARY = window.GLOSSARY || DEFAULT_GLOSSARY;
+
+/**
+ * DouknowAI Pet iframe bridge
+ *
+ * 说明：
+ * 1. iframe 保持 pointer-events:none，页面正文链接和按钮不会被透明层挡住。
+ * 2. pet.html 每 80ms 向父页面发送宠物命中区域。
+ * 3. 父页面只在指针落到宠物命中区域时接管拖拽，并通过 postMessage 控制宠物。
+ * 4. 默认运动平面为当前视口；如需指定某个块元素作为宠物活动平面：
+ *    - 给元素添加 data-pet-plane 或 class="pet-plane"
+ *    - 或在 body 上添加 data-pet-plane-selector="#yourBlock"
+ */
+function initPetIframeBridge() {
+  var iframe = document.getElementById('petIframe');
+  if (!iframe || iframe.dataset.bridgeReady === '1') return;
+  iframe.dataset.bridgeReady = '1';
+
+  var petBounds = null;
+  var dragging = false;
+  var activePointerId = null;
+
+  function post(type, payload) {
+    if (!iframe.contentWindow) return;
+    iframe.contentWindow.postMessage(Object.assign({
+      source: 'techdaily-parent',
+      type: type
+    }, payload || {}), '*');
+  }
+
+  function getPoint(e) {
+    return { x: e.clientX, y: e.clientY };
+  }
+
+  function isInsidePet(point) {
+    if (!petBounds) return false;
+    var hitPadding = 8;
+    return point.x >= petBounds.left - hitPadding &&
+      point.x <= petBounds.right + hitPadding &&
+      point.y >= petBounds.top - hitPadding &&
+      point.y <= petBounds.bottom + hitPadding;
+  }
+
+  function findPetPlaneRect() {
+    var selector = document.body ? document.body.getAttribute('data-pet-plane-selector') : '';
+    var plane = null;
+
+    if (selector) {
+      try { plane = document.querySelector(selector); } catch (err) { plane = null; }
+    }
+    if (!plane) plane = document.querySelector('[data-pet-plane], .pet-plane');
+
+    if (!plane) {
+      return { left: 0, top: 0, width: window.innerWidth, height: window.innerHeight };
+    }
+
+    var rect = plane.getBoundingClientRect();
+    var left = Math.max(0, rect.left);
+    var top = Math.max(0, rect.top);
+    var right = Math.min(window.innerWidth, rect.right);
+    var bottom = Math.min(window.innerHeight, rect.bottom);
+
+    // 如果目标块当前几乎不可见，则临时回退到视口，避免宠物被夹在不可见区域。
+    if (right - left < 80 || bottom - top < 80) {
+      return { left: 0, top: 0, width: window.innerWidth, height: window.innerHeight };
+    }
+
+    return { left: left, top: top, width: right - left, height: bottom - top };
+  }
+
+  function syncPetPlane() {
+    post('douknow-pet-surface', { rect: findPetPlaneRect() });
+  }
+
+  window.addEventListener('message', function (event) {
+    if (event.source !== iframe.contentWindow) return;
+    var data = event.data || {};
+    if (data.source === 'douknow-pet' && data.type === 'douknow-pet-bounds') {
+      petBounds = data.bounds;
+    }
+  });
+
+  document.addEventListener('pointerdown', function (e) {
+    var point = getPoint(e);
+    if (!isInsidePet(point)) return;
+
+    dragging = true;
+    activePointerId = e.pointerId;
+    document.body.classList.add('pet-dragging');
+    post('douknow-pet-drag-start', point);
+    e.preventDefault();
+    e.stopPropagation();
+  }, { capture: true, passive: false });
+
+  document.addEventListener('pointermove', function (e) {
+    var point = getPoint(e);
+    post('douknow-pet-pointer', point);
+
+    if (!dragging || e.pointerId !== activePointerId) return;
+    post('douknow-pet-drag-move', point);
+    e.preventDefault();
+    e.stopPropagation();
+  }, { capture: true, passive: false });
+
+  function endDrag(e) {
+    if (!dragging) return;
+    if (e && activePointerId != null && e.pointerId !== activePointerId) return;
+    dragging = false;
+    activePointerId = null;
+    document.body.classList.remove('pet-dragging');
+    post('douknow-pet-drag-end');
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+  }
+
+  document.addEventListener('pointerup', endDrag, { capture: true, passive: false });
+  document.addEventListener('pointercancel', endDrag, { capture: true, passive: false });
+
+  window.addEventListener('resize', syncPetPlane);
+  window.addEventListener('scroll', syncPetPlane, { passive: true });
+  iframe.addEventListener('load', syncPetPlane);
+  setTimeout(syncPetPlane, 120);
+  setInterval(syncPetPlane, 500);
+}
+
+// ============================================================
+// 2. DOM READY INITIALIZATION
+// ============================================================
+
+/**
+ * Initialize all enhancements when DOM is ready.
+ * Uses DOMContentLoaded for reliable execution.
+ */
+document.addEventListener('DOMContentLoaded', function () {
+  initSidebar();
+  initModal();
+  initAudioPlayer();
+  initBackToTop();
+  initReadingProgress();
+  initTechTermTooltips();
+  initScrollReveal();
+  initHoverEnhancers();
+  initKeyboardShortcuts();
+  initStoryNumberAnimation();
+  initArchiveMenu();
+  adaptNoImageStories();
+  adaptMultiImageStories();
+  adaptResponsiveCollections();
+  initStoryImageInteractions();
+  initKeywordExplanations();
+});
+
+
+// ============================================================
+// 3. SIDEBAR NAVIGATION
+// ============================================================
+
+/**
+ * Toggle sidebar open/closed state.
+ * Also toggles the overlay for backdrop click-to-close.
+ */
+function toggleSidebar(forceOpen) {
+  const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('sidebarOverlay');
+  if (!sidebar || !overlay) return;
+
+  const shouldOpen = (typeof forceOpen === 'boolean') ? forceOpen : !sidebar.classList.contains('active');
+  sidebar.classList.toggle('active', shouldOpen);
+  overlay.classList.toggle('active', shouldOpen);
+  document.body.style.overflow = shouldOpen ? 'hidden' : '';
+}
+
+/**
+ * Initialize sidebar event listeners.
+ */
+function initSidebar() {
+  // Overlay click handled by inline onclick
+  // This function is a hook for any additional sidebar initialization
+  const sidebar = document.getElementById('sidebar');
+  if (sidebar) {
+    // Ensure sidebar closes on escape key
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && sidebar.classList.contains('active')) {
+        toggleSidebar();
+      }
+    });
+  }
+}
+
+
+// ============================================================
+// 4. MODAL SYSTEM
+// ============================================================
+
+const modalOverlay = document.getElementById('modalOverlay');
+
+/**
+ * Open the modal with glossary definition for a term.
+ * @param {string} term - The glossary term to display.
+ */
+function openModal(term, e) {
+  var evt = e || window.event;
+  if (evt && typeof evt.stopPropagation === 'function') evt.stopPropagation();
+  const entry = GLOSSARY[term];
+  if (!entry) return;
+
+  const modalTermEl = document.getElementById('modalTerm');
+  const modalBodyEl = document.getElementById('modalBody');
+
+  if (modalTermEl) modalTermEl.textContent = term;
+  if (modalBodyEl) {
+    modalBodyEl.innerHTML =
+      (entry.tag ? '<span class="tag">' + entry.tag + '</span>' : '') +
+      '<p>' + entry.def + '</p>';
+  }
+
+  if (modalOverlay) {
+    modalOverlay.classList.add('active');
+    // Prevent body scroll when modal is open
+    document.body.style.overflow = 'hidden';
+  }
+}
+
+/**
+ * Close the modal overlay.
+ * @param {Event} e - Optional event object for click detection.
+ */
+function closeModal(e) {
+  if (e && e.target !== modalOverlay && !e.target.classList.contains('modal-close')) return;
+  if (modalOverlay) {
+    modalOverlay.classList.remove('active');
+    // Restore body scroll
+    if (!document.getElementById('sidebar').classList.contains('active')) {
+      document.body.style.overflow = '';
+    }
+  }
+}
+
+/**
+ * Initialize modal system with keyboard and accessibility support.
+ */
+function initModal() {
+  if (!modalOverlay) return;
+
+  // Close on overlay click
+  modalOverlay.addEventListener('click', function (e) {
+    if (e.target === modalOverlay) closeModal();
+  });
+
+  // Close on escape key (handled in global keyboard handler)
+  // Focus trap for accessibility
+  modalOverlay.addEventListener('keydown', function (e) {
+    if (e.key === 'Tab') {
+      const focusable = modalOverlay.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+      if (focusable.length === 0) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+
+      if (e.shiftKey && document.activeElement === first) {
+        last.focus();
+        e.preventDefault();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        first.focus();
+        e.preventDefault();
+      }
+    }
+  });
+}
+
+
+// ============================================================
+// 5. AUDIO PLAYER
+// ============================================================
+
+let audioEl = null;
+let isPlaying = false;
+
+/**
+ * Toggle audio playback state.
+ * Creates audio element on first play.
+ */
+function togglePlay() {
+  var btn = document.getElementById('playBtn');
+  if (!btn) return;
+
+  if (!audioEl) {
+    var audioSrc = window.TechDailyAudioUrl || "https://news.techdou.com/broadcast.mp3";
+    if (!audioSrc) { alert("播报音频生成中..."); return; }
+    audioEl = new Audio(audioSrc);
+
+    var timeEl = document.getElementById('audioTime');
+    if (timeEl) timeEl.textContent = '0:00';
+
+    audioEl.addEventListener('error', function () {
+      console.warn('[Audio] 加载失败:', audioSrc);
+      if (timeEl) timeEl.textContent = '0:00';
+    });
+
+    audioEl.addEventListener('loadedmetadata', function () {
+      if (!audioEl.duration || isNaN(audioEl.duration)) return;
+      var m = Math.floor(audioEl.duration / 60);
+      var s = Math.floor(audioEl.duration % 60);
+      if (timeEl) timeEl.textContent = m + ':' + (s < 10 ? '0' : '') + s;
+    });
+
+    audioEl.addEventListener('canplay', function () {
+      if (!audioEl.duration || isNaN(audioEl.duration)) return;
+      var m = Math.floor(audioEl.duration / 60);
+      var s = Math.floor(audioEl.duration % 60);
+      if (timeEl) timeEl.textContent = m + ':' + (s < 10 ? '0' : '') + s;
+    });
+
+    audioEl.addEventListener('timeupdate', function () {
+      if (!audioEl.duration || isNaN(audioEl.duration)) return;
+      var pct = (audioEl.currentTime / audioEl.duration) * 100;
+      var fillEl = document.getElementById('progressFill');
+      if (fillEl) fillEl.style.width = pct + '%';
+      var m = Math.floor(audioEl.currentTime / 60);
+      var s = Math.floor(audioEl.currentTime % 60);
+      var totalM = Math.floor(audioEl.duration / 60);
+      var totalS = Math.floor(audioEl.duration % 60);
+      if (timeEl) timeEl.textContent = m + ':' + (s < 10 ? '0' : '') + s + ' / ' + totalM + ':' + (totalS < 10 ? '0' : '') + totalS;
+    });
+
+    audioEl.addEventListener('ended', function () {
+      isPlaying = false;
+      var playIcon = document.getElementById('playIcon');
+      var pauseIcon = document.getElementById('pauseIcon');
+      var fillEl = document.getElementById('progressFill');
+      if (playIcon) playIcon.style.display = '';
+      if (pauseIcon) pauseIcon.style.display = 'none';
+      if (fillEl) fillEl.style.width = '0%';
+      if (audioEl.duration && !isNaN(audioEl.duration)) {
+        var totalM = Math.floor(audioEl.duration / 60);
+        var totalS = Math.floor(audioEl.duration % 60);
+        if (timeEl) timeEl.textContent = totalM + ':' + (totalS < 10 ? '0' : '') + totalS;
+      }
+    });
+  }
+
+  if (isPlaying) {
+    audioEl.pause();
+    isPlaying = false;
+    var playIcon = document.getElementById('playIcon');
+    var pauseIcon = document.getElementById('pauseIcon');
+    if (playIcon) playIcon.style.display = '';
+    if (pauseIcon) pauseIcon.style.display = 'none';
+  } else {
+    audioEl.play().catch(function(err) { console.warn('[Audio]', err); });
+    isPlaying = true;
+    var playIcon = document.getElementById('playIcon');
+    var pauseIcon = document.getElementById('pauseIcon');
+    if (playIcon) playIcon.style.display = 'none';
+    if (pauseIcon) pauseIcon.style.display = '';
+  }
+}
+
+function initAudioPlayer() {
+  // Audio track click-to-seek
+  var track = document.querySelector('.audio-track');
+  if (track && audioEl) {
+    track.addEventListener('click', function (e) {
+      var rect = track.getBoundingClientRect();
+      var pct = (e.clientX - rect.left) / rect.width;
+      if (audioEl.duration) {
+        audioEl.currentTime = pct * audioEl.duration;
+      }
+    });
+  }
+}
+
+
+// ============================================================
+// 6. SMOOTH SCROLL UTILITIES
+// ============================================================
+
+/**
+ * Scroll to a story element by its number with smooth animation.
+ * @param {string} num - The story number/ID suffix.
+ */
+function scrollToStory(num) {
+  const el = document.getElementById('story-' + num);
+  if (!el) return false;
+
+  // 目录点击时，inline handler 会随后关闭 sidebar；这里延迟一帧，避免 body overflow:hidden 时滚动失效。
+  window.setTimeout(function () {
+    const offset = (window.TechDailyConfig && window.TechDailyConfig.scrollOffset) || CONFIG.scrollOffset || 86;
+    const top = el.getBoundingClientRect().top + window.pageYOffset - offset;
+    window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+
+    el.classList.add('reveal-scale', 'visible', 'story-jump-highlight');
+    window.setTimeout(function () {
+      el.classList.remove('story-jump-highlight');
+    }, 900);
+  }, 80);
+
+  return false;
+}
+
+/**
+ * Scroll to top of page with smooth animation.
+ */
+function scrollToTop() {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+
+// ============================================================
+// 7. BACK TO TOP BUTTON
+// ============================================================
+
+/**
+ * Initialize back-to-top button visibility based on scroll position.
+ */
+function initBackToTop() {
+  var backToTopBtn = document.getElementById('backToTop');
+  if (!backToTopBtn) return;
+
+  var scrollThreshold = CONFIG.backToTopThreshold;
+  var ticking = false;
+
+  function updateBackToTop() {
+    if (window.pageYOffset > scrollThreshold) {
+      backToTopBtn.classList.add('visible');
+    } else {
+      backToTopBtn.classList.remove('visible');
+    }
+    ticking = false;
+  }
+
+  window.addEventListener('scroll', function () {
+    if (!ticking) {
+      requestAnimationFrame(updateBackToTop);
+      ticking = true;
+    }
+  });
+
+  // Initial check
+  updateBackToTop();
+}
+
+
+// ============================================================
+// 8. READING PROGRESS BAR
+// ============================================================
+
+/**
+ * Initialize reading progress bar at top of viewport.
+ * Shows scroll progress from 0% to 100% across the page.
+ */
+function initReadingProgress() {
+  var progressBar = document.getElementById('readingProgressBar') || document.getElementById('readingProgress');
+  if (!progressBar) return;
+
+  var ticking = false;
+
+  function updateProgress() {
+    var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    var docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    if (docHeight <= 0) return;
+    var progress = (scrollTop / docHeight) * 100;
+    progressBar.style.width = progress + '%';
+
+    // Update ring rotation on back-to-top button
+    var ring = document.getElementById('progressRing');
+    if (ring) {
+      ring.style.transform = 'rotate(' + (-90 + progress * 3.6) + 'deg)';
+    }
+
+    ticking = false;
+  }
+
+  window.addEventListener('scroll', function () {
+    if (!ticking) {
+      requestAnimationFrame(updateProgress);
+      ticking = true;
+    }
+  });
+
+  // Initial update
+  updateProgress();
+}
+
+
+// ============================================================
+// 9. TECH TERM TOOLTIP ENHANCEMENT
+// ============================================================
+
+/**
+ * Enhance all tech-term elements with tooltip data attributes.
+ * Extracts short definitions from the GLOSSARY and sets them
+ * as data-tooltip for CSS tooltip display.
+ */
+function initTechTermTooltips() {
+  var terms = document.querySelectorAll('.tech-term');
+  terms.forEach(function (term) {
+    // Get term from onclick attribute
+    var onclick = term.getAttribute('onclick');
+    if (onclick) {
+      var match = onclick.match(/openModal\('([^']+)'\)/);
+      if (match) {
+        var termKey = match[1];
+        var entry = GLOSSARY[termKey];
+        if (entry && !term.getAttribute('data-tooltip')) {
+          // Create a short tooltip (first 20 chars + ...)
+          var shortDef = entry.def.length > 25 ? entry.def.substring(0, 25) + '...' : entry.def;
+          term.setAttribute('data-tooltip', shortDef);
+        }
+        if (entry && !term.getAttribute('data-term')) {
+          term.setAttribute('data-term', termKey);
+        }
+      }
+    }
+  });
+}
+
+
+// ============================================================
+// 10. SCROLL REVEAL ANIMATIONS
+// ============================================================
+
+/**
+ * Initialize IntersectionObserver-based scroll reveal animations.
+ * Adds 'visible' class when elements enter the viewport.
+ */
+function initScrollReveal() {
+  // Base reveal observer
+  var revealObserver = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        // Optionally unobserve after reveal
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: CONFIG.revealThreshold, rootMargin: '0px 0px -40px 0px' });
+
+  // Observe all reveal elements
+  document.querySelectorAll('.brief-item, .story, .reveal, .reveal-fade, .reveal-scale, .reveal-left').forEach(function (el) {
+    if (!el.classList.contains('reveal') &&
+      !el.classList.contains('reveal-fade') &&
+      !el.classList.contains('reveal-scale') &&
+      !el.classList.contains('reveal-left')) {
+      el.classList.add('reveal');
+    }
+    revealObserver.observe(el);
+  });
+
+  // Stagger reveal observer (for grids/lists)
+  var staggerObserver = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        staggerObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.reveal-stagger').forEach(function (el) {
+    staggerObserver.observe(el);
+  });
+
+  // Story number animation on scroll into view
+  var numObserver = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        entry.target.style.animation = 'bounceIn 0.5s ease forwards';
+        numObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  document.querySelectorAll('.story-num').forEach(function (el) {
+    numObserver.observe(el);
+  });
+}
+
+
+// ============================================================
+// 11. HOVER EFFECT ENHANCERS
+// ============================================================
+
+/**
+ * Add enhanced hover interactions to various elements.
+ * Uses event delegation for performance.
+ */
+function initHoverEnhancers() {
+  // Brief item hover: add tilt effect
+  document.querySelectorAll('.brief-item').forEach(function (item) {
+    item.addEventListener('mousemove', function (e) {
+      var rect = item.getBoundingClientRect();
+      var x = e.clientX - rect.left;
+      var y = e.clientY - rect.top;
+      var centerX = rect.width / 2;
+      var centerY = rect.height / 2;
+      var rotateX = (y - centerY) / centerY * -1.5;
+      var rotateY = (x - centerX) / centerX * 1.5;
+      item.style.transform = 'perspective(600px) rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg) translateY(-3px)';
+    });
+
+    item.addEventListener('mouseleave', function () {
+      item.style.transform = '';
+    });
+  });
+
+  // Story card hover: enhance visual feedback
+  document.querySelectorAll('.story').forEach(function (story) {
+    story.addEventListener('mouseenter', function () {
+      var num = story.querySelector('.story-num');
+      if (num) num.style.transition = 'all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)';
+    });
+  });
+}
+
+
+// ============================================================
+// 12. KEYBOARD SHORTCUTS
+// ============================================================
+
+/**
+ * Initialize global keyboard shortcuts.
+ * - Escape: Close modal or sidebar
+ * - 'T' key: Scroll to top
+ */
+function initKeyboardShortcuts() {
+  document.addEventListener('keydown', function (e) {
+    // Escape closes modal or sidebar
+    if (e.key === 'Escape') {
+      var modal = document.getElementById('modalOverlay');
+      var sidebar = document.getElementById('sidebar');
+
+      if (modal && modal.classList.contains('active')) {
+        closeModal();
+      } else if (sidebar && sidebar.classList.contains('active')) {
+        toggleSidebar();
+      }
+    }
+
+    // 'T' or 't' scrolls to top (when not in input)
+    if ((e.key === 't' || e.key === 'T') && !isInputFocused()) {
+      e.preventDefault();
+      scrollToTop();
+    }
+  });
+}
+
+/**
+ * Check if focus is currently in an input field.
+ * @returns {boolean} True if an input element is focused.
+ */
+function isInputFocused() {
+  var tag = document.activeElement.tagName.toLowerCase();
+  return tag === 'input' || tag === 'textarea' || tag === 'select' || document.activeElement.isContentEditable;
+}
+
+
+// ============================================================
+// 13. UTILITY FUNCTIONS
+// ============================================================
+
+/**
+ * Check if the device supports touch events.
+ * @returns {boolean} True if touch is supported.
+ */
+function isTouchDevice() {
+  return window.matchMedia('(pointer: coarse)').matches ||
+    'ontouchstart' in window ||
+    navigator.maxTouchPoints > 0;
+}
+
+/**
+ * Debounce function to limit execution frequency.
+ * @param {Function} func - The function to debounce.
+ * @param {number} wait - Milliseconds to wait.
+ * @returns {Function} Debounced function.
+ */
+function debounce(func, wait) {
+  var timeout;
+  return function () {
+    var context = this;
+    var args = arguments;
+    clearTimeout(timeout);
+    timeout = setTimeout(function () {
+      func.apply(context, args);
+    }, wait);
+  };
+}
+
+/**
+ * Throttle function to limit execution frequency.
+ * @param {Function} func - The function to throttle.
+ * @param {number} limit - Milliseconds between executions.
+ * @returns {Function} Throttled function.
+ */
+function throttle(func, limit) {
+  var inThrottle;
+  return function () {
+    var context = this;
+    var args = arguments;
+    if (!inThrottle) {
+      func.apply(context, args);
+      inThrottle = true;
+      setTimeout(function () {
+        inThrottle = false;
+      }, limit);
+    }
+  };
+}
+
+
+// ============================================================
+// 14. STORY NUMBER ANIMATION
+// ============================================================
+
+/**
+ * Initialize entrance animation for story numbers.
+ * Uses IntersectionObserver for scroll-triggered animation.
+ */
+function initStoryNumberAnimation() {
+  var storyNums = document.querySelectorAll('.story-num');
+
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        // Add a subtle scale animation
+        entry.target.style.transition = 'all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)';
+        entry.target.style.transform = 'scale(1.1)';
+        setTimeout(function () {
+          entry.target.style.transform = 'scale(1)';
+        }, 200);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  storyNums.forEach(function (num) {
+    observer.observe(num);
+  });
+}
+
+
+// ============================================================
+// 15. SECTION DIVIDER ANIMATION
+// ============================================================
+
+/**
+ * Animate section dividers when they scroll into view.
+ */
+function initSectionDividerAnimation() {
+  var dividers = document.querySelectorAll('.section-divider');
+
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '0';
+        entry.target.style.transition = 'opacity 0.6s ease';
+        setTimeout(function () {
+          entry.target.style.opacity = '1';
+        }, 50);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.3 });
+
+  dividers.forEach(function (d) { observer.observe(d); });
+}
+
+
+// ============================================================
+// 16. PREFERS REDUCED MOTION HANDLING
+// ============================================================
+
+/**
+ * Check if user prefers reduced motion and disable animations.
+ * This is handled primarily via CSS media query, but we also
+ * add a class to the body for JavaScript-based animations.
+ */
+if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  document.documentElement.classList.add('reduced-motion');
+}
+
+
+// ============================================================
+// 17. PRINT STYLES HELPER
+// ============================================================
+
+/**
+ * Add print-specific behaviors.
+ * Ensures content is readable when printed.
+ */
+window.addEventListener('beforeprint', function () {
+  // Make all reveal elements visible for printing
+  document.querySelectorAll('.reveal, .reveal-fade, .reveal-scale, .reveal-left, .reveal-stagger > *').forEach(function (el) {
+    el.style.opacity = '1';
+    el.style.transform = 'none';
+  });
+  // Hide floating elements
+  var floatNav = document.querySelector('.float-nav');
+  var backToTop = document.getElementById('backToTop');
+  var progressBar = document.getElementById('readingProgressBar') || document.getElementById('readingProgress');
+  if (floatNav) floatNav.style.display = 'none';
+  if (backToTop) backToTop.style.display = 'none';
+  if (progressBar) progressBar.style.display = 'none';
+});
+
+window.addEventListener('afterprint', function () {
+  // Restore floating elements
+  var floatNav = document.querySelector('.float-nav');
+  var backToTop = document.getElementById('backToTop');
+  var progressBar = document.getElementById('readingProgressBar') || document.getElementById('readingProgress');
+  if (floatNav) floatNav.style.display = '';
+  if (backToTop) backToTop.style.display = '';
+  if (progressBar) progressBar.style.display = '';
+});
+
+
+// ============================================
+// Pet Party Integration
+// ============================================
+
+let petParty = null;
+let petPartyVisible = true;
+
+function scrollToTop() {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  setTimeout(initPetIframeBridge, 120);
+});
+
+
+// ============================================================
+// FIX 3+4: ADAPT NO-IMAGE STORIES
+// ============================================================
+/* 修正3: 改为检测img元素数量，而非children.length，
+   避免.story-images容器存在但无实际图片时误判 */
+function adaptNoImageStories() {
+  document.querySelectorAll('.story').forEach(function (story) {
+    var imgs = story.querySelector('.story-images');
+    var imgCount = imgs ? imgs.querySelectorAll('img').length : 0;
+    if (imgCount === 0) {
+      story.classList.add('story--no-images');
+    }
+  });
+}
+
+// ============================================================
+// FIX 5: ADAPT MULTI-IMAGE STORIES
+// ============================================================
+function adaptMultiImageStories() {
+  document.querySelectorAll('.story-images').forEach(function (imgs) {
+    var imgCount = imgs.querySelectorAll('img').length;
+    imgs.dataset.imageCount = String(imgCount);
+    imgs.classList.toggle('story-images--single', imgCount === 1);
+    imgs.classList.toggle('story-images--multiple', imgCount > 1);
+  });
+}
+
+function adaptResponsiveCollections() {
+  document.querySelectorAll('.brief-grid').forEach(function (grid) {
+    var count = grid.querySelectorAll('.brief-item').length;
+    grid.dataset.count = String(count);
+    grid.classList.toggle('is-odd', count % 2 === 1);
+    grid.classList.toggle('is-even', count > 0 && count % 2 === 0);
+  });
+
+  document.querySelectorAll('.story-categories, .story-tags').forEach(function (box) {
+    var count = box.children.length;
+    box.dataset.count = String(count);
+    box.classList.toggle('is-odd', count % 2 === 1);
+    box.classList.toggle('is-even', count > 0 && count % 2 === 0);
+  });
+}
+
+
+
+// ============================================================
+// FIX 7: IMAGE LIGHTBOX + HORIZONTAL WHEEL SCROLL + TERM ACCESSIBILITY
+// ============================================================
+function openImageLightbox(src, alt) {
+  var box = document.getElementById('imageLightbox');
+  var img = document.getElementById('imageLightboxImg');
+  var caption = document.getElementById('imageLightboxCaption');
+  if (!box || !img) return;
+  img.src = src;
+  img.alt = alt || '放大预览';
+  if (caption) caption.textContent = alt || '';
+  box.classList.add('active');
+  box.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeImageLightbox() {
+  var box = document.getElementById('imageLightbox');
+  var img = document.getElementById('imageLightboxImg');
+  if (!box || !img) return;
+  box.classList.remove('active');
+  box.setAttribute('aria-hidden', 'true');
+  img.src = '';
+  if (!document.getElementById('sidebar').classList.contains('active') && !(window.modalOverlay && modalOverlay.classList.contains('active'))) {
+    document.body.style.overflow = '';
+  }
+}
+
+function initStoryImageInteractions() {
+  document.querySelectorAll('.story-images').forEach(function (wrap) {
+    var hasOverflow = function () { return wrap.scrollWidth > wrap.clientWidth + 2; };
+
+    wrap.addEventListener('wheel', function (e) {
+      if (!hasOverflow()) return;
+      var mostlyVertical = Math.abs(e.deltaY) >= Math.abs(e.deltaX);
+      if (!mostlyVertical) return;
+      wrap.scrollLeft += e.deltaY;
+      e.preventDefault();
+    }, { passive: false });
+
+    wrap.querySelectorAll('img').forEach(function (img) {
+      img.setAttribute('tabindex', '0');
+      img.setAttribute('role', 'button');
+      img.setAttribute('aria-label', (img.alt || '图片') + '，点击放大查看');
+      img.addEventListener('click', function () { openImageLightbox(img.currentSrc || img.src, img.alt || '图片预览'); });
+      img.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          openImageLightbox(img.currentSrc || img.src, img.alt || '图片预览');
+        }
+      });
+    });
+  });
+
+  var box = document.getElementById('imageLightbox');
+  if (box && !box.dataset.bound) {
+    box.dataset.bound = '1';
+    box.addEventListener('click', function (e) {
+      if (e.target === box) closeImageLightbox();
+    });
+  }
+}
+
+function initKeywordExplanations() {
+  document.querySelectorAll('.tech-term').forEach(function (term) {
+    term.setAttribute('role', 'button');
+    term.setAttribute('tabindex', '0');
+    var termKey = term.getAttribute('data-term') || term.textContent.trim();
+    term.addEventListener('keydown', function (e) {
+      if ((e.key === 'Enter' || e.key === ' ') && GLOSSARY[termKey]) {
+        e.preventDefault();
+        openModal(termKey, e);
+      }
+    });
+  });
+}
+
+// ============================================================
+// FIX 6: ARCHIVE DROPDOWN
+// ============================================================
+function toggleArchive() {
+  var dropdown = document.getElementById('archiveDropdown');
+  if (!dropdown) return;
+  dropdown.classList.toggle('open');
+}
+
+function initArchiveMenu() {
+  var listEl = document.getElementById('archiveList');
+  if (!listEl) return;
+
+  // Determine page date: from body data-date, URL path, or fallback to today
+  var pageDate = null;
+  var bodyDate = document.body ? document.body.getAttribute('data-date') : '';
+  if (bodyDate && /^\d{4}-\d{2}-\d{2}$/.test(bodyDate)) {
+    pageDate = new Date(bodyDate + 'T00:00:00');
+  }
+  if (!pageDate || isNaN(pageDate.getTime())) {
+    var pathMatch = window.location.pathname.match(/\/([0-9]{4})\/([0-9]{2})\/([0-9]{2})/);
+    if (pathMatch) {
+      pageDate = new Date(pathMatch[1] + '-' + pathMatch[2] + '-' + pathMatch[3] + 'T00:00:00');
+    }
+  }
+  if (!pageDate || isNaN(pageDate.getTime())) {
+    pageDate = new Date();
+  }
+
+  var html = '';
+  for (var i = 0; i < 7; i++) {
+    var d = new Date(pageDate);
+    d.setDate(d.getDate() - i);
+    var y = d.getFullYear();
+    var m = String(d.getMonth() + 1).padStart(2, '0');
+    var day = String(d.getDate()).padStart(2, '0');
+    var dateStr = y + '年' + m + '月' + day + '日';
+    var urlPath = '/' + y + '/' + m + '/' + day + '/';
+    var weekDays = ['日', '一', '二', '三', '四', '五', '六'];
+    var weekDay = weekDays[d.getDay()];
+    if (i === 0) {
+      html += '<span class="archive-item archive-item-current">' + dateStr + ' 星期' + weekDay + ' ✓</span>';
+    } else {
+      html += '<a class="archive-item" href="' + urlPath + '">' + dateStr + ' 星期' + weekDay + '</a>';
+    }
+  }
+  listEl.innerHTML = html;
+}
+
+document.addEventListener('click', function (e) {
+  var dropdown = document.getElementById('archiveDropdown');
+  if (dropdown && !dropdown.contains(e.target)) {
+    dropdown.classList.remove('open');
+  }
+});
+
+document.addEventListener('keydown', function (e) {
+  if (e.key === 'Escape') {
+    var box = document.getElementById('imageLightbox');
+    if (box && box.classList.contains('active')) closeImageLightbox();
+  }
+});
+
+</script>
+</body>

@@ -1,0 +1,5143 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>TechDaily · 2026年6月18日</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Noto+Serif+SC:wght@400;600;700;900&family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+/**
+ * ============================================================
+ * TechDaily UI Design Enhancement Stylesheet
+ * ============================================================
+ * This file contains all visual enhancements for the TechDaily
+ * newspaper-style tech news page. It is designed to be used
+ * alongside the existing HTML structure.
+ *
+ * Sections:
+ * 1. CSS Custom Properties (Variables)
+ * 2. Global Typography & Base Styles
+ * 3. Floating Navigation
+ * 4. Masthead (Header)
+ * 5. Hero Section
+ * 6. Category Pills
+ * 7. Today's Brief Section
+ * 8. Audio Player
+ * 9. Section Dividers (Decorative)
+ * 10. Stories (Detailed Articles)
+ * 11. Tech Terms & Tooltips
+ * 12. Modal Enhancements
+ * 13. Footer
+ * 14. Back to Top Button
+ * 15. Scroll Animations (Reveal)
+ * 16. Decorative Elements
+ * 17. Keyframes
+ * 18. Responsive Design
+ * 19. Reduced Motion Support
+ * ============================================================
+ */
+
+
+/* ============================================================
+   1. CSS CUSTOM PROPERTIES (VARIABLES)
+   ============================================================ */
+
+:root {
+  /* -- Core Colors (preserved + enhanced) -- */
+  --ink: #1a1a1a;
+  --ink-soft: #2b251f;
+  --ink-muted: #6b6358;
+  --paper: #f5f1e8;
+  --paper-warm: #efe9dc;
+  --paper-card: #fffdf8;
+  --paper-dark: #e0d8c8;
+  --accent: #8b1a1a;
+  --accent-soft: #c44d4d;
+  --accent-bg: rgba(139, 26, 26, 0.06);
+  --rule: #c8c0b0;
+  --rule-soft: #ddd6c8;
+
+  /* -- Typography (preserved) -- */
+  --font-serif: 'Noto Serif SC', 'Playfair Display', Georgia, 'Songti SC', serif;
+  --font-display: 'Playfair Display', 'Noto Serif SC', Georgia, serif;
+  --font-sans: 'DM Sans', -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  --font-mono: 'JetBrains Mono', 'SF Mono', Consolas, 'Courier New', monospace;
+
+  /* -- Layout (enhanced) -- */
+  --max-width: 1280px;
+  --reading-width: 720px;
+
+  /* -- Shadow System (NEW) -- */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.12);
+  --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.16);
+  --shadow-inset: inset 0 1px 3px rgba(0, 0, 0, 0.03);
+
+  /* -- Gradients (NEW) -- */
+  --gradient-warm: linear-gradient(135deg, var(--paper-card) 0%, var(--paper-warm) 100%);
+  --gradient-paper: linear-gradient(180deg, var(--paper-card) 0%, var(--paper) 100%);
+  --gradient-accent: linear-gradient(135deg, var(--accent) 0%, var(--accent-soft) 100%);
+  --gradient-rule: linear-gradient(90deg, transparent 0%, var(--rule) 50%, transparent 100%);
+  --gradient-overlay: linear-gradient(180deg, rgba(26, 26, 26, 0.03) 0%, transparent 100%);
+
+  /* -- Spacing Scale (NEW) -- */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 40px;
+  --space-3xl: 56px;
+
+  /* -- Border Radius (NEW) -- */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-full: 9999px;
+
+  /* -- Transitions (NEW) -- */
+  --transition-fast: 150ms ease;
+  --transition-base: 250ms ease;
+  --transition-slow: 400ms ease;
+  --transition-bounce: 300ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+
+/* ============================================================
+   2. GLOBAL TYPOGRAPHY & BASE STYLES
+   ============================================================ */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  font-family: var(--font-sans);
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* -- Selection Styling (NEW) -- */
+::selection {
+  background: var(--accent);
+  color: var(--paper-card);
+}
+
+::-moz-selection {
+  background: var(--accent);
+  color: var(--paper-card);
+}
+
+/* -- Scrollbar Styling (NEW) -- */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--paper);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--rule);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--ink-muted);
+}
+
+
+/* ============================================================
+   3. FLOATING NAVIGATION
+   ============================================================ */
+
+.float-nav {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 200;
+}
+
+.float-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-full);
+  background: var(--ink);
+  color: var(--paper);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-md);
+  font-size: 1.2rem;
+  transition: all var(--transition-base);
+  position: relative;
+  overflow: hidden;
+}
+
+.float-btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--gradient-accent);
+  opacity: 0;
+  transition: opacity var(--transition-base);
+  border-radius: inherit;
+  z-index: -1;
+}
+
+.float-btn:hover {
+  transform: scale(1.1) rotate(2deg);
+  box-shadow: var(--shadow-lg);
+}
+
+.float-btn:hover::after {
+  opacity: 1;
+}
+
+.float-btn:active {
+  transform: scale(0.96);
+}
+
+/* -- Sidebar -- */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 280px;
+  background: var(--paper-card);
+  box-shadow: 4px 0 32px rgba(0, 0, 0, 0.14);
+  z-index: 199;
+  transform: translateX(-100%);
+  transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  padding: 24px;
+  overflow-y: auto;
+  border-right: 1px solid var(--rule-soft);
+}
+
+.sidebar.active {
+  transform: translateX(0);
+}
+
+.sidebar-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  z-index: 198;
+  display: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.sidebar-overlay.active {
+  display: block;
+  opacity: 1;
+}
+
+.sidebar-title {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  padding-bottom: 14px;
+  border-bottom: 2px solid var(--ink);
+  letter-spacing: 0.01em;
+}
+
+.sidebar-cat {
+  margin-bottom: 18px;
+}
+
+.sidebar-cat-name {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.sidebar-cat-name::before {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  background: var(--accent);
+  border-radius: 50%;
+  opacity: 0.6;
+}
+
+.sidebar-link {
+  display: block;
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+  padding: 5px 0;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  border-left: 2px solid transparent;
+  padding-left: 8px;
+  margin-left: -8px;
+}
+
+.sidebar-link:hover {
+  color: var(--accent);
+  border-left-color: var(--accent-soft);
+  background: var(--accent-bg);
+  border-radius: 0 4px 4px 0;
+}
+
+
+/* ============================================================
+   4. MASTHEAD (HEADER)
+   ============================================================ */
+
+.masthead {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 16px 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 24px rgba(0, 0, 0, 0.14);
+  transition: box-shadow var(--transition-base);
+}
+
+.masthead-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.masthead-brand {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.masthead-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 3.5vw, 2.4rem);
+  font-weight: 900;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.masthead-title .accent {
+  color: var(--accent-soft);
+  text-shadow: 0 0 20px rgba(196, 77, 77, 0.3);
+}
+
+.masthead-sub {
+  font-family: var(--font-serif);
+  font-size: 0.8rem;
+  font-style: italic;
+  opacity: 0.5;
+  letter-spacing: 0.02em;
+}
+
+.masthead-date {
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  opacity: 0.6;
+  text-align: right;
+  letter-spacing: 0.02em;
+  line-height: 1.5;
+}
+
+
+/* ============================================================
+   5. HERO SECTION
+   ============================================================ */
+
+.hero {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 32px 24px 16px;
+  position: relative;
+}
+
+.hero-cover {
+  width: 100%;
+  max-height: min(42vh, 420px);
+  object-fit: cover;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  transition: box-shadow var(--transition-base);
+  position: relative;
+}
+
+/* -- Hero subtle texture overlay (NEW) -- */
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 32px;
+  left: 24px;
+  right: 24px;
+  bottom: calc(100% - 32px - min(42vh, 420px));
+  background: var(--gradient-overlay);
+  border-radius: var(--radius-md);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.hero-cover:hover {
+  box-shadow: var(--shadow-lg);
+}
+
+.hero-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 16px;
+  padding-bottom: 14px;
+  border-bottom: 3px double var(--ink);
+  flex-wrap: wrap;
+  gap: 10px;
+  position: relative;
+}
+
+/* -- Decorative diamond on hero bar (NEW) -- */
+.hero-bar::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+  width: 8px;
+  height: 8px;
+  background: var(--paper);
+  border: 2px solid var(--ink);
+}
+
+.hero-issue {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--ink-muted);
+  letter-spacing: 0.02em;
+}
+
+
+/* ============================================================
+   6. CATEGORY PILLS
+   ============================================================ */
+
+.cat-nav {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 20px 24px 10px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.cat-pill {
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--accent);
+  background: var(--accent-bg);
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: all var(--transition-base);
+  border: 1px solid transparent;
+  position: relative;
+  overflow: hidden;
+}
+
+.cat-pill::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--gradient-accent);
+  opacity: 0;
+  transition: opacity var(--transition-base);
+  z-index: 0;
+}
+
+.cat-pill span,
+.cat-pill {
+  position: relative;
+  z-index: 1;
+}
+
+.cat-pill:hover {
+  color: white;
+  border-color: var(--accent);
+  transform: scale(1.03);
+  box-shadow: var(--shadow-sm);
+}
+
+.cat-pill:hover::after {
+  opacity: 1;
+}
+
+.cat-pill:active {
+  transform: scale(0.98);
+}
+
+
+/* ============================================================
+   7. TODAY'S BRIEF SECTION
+   ============================================================ */
+
+.brief-section {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 28px 24px 16px;
+}
+
+.brief-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.brief-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.15rem, 2.5vw, 1.6rem);
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  letter-spacing: 0.01em;
+}
+
+.brief-title::before {
+  content: '';
+  display: block;
+  width: 5px;
+  height: clamp(1.15rem, 2.5vw, 1.6rem);
+  background: var(--gradient-accent);
+  border-radius: 3px;
+}
+
+/* -- Brief Grid (equal height cards) -- */
+.brief-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 14px;
+}
+
+/* FIX 2: brief-item 确保 flex 列布局且高度填满 */
+.brief-item {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* FIX 2: 标题区域自适应填充剩余空间 */
+.brief-item .brief-title {
+  flex: 1;
+}
+
+.brief-item {
+  background: var(--paper-card);
+  background: var(--gradient-warm);
+  border: 1px solid var(--rule-soft);
+  border-radius: var(--radius-md);
+  padding: 18px;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+/* -- Subtle corner accent on cards (NEW) -- */
+.brief-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(225deg, var(--paper-dark) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity var(--transition-base);
+  border-radius: 0 0 0 40px;
+}
+
+.brief-item:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-3px);
+  border-color: var(--accent-soft);
+}
+
+.brief-item:hover::before {
+  opacity: 1;
+}
+
+.brief-item:active {
+  transform: translateY(-1px);
+}
+
+.brief-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.brief-num {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: var(--accent);
+  opacity: 0.7;
+  line-height: 1;
+  text-shadow: 0 1px 2px rgba(139, 26, 26, 0.15);
+  transition: all var(--transition-base);
+  min-width: 24px;
+  text-align: center;
+}
+
+.brief-item:hover .brief-num {
+  opacity: 1;
+  transform: scale(1.08);
+  text-shadow: 0 2px 8px rgba(139, 26, 26, 0.25);
+}
+
+.brief-cat {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--accent);
+  background: var(--accent-bg);
+  padding: 3px 8px;
+  border-radius: var(--radius-sm);
+}
+
+.brief-item .brief-title {
+  font-family: var(--font-serif);
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.55;
+  color: var(--ink);
+  letter-spacing: 0.005em;
+  word-break: keep-all;        /* 修正5: 不在单词中间换行 */
+  overflow-wrap: break-word;   /* 修正5: 超长单词整体换行 */
+}
+
+
+/* ============================================================
+   8. AUDIO PLAYER
+   ============================================================ */
+
+.audio-player {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: var(--paper-card);
+  background: var(--gradient-warm);
+  border: 1px solid var(--rule-soft);
+  border-radius: var(--radius-lg);
+  padding: 14px 18px;
+  margin-bottom: 20px;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow var(--transition-base);
+}
+
+.audio-player:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.audio-player.audio-disabled {
+  opacity: 0.55;
+  filter: grayscale(0.4);
+}
+
+.audio-play-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-full);
+  background: var(--accent);
+  background: var(--gradient-accent);
+  border: none;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all var(--transition-base);
+  box-shadow: 0 2px 8px rgba(139, 26, 26, 0.25);
+}
+
+.audio-play-btn:hover {
+  transform: scale(1.08);
+  box-shadow: 0 4px 16px rgba(139, 26, 26, 0.35);
+}
+
+.audio-play-btn:active {
+  transform: scale(0.96);
+}
+
+.audio-play-btn svg {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+}
+
+.audio-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.audio-label {
+  font-weight: 600;
+  font-size: 0.96rem;
+  letter-spacing: 0.01em;
+}
+
+.audio-desc {
+  font-size: 0.8rem;
+  color: var(--ink-muted);
+  margin-top: 3px;
+  letter-spacing: 0.01em;
+}
+
+.audio-progress-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  max-width: 200px;
+}
+
+.audio-track {
+  flex: 1;
+  height: 5px;
+  background: var(--rule-soft);
+  border-radius: 3px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: height var(--transition-fast);
+}
+
+.audio-track:hover {
+  height: 7px;
+}
+
+.audio-fill {
+  height: 100%;
+  background: var(--gradient-accent);
+  width: 0%;
+  transition: width 0.3s ease;
+  border-radius: 3px;
+}
+
+.audio-time {
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  color: var(--ink-muted);
+  white-space: nowrap;
+  min-width: 40px;
+  text-align: right;
+  letter-spacing: 0.02em;
+}
+
+
+/* ============================================================
+   9. SECTION DIVIDERS (Decorative)
+   ============================================================ */
+
+.section-divider {
+  max-width: var(--max-width);
+  margin: 36px auto 10px;
+  padding: 0 24px;
+}
+
+.section-divider-inner {
+  border-top: 1px solid var(--rule);
+  padding-top: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+}
+
+/* -- Center decorative diamond (NEW) -- */
+.section-divider-inner::before {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  background: var(--accent);
+  transform: rotate(45deg);
+  border-radius: 1px;
+}
+
+/* -- Right gradient fade (NEW) -- */
+.section-divider-inner::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--gradient-rule);
+}
+
+.section-label {
+  font-family: var(--font-display);
+  font-size: clamp(1.05rem, 2vw, 1.35rem);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  white-space: nowrap;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+}
+
+.section-label::before {
+  content: '';
+  display: inline-block;
+  width: 5px;
+  height: clamp(1.05rem, 2vw, 1.35rem);
+  background: var(--gradient-accent);
+  border-radius: 3px;
+  margin-right: 0;
+  vertical-align: middle;
+}
+
+/* -- Enhanced decorative divider variant (NEW) -- */
+.section-divider-decorated .section-divider-inner {
+  border-top: none;
+  padding-top: 20px;
+  justify-content: center;
+}
+
+.section-divider-decorated .section-divider-inner::before {
+  display: none;
+}
+
+.section-divider-decorated .section-divider-inner::after {
+  display: none;
+}
+
+.section-divider-line {
+  flex: 1;
+  height: 1px;
+  background: var(--gradient-rule);
+  max-width: 200px;
+}
+
+.section-divider-dots {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  padding: 0 12px;
+}
+
+.section-divider-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--rule);
+}
+
+.section-divider-dot:nth-child(2) {
+  background: var(--accent);
+  width: 7px;
+  height: 7px;
+}
+
+.section-divider-diamond {
+  width: 8px;
+  height: 8px;
+  background: var(--accent);
+  transform: rotate(45deg);
+  border-radius: 1px;
+  opacity: 0.7;
+}
+
+
+/* ============================================================
+   10. STORIES (Detailed Articles)
+   ============================================================ */
+
+.stories {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 16px 24px 48px;
+}
+
+.story {
+  padding: 36px 0;
+  border-bottom: 1px solid var(--rule-soft);
+  position: relative;
+  transition: padding var(--transition-base);
+}
+
+.story:last-child {
+  border-bottom: none;
+}
+
+/* -- Subtle hover highlight on stories (NEW) -- */
+.story::before {
+  content: '';
+  position: absolute;
+  inset: 16px -20px;
+  background: var(--accent-bg);
+  opacity: 0;
+  border-radius: var(--radius-lg);
+  transition: opacity var(--transition-base);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.story:hover::before {
+  opacity: 0.5;
+}
+
+.story > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* -- Story Header -- */
+.story-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+
+/* -- Enhanced Story Number (NEW decorative circle) -- */
+.story-num {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+  font-weight: 900;
+  color: var(--accent);
+  line-height: 0.85;
+  flex-shrink: 0;
+  opacity: 0.8;
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--accent-bg);
+  border-radius: var(--radius-full);
+  border: 2px solid rgba(139, 26, 26, 0.12);
+  transition: all var(--transition-base);
+  text-shadow: 0 1px 2px rgba(139, 26, 26, 0.15);
+}
+
+.story:hover .story-num {
+  opacity: 1;
+  background: var(--accent);
+  color: var(--paper-card);
+  border-color: var(--accent);
+  box-shadow: 0 4px 16px rgba(139, 26, 26, 0.25);
+  transform: scale(1.05);
+}
+
+.story-title-block {
+  flex: 1;
+  padding-top: 4px;
+}
+
+.story-categories {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+
+.story-cat {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--accent);
+  background: var(--accent-bg);
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-fast);
+}
+
+.story-cat:hover {
+  background: var(--accent);
+  color: var(--paper-card);
+}
+
+/* -- Story Title with animated underline (NEW) -- */
+.story-title {
+  font-family: var(--font-serif);
+  font-size: clamp(1.18rem, 2.2vw, 1.55rem);
+  font-weight: 700;
+  line-height: 1.35;
+  letter-spacing: 0.01em;
+}
+
+.story-title a {
+  color: var(--ink);
+  transition: color var(--transition-fast);
+  position: relative;
+  display: inline;
+}
+
+/* -- Animated underline on hover (NEW) -- */
+.story-title a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--gradient-accent);
+  transition: width 0.35s ease;
+  border-radius: 1px;
+}
+
+.story-title a:hover {
+  color: var(--accent);
+}
+
+.story-title a:hover::after {
+  width: 100%;
+}
+
+/* -- Summary Box with italic and decorative quotes (NEW) -- */
+.story-summary {
+  font-family: var(--font-serif);
+  font-size: clamp(0.92rem, 1.4vw, 1.02rem);
+  line-height: 1.75;
+  color: var(--ink-soft);
+  padding: 14px 18px;
+  border-left: 4px solid var(--accent);
+  background: var(--accent-bg);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  margin: 16px 0;
+  position: relative;
+  font-style: italic;
+  letter-spacing: 0.01em;
+}
+
+/* -- Opening quote decoration (NEW) -- */
+.story-summary::before {
+  content: '\201C';
+  position: absolute;
+  top: 4px;
+  left: 10px;
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  color: var(--accent);
+  opacity: 0.12;
+  line-height: 1;
+  pointer-events: none;
+}
+
+/* -- Story Images -- */
+.story-images {
+  display: flex;
+  gap: 14px;
+  margin: 20px 0;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 6px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--rule) transparent;
+  justify-content: center;
+  align-items: center;
+}
+
+.story-images::-webkit-scrollbar {
+  height: 4px;
+}
+
+.story-images::-webkit-scrollbar-thumb {
+  background: var(--rule);
+  border-radius: 2px;
+}
+
+.story-images img {
+  width: auto;
+  max-width: 100%;
+  max-height: 340px;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  border: 1px solid transparent;
+}
+
+.story-images img:hover {
+  transform: scale(1.02) translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--rule-soft);
+}
+
+/* -- Enhanced Story Body Typography (NEW) -- */
+.story-body {
+  font-size: clamp(0.92rem, 1.3vw, 1rem);
+  line-height: 1.9;
+  color: var(--ink-soft);
+  max-width: var(--reading-width);
+  letter-spacing: 0.01em;
+}
+
+/* -- Modern paragraph spacing (replaces text-indent) -- */
+.story-body p {
+  margin-bottom: 1.2em;
+  text-indent: 0;
+}
+
+.story-body p:last-child {
+  margin-bottom: 0;
+}
+
+/* -- First letter styling for first paragraph (NEW) -- */
+/* 修正6: 调整首字下沉样式，避免与正文重叠 */
+.story-body > p:first-of-type::first-letter {
+  font-family: var(--font-display);
+  font-size: 3.0em;            /* 从3.2em略降为3.0em，减少侵占空间 */
+  font-weight: 700;
+  float: left;
+  line-height: 0.85;           /* 从0.8提高到0.85，增加行间距 */
+  margin-right: 8px;           /* 从6px增加到8px，与正文保持更大间距 */
+  margin-top: 2px;             /* 从4px降为2px，减少对上方空间的侵占 */
+  margin-bottom: 2px;          /* 新增：确保下方段落不与首字重叠 */
+  color: var(--accent);
+  text-shadow: 1px 1px 0 rgba(139, 26, 26, 0.15);
+}
+
+/* -- Story body emphasis styling (NEW) -- */
+.story-body strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.story-body em {
+  color: var(--ink-soft);
+  font-style: italic;
+}
+
+
+/* ============================================================
+   11. TECH TERMS & TOOLTIPS
+   ============================================================ */
+
+.tech-term {
+  color: var(--accent);
+  cursor: pointer;
+  font-weight: 500;
+  padding: 0 3px;
+  transition: all var(--transition-fast);
+  border-radius: 3px;
+  white-space: nowrap;
+  display: inline;
+  border-bottom: 1px dashed var(--accent-soft);
+  position: relative;
+}
+
+.tech-term:hover {
+  background: var(--accent);
+  color: var(--paper-card);
+  border-bottom-color: transparent;
+}
+
+/* -- Tooltip on hover (NEW) -- */
+.tech-term[data-tooltip]::before {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%) scale(0.95);
+  background: var(--ink);
+  color: var(--paper-card);
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 0.75rem;
+  font-family: var(--font-sans);
+  font-weight: 400;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: all var(--transition-fast);
+  z-index: 50;
+  box-shadow: var(--shadow-md);
+  letter-spacing: 0.01em;
+}
+
+.tech-term[data-tooltip]::after {
+  content: '';
+  position: absolute;
+  bottom: calc(100% + 3px);
+  left: 50%;
+  transform: translateX(-50%) scale(0.95);
+  border: 5px solid transparent;
+  border-top-color: var(--ink);
+  opacity: 0;
+  transition: all var(--transition-fast);
+  z-index: 50;
+}
+
+.tech-term[data-tooltip]:hover::before,
+.tech-term[data-tooltip]:hover::after {
+  opacity: 1;
+  transform: translateX(-50%) scale(1);
+}
+
+
+/* ============================================================
+   12. MODAL ENHANCEMENTS
+   ============================================================ */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  z-index: 200;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.modal-overlay.active {
+  display: flex;
+  opacity: 1;
+}
+
+.modal {
+  background: var(--paper-card);
+  border-radius: var(--radius-lg);
+  max-width: 340px;
+  width: auto;
+  max-height: 60vh;
+  overflow-y: auto;
+  box-shadow: var(--shadow-xl);
+  animation: modalIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  border: 1px solid var(--rule-soft);
+  position: relative;
+}
+
+/* -- Modal decorative corner (NEW) -- */
+.modal::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--gradient-accent);
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+}
+
+@keyframes modalIn {
+  from {
+    opacity: 0;
+    transform: scale(0.92) translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.modal-header {
+  padding: 22px 24px 14px;
+  border-bottom: 1px solid var(--rule-soft);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
+
+.modal-term {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  color: var(--ink);
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  font-size: 1.6rem;
+  color: var(--ink-muted);
+  cursor: pointer;
+  padding: 6px 10px;
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-fast);
+  line-height: 1;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-close:hover {
+  color: var(--accent);
+  background: var(--accent-bg);
+  transform: rotate(90deg);
+}
+
+.modal-body {
+  padding: 12px 16px 16px;
+  font-size: 0.82rem;
+  line-height: 1.6;
+  color: var(--ink-soft);
+  letter-spacing: 0.01em;
+}
+
+.modal-body .tag {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+  background: var(--paper-dark);
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  margin-bottom: 10px;
+  color: var(--ink-muted);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.modal-body p {
+  margin-bottom: 0.8em;
+}
+
+
+/* ============================================================
+   13. FOOTER
+   ============================================================ */
+
+.footer {
+  background: var(--ink);
+  color: rgba(245, 241, 232, 0.5);
+  padding: 40px 24px;
+  text-align: center;
+  position: relative;
+}
+
+/* -- Decorative top border (NEW) -- */
+.footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 3px;
+  background: var(--gradient-accent);
+  border-radius: 0 0 3px 3px;
+}
+
+.footer-brand {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--paper);
+  letter-spacing: 0.02em;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.footer-brand .accent {
+  color: var(--accent-soft);
+}
+
+.footer-info {
+  font-size: 0.78rem;
+  margin-top: 6px;
+  letter-spacing: 0.02em;
+}
+
+
+/* ============================================================
+   14. BACK TO TOP BUTTON
+   ============================================================ */
+
+.back-to-top {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-full);
+  background: var(--paper-card);
+  color: var(--ink-muted);
+  border: 1px solid var(--rule-soft);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-md);
+  z-index: 150;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(12px);
+  transition: all var(--transition-base);
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+.back-to-top.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.back-to-top:hover {
+  background: var(--accent);
+  color: var(--paper-card);
+  border-color: var(--accent);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg);
+}
+
+.back-to-top:active {
+  transform: translateY(-1px) scale(0.96);
+}
+
+/* -- Progress ring (NEW) -- */
+.back-to-top-ring {
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  border-top-color: var(--accent);
+  opacity: 0;
+  transition: opacity var(--transition-base);
+  transform: rotate(-90deg);
+}
+
+.back-to-top.visible .back-to-top-ring {
+  opacity: 0.4;
+}
+
+
+/* ============================================================
+   15. SCROLL ANIMATIONS (REVEAL)
+   ============================================================ */
+
+/* -- Base reveal -- */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* -- Stagger reveal for child elements (NEW) -- */
+.reveal-stagger {
+  opacity: 1;
+  transform: none;
+}
+
+.reveal-stagger > * {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.reveal-stagger.visible > *:nth-child(1) { transition-delay: 0ms; }
+.reveal-stagger.visible > *:nth-child(2) { transition-delay: 60ms; }
+.reveal-stagger.visible > *:nth-child(3) { transition-delay: 120ms; }
+.reveal-stagger.visible > *:nth-child(4) { transition-delay: 180ms; }
+.reveal-stagger.visible > *:nth-child(5) { transition-delay: 240ms; }
+.reveal-stagger.visible > *:nth-child(6) { transition-delay: 300ms; }
+.reveal-stagger.visible > *:nth-child(7) { transition-delay: 360ms; }
+.reveal-stagger.visible > *:nth-child(8) { transition-delay: 420ms; }
+.reveal-stagger.visible > *:nth-child(9) { transition-delay: 480ms; }
+.reveal-stagger.visible > *:nth-child(10) { transition-delay: 540ms; }
+
+.reveal-stagger.visible > * {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* -- Reveal variants (NEW) -- */
+.reveal-fade {
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+
+.reveal-fade.visible {
+  opacity: 1;
+}
+
+.reveal-scale {
+  opacity: 0;
+  transform: scale(0.96);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.reveal-scale.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-20px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.reveal-left.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+
+/* ============================================================
+   16. DECORATIVE ELEMENTS
+   ============================================================ */
+
+/* -- Ornamental divider line (NEW) -- */
+.ornament-line {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: var(--space-lg) 0;
+}
+
+.ornament-line::before,
+.ornament-line::after {
+  content: '';
+  flex: 1;
+  max-width: 160px;
+  height: 1px;
+  background: var(--gradient-rule);
+}
+
+.ornament-diamond {
+  width: 7px;
+  height: 7px;
+  background: var(--accent);
+  transform: rotate(45deg);
+  border-radius: 1px;
+  opacity: 0.6;
+}
+
+/* -- Decorative section number badge (NEW) -- */
+.section-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background: var(--accent);
+  color: var(--paper-card);
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  font-weight: 700;
+  border-radius: 50%;
+  box-shadow: 0 2px 8px rgba(139, 26, 26, 0.25);
+}
+
+/* -- Quote marks decoration (NEW) -- */
+.quote-open,
+.quote-close {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  line-height: 1;
+  color: var(--accent);
+  opacity: 0.2;
+  display: inline-block;
+  vertical-align: text-top;
+}
+
+.quote-open {
+  margin-right: 2px;
+}
+
+.quote-close {
+  margin-left: 2px;
+}
+
+/* -- Reading progress bar (NEW) -- */
+.reading-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: var(--gradient-accent);
+  z-index: 300;
+  width: 0%;
+  transition: width 0.1s linear;
+  box-shadow: 0 1px 4px rgba(139, 26, 26, 0.25);
+}
+
+
+/* ============================================================
+   17. KEYFRAMES
+   ============================================================ */
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.8;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes rotateIn {
+  from {
+    opacity: 0;
+    transform: rotate(-180deg) scale(0.5);
+  }
+  to {
+    opacity: 1;
+    transform: rotate(0) scale(1);
+  }
+}
+
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  70% {
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+
+/* ============================================================
+   18. RESPONSIVE DESIGN
+   ============================================================ */
+
+/* -- Tablet (768px - 1024px) -- */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .brief-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .story-num {
+    width: 48px;
+    height: 48px;
+    font-size: clamp(1.6rem, 3vw, 2rem);
+  }
+
+  .story-title {
+    font-size: clamp(1.1rem, 2vw, 1.35rem);
+  }
+
+  .story-images img {
+    max-height: 280px;
+  }
+}
+
+/* -- Mobile (max-width: 767px) -- */
+@media (max-width: 767px) {
+  /* Layout adjustments */
+  .float-nav {
+    top: 14px;
+    left: 14px;
+  }
+
+  .float-btn {
+    width: 42px;
+    height: 42px;
+    font-size: 1.1rem;
+  }
+
+  .masthead-inner {
+    padding: 0 16px;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .masthead-sub {
+    display: none;
+  }
+
+  .masthead-title {
+    font-size: clamp(1.3rem, 5vw, 1.8rem);
+    letter-spacing: 0.01em;
+  }
+
+  /* Hero */
+  .hero {
+    padding: 20px 16px 10px;
+  }
+
+  .hero-cover {
+    max-height: 220px;
+    border-radius: var(--radius-sm);
+  }
+
+  .hero-bar {
+    margin-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  .hero-bar::after {
+    width: 6px;
+    height: 6px;
+  }
+
+  /* Category pills */
+  .cat-nav {
+    padding: 14px 16px 6px;
+  }
+
+  .cat-pill {
+    font-size: 0.7rem;
+    padding: 5px 12px;
+  }
+
+  /* Brief section */
+  .brief-section {
+    padding: 20px 16px 10px;
+  }
+
+  .brief-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .brief-item {
+    padding: 16px;
+  }
+
+  .brief-num {
+    font-size: 1.3rem;
+  }
+
+  /* Audio player */
+  .audio-player {
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 12px 14px;
+  }
+
+  .audio-progress-wrap {
+    width: 100%;
+    max-width: none;
+  }
+
+  .audio-play-btn {
+    width: 44px;
+    height: 44px;
+  }
+
+  /* Section dividers */
+  .section-divider {
+    margin: 28px auto 8px;
+    padding: 0 16px;
+  }
+
+  .section-divider-inner {
+    padding-top: 12px;
+  }
+
+  /* Stories */
+  .stories {
+    padding: 10px 16px 32px;
+  }
+
+  .story {
+    padding: 28px 0;
+  }
+
+  .story::before {
+    inset: 8px -10px;
+  }
+
+  .story-num {
+    font-size: 1.4rem;
+    width: 44px;
+    height: 44px;
+  }
+
+  .story-title {
+    font-size: 1.08rem;
+  }
+
+  .story-summary {
+    font-size: 0.9rem;
+    padding: 10px 14px;
+    margin: 12px 0;
+  }
+
+  .story-summary::before {
+    font-size: 2rem;
+  }
+
+  .story-images {
+    gap: 10px;
+    margin: 14px 0;
+  }
+
+  .story-images img {
+    max-height: 220px;
+    border-radius: var(--radius-sm);
+  }
+
+  .story-body {
+    font-size: 0.92rem;
+    line-height: 1.8;
+  }
+
+  .story-body p {
+    margin-bottom: 1em;
+  }
+
+  .story-body > p:first-of-type::first-letter {
+    font-size: 2.8em;
+  }
+
+  /* Modal */
+  .modal {
+    border-radius: var(--radius-md);
+    max-width: calc(100vw - 24px);
+    max-height: 50vh;
+    margin: 0;
+  }
+
+  .modal-header {
+    padding: 12px 14px 8px;
+  }
+
+  .modal-body {
+    padding: 10px 14px 14px;
+    font-size: 0.78rem;
+    line-height: 1.55;
+  }
+
+  .modal-term {
+    font-size: 0.95rem;
+  }
+
+  .modal-overlay {
+    padding: 8px;
+  }
+
+  /* Footer */
+  .footer {
+    padding: 32px 16px;
+  }
+
+  /* Back to top */
+  .back-to-top {
+    bottom: 20px;
+    right: 20px;
+    width: 44px;
+    height: 44px;
+  }
+
+  /* Sidebar */
+  .sidebar {
+    width: 260px;
+    padding: 20px;
+  }
+}
+
+/* -- Small mobile (max-width: 375px) -- */
+@media (max-width: 375px) {
+  .masthead-title {
+    font-size: 1.2rem;
+  }
+
+  .hero-cover {
+    max-height: 160px;
+  }
+
+  .brief-grid {
+    gap: 10px;
+  }
+
+  .brief-item {
+    padding: 14px;
+  }
+
+  .story-num {
+    width: 38px;
+    height: 38px;
+    font-size: 1.2rem;
+  }
+
+  .story-title {
+    font-size: 1rem;
+  }
+
+  .story-body {
+    font-size: 0.9rem;
+    line-height: 1.85;
+  }
+}
+
+
+/* ============================================================
+   19. REDUCED MOTION SUPPORT
+   ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .reveal,
+  .reveal-fade,
+  .reveal-scale,
+  .reveal-left,
+  .reveal-stagger > * {
+    opacity: 1;
+    transform: none;
+  }
+
+  .back-to-top {
+    transition: none;
+  }
+}
+
+
+/* ============================================================
+   20. UTILITY CLASSES
+   ============================================================ */
+
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+
+/* ========================================
+   LAYOUT FIXES OVERRIDES
+   ======================================== */
+
+/* ========================================
+   TechDaily Layout Fixes
+   File: layout-fixes.css
+   ======================================== */
+
+/* ========================================
+   FIX 1: 悬浮球与侧边栏位置调整
+   将悬浮球下移到 header 下方，sidebar 顶部对齐
+   ======================================== */
+
+/* 悬浮球：从 top:20px 改为 86px（header 60-70px + 间距） */
+.float-nav {
+  position: fixed;
+  top: 86px;           /* FIX 1: 下移避免与 masthead 重叠 */
+  left: 20px;
+  z-index: 200;
+}
+
+/* 侧边栏：从 top:0 改为与悬浮球对齐，留出 header 空间 */
+.sidebar {
+  position: fixed;
+  top: 76px;           /* FIX 1: 下移避免被 header 遮挡 */
+  left: 0;
+  bottom: 0;
+  width: 260px;
+  background: var(--paper-card);
+  box-shadow: 4px 0 24px rgba(0,0,0,0.12);
+  z-index: 199;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.sidebar.active { transform: translateX(0); }
+
+.sidebar-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.3);
+  z-index: 198;
+  display: none;
+}
+.sidebar-overlay.active { display: block; }
+
+/* ========================================
+   FIX 2: 侧边栏分类样式优化
+   支持多分类分组呈现
+   ======================================== */
+
+.sidebar-title {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--ink);
+}
+
+/* 分类组容器 */
+.sidebar-cat {
+  margin-bottom: 16px;
+}
+.sidebar-cat:last-child {
+  margin-bottom: 0;
+}
+
+/* 分类名称 */
+.sidebar-cat-name {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--accent);
+  margin-bottom: 6px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--rule-soft);
+}
+
+/* 侧边栏链接 */
+.sidebar-link {
+  display: block;
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+  padding: 4px 0;
+  cursor: pointer;
+  transition: color 0.15s;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  border-bottom: 1px dotted var(--rule-soft);
+}
+.sidebar-link:last-child {
+  border-bottom: none;
+}
+.sidebar-link:hover { color: var(--accent); }
+
+/* ========================================
+   FIX 4: Brief Grid 奇偶适配
+   改用 auto-fit 替代 auto-fill，避免尾部空白列
+   ======================================== */
+
+.brief-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));  /* FIX 4: auto-fit + minmax */
+  grid-auto-rows: 1fr;
+  gap: 16px;
+}
+
+/* ========================================
+   FIX 5: 文章标签区域
+   在标题下方、摘要上方显示关键词标签
+   ======================================== */
+
+/* 标签容器 */
+.story-tags {
+  display: none;  /* REMOVED: 关键词标签已移除 */
+}
+
+/* 单个标签 */
+.story-tag {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--ink-muted);
+  background: var(--paper-dark);
+  padding: 3px 10px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+  border: 1px solid var(--rule-soft);
+}
+
+.story-tag:hover {
+  background: var(--accent-bg);
+  color: var(--accent);
+  border-color: var(--accent-soft);
+}
+
+/* ========================================
+   FIX 3: PC端详细报道两栏布局（最关键）
+   左栏：标题+摘要+正文  |  右栏：图片
+   ======================================== */
+
+/* --- 移动端优先：保持原有单栏布局（默认）--- */
+.story {
+  padding: 40px 0;
+  border-bottom: 1px solid var(--rule-soft);
+}
+.story:last-child { border-bottom: none; }
+
+.story-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 0;  /* tags接管了下方间距 */
+}
+
+.story-num {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+  font-weight: 900;
+  color: var(--accent);
+  line-height: 0.8;
+  flex-shrink: 0;
+  opacity: 0.75;
+}
+
+.story-title-block { flex: 1; }
+
+.story-categories {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 6px;
+}
+
+.story-cat {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--accent);
+  background: var(--accent-bg);
+  padding: 3px 8px;
+  border-radius: 2px;
+}
+
+.story-title {
+  font-family: var(--font-serif);
+  font-size: clamp(1.15rem, 2.2vw, 1.5rem);
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.story-title a {
+  color: var(--ink);
+  transition: color 0.15s;
+}
+.story-title a:hover { color: var(--accent); }
+
+/* Summary box */
+.story-summary {
+  font-family: var(--font-serif);
+  font-size: clamp(0.9rem, 1.4vw, 1rem);
+  line-height: 1.7;
+  color: var(--ink-soft);
+  padding: 10px 14px;
+  border-left: 3px solid var(--accent);
+  background: var(--accent-bg);
+  border-radius: 0 4px 4px 0;
+  margin: 12px 0;
+}
+
+/* 移动端：story-images 保持横向滚动 */
+.story-images {
+  display: flex;
+  gap: 12px;
+  margin: 16px 0;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 4px;
+  justify-content: center;
+  align-items: center;
+}
+
+.story-images img {
+  width: auto;
+  max-width: 100%;
+  max-height: 320px;
+  object-fit: cover;
+  border-radius: 4px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+
+.story-images img:hover { transform: scale(1.02); }
+
+/* story-body - FIX 3: 提升可读性 */
+.story-body {
+  font-size: clamp(0.92rem, 1.3vw, 1.02rem);
+  line-height: 2.0;            /* 修正4: 从1.95提高到2.0 */
+  color: var(--ink-soft);
+  max-width: var(--reading-width);
+}
+
+.story-body p {
+  margin-bottom: 1.8em;        /* 修正4: 从1.6em提高到1.8em */
+  text-indent: 0;
+}
+
+/* ========================================
+   FIX 3 (cont'd): PC端两栏布局 (grid-template-areas)
+   @media (min-width: 1024px) {
+
+  /* PC端详细报道：上下分布（标题→摘要→正文→图片垂直堆叠） */
+  .story {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 40px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .story-header { margin-bottom: 0; }
+
+  .story-summary { margin: 0; }
+
+  .story-body {
+    max-width: var(--reading-width);
+    margin: 0;
+  }
+
+  /* 图片区：上下居中 */
+  .story-images {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin: 8px 0 0 0;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .story-images img {
+    max-width: 100%;
+    height: auto;
+    max-height: 480px;
+    object-fit: contain;
+    border-radius: 8px;
+  }
+
+  /* 多图时横向排列 */
+  .story-images--multiple {
+    flex-direction: row !important;
+    overflow-x: auto !important;
+    overflow-y: visible !important;
+    gap: 12px !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding-bottom: 8px !important;
+    scrollbar-width: thin;
+    scrollbar-color: var(--rule) transparent;
+  }
+
+  .story-images--multiple::-webkit-scrollbar { height: 4px; }
+  .story-images--multiple::-webkit-scrollbar-thumb { background: var(--rule); border-radius: 2px; }
+
+  .story-images--multiple img {
+    flex: 0 0 auto;
+    max-width: 320px;
+    width: auto;
+    height: auto;
+    max-height: 240px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+
+  /* FIX 1: 标题防止被挤成竖排 */
+  .story-title {
+    word-break: keep-all;
+    overflow-wrap: break-word;
+    white-space: normal;
+    min-width: 0;
+  }
+
+  .story-header {
+    min-width: 0;
+  }
+
+}
+
+/* ========================================
+   移动端适配 (< 1024px)
+   ======================================== */
+
+@media (max-width: 1023px) {
+  /* 保持单栏布局，确保 tags 不占用过多空间 */
+  .story-tags {
+    display: none;  /* REMOVED */
+  }
+}
+
+/* ========================================
+   小屏手机适配 (< 768px)
+   ======================================== */
+
+@media (max-width: 768px) {
+  /* FIX 1: 移动端悬浮球位置 */
+  .float-nav {
+    top: 78px;           /* 移动端 header 略小，相应调整 */
+    left: 12px;
+  }
+  .float-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+  }
+
+  /* FIX 1: 移动端侧边栏 */
+  .sidebar {
+    top: 68px;           /* 移动端 header 约55-60px */
+    width: 240px;
+    padding: 16px;
+  }
+
+  /* FIX 4: 移动端 brief-grid 单列 */
+  .brief-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .story {
+    padding: 20px 0;
+  }
+  .story-num { font-size: 1.6rem; }
+  .story-title { font-size: 1.05rem; }
+  .story-summary { font-size: 0.88rem; padding: 8px 12px; }
+  .story-images img { max-height: 220px; }
+  .story-body { font-size: 0.92rem; line-height: 1.85; }
+  .story-body p { margin-bottom: 1.4em; }
+
+  /* FIX 5: 移动端 tags */
+  .story-tags {
+    margin: 6px 0 8px 0;
+    gap: 4px;
+  }
+  .story-tag {
+    font-size: 0.65rem;
+    padding: 2px 8px;
+  }
+}
+
+/* ========================================
+   减弱动画（无障碍）
+   ======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; }
+}
+
+
+/* ========================================
+   DOUKNOW PET STYLES
+   ======================================== */
+
+/**
+ * douknow-pet.css - Styles for DouknowAI (豆懂AI) Pet Party
+ * 
+ * Provides canvas positioning, container styles, and optional
+ * visual enhancements for the pet animation system.
+ */
+
+/* ============================================
+   Pet Party Container
+   ============================================ */
+
+/**
+ * Default container for the pet party canvas.
+ * The canvas covers the full viewport and pets walk freely across the page.
+ * 
+ * Usage: <div id="douknow-pet-party" class="douknow-pet-container"></div>
+ */
+.douknow-pet-container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 250px;
+  pointer-events: none;
+  z-index: 50;
+  overflow: hidden;
+}
+
+/**
+ * Alternative: Full-page overlay mode
+ * Pets can walk anywhere on the page
+ */
+.douknow-pet-container.douknow-pet-container--fullpage {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  bottom: auto;
+}
+
+/**
+ * Alternative: Section-contained mode
+ * Pets walk within a specific section of the page
+ */
+.douknow-pet-container.douknow-pet-container--inline {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  bottom: auto;
+  left: auto;
+}
+
+/* ============================================
+   Canvas Element
+   ============================================ */
+
+.douknow-pet-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  /* Hardware acceleration for smooth rendering */
+  transform: translateZ(0);
+  will-change: contents;
+}
+
+/* ============================================
+   Optional: Section Integration Styles
+   ============================================ */
+
+/**
+ * When integrating into a specific section,
+ * use this wrapper to position pets at the bottom of that section.
+ */
+.douknow-pet-section {
+  position: relative;
+  /* Ensure section has enough space for pets */
+  min-height: 300px;
+}
+
+.douknow-pet-section .douknow-pet-container {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 180px;
+}
+
+/* ============================================
+   Optional: Interactive Mode
+   ============================================ */
+
+/**
+ * When pointer-events are enabled on the canvas,
+ * pets can be clicked for interaction.
+ */
+.douknow-pet-container.douknow-pet-container--interactive {
+  pointer-events: auto;
+}
+
+.douknow-pet-container.douknow-pet-container--interactive .douknow-pet-canvas {
+  pointer-events: auto;
+  cursor: crosshair;
+}
+
+/* ============================================
+   Optional: Loading State
+   ============================================ */
+
+.douknow-pet-container.douknow-pet-container--loading::before {
+  content: '';
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 30px;
+  height: 30px;
+  border: 3px solid rgba(74, 222, 128, 0.2);
+  border-top-color: rgba(74, 222, 128, 0.8);
+  border-radius: 50%;
+  animation: douknow-pet-spin 0.8s linear infinite;
+}
+
+@keyframes douknow-pet-spin {
+  to {
+    transform: translateX(-50%) rotate(360deg);
+  }
+}
+
+/* ============================================
+   Optional: Toggle Button
+   ============================================ */
+
+.douknow-pet-toggle {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  border: 2px solid rgba(74, 222, 128, 0.5);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  z-index: 100;
+  transition: all 0.3s ease;
+  pointer-events: auto;
+}
+
+.douknow-pet-toggle:hover {
+  background: rgba(74, 222, 128, 0.2);
+  border-color: rgba(74, 222, 128, 0.8);
+  transform: scale(1.1);
+}
+
+.douknow-pet-toggle:active {
+  transform: scale(0.95);
+}
+
+.douknow-pet-toggle.douknow-pet-toggle--hidden {
+  opacity: 0.5;
+}
+
+/* ============================================
+   Mobile Adaptations
+   ============================================ */
+
+@media (max-width: 768px) {
+  .douknow-pet-container {
+    height: 180px;
+  }
+
+  .douknow-pet-container.douknow-pet-container--fullpage {
+    height: 100vh;
+  }
+
+  .douknow-pet-section .douknow-pet-container {
+    height: 140px;
+  }
+
+  .douknow-pet-toggle {
+    width: 38px;
+    height: 38px;
+    font-size: 16px;
+    bottom: 15px;
+    right: 15px;
+  }
+}
+
+
+
+/* ========================================
+   FIX 4 (new): 无图片报道自适应布局
+   检测到无图片时自动切换为单栏
+   ======================================== */
+
+.story--no-images .story-images {
+  display: none;
+}
+
+.story--no-images .story-images {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .story--no-images .story-body {
+    max-width: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .douknow-pet-container {
+    height: 150px;
+  }
+
+  .douknow-pet-section .douknow-pet-container {
+    height: 120px;
+  }
+}
+
+/* ============================================
+   Reduced Motion Support
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .douknow-pet-canvas {
+    /* The JS code also checks for this preference */
+    display: none;
+  }
+
+  .douknow-pet-container {
+    display: none;
+  }
+}
+
+/* ============================================
+   Dark Mode Support
+   ============================================ */
+
+@media (prefers-color-scheme: dark) {
+  .douknow-pet-toggle {
+    background: rgba(30, 30, 30, 0.9);
+    border-color: rgba(74, 222, 128, 0.4);
+    color: #fff;
+  }
+}
+
+/* ============================================
+   Print Styles - Hide pets when printing
+   ============================================ */
+
+@media print {
+  .douknow-pet-container,
+  .douknow-pet-toggle {
+    display: none !important;
+  }
+}
+
+
+
+
+/* ========================================
+   FIX 6: 往期回顾下拉导航
+   ======================================== */
+
+.masthead-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.archive-dropdown {
+  position: relative;
+}
+
+.archive-toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: var(--paper);
+  padding: 6px 12px;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.archive-toggle:hover {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.archive-toggle:active { transform: scale(0.97); }
+
+.archive-arrow {
+  width: 12px;
+  height: 12px;
+  transition: transform var(--transition-fast);
+  opacity: 0.7;
+}
+
+.archive-dropdown.open .archive-arrow {
+  transform: rotate(180deg);
+}
+
+.archive-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  width: 200px;
+  background: var(--paper-card);
+  border: 1px solid var(--rule-soft);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  padding: 10px 0;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-6px);
+  transition: all var(--transition-fast);
+  z-index: 110;
+}
+
+.archive-dropdown.open .archive-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.archive-menu-title {
+  font-family: var(--font-display);
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--ink);
+  padding: 0 14px 8px;
+  border-bottom: 1px solid var(--rule-soft);
+  margin-bottom: 6px;
+}
+
+.archive-list {
+  max-height: 240px;
+  overflow-y: auto;
+}
+
+.archive-item {
+  display: block;
+  padding: 7px 14px;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+  text-decoration: none;
+}
+
+.archive-item:hover {
+  background: var(--accent-bg);
+  color: var(--accent);
+}
+
+.archive-item-current {
+  color: var(--accent);
+  font-weight: 600;
+  background: var(--accent-bg);
+}
+
+@media (max-width: 767px) {
+  .masthead-right { gap: 10px; }
+  .archive-label { display: none; }
+  .archive-toggle { padding: 6px 8px; }
+  .archive-menu { right: -40px; width: 180px; }
+}
+
+
+/* ========================================
+   Pet Iframe Embed
+   ======================================== */
+
+.pet-iframe {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;       /* 全页面透明舞台：宠物不再局限在底部 140px */
+  border: none;
+  pointer-events: none; /* 由父页面桥接拖拽，避免 iframe 覆盖正文点击 */
+  z-index: 50;
+  background: transparent;
+  overflow: hidden;
+}
+
+body.pet-dragging {
+  cursor: grabbing;
+  user-select: none;
+}
+
+/* ============================================================
+   TechDaily Template Fix Pack v2
+   目标：修复今日精要标题吞字、详细报道 PC 宽度、多图横向滑动、Tags/Grid 自适应。
+   放在样式表末尾作为最终覆盖层，避免被前面的重复样式覆盖。
+   ============================================================ */
+
+/* 1) 今日精要：区分「栏目标题」与「卡片标题」，避免 .brief-title 复用导致卡片标题被伪元素/弹性布局挤压 */
+.brief-header > .brief-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  flex: 0 0 auto;
+  min-width: 0;
+}
+
+.brief-grid {
+  display: flex !important;
+  flex-wrap: wrap;
+  align-items: stretch;
+  gap: 16px;
+}
+
+.brief-grid > .brief-item {
+  flex: 1 1 280px;
+  min-width: min(100%, 260px);
+  max-width: none;
+  min-height: 132px;
+  box-sizing: border-box;
+}
+
+.brief-item .brief-title {
+  display: block !important;
+  flex: 0 1 auto !important;
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  height: auto;
+  min-height: auto;
+  overflow: visible;
+  text-overflow: clip;
+  white-space: normal;
+  word-break: normal;
+  overflow-wrap: anywhere;
+  line-height: 1.58;
+}
+
+.brief-item .brief-title::before {
+  content: none !important;
+  display: none !important;
+}
+
+.brief-item .tech-term,
+.story-title .tech-term {
+  white-space: normal;
+}
+
+/* Grid 奇偶数自适应：最后一行自动拉伸填满，不再只挤在左侧 */
+@media (min-width: 1180px) {
+  .brief-grid > .brief-item { flex-basis: calc((100% - 48px) / 4); }
+}
+
+@media (min-width: 900px) and (max-width: 1179px) {
+  .brief-grid > .brief-item { flex-basis: calc((100% - 32px) / 3); }
+}
+
+@media (min-width: 640px) and (max-width: 899px) {
+  .brief-grid > .brief-item { flex-basis: calc((100% - 16px) / 2); }
+}
+
+@media (max-width: 639px) {
+  .brief-grid > .brief-item { flex-basis: 100%; }
+}
+
+/* 2) Tags/分类标签：多标签、单双数、长标签都能换行适配 */
+.story-categories,
+.story-tags {
+  display: flex !important;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  max-width: 100%;
+}
+
+.story-tag,
+.story-cat {
+  flex: 0 1 auto;
+  max-width: 100%;
+  white-space: normal;
+  line-height: 1.4;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+
+/* 3) 详细报道：PC 端正文不再锁死 720px，标题、摘要、详细内容跟随容器铺满 */
+.stories {
+  width: 100%;
+  max-width: min(var(--max-width), calc(100vw - 48px));
+  box-sizing: border-box;
+}
+
+.story {
+  width: 100%;
+  max-width: 100%;
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 14px;
+  box-sizing: border-box;
+}
+
+.story-header,
+.story-title-block,
+.story-summary,
+.story-body,
+.story-images {
+  width: 100%;
+  max-width: none !important;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.story-title a {
+  word-break: normal;
+  overflow-wrap: anywhere;
+}
+
+.story-summary {
+  margin: 0;
+}
+
+.story-body {
+  margin: 0;
+  font-size: clamp(0.95rem, 1.05vw, 1.05rem);
+  line-height: 1.95;
+  text-wrap: pretty;
+}
+
+.story-body p {
+  max-width: none;
+}
+
+/* 4) 多图：固定视觉尺寸，一行横向排列，用横向滑块查看 */
+.story-images {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  justify-content: flex-start !important;
+  align-items: stretch !important;
+  gap: 14px;
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x proximity;
+  padding: 8px 4px 14px;
+  margin: 4px 0 0;
+  scrollbar-width: thin;
+  scrollbar-color: var(--rule) transparent;
+}
+
+.story-images::-webkit-scrollbar { height: 6px; }
+.story-images::-webkit-scrollbar-track { background: transparent; }
+.story-images::-webkit-scrollbar-thumb {
+  background: var(--rule);
+  border-radius: 999px;
+}
+
+.story-images img {
+  flex: 0 0 auto !important;
+  width: clamp(240px, 30vw, 360px) !important;
+  height: clamp(160px, 20vw, 240px) !important;
+  max-width: none !important;
+  max-height: none !important;
+  object-fit: cover;
+  scroll-snap-align: start;
+}
+
+.story-images:not(.story-images--multiple) {
+  justify-content: center !important;
+  overflow-x: hidden !important;
+}
+
+.story-images:not(.story-images--multiple) img {
+  width: min(100%, 720px) !important;
+  height: auto !important;
+  max-height: 420px !important;
+  object-fit: contain;
+}
+
+.story--no-images .story-images {
+  display: none !important;
+}
+
+@media (max-width: 767px) {
+  .stories {
+    max-width: 100%;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .story {
+    gap: 12px;
+  }
+
+  .story-images img {
+    width: min(78vw, 320px) !important;
+    height: min(52vw, 220px) !important;
+  }
+
+  .story-images:not(.story-images--multiple) img {
+    width: 100% !important;
+    height: auto !important;
+    max-height: 320px !important;
+  }
+}
+
+/* 5) 悬浮目录层级：确保点开后可点击，不被 pet iframe 或遮罩层误挡 */
+.float-nav { z-index: 310 !important; }
+.sidebar { z-index: 309 !important; }
+.sidebar-overlay { z-index: 308 !important; }
+.pet-iframe { z-index: 120 !important; }
+
+.story-jump-highlight::before {
+  opacity: 0.75 !important;
+  background: rgba(139, 26, 26, 0.055) !important;
+}
+
+
+
+/* ============================================================
+   TechDaily Template Fix Pack v3
+   目标：多图横向铺满+滚轮查看、关键词解释可用、正文更紧凑、图片点击放大、标签居中自适应、pet 舞台优化
+   ============================================================ */
+
+/* 多图容器：整行铺满、横向滚动、滚轮映射到横向滚动 */
+.story-images {
+  width: 100% !important;
+  max-width: 100% !important;
+  padding: 8px 0 14px !important;
+  margin: 6px 0 0 !important;
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+}
+.story-images.story-images--multiple {
+  justify-content: flex-start !important;
+  align-items: stretch !important;
+  gap: 16px !important;
+}
+.story-images.story-images--multiple img {
+  flex: 0 0 min(86vw, 760px) !important;
+  width: min(86vw, 760px) !important;
+  height: clamp(230px, 34vw, 430px) !important;
+  object-fit: cover !important;
+  border-radius: 10px;
+  scroll-snap-align: start;
+  cursor: zoom-in;
+}
+.story-images.story-images--single {
+  justify-content: center !important;
+}
+.story-images.story-images--single img {
+  width: min(100%, 960px) !important;
+  height: clamp(240px, 36vw, 460px) !important;
+  object-fit: cover !important;
+  border-radius: 10px;
+  cursor: zoom-in;
+}
+
+/* 正文更紧凑，修正首字下沉导致的段间距异常 */
+.story {
+  gap: 10px !important;
+  padding: 34px 0 !important;
+}
+.story-header {
+  margin-bottom: 0 !important;
+}
+.story-summary {
+  padding: 9px 13px !important;
+  margin: 0 !important;
+}
+.story-body {
+  line-height: 1.78 !important;
+  letter-spacing: 0.003em !important;
+}
+.story-body p {
+  margin-bottom: 0.88em !important;
+}
+.story-body > p:first-of-type::first-letter {
+  float: none !important;
+  display: inline-block;
+  font-size: 2.15em !important;
+  line-height: 0.96 !important;
+  margin-right: 5px !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  vertical-align: baseline;
+}
+
+/* 标签：随机数量自适应并居中 */
+.story-categories,
+.story-tags {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  justify-content: center !important;
+  align-items: center !important;
+  gap: 8px !important;
+  width: 100%;
+}
+.story-cat,
+.story-tag {
+  text-align: center;
+  border-radius: 999px;
+}
+
+/* tech-term 视觉反馈 */
+.tech-term {
+  cursor: pointer;
+}
+
+/* 图片查看 Lightbox */
+.image-lightbox {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 28px;
+  background: rgba(20, 18, 14, 0.78);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  z-index: 360;
+}
+.image-lightbox.active {
+  display: flex;
+}
+.image-lightbox-inner {
+  position: relative;
+  max-width: min(92vw, 1280px);
+  max-height: 88vh;
+}
+.image-lightbox img {
+  max-width: 100%;
+  max-height: 88vh;
+  width: auto;
+  height: auto;
+  border-radius: 14px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.28);
+}
+.image-lightbox-close {
+  position: absolute;
+  top: -14px;
+  right: -14px;
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.96);
+  color: var(--ink);
+  box-shadow: var(--shadow-md);
+  cursor: pointer;
+  font-size: 20px;
+  line-height: 1;
+}
+.image-lightbox-caption {
+  margin-top: 10px;
+  text-align: center;
+  color: rgba(255,255,255,0.92);
+  font-size: 0.92rem;
+}
+
+/* 关键词解释弹窗内的小标签更清晰 */
+.modal-body .tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+/* pet iframe 舞台更轻，更不干扰正文 */
+.pet-iframe {
+  z-index: 118 !important;
+}
+
+@media (max-width: 767px) {
+  .story { padding: 26px 0 !important; gap: 9px !important; }
+  .story-body { font-size: 0.96rem !important; line-height: 1.74 !important; }
+  .story-body p { margin-bottom: 0.8em !important; }
+  .story-images.story-images--multiple img {
+    flex-basis: 90vw !important;
+    width: 90vw !important;
+    height: clamp(220px, 52vw, 320px) !important;
+  }
+  .story-images.story-images--single img {
+    width: 100% !important;
+    height: clamp(220px, 56vw, 320px) !important;
+  }
+}
+
+/* ============================================================
+   TechDaily Template Fix Pack v5
+   目标：修复今日精要手机端布局（序号与分类同行、减少间距）、
+         音频URL动态注入、403错误页面修复
+   ============================================================ */
+
+/* 手机端：今日精要序号与分类放一行，整体更紧凑 */
+@media (max-width: 767px) {
+  .brief-grid {
+    gap: 6px !important;
+  }
+
+  .brief-item {
+    padding: 8px 10px !important;
+    gap: 0 !important;
+    flex-direction: column !important;
+    min-height: auto !important;
+  }
+
+  /* 序号 + 分类 放在同一行 */
+  .brief-item .brief-head {
+    display: flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    margin-bottom: 2px !important;
+    flex-wrap: nowrap !important;
+  }
+
+  .brief-item .brief-num {
+    font-size: 1.0rem !important;
+    min-width: auto !important;
+    line-height: 1.2;
+  }
+
+  .brief-item .brief-cat {
+    font-size: 0.55rem !important;
+    padding: 1px 5px !important;
+    line-height: 1.2;
+  }
+
+  .brief-item .brief-title {
+    font-size: 0.85rem !important;
+    line-height: 1.35 !important;
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+  }
+
+  /* 音频播放器手机端更紧凑 */
+  .audio-player {
+    padding: 8px 10px !important;
+    margin-bottom: 8px !important;
+    gap: 8px !important;
+  }
+
+  .audio-label {
+    font-size: 0.85rem !important;
+  }
+
+  .audio-desc {
+    font-size: 0.7rem !important;
+  }
+}
+
+@media (max-width: 375px) {
+  .brief-item {
+    padding: 6px 8px !important;
+  }
+  .brief-item .brief-title {
+    font-size: 0.82rem !important;
+  }
+  .brief-item .brief-head {
+    gap: 4px !important;
+  }
+}
+
+</style>
+</head>
+
+<body data-date="2026-06-18">
+<!-- Reading Progress Bar -->
+<div class="reading-progress-container">
+  <div class="reading-progress-bar" id="readingProgressBar"></div>
+</div>
+
+<!-- FLOATING NAV -->
+<div class="float-nav">
+  <button class="float-btn" onclick="toggleSidebar()" title="目录">☰</button>
+</div>
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+<nav class="sidebar" id="sidebar">
+  <div class="sidebar-title">📰 目录</div>
+  <div class="sidebar-cat">
+    <div class="sidebar-cat-name">要闻</div>
+    <span class="sidebar-link" onclick="scrollToStory('1'); toggleSidebar()">1. ChatGPT计划任务功能上线，Pulse将下线</span>
+    <span class="sidebar-link" onclick="scrollToStory('2'); toggleSidebar()">2. Codex团队修复容量超载问题</span>
+  </div>
+  <div class="sidebar-cat">
+    <div class="sidebar-cat-name">模型发布</div>
+    <span class="sidebar-link" onclick="scrollToStory('3'); toggleSidebar()">3. Grok Imagine Video 1.5发布</span>
+    <span class="sidebar-link" onclick="scrollToStory('4'); toggleSidebar()">4. Ai2开源MolmoMotion</span>
+    <span class="sidebar-link" onclick="scrollToStory('5'); toggleSidebar()">5. HappyOyster 1.0升级</span>
+    <span class="sidebar-link" onclick="scrollToStory('6'); toggleSidebar()">6. 中国电信星辰语音大模型上线</span>
+  </div>
+  <div class="sidebar-cat">
+    <div class="sidebar-cat-name">开发生态</div>
+    <span class="sidebar-link" onclick="scrollToStory('7'); toggleSidebar()">7. Vercel推出eve Agent框架</span>
+    <span class="sidebar-link" onclick="scrollToStory('8'); toggleSidebar()">8. GitHub Copilot桌面应用正式发布</span>
+    <span class="sidebar-link" onclick="scrollToStory('9'); toggleSidebar()">9. Firecrawl免API key开放试用</span>
+    <span class="sidebar-link" onclick="scrollToStory('10'); toggleSidebar()">10. Exa推出Web研究API</span>
+    <span class="sidebar-link" onclick="scrollToStory('11'); toggleSidebar()">11. OpenRouter推出Cost Simulator</span>
+  </div>
+  <div class="sidebar-cat">
+    <div class="sidebar-cat-name">产品应用</div>
+    <span class="sidebar-link" onclick="scrollToStory('12'); toggleSidebar()">12. Claude Design支持设计系统导入</span>
+    <span class="sidebar-link" onclick="scrollToStory('13'); toggleSidebar()">13. Databricks开源Omnigent</span>
+    <span class="sidebar-link" onclick="scrollToStory('14'); toggleSidebar()">14. 微信支付推出AI专属卡</span>
+  </div>
+  <div class="sidebar-cat">
+    <div class="sidebar-cat-name">技术与洞察</div>
+    <span class="sidebar-link" onclick="scrollToStory('15'); toggleSidebar()">15. GPT-5.4展示近自主实验能力</span>
+    <span class="sidebar-link" onclick="scrollToStory('16'); toggleSidebar()">16. OpenAI推出LifeSciBench</span>
+    <span class="sidebar-link" onclick="scrollToStory('17'); toggleSidebar()">17. Google开源Agentic Resource Discovery</span>
+    <span class="sidebar-link" onclick="scrollToStory('18'); toggleSidebar()">18. Cloudflare发布One stack赋能Agent</span>
+  </div>
+  <div class="sidebar-cat">
+    <div class="sidebar-cat-name">行业动态</div>
+    <span class="sidebar-link" onclick="scrollToStory('19'); toggleSidebar()">19. G7峰会探讨AI断供风险</span>
+    <span class="sidebar-link" onclick="scrollToStory('20'); toggleSidebar()">20. Transformer作者加入OpenAI</span>
+    <span class="sidebar-link" onclick="scrollToStory('21'); toggleSidebar()">21. OpenAI投资Rust Foundation</span>
+    <span class="sidebar-link" onclick="scrollToStory('22'); toggleSidebar()">22. 广东上线政务智能中枢湾擎</span>
+    <span class="sidebar-link" onclick="scrollToStory('23'); toggleSidebar()">23. Odyssey完成3.1亿美元B轮融资</span>
+  </div>
+  <div class="sidebar-cat">
+    <div class="sidebar-cat-name">前瞻与传闻</div>
+    <span class="sidebar-link" onclick="scrollToStory('24'); toggleSidebar()">24. 美政府暂缓拉黑DeepSeek</span>
+    <span class="sidebar-link" onclick="scrollToStory('25'); toggleSidebar()">25. 美国政府限制Anthropic模型出口</span>
+  </div>
+</nav>
+
+<!-- MASTHEAD -->
+<header class="masthead">
+  <div class="masthead-inner">
+    <div class="masthead-brand">
+      <div class="masthead-title">Tech<span class="accent">Daily</span></div>
+      <div class="masthead-sub">— 每日科技快报</div>
+    </div>
+    <div class="masthead-right">
+      <div class="archive-dropdown" id="archiveDropdown">
+        <button class="archive-toggle" onclick="toggleArchive()" title="往期回顾">
+          <span>📅</span>
+          <span class="archive-label">往期</span>
+          <svg class="archive-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+        <div class="archive-menu" id="archiveMenu">
+          <div class="archive-menu-title">📰 往期回顾</div>
+          <div class="archive-list" id="archiveList"></div>
+        </div>
+      </div>
+      <div class="masthead-date">2026年6月18日<br><span style="font-family:var(--font-serif);font-style:italic">星期四</span></div>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <img class="hero-cover" src="https://assets.juya.uk/imagehub/20260618/20260618092628351342a617_cover_9c0c.png" alt="今日封面" loading="eager">
+  <div class="hero-bar">
+    <span class="hero-issue">第 20260618 期 · 2026年6月18日</span>
+  </div>
+</section>
+
+<!-- CATEGORY PILLS -->
+<div class="cat-nav">
+<span class="cat-pill active" onclick="scrollToStory('1')">要闻</span>
+<span class="cat-pill" onclick="scrollToStory('3')">模型发布</span>
+<span class="cat-pill" onclick="scrollToStory('7')">开发生态</span>
+<span class="cat-pill" onclick="scrollToStory('12')">产品应用</span>
+<span class="cat-pill" onclick="scrollToStory('15')">技术与洞察</span>
+<span class="cat-pill" onclick="scrollToStory('19')">行业动态</span>
+<span class="cat-pill" onclick="scrollToStory('24')">前瞻与传闻</span>
+</div>
+
+<!-- TODAY'S BRIEF -->
+<section class="brief-section" id="brief">
+  <div class="brief-header">
+    <div class="brief-title">今日精要</div>
+  </div>
+  <div class="audio-player" id="audioPlayer">
+    <button class="audio-play-btn" id="playBtn" onclick="togglePlay()">
+      <svg viewBox="0 0 24 24" id="playIcon"><polygon points="5,3 19,12 5,21"/></svg>
+      <svg viewBox="0 0 24 24" id="pauseIcon" style="display:none"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+    </button>
+    <div class="audio-info">
+      <div class="audio-label">🎙 今日精要播报</div>
+      <div class="audio-desc">1-2分钟速览今日 AI 要闻</div>
+    </div>
+    <div class="audio-progress-wrap">
+      <div class="audio-track"><div class="audio-fill" id="progressFill"></div></div>
+      <span class="audio-time" id="audioTime">0:00</span>
+    </div>
+  </div>
+  <div class="brief-grid">
+    <div class="brief-item" onclick="scrollToStory('1')">
+      <div class="brief-head">
+        <span class="brief-num">01</span>
+        <span class="brief-cat">要闻</span>
+      </div>
+      <h3 class="brief-title">ChatGPT计划任务功能上线</h3>
+    </div>
+    <div class="brief-item" onclick="scrollToStory('2')">
+      <div class="brief-head">
+        <span class="brief-num">02</span>
+        <span class="brief-cat">要闻</span>
+      </div>
+      <h3 class="brief-title">Codex团队双重重置修复容量问题</h3>
+    </div>
+    <div class="brief-item" onclick="scrollToStory('3')">
+      <div class="brief-head">
+        <span class="brief-num">03</span>
+        <span class="brief-cat">模型发布</span>
+      </div>
+      <h3 class="brief-title">Grok视频生成模型1.5发布</h3>
+    </div>
+    <div class="brief-item" onclick="scrollToStory('4')">
+      <div class="brief-head">
+        <span class="brief-num">04</span>
+        <span class="brief-cat">模型发布</span>
+      </div>
+      <h3 class="brief-title">Ai2开源3D运动预测模型</h3>
+    </div>
+    <div class="brief-item" onclick="scrollToStory('5')">
+      <div class="brief-head">
+        <span class="brief-num">05</span>
+        <span class="brief-cat">模型发布</span>
+      </div>
+      <h3 class="brief-title">阿里HappyOyster新增双模式</h3>
+    </div>
+    <div class="brief-item" onclick="scrollToStory('6')">
+      <div class="brief-head">
+        <span class="brief-num">06</span>
+        <span class="brief-cat">模型发布</span>
+      </div>
+      <h3 class="brief-title">电信6款语音大模型开放API</h3>
+    </div>
+    <div class="brief-item" onclick="scrollToStory('7')">
+      <div class="brief-head">
+        <span class="brief-num">07</span>
+        <span class="brief-cat">开发生态</span>
+      </div>
+      <h3 class="brief-title">Vercel开源文件系统优先Agent框架</h3>
+    </div>
+    <div class="brief-item" onclick="scrollToStory('8')">
+      <div class="brief-head">
+        <span class="brief-num">08</span>
+        <span class="brief-cat">开发生态</span>
+      </div>
+      <h3 class="brief-title">GitHub Copilot桌面应用GA</h3>
+    </div>
+    <div class="brief-item" onclick="scrollToStory('9')">
+      <div class="brief-head">
+        <span class="brief-num">09</span>
+        <span class="brief-cat">开发生态</span>
+      </div>
+      <h3 class="brief-title">Firecrawl免API key开放试用</h3>
+    </div>
+    <div class="brief-item" onclick="scrollToStory('10')">
+      <div class="brief-head">
+        <span class="brief-num">10</span>
+        <span class="brief-cat">开发生态</span>
+      </div>
+      <h3 class="brief-title">Exa高性价比Web研究API</h3>
+    </div>
+    <div class="brief-item" onclick="scrollToStory('11')">
+      <div class="brief-head">
+        <span class="brief-num">11</span>
+        <span class="brief-cat">开发生态</span>
+      </div>
+      <h3 class="brief-title">OpenRouter成本估算工具上线</h3>
+    </div>
+    <div class="brief-item" onclick="scrollToStory('12')">
+      <div class="brief-head">
+        <span class="brief-num">12</span>
+        <span class="brief-cat">产品应用</span>
+      </div>
+      <h3 class="brief-title">Claude Design支持双向代码同步</h3>
+    </div>
+    <div class="brief-item" onclick="scrollToStory('13')">
+      <div class="brief-head">
+        <span class="brief-num">13</span>
+        <span class="brief-cat">产品应用</span>
+      </div>
+      <h3 class="brief-title">Databricks开源多Agent协作框架</h3>
+    </div>
+    <div class="brief-item" onclick="scrollToStory('14')">
+      <div class="brief-head">
+        <span class="brief-num">14</span>
+        <span class="brief-cat">产品应用</span>
+      </div>
+      <h3 class="brief-title">微信支付推出AI专属卡</h3>
+    </div>
+    <div class="brief-item" onclick="scrollToStory('15')">
+      <div class="brief-head">
+        <span class="brief-num">15</span>
+        <span class="brief-cat">技术与洞察</span>
+      </div>
+      <h3 class="brief-title">GPT-5.4近自主完成万次化学实验</h3>
+    </div>
+    <div class="brief-item" onclick="scrollToStory('16')">
+      <div class="brief-head">
+        <span class="brief-num">16</span>
+        <span class="brief-cat">技术与洞察</span>
+      </div>
+      <h3 class="brief-title">OpenAI发布生命科学评测基准</h3>
+    </div>
+    <div class="brief-item" onclick="scrollToStory('17')">
+      <div class="brief-head">
+        <span class="brief-num">17</span>
+        <span class="brief-cat">技术与洞察</span>
+      </div>
+      <h3 class="brief-title">Google开源Agent资源发现规范</h3>
+    </div>
+    <div class="brief-item" onclick="scrollToStory('18')">
+      <div class="brief-head">
+        <span class="brief-num">18</span>
+        <span class="brief-cat">技术与洞察</span>
+      </div>
+      <h3 class="brief-title">Cloudflare发布Agent安全部署技能库</h3>
+    </div>
+    <div class="brief-item" onclick="scrollToStory('19')">
+      <div class="brief-head">
+        <span class="brief-num">19</span>
+        <span class="brief-cat">行业动态</span>
+      </div>
+      <h3 class="brief-title">G7峰会拟设AI信任伙伴计划</h3>
+    </div>
+    <div class="brief-item" onclick="scrollToStory('20')">
+      <div class="brief-head">
+        <span class="brief-num">20</span>
+        <span class="brief-cat">行业动态</span>
+      </div>
+      <h3 class="brief-title">Transformer作者Noam Shazeer加入OpenAI</h3>
+    </div>
+    <div class="brief-item" onclick="scrollToStory('21')">
+      <div class="brief-head">
+        <span class="brief-num">21</span>
+        <span class="brief-cat">行业动态</span>
+      </div>
+      <h3 class="brief-title">OpenAI投资60万美元支持Rust</h3>
+    </div>
+    <div class="brief-item" onclick="scrollToStory('22')">
+      <div class="brief-head">
+        <span class="brief-num">22</span>
+        <span class="brief-cat">行业动态</span>
+      </div>
+      <h3 class="brief-title">广东上线省级政务智能中枢</h3>
+    </div>
+    <div class="brief-item" onclick="scrollToStory('23')">
+      <div class="brief-head">
+        <span class="brief-num">23</span>
+        <span class="brief-cat">行业动态</span>
+      </div>
+      <h3 class="brief-title">Odyssey完成3.1亿美元B轮融资</h3>
+    </div>
+    <div class="brief-item" onclick="scrollToStory('24')">
+      <div class="brief-head">
+        <span class="brief-num">24</span>
+        <span class="brief-cat">前瞻与传闻</span>
+      </div>
+      <h3 class="brief-title">美政府暂缓拉黑DeepSeek</h3>
+    </div>
+    <div class="brief-item" onclick="scrollToStory('25')">
+      <div class="brief-head">
+        <span class="brief-num">25</span>
+        <span class="brief-cat">前瞻与传闻</span>
+      </div>
+      <h3 class="brief-title">美政府要求Anthropic阻断越狱</h3>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION DIVIDER -->
+<div class="section-divider">
+  <div class="section-divider-inner">
+    <span class="section-label">详细报道</span>
+  </div>
+</div>
+
+<!-- STORIES -->
+<section class="stories" id="stories">
+<article class="story" id="story-1">
+  <div class="story-header">
+    <div class="story-num">1</div>
+    <div class="story-title-block">
+      <div class="story-categories"><span class="story-cat">要闻</span></div>
+      <h2 class="story-title"><a href="https://x.com/ChatGPTapp/status/2067316960875168181" target="_blank">OpenAI推出ChatGPT计划任务功能，将在14天内下线Pulse</a></h2>
+    </div>
+  </div>
+  <div class="story-summary">OpenAI向ChatGPT Web端和移动端推出全新<span class="tech-term" onclick="openModal('计划任务')">计划任务</span>功能，支持Go、Plus、Pro、Business和Enterprise用户定时提醒与循环任务，每小时最多运行一次。现有Pulse功能将在14天内被新系统取代。</div>
+  <div class="story-images"><img src="https://assets.juya.uk/imagehub/aidaily/9c0c5d46-00d9-4ebc-bffc-19a2b550dc95/21253734-91d7-4463-98b6-bb3342d69c76/m001.gif" alt="配图" loading="lazy"></div>
+  <div class="story-body"><p>OpenAI 官方宣布，正在向 <code>ChatGPT</code> 的 <strong>Web端</strong> 和 <strong>移动端</strong> 用户推出全新的“<strong>计划任务</strong>”功能。该功能现已面向 <strong>Go</strong>、<strong>Plus</strong>、<strong>Pro</strong>、<strong>Business</strong> 和 <strong>Enterprise</strong> 用户开放，支持定时提醒与循环任务，同时现有的 <code>Pulse</code> 功能将在 <strong>14 天</strong> 内下线。</p>
+<p><strong>OpenAI</strong> 官方宣布，正在向 <code>ChatGPT</code> 推出重新设计的 <strong>“计划任务”</strong> 功能，现已面向 <strong>Web 端</strong>和<strong>移动端</strong>的 <strong>Go</strong>、<strong>Plus</strong>、<strong>Pro</strong>、<strong>Business</strong> 和 <strong>Enterprise</strong> 用户逐步开放。</p>
+<p>用户可通过侧边栏全新的 <code>Scheduled</code> 页面集中管理任务，设定具体时间或时段来发送提醒、处理重复工作或监控变化。任务运行频率被限制为<strong>每小时最多一次</strong>。</p>
+<p>官方表示，全新的系统将在未来 <strong>14 天</strong>内取代现有的主动任务功能 <code>Pulse</code>。用户可迁移至新系统获取<strong>每日简报</strong>。</p></div>
+</article>
+<article class="story" id="story-2">
+  <div class="story-header">
+    <div class="story-num">2</div>
+    <div class="story-title-block">
+      <div class="story-categories"><span class="story-cat">要闻</span></div>
+      <h2 class="story-title"><a href="https://x.com/thsottiaux/status/2067399435009622521" target="_blank">Codex团队修复容量超载问题并发放双重重置</a></h2>
+    </div>
+  </div>
+  <div class="story-summary">Codex团队确认并修复了部分用户遭遇的<span class="tech-term" onclick="openModal('模型容量')">模型容量</span>高错误率问题，为所有计划用户执行了完全使用次数重置，并额外发放一次可储存的banked reset供用户自选时机使用。</div>
+  <div class="story-images"><img src="https://assets.juya.uk/imagehub/aidaily/9c0c5d46-00d9-4ebc-bffc-19a2b550dc95/24af0f29-d4a9-4c9a-865a-2430407c1840/m001.png" alt="配图" loading="lazy"></div>
+  <div class="story-body"><p><strong>Codex</strong> 团队修复了导致部分用户遭遇**"model at capacity"<strong>高错误率的问题，并为所有<code>计划用户</code>执行了一次</strong>完全使用次数**重置和一次可储存日后使用的<code>banked reset</code>。</p>
+<p><strong>Codex</strong> 团队成员 <strong>Tibo</strong> 确认，部分 <strong>Codex</strong> 用户此前遭遇 <strong>"model at capacity"</strong> 高错误率问题，该问题已被修复。</p>
+<p>团队随后执行了一次 <strong>"双重重置"</strong>：一次面向所有计划用户的完全使用次数重置，以及一次存入重置存储库、供用户自行选择时机使用的 <code>banked reset</code>。</p>
+<p>用户将同时获得本次全局重置和 <code>banked reset</code> 两项。</p></div>
+</article>
+<article class="story" id="story-3">
+  <div class="story-header">
+    <div class="story-num">3</div>
+    <div class="story-title-block">
+      <div class="story-categories"><span class="story-cat">模型发布</span></div>
+      <h2 class="story-title"><a href="https://x.ai/news/grok-imagine-video-1-5" target="_blank">SpaceXAI发布Grok Imagine Video 1.5：API及移动端全面可用</a></h2>
+    </div>
+  </div>
+  <div class="story-summary">SpaceXAI正式发布视频生成模型Grok Imagine Video 1.5及Video 1.5 Fast，在音频同步、运动连贯性和物理效果上显著提升。Fast版生成6秒720p视频仅需约25秒。未来几天将推出Projects、多Agent并行生成及媒体库搜索功能。</div>
+  <div class="story-images"><img src="https://assets.juya.uk/imagehub/aidaily/9c0c5d46-00d9-4ebc-bffc-19a2b550dc95/69b84eb3-3355-4046-a226-d14f03ffd3ca/m001.gif" alt="配图" loading="lazy"></div>
+  <div class="story-body"><p><strong>SpaceXAI</strong> 宣布正式发布视频模型 <strong>Grok Imagine Video 1.5</strong> 及 <code>Video 1.5 Fast</code>。相比上一代，新模型在音频同步、运动连贯性和物理效果上均有显著提升，相关模型已上线 <code>API</code> 和面向消费者的网页及移动端。</p>
+<p><strong>SpaceXAI</strong> 官方宣布正式推出视频生成模型 <strong><code>Grok Imagine Video 1.5</code></strong> 和 <strong><code>Video 1.5 Fast</code></strong>。</p>
+<p>相比上一代，新模型在 <strong>音频同步</strong>、<strong>运动连贯性</strong> 和 <strong>物理效果</strong> 上均有显著提升。</p>
+<p>其中，<strong><code>Video 1.5 Fast</code></strong> 生成 <strong>6 秒 720p</strong> 视频的时间从 <strong>40 多秒</strong> 降至约 <strong>25 秒</strong>。</p>
+<p>目前，<strong><code>Imagine Video 1.5</code></strong> 已在 <strong>SpaceXAI API</strong> 中结束预览并全面可用。</p>
+<p>而 <strong><code>Video 1.5 Fast</code></strong> 则面向消费者在 <strong>grok.com</strong>、<strong>iOS</strong> 和 <strong>Android</strong> 应用上推出。</p></div>
+</article>
+<article class="story" id="story-4">
+  <div class="story-header">
+    <div class="story-num">4</div>
+    <div class="story-title-block">
+      <div class="story-categories"><span class="story-cat">模型发布</span></div>
+      <h2 class="story-title"><a href="https://molmomotion.github.io/" target="_blank">Ai2发布开源3D运动预测模型MolmoMotion</a></h2>
+    </div>
+  </div>
+  <div class="story-summary">Ai2基于Molmo 2视觉语言骨干发布开源3D运动预测模型<span class="tech-term" onclick="openModal('MolmoMotion')">MolmoMotion</span>，同步释出116万条视频的MolmoMotion-1M数据集与PointMotionBench基准。模型提供自回归和流匹配两种变体，在机器人抓放规划中显著提升成功率。</div>
+  <div class="story-images"><img src="https://assets.juya.uk/imagehub/aidaily/9c0c5d46-00d9-4ebc-bffc-19a2b550dc95/333f4871-6de0-4ede-9a97-bf5bdccee568/m001.gif" alt="配图" loading="lazy"></div>
+  <div class="story-body"><p><strong>Ai2</strong> 发布并开源了基于 <code>Molmo 2</code> 的 3D 运动预测模型 <code>MolmoMotion</code>。该模型结合视觉历史、物体查询点与语言指令预测 3D 轨迹，同步开源了 <code>MolmoMotion-1M</code> 数据集与 <code>PointMotionBench</code> 基准。</p>
+<p><strong>Ai2</strong> 发布并开源了基于 <code>Molmo 2</code> 视觉语言骨干的 <strong>3D</strong> 运动预测模型 <code>MolmoMotion</code>，同步释出包含 <strong>116 万</strong> 条视频的 <strong>MolmoMotion-1M</strong> 数据集与 <code>PointMotionBench</code> 基准。</p>
+<p>该模型能够根据视觉历史、查询点及语言指令预测物体的未来 <strong>3D</strong> 轨迹。</p>
+<p>官方称其在机器人抓放规划测试中显著提升了成功率，并能作为引导信号提升图生视频的准确性。</p>
+<p>目前模型提供了预测离散坐标的自回归（<code>AR</code>）变体和生成连续轨迹的流匹配（<code>FM</code>）变体。</p>
+<p>权重及相关资源已在 <code>Hugging Face</code> 等平台以 <code>Apache License 2.0</code> 协议开放下载。</p></div>
+</article>
+<article class="story" id="story-5">
+  <div class="story-header">
+    <div class="story-num">5</div>
+    <div class="story-title-block">
+      <div class="story-categories"><span class="story-cat">模型发布</span></div>
+      <h2 class="story-title"><a href="https://www.happyoyster.cn/home" target="_blank">HappyOyster 1.0模型升级新增冒险与导演模式</a></h2>
+    </div>
+  </div>
+  <div class="story-summary">阿里巴巴升级实时交互模型HappyOyster 1.0，新增Adventure和Directing两种模式，提供更丰富的环境交互、扩展玩家控制及可回溯故事情节，面向游戏、互动剧、直播和文化旅游领域。</div>
+  <div class="story-images"><img src="https://assets.juya.uk/imagehub/aidaily/9c0c5d46-00d9-4ebc-bffc-19a2b550dc95/4f080072-3eb4-4d35-a16e-4215923c348b/m001.gif" alt="配图" loading="lazy"></div>
+  <div class="story-body"><p><strong>阿里巴巴</strong>宣布升级其实时交互模型 <code>HappyOyster 1.0</code>，新增 <code>Adventure</code> 和 <code>Directing</code> 模式。官方称，该模型现支持更丰富的环境交互与可回溯故事情节。</p>
+<p><strong>阿里巴巴</strong>宣布升级了实时交互模型 <code>HappyOyster 1.0</code>，引入了 <code>Adventure</code> 和 <code>Directing</code> 两种新模式。</p>
+<p>官方表示，该增强模型目前提供更丰富的环境交互、扩展的玩家控制以及可回溯的故事情节。</p>
+<p>这些功能更新将为<strong>游戏</strong>、<strong>互动剧</strong>、<strong>直播</strong>和<strong>文化旅游</strong>领域带来新的发展机遇。</p></div>
+</article>
+<article class="story" id="story-6">
+  <div class="story-header">
+    <div class="story-num">6</div>
+    <div class="story-title-block">
+      <div class="story-categories"><span class="story-cat">模型发布</span></div>
+      <h2 class="story-title"><a href="https://mp.weixin.qq.com/s/XFtsBupBThCnuuSekaQoEA" target="_blank">中国电信6款星辰语音大模型上线模力方舟</a></h2>
+    </div>
+  </div>
+  <div class="story-summary">中国电信将6款星辰语音大模型主力模型上线至模力方舟平台，包含2款ASR模型和4款TTS模型。ASR支持中英及60种方言混合识别，TTS覆盖非实时、实时及双向流式合成，月调用量超4亿次。</div>
+  <div class="story-images"><img src="https://assets.juya.uk/imagehub/aidaily/9c0c5d46-00d9-4ebc-bffc-19a2b550dc95/7312c594-5759-4c26-b503-a3ca808d39f0/m001.png" alt="配图" loading="lazy"></div>
+  <div class="story-body"><p><strong>中国电信</strong>宣布 <strong>6</strong> 款<code>星辰语音大模型</code>上线<code>模力方舟平台</code>，向公有云开发者开放<code>API</code>调用，支持中英及<strong>60</strong>种方言混合识别与<strong>5</strong>种方言实时合成。</p>
+<p><strong>中国电信</strong><code>星辰通用人工智能实验室</code>将<strong>6</strong>款<code>星辰语音大模型</code>主力模型上线至<strong>开源中国</strong>旗下<code>模力方舟</code>平台，正式向公有云开发者提供多方言语音服务。</p>
+<p>此次上线的模型包含<strong>2</strong>款<code>ASR</code>模型和<strong>4</strong>款<code>TTS</code>模型。<code>ASR</code>模型采用单一架构支持中英文及<strong>60</strong>种方言混合识别。<code>TTS</code>模型覆盖非实时、实时及双向流式合成，其中一款支持<strong>5</strong>种方言实时合成。</p>
+<p>官方称，该系列模型目前已在真实生产场景中规模化落地，月调用量超<strong>4亿</strong>次。开发者可通过标准<code>API</code>在<code>模力方舟</code>平台低门槛调用上述能力。</p></div>
+</article>
+<article class="story" id="story-7">
+  <div class="story-header">
+    <div class="story-num">7</div>
+    <div class="story-title-block">
+      <div class="story-categories"><span class="story-cat">开发生态</span></div>
+      <h2 class="story-title"><a href="https://vercel.com/eve" target="_blank">Vercel推出eve：文件系统优先的开源Agent框架</a></h2>
+    </div>
+  </div>
+  <div class="story-summary">Vercel发布开源Agent框架eve，采用Apache-2.0许可证。该框架以文件系统优先设计，每个Agent即一个目录，内置持久化执行、沙箱计算、人在环审批等六项生产级能力。Vercel称已在生产环境运行超100个基于eve的Agent。</div>
+  <div class="story-images"><img src="https://assets.juya.uk/imagehub/aidaily/9c0c5d46-00d9-4ebc-bffc-19a2b550dc95/872d6d11-39ee-47f5-9560-7b9a00635d66/m001.png" alt="配图" loading="lazy"></div>
+  <div class="story-body"><p><strong>Vercel</strong> 发布开源 <strong>Agent</strong> 框架 <code>eve</code>，现处公开预览，该框架将每个 <strong>Agent</strong> 定义为文件目录，内置持久化执行、沙箱计算和审批等能力。</p>
+<p><strong>Vercel</strong> 发布开源 <strong>Agent</strong> 框架 <code>eve</code>，以 <strong>npm</strong> 包形式提供，采用 <code>Apache-2.0</code> 许可证，目前处于公开预览阶段。</p>
+<p>该框架采用 <strong>"文件系统优先"</strong> 设计，每个 <strong>Agent</strong> 即磁盘上的一个目录，目录中每个文件对应一项能力。最小可运行的 <strong>Agent</strong> 仅需两个文件——一个配置模型，一个编写指令。</p>
+<p>框架内置六项生产级能力，包括持久化执行、沙箱计算、人在环中审批、安全连接、多渠道以及追踪与评估。</p>
+<p><strong>Vercel</strong> 官方称已在生产环境中运行超过 <strong>100</strong> 个基于 <code>eve</code> 的 <strong>Agent</strong>。</p>
+<p>开发者可通过 <code>npx eve@latest init</code> 快速启动项目，并通过 <code>vercel deploy</code> 部署至生产环境。</p></div>
+</article>
+<article class="story" id="story-8">
+  <div class="story-header">
+    <div class="story-num">8</div>
+    <div class="story-title-block">
+      <div class="story-categories"><span class="story-cat">开发生态</span></div>
+      <h2 class="story-title"><a href="https://github.blog/changelog/2026-06-17-github-copilot-app-generally-available/" target="_blank">GitHub Copilot桌面应用正式发布</a></h2>
+    </div>
+  </div>
+  <div class="story-summary">GitHub Copilot桌面应用正式发布，支持macOS、Windows和Linux。应用主打Agent驱动开发，支持从issue、PR或提示词开启会话，在不同分支或代码库中运行并行会话，并新增Canvases可视化界面和云端周期性任务调度。</div>
+  <div class="story-images"><img src="https://assets.juya.uk/imagehub/aidaily/9c0c5d46-00d9-4ebc-bffc-19a2b550dc95/1c44f788-a884-406a-9f69-415928448ca3/m001.png" alt="配图" loading="lazy"></div>
+  <div class="story-body"><p><strong>GitHub</strong> 官方宣布 <code>GitHub Copilot</code> 桌面应用正式发布，支持 <strong>macOS</strong>、<strong>Windows</strong> 和 <strong>Linux</strong> 系统。该应用主打 <strong>Agent</strong> 驱动开发，支持跨代码库运行并行会话。</p>
+<p><strong>GitHub</strong> 官方宣布其桌面端应用 <strong>GitHub Copilot app</strong> 现已正式发布（<strong>GA</strong>）。</p>
+<p>该应用原生构建于 <strong>GitHub</strong>，专为 <code>Agent</code> 驱动开发设计。</p>
+<p>用户可以从 <code>issue</code>、<code>PR</code> 或提示词开启会话，并在不同分支或代码库中运行并行会话。</p>
+<p>自技术预览版以来，该应用新增了可视化双向操作界面 <code>Canvases</code>、云端周期性任务调度，以及通过 <code>MCP servers</code> 自带模型和外部工具的能力。</p>
+<p>该应用同时支持与 <code>VS Code</code> 无缝切换且不丢失上下文。</p></div>
+</article>
+<article class="story" id="story-9">
+  <div class="story-header">
+    <div class="story-num">9</div>
+    <div class="story-title-block">
+      <div class="story-categories"><span class="story-cat">开发生态</span></div>
+      <h2 class="story-title"><a href="https://x.com/firecrawl/status/2066918976689754148" target="_blank">Firecrawl免API key开放免费试用，已上线MCP及API</a></h2>
+    </div>
+  </div>
+  <div class="story-summary">Firecrawl宣布即日起开放免API key免费试用，用户无需设置即可使用MCP、CLI和API端点进行网页搜索、爬取、交互及PDF转Markdown。仅在需要扩展规模时才需注册，但文档中尚未明确速率限制。</div>
+  <div class="story-images"><img src="https://assets.juya.uk/imagehub/aidaily/9c0c5d46-00d9-4ebc-bffc-19a2b550dc95/b34f316e-a0a2-4767-9aab-76eaa2441c08/m001.gif" alt="配图" loading="lazy"></div>
+  <div class="story-body"><p><strong>Firecrawl</strong> 官方宣布，<strong>即日起</strong>用户无需 <code>API key</code> 即可免费体验网页搜索、爬取及 <code>PDF</code> 解析等功能，目前已在其 <code>MCP</code>、<code>CLI</code> 和 <code>API</code> 上线。</p>
+<p><strong>Firecrawl</strong> 官方宣布，<strong>即日起</strong>开放免 <code>API key</code> 的免费试用。</p>
+<p>用户无需任何设置即可使用其 <code>MCP</code>、<code>CLI</code> 和 <code>API</code> 端点，进行网页搜索、爬取、交互以及将 <code>PDF</code> 解析为 <code>Markdown</code>。</p>
+<p><strong>官方</strong>表示，用户可以先开始使用，仅在需要扩展规模时才需要进行注册。</p>
+<p>不过，多位社区用户反馈称，尚未在文档中找到关于该项免费试用的具体速率限制说明。</p></div>
+</article>
+<article class="story" id="story-10">
+  <div class="story-header">
+    <div class="story-num">10</div>
+    <div class="story-title-block">
+      <div class="story-categories"><span class="story-cat">开发生态</span></div>
+      <h2 class="story-title"><a href="https://exa.ai/blog/exa-agent" target="_blank">Exa推出高性价比Web研究API Exa Agent</a></h2>
+    </div>
+  </div>
+  <div class="story-summary">Exa发布Exa Agent Web研究API，面向深度研究、列表构建和实体丰富任务。通过混合高性价比模型和token高效技术，在WideSearch等基准测试中成本不到GPT 5.5和Opus的一半，提供0.012至1.00美元五档定价。</div>
+  <div class="story-images"><img src="https://assets.juya.uk/imagehub/aidaily/9c0c5d46-00d9-4ebc-bffc-19a2b550dc95/6a829775-7352-4f22-a50d-91cba2c8c0ca/m001.png" alt="配图" loading="lazy"></div>
+  <div class="story-body"><p><strong>Exa</strong> 推出 <strong>Web研究API Exa Agent</strong>。它混合高性价比模型与 <code>token</code> 高效技术，大幅降低成本与延迟。该 <strong>API</strong> 现已全面开放。</p>
+<p><strong>Exa</strong> 正式发布 <strong>Exa Agent</strong>，这是一个面向深度研究、列表构建和实体丰富的 Web 研究 API。</p>
+<p>官方称，该 API 通过混合多种高性价比模型并应用 <code>token</code> 高效技术，在 <code>WideSearch</code> 等基准测试中表现出最佳性价比，成本不到 <code>GPT 5.5</code> 和 <code>Opus</code> 的一半。</p>
+<p>该 API 提供从 <strong>0.012 美元</strong> 到 <strong>1.00 美元</strong> 不等的五档定价，支持结构化输出，现已全面开放。</p></div>
+</article>
+<article class="story" id="story-11">
+  <div class="story-header">
+    <div class="story-num">11</div>
+    <div class="story-title-block">
+      <div class="story-categories"><span class="story-cat">开发生态</span></div>
+      <h2 class="story-title"><a href="https://x.com/OpenRouter/status/2067267155369074925" target="_blank">OpenRouter推出Cost Simulator成本估算工具</a></h2>
+    </div>
+  </div>
+  <div class="story-summary">OpenRouter在其实验室项目中推出Cost Simulator工具，结合用户实际流量数据和端点中位数定价，估算切换到不同模型后的成本节省。用户可直接体验试用入口。</div>
+  <div class="story-images"><img src="https://assets.juya.uk/imagehub/aidaily/9c0c5d46-00d9-4ebc-bffc-19a2b550dc95/f360e278-4a41-41f1-97e1-be632fb80080/m001.png" alt="配图" loading="lazy"></div>
+  <div class="story-body"><p><strong>OpenRouter</strong>官方推出<strong>Cost Simulator</strong>实验室工具，可基于用户实际流量数据与端点中位数定价，估算使用不同<code>模型</code>时的成本节省，目前已开放试用。</p>
+<p><strong>OpenRouter</strong> 通过官方社交账号宣布，在其实验室项目中推出了一款名为 <code>Cost Simulator</code> 的简单工具。</p>
+<p>该工具的核心功能是结合用户的<strong>实际流量数据</strong>，使用<strong>端点中位数定价</strong>，来估算用户在切换到不同模型后可能实现的<strong>成本节省</strong>。</p>
+<p>官方在发布时提供了<strong>试用入口</strong>，用户可以直接体验。</p></div>
+</article>
+<article class="story" id="story-12">
+  <div class="story-header">
+    <div class="story-num">12</div>
+    <div class="story-title-block">
+      <div class="story-categories"><span class="story-cat">产品应用</span></div>
+      <h2 class="story-title"><a href="https://claude.com/blog/claude-design-stays-on-brand-for-daily-work" target="_blank">Anthropic更新Claude Design：支持设计系统导入与代码同步</a></h2>
+    </div>
+  </div>
+  <div class="story-summary">Anthropic更新Claude Design，支持导入设计系统并自动对照检查，实现与Claude Code双向同步，新增精细化画布布局控件。使用额度与Claude Chat等工具共享，支持导出PDF和PowerPoint并集成Adobe、Canva等第三方工具。</div>
+  <div class="story-images"><img src="https://assets.juya.uk/imagehub/aidaily/9c0c5d46-00d9-4ebc-bffc-19a2b550dc95/e1becb47-a392-452f-96a0-60f0e621145f/m001.png" alt="配图" loading="lazy"></div>
+  <div class="story-body"><p><strong>Anthropic</strong> 更新了 <code>Claude Design</code>，使其能够在跨项目中严格遵循导入的设计系统，并支持与 <strong>Claude Code</strong> 进行双向同步。新版本引入了精细化的画布编辑控件，并将使用额度与其他 <strong>claude</strong> 产品共享。</p>
+<p><strong>Anthropic</strong> 更新了 <code>Claude Design</code>，引入多项新功能以提升设计与代码的协同效率。</p>
+<p>本次更新核心内容包括：一是支持导入设计系统，<strong>Claude</strong> 会基于真实组件构建并在输出前自动对照检查，团队管理员可锁定标准系统以保合规。</p>
+<p>二是实现与 <code>Claude Code</code> 的双向同步，开发者可通过相关命令直接拉取设计、移交项目或将代码转换为原型，无需基于截图重建。</p>
+<p>三是升级了画布精细化布局控件并修复<strong>数百个</strong>稳定性问题。</p>
+<p>四是使用额度与 <code>Claude Chat</code>、<code>Claude Code</code> 等工具共享，官方称平均 <code>token</code> 消耗减少且错误率下降。</p></div>
+</article>
+<article class="story" id="story-13">
+  <div class="story-header">
+    <div class="story-num">13</div>
+    <div class="story-title-block">
+      <div class="story-categories"><span class="story-cat">产品应用</span></div>
+      <h2 class="story-title"><a href="https://omnigent.ai/" target="_blank">Databricks团队开源Omnigent，支持多Agent实时协作与调度</a></h2>
+    </div>
+  </div>
+  <div class="story-summary">Databricks开源AI Agent框架Omnigent Alpha版本，采用Apache 2.0协议。该框架提供统一meta-harness编排层，允许在单个实时会话中协同调度Claude Code、Codex等多种Agent，支持多模型辩论、跨设备同步及移动端控制。</div>
+  <div class="story-images"><img src="https://assets.juya.uk/imagehub/aidaily/9c0c5d46-00d9-4ebc-bffc-19a2b550dc95/48b62cb9-03a9-4267-9956-8da4eaf26281/m001.png" alt="配图" loading="lazy"></div>
+  <div class="story-body"><p><strong>Databricks</strong> 开源 <strong>AI Agent</strong> 框架 <code>Omnigent</code> <strong>Alpha版本</strong>。该框架提供了一个统一的 <code>meta-harness</code> 编排层，允许用户在单个实时会话中协同调度 <code>Claude Code</code>、<code>Codex</code> 等多种 <strong>Agent</strong>，支持多模型辩论、跨设备同步及移动端控制。</p>
+<p><strong>Omnigent</strong> 是一款基于 <code>Apache 2.0</code> 协议的开源 <code>AI Agent</code> 框架与 <code>meta-harness</code>，目前处于 <code>Alpha</code> 阶段。</p>
+<p>它允许用户在一个共享会话中编排并监督多个 <code>AI Agent</code>，如 <strong>Claude Code</strong>、<strong>Codex</strong>、<strong>Cursor</strong> 和 <strong>Pi</strong>，无需重写代码即可切换底层 <code>harness</code>。</p>
+<p>该框架甚至能配置“监督 <code>Agent</code>”让不同模型相互审查代码或进行辩论。</p>
+<p>它支持通过 <code>API key</code>、订阅或第三方兼容网关接入模型，并在 <strong>Linux</strong> 和 <strong>macOS</strong> 上强制执行系统级沙箱隔离与细粒度权限策略。</p>
+<p>用户可通过终端、浏览器或 <strong>macOS</strong> 桌面端 <strong>App</strong> 进行操作，且会话数据能实时同步至手机等移动设备。</p></div>
+</article>
+<article class="story" id="story-14">
+  <div class="story-header">
+    <div class="story-num">14</div>
+    <div class="story-title-block">
+      <div class="story-categories"><span class="story-cat">产品应用</span></div>
+      <h2 class="story-title"><a href="https://mp.weixin.qq.com/s/WJSr9J0-7LWx2haEZGLmXw" target="_blank">微信支付推出AI专属卡 支持授权Agent代付款</a></h2>
+    </div>
+  </div>
+  <div class="story-summary">微信支付发布AI专属卡，已在Mac端WorkBuddy上线。用户可通过Agent下单支付，消费与主账户完全隔离，卡内额度由用户自定义且每笔订单需本人授权确认，支持随时调整额度。</div>
+  <div class="story-images"><img src="https://assets.juya.uk/imagehub/aidaily/9c0c5d46-00d9-4ebc-bffc-19a2b550dc95/04a0f008-a5f8-4d0d-936c-5f4d1cf1826e/m001.png" alt="配图" loading="lazy"></div>
+  <div class="story-body"><p><strong>微信支付</strong>正式发布 <strong>AI 专属卡</strong>。目前该功能已在 <code>Mac</code> 端 <code>WorkBuddy</code> 上线，支持用户通过 <code>Agent</code> 下单支付，其消费与主账户隔离，且每笔订单均需用户本人授权确认。</p>
+<p><strong>微信支付</strong>发布了 <code>AI 专属卡</code>，允许用户在与 <strong>Agent</strong> 的对话中提出消费需求，由 <strong>Agent</strong> 协助完成下单和支付。</p>
+<p>目前该功能已在 <strong>Mac</strong> 端 <code>WorkBuddy</code> 中开放，用户可将客户端升级至 <strong>5.1.1</strong> 版本进行体验。</p>
+<p>在安全机制上，<code>AI 专属卡</code> 与用户的<strong>微信支付主账户</strong>完全隔离。</p>
+<p>卡内额度由用户自定义并支持随时调整，且每一笔订单都必须经过用户本人的最终授权确认。</p></div>
+</article>
+<article class="story" id="story-15">
+  <div class="story-header">
+    <div class="story-num">15</div>
+    <div class="story-title-block">
+      <div class="story-categories"><span class="story-cat">技术与洞察</span></div>
+      <h2 class="story-title"><a href="https://openai.com/index/ai-chemist-improves-reaction/" target="_blank">OpenAI展示GPT-5.4在药物化学中的近自主实验能力</a></h2>
+    </div>
+  </div>
+  <div class="story-summary">OpenAI与Molecule.one合作，将GPT-5.4连接到名为Maria的Agent，在三个月内独立运行10,080次实验改进药物化学中的Chan-Lam偶联反应。使用TEMPO氧化剂使近90%底物产率显著提升，但泛化能力仍待验证。</div>
+  <div class="story-images"><img src="https://assets.juya.uk/imagehub/aidaily/9c0c5d46-00d9-4ebc-bffc-19a2b550dc95/a266ea7e-9a32-4b2f-a315-056494360599/m001.gif" alt="配图" loading="lazy"></div>
+  <div class="story-body"><p><strong>OpenAI</strong> 与 <strong>Molecule.one</strong> 合作，将 <code>GPT-5.4</code> 连接到名为 <code>Maria</code> 的 <code>Agent</code>，该系统在 <strong>三个月</strong> 内独立运行 <strong>上万次</strong> 实验，近乎自主地改进了药物化学中的 <code>Chan-Lam</code> 偶联反应。官方补充，目前该系统尚未具备完全独立运行能力，其泛化效果仍有待独立实验室验证。</p>
+<p><strong>OpenAI</strong> 与 <strong>Molecule.one</strong> 合作，将 <code>GPT-5.4</code> 连接到名为 <strong>Maria</strong> 的化学 <code>Agent</code> 及高通量实验室中，以改进药物化学中的 <code>Chan-Lam 偶联反应</code>。</p>
+<p>系统在约 <strong>三个月</strong> 内独立审查文献、提出假设并运行了 <strong>10,080</strong> 次实验，发现使用温和氧化剂 <code>TEMPO</code> 可使近 <strong>90%</strong> 的测试底物产率显著提升。</p>
+<p>人类化学家在此过程中进行了指导、提案筛选以及手工复现验证。</p>
+<p>目前该结果仅为早期阶段，系统尚未具备完全端到端的独立运行能力，其能否泛化到其他反应仍有待独立实验室验证。</p></div>
+</article>
+<article class="story" id="story-16">
+  <div class="story-header">
+    <div class="story-num">16</div>
+    <div class="story-title-block">
+      <div class="story-categories"><span class="story-cat">技术与洞察</span></div>
+      <h2 class="story-title"><a href="https://openai.com/index/introducing-life-sci-bench/" target="_blank">OpenAI推出生命科学评测基准LifeSciBench</a></h2>
+    </div>
+  </div>
+  <div class="story-summary">OpenAI发布LifeSciBench基准测试，由173名科学家参与开发，包含750个涵盖七个生物研究工作流的任务。GPT-Rosalind整体通过率达36.1%，超越GPT-5.5，但处理复杂科学图表的能力仍较薄弱。</div>
+  <div class="story-images"><img src="https://assets.juya.uk/imagehub/aidaily/9c0c5d46-00d9-4ebc-bffc-19a2b550dc95/e63df1a8-42df-4489-afb9-b316dea6bf91/m001.png" alt="配图" loading="lazy"></div>
+  <div class="story-body"><p><strong>OpenAI</strong>发布了名为<code>LifeSciBench</code>的基准测试，旨在评估<strong>AI</strong>系统处理真实世界生命科学研究任务的能力。据官方数据，<code>GPT-Rosalind</code>表现超越了<code>GPT-5.5</code>。</p>
+<p><strong>OpenAI</strong> 发布了名为 <strong><code>LifeSciBench</code></strong> 的基准测试，旨在评估 <strong>AI 系统</strong> 处理真实世界生命科学研究任务的能力。</p>
+<p>该基准由 <strong>173 名</strong> 科学家参与开发，包含涵盖七个生物研究工作流的 <strong>750 个</strong> 任务，且多数需要多步推理。</p>
+<p>官方数据显示，<strong><code>GPT-Rosalind</code></strong> 在此基准上的整体通过率提升至 <strong>36.1%</strong>，但处理复杂科学图表的能力仍较薄弱。</p></div>
+</article>
+<article class="story" id="story-17">
+  <div class="story-header">
+    <div class="story-num">17</div>
+    <div class="story-title-block">
+      <div class="story-categories"><span class="story-cat">技术与洞察</span></div>
+      <h2 class="story-title"><a href="https://developers.googleblog.com/announcing-the-agentic-resource-discovery-specification/" target="_blank">Google开源Agentic Resource Discovery规范</a></h2>
+    </div>
+  </div>
+  <div class="story-summary">Google推出并开源Agentic Resource Discovery规范，利用Catalogs目录和Registries搜索引擎帮助Agent跨平台发现并验证AI工具。兼容MCP与OpenAPI协议，基于Apache 2.0许可，未来几个月将获得Gemini Enterprise Agent Platform原生支持。</div>
+  <div class="story-images"><img src="https://assets.juya.uk/imagehub/aidaily/9c0c5d46-00d9-4ebc-bffc-19a2b550dc95/36ae1003-7153-4566-96e1-5c53eec835fb/m001.png" alt="配图" loading="lazy"></div>
+  <div class="story-body"><p><strong>Google</strong> 正式推出并开源了<code>Agentic Resource Discovery</code>开放规范。该规范利用<code>Catalogs</code>目录和<code>Registries</code>搜索引擎，帮助<strong>Agent</strong>跨平台发现并验证所需的<strong>AI</strong>工具，兼容<code>MCP</code>与<code>OpenAPI</code>协议。</p>
+<p><strong>Google</strong> 宣布推出 <code>Agentic Resource Discovery (ARD)</code> 开放规范，用于在网络中发布、发现和验证 <strong>AI</strong> 能力。</p>
+<p>该架构包含由组织域名托管的 <code>Catalogs</code> 和用作搜索引擎的 <code>Registries</code>。它支持通过加密信任元数据在连接前验证发布者身份。</p>
+<p>该系统兼容 <code>MCP</code> 和 <code>OpenAPI</code> 等多种原生协议。<code>ARD</code> 规范基于 <strong>Apache 2.0</strong> 许可开源，现已可用。</p>
+<p>该规范将在未来几个月内获得 <strong>Gemini Enterprise Agent Platform</strong> 的原生支持。</p></div>
+</article>
+<article class="story" id="story-18">
+  <div class="story-header">
+    <div class="story-num">18</div>
+    <div class="story-title-block">
+      <div class="story-categories"><span class="story-cat">技术与洞察</span></div>
+      <h2 class="story-title"><a href="https://blog.cloudflare.com/cloudflare-one-stack/" target="_blank">Cloudflare发布The Cloudflare One stack赋能Agent部署</a></h2>
+    </div>
+  </div>
+  <div class="story-summary">Cloudflare发布The Cloudflare One stack，这是一套Agent skills库，允许任何AI Agent配置、部署和管理Zero Trust环境。包含cloudflare-one和cloudflare-one-migration两个技能文件，支持从Zscaler和Palo Alto Networks等供应商迁移。</div>
+  <div class="story-images"><img src="https://assets.juya.uk/imagehub/aidaily/9c0c5d46-00d9-4ebc-bffc-19a2b550dc95/10b3ea1f-0dcd-4118-a1eb-c2347d217466/m001.png" alt="配图" loading="lazy"></div>
+  <div class="story-body"><p><strong>Cloudflare</strong> 发布了 <strong>The Cloudflare One stack</strong>。这是一套 <code>Agent skills</code> 库，旨在为任何 <code>AI Agent</code> 提供规划、部署和管理 <code>Zero Trust</code> 环境所需的知识，并支持从旧安全供应商进行迁移。</p>
+<p><strong>Cloudflare</strong> 官方宣布推出 <strong>The Cloudflare One stack</strong>，这是一个允许任何 <strong>AI Agent</strong> 配置、部署和管理 <code>Zero Trust</code> 环境的技能集合。</p>
+<p>该堆栈包含 <code>cloudflare-one</code> 和 <code>cloudflare-one-migration</code> 两个轻量级技能文件，涵盖了利用 <code>Cloudflare Access</code> 保护网络与数据安全，以及从 <strong>Zscaler</strong> 和 <strong>Palo Alto Networks</strong> 等供应商进行迁移的详细指导。</p>
+<p>客户和合作伙伴现已可在 <strong>Cloudflare Skills</strong> 仓库中获取并使用该堆栈。</p>
+<p>当其与 <code>Cloudflare code mode MCP server</code> 结合使用时，<strong>Agent</strong> 可获得与 <strong>Cloudflare API</strong> 交互的类型化接口，从而直接查询账户、检查配置并执行更改。</p>
+<p>未来，<strong>Cloudflare</strong> 计划随着产品的演进继续扩展该堆栈，以支持更多迁移来源和高级故障排除工作流。</p></div>
+</article>
+<article class="story" id="story-19">
+  <div class="story-header">
+    <div class="story-num">19</div>
+    <div class="story-title-block">
+      <div class="story-categories"><span class="story-cat">行业动态</span></div>
+      <h2 class="story-title"><a href="https://techcrunch.com/2026/06/17/world-leaders-want-american-ai-they-just-dont-want-america-to-be-able-to-turn-it-off" target="_blank">G7峰会商业领袖与各国政要探讨AI断供风险拟设信任伙伴计划</a></h2>
+    </div>
+  </div>
+  <div class="story-summary">在G7峰会上，Sam Altman、Dario Amodei、Demis Hassabis等AI商业领袖与各国政要讨论建立信任伙伴计划，以保障非美国家获取前沿模型。此前美国政府以国家安全为由阻止了Anthropic最新模型的出口。</div>
+  <div class="story-images"><img src="https://assets.juya.uk/imagehub/aidaily/9c0c5d46-00d9-4ebc-bffc-19a2b550dc95/79cd5245-d6db-4d1a-839c-0fee17049d44/m001.gif" alt="配图" loading="lazy"></div>
+  <div class="story-body"><p>据媒体报道，在近期的 <strong>G7</strong> 峰会上，多国政要与 <strong>Sam Altman</strong>、<strong>Dario Amodei</strong>、<strong>Demis Hassabis</strong> 等前沿 <code>AI</code> 领域的商业领袖同台讨论建立“<strong>信任伙伴</strong>”计划，以保障非美国家获取前沿模型。</p>
+<p>据媒体报道，在近期举行的 <strong>G7</strong> 峰会上，前沿 <code>AI</code> 领域的商业领袖与各国政要同台讨论了 <code>AI</code> 安全与地缘政治问题。</p>
+<p>参加此次会议的 <code>AI</code> 企业高管及代表包括 <strong>Sam Altman</strong>、<strong>Dario Amodei</strong>、<strong>Demis Hassabis</strong> 等人。</p>
+<p>多国领导人对美国随时可能切断其 <code>AI</code> 访问权限表达担忧。</p>
+<p>此前 <strong>美国政府</strong> 以国家安全为由，阻止了 <strong>Anthropic</strong> 最新 <code>Mythos 5</code> 和 <code>Fable 5</code> 模型的出口。</p>
+<p>作为应对，<strong>G7</strong> 领导人讨论建立一项 “信任伙伴” 计划，以允许非美国家在建立更强防御的前提下继续获取这些模型。</p></div>
+</article>
+<article class="story" id="story-20">
+  <div class="story-header">
+    <div class="story-num">20</div>
+    <div class="story-title-block">
+      <div class="story-categories"><span class="story-cat">行业动态</span></div>
+      <h2 class="story-title"><a href="https://x.com/NoamShazeer/status/2067400851438932297" target="_blank">Transformer作者Noam Shazeer宣布加入OpenAI</a></h2>
+    </div>
+  </div>
+  <div class="story-summary">Transformer架构奠基论文共同作者、Google DeepMind前研究员兼Gemini技术联合负责人Noam Shazeer宣布将离开Google加入OpenAI。Shazeer曾在2024年随Character.AI与Google的非独家技术授权及人才回流交易重返Google，该交易据称价值约27亿美元。</div>
+  <div class="story-images"><img src="https://assets.juya.uk/imagehub/aidaily/9c0c5d46-00d9-4ebc-bffc-19a2b550dc95/3e0b9f86-9034-4d01-ba1a-83e35e290b5a/m001.png" alt="配图" loading="lazy"></div>
+  <div class="story-body"><p><strong>Transformer</strong> 架构奠基论文的共同作者、<strong>Gemini</strong> 前技术联合负责人 <strong>Noam Shazeer</strong> 在社交媒体上宣布将离开 <strong>Google</strong> 加入 <strong>OpenAI</strong>。</p>
+<p>据报道，<code>Transformer</code> 架构奠基论文 <strong>《Attention Is All You Need》</strong> 共同作者、<strong>Google DeepMind</strong> 前研究员兼 <strong>Gemini</strong> 技术联合负责人 <strong>Noam Shazeer</strong> 将离开 <strong>Google</strong> 加入 <strong>OpenAI</strong>。</p>
+<p>值得注意的是，<strong>Shazeer</strong> 曾在 <strong>2024 年</strong> 随 <code>Character.AI</code> 与 <strong>Google</strong> 的非独家技术授权及人才回流交易重返 <strong>Google</strong>。</p>
+<p>该交易据称价值约 <strong>27 亿美元</strong>。</p></div>
+</article>
+<article class="story" id="story-21">
+  <div class="story-header">
+    <div class="story-num">21</div>
+    <div class="story-title-block">
+      <div class="story-categories"><span class="story-cat">行业动态</span></div>
+      <h2 class="story-title"><a href="https://x.com/charliermarsh/status/2067280638994968657" target="_blank">OpenAI投资60万美元支持Rust Foundation</a></h2>
+    </div>
+  </div>
+  <div class="story-summary">OpenAI宣布向Rust Foundation承诺60万美元，包含Platinum会员资格及对Rust生态系统维护者的额外支持。Charlie Marsh表示Rust通过Codex等项目对OpenAI越来越重要，长期社区成员@predrag将加入董事会担任OpenAI代表。</div>
+  
+  <div class="story-body"><p><strong>OpenAI</strong> 宣布向 <strong>Rust Foundation</strong> 承诺 <strong>60 万美元</strong>，包含 <code>Platinum</code> 会员资格以及对 <code>Rust</code> 生态系统维护者工作的额外支持。</p>
+<p><strong>OpenAI</strong> 宣布向 <strong>Rust Foundation</strong> 承诺 <strong>60 万美元</strong>，其中包括 <code>Platinum</code> 会员资格与对 <code>Rust</code> 生态系统维护者工作的额外支持。</p>
+<p><strong>Charlie Marsh</strong> 表示，<code>Rust</code> 通过 <code>Codex</code> 等项目对 <strong>OpenAI</strong> 越来越重要。</p>
+<p>长期社区成员 <strong>@predrag</strong> 将加入 <strong>Rust Foundation</strong> 董事会担任 <strong>OpenAI</strong> 代表。</p></div>
+</article>
+<article class="story" id="story-22">
+  <div class="story-header">
+    <div class="story-num">22</div>
+    <div class="story-title-block">
+      <div class="story-categories"><span class="story-cat">行业动态</span></div>
+      <h2 class="story-title"><a href="https://zhidx.com/p/566866.html" target="_blank">广东上线试运行全国首个省级政务智能中枢湾擎</a></h2>
+    </div>
+  </div>
+  <div class="story-summary">广东省政务服务和数据管理局打造的全国首个省级政务智能中枢平台湾擎上线试运行，预发布基于腾讯自研产品的政务版AI Agent湾擎·WorkBuddy。该Agent覆盖公文辅助、材料校核和政策检索等六大场景，依托沙箱隔离技术实现数据不出域。</div>
+  <div class="story-images"><img src="https://assets.juya.uk/imagehub/aidaily/9c0c5d46-00d9-4ebc-bffc-19a2b550dc95/d8f32389-a5de-4883-9fcf-e76cdf396c57/m001.png" alt="配图" loading="lazy"></div>
+  <div class="story-body"><p>据报道，全国首个省级政务智能中枢 <strong>湾擎</strong> 上线试运行，并预发布政务版 <code>AI Agent</code> <strong>湾擎</strong>·<code>WorkBuddy</code>。该产品即将在<strong>广东省</strong>直单位开展试点，后续面向全省公务员开放。</p>
+<p>据媒体报道，<strong>广东省政务服务和数据管理局</strong>打造的全国首个省级政务智能中枢平台 <strong>“湾擎”</strong> 上线试运行，同时预发布基于 <strong>腾讯</strong> 自研产品打造的政务版 <code>AI Agent</code> <strong>“湾擎·WorkBuddy”</strong>。</p>
+<p>该 <code>Agent</code> 定位于可直接交付成果的办公智能体，覆盖 <strong>公文辅助</strong>、<strong>材料校核</strong> 和 <strong>政策检索</strong> 等六大场景，依托 <code>沙箱隔离技术</code> 实现数据不出域。</p>
+<p>该产品目前即将在 <strong>广东省直多个单位</strong> 开展试点，后续将面向 <strong>广东全省公务员</strong> 持续铺开。</p></div>
+</article>
+<article class="story" id="story-23">
+  <div class="story-header">
+    <div class="story-num">23</div>
+    <div class="story-title-block">
+      <div class="story-categories"><span class="story-cat">行业动态</span></div>
+      <h2 class="story-title"><a href="https://x.com/odysseyml/status/2067276763604910563" target="_blank">Odyssey完成3.1亿美元B轮融资 估值达14.5亿美元</a></h2>
+    </div>
+  </div>
+  <div class="story-summary">世界模型初创公司Odyssey宣布完成3.1亿美元B轮融资，估值达14.5亿美元。该轮由Natural Capital领投，Amazon、AMD Ventures、GV及IQT等机构参投。Odyssey专注于开发模拟物理规律的世界模型，将与Amazon深入合作使用AWS和Trainium芯片。</div>
+  
+  <div class="story-body"><p><strong>世界模型</strong>初创公司<strong>Odyssey</strong>宣布完成 <strong>3.1</strong> 亿美元 <strong>B</strong> 轮融资，估值达 <strong>14.5</strong> 亿美元。该轮融资由 <code>Natural Capital</code> 领投，<code>Amazon</code>、<code>AMD</code> 等参投。</p>
+<p>据媒体报道，<strong>世界模型</strong>初创公司 <strong>Odyssey</strong> 官方宣布完成 <strong>3.1 亿美元</strong> <strong>B 轮</strong>融资，估值达到 <strong>14.5 亿美元</strong>，使其累计融资额升至 <strong>3.37 亿美元</strong>。</p>
+<p>该轮由 <strong>Natural Capital</strong> 领投，<strong>Amazon</strong>、<strong>AMD Ventures</strong>、<strong>GV</strong> 及与 <strong>CIA</strong> 有关联的 <strong>IQT</strong> 等机构参投，并吸引了 <strong>Google</strong> 首席科学家 <strong>Jeff Dean</strong> 等多位知名个人投资者。</p>
+<p><strong>Odyssey</strong> 专注于开发模拟物理规律和空间关系的 <code>“世界模型”</code>，应用场景涵盖 <code>游戏开发</code> 和 <code>机器人</code> 等领域。</p>
+<p>此外，该公司将与 <strong>Amazon</strong> 深入合作，使用 <code>AWS</code> 作为首选云服务提供商，并将其模型优化以在 <code>Trainium</code> 芯片上运行。</p></div>
+</article>
+<article class="story" id="story-24">
+  <div class="story-header">
+    <div class="story-num">24</div>
+    <div class="story-title-block">
+      <div class="story-categories"><span class="story-cat">前瞻与传闻</span></div>
+      <h2 class="story-title"><a href="https://www.reuters.com/world/china/us-holds-off-blacklisting-chinas-deepseek-more-than-100-firms-deemed-security-2026-06-17/" target="_blank">传美国政府暂缓拉黑DeepSeek，微软探索引入其模型降本</a></h2>
+    </div>
+  </div>
+  <div class="story-summary">据路透社报道，美国政府已暂缓将DeepSeek等上百家公司列入实体清单。同时，微软正在Copilot Cowork中探索使用微调版DeepSeek V4或其他开源模型，以替代成本高昂的Anthropic和OpenAI模型降低推理成本。</div>
+  
+  <div class="story-body"><p>据<strong>路透社</strong>报道，<strong>美政府</strong>暂缓将 <strong>DeepSeek</strong> 等上百家公司列入实体清单。同时，消息称 <strong>微软</strong> 正探索使用 <code>DeepSeek</code> 模型，以降低 <code>Copilot Cowork</code> 的推理成本。</p>
+<p>据<strong>路透社</strong>报道，<strong>美国政府</strong>已暂缓将中国 <strong>AI</strong> 初创公司 <strong><code>DeepSeek</code></strong>、存储芯片制造商<strong>长鑫存储</strong>以及上百家被标记为国家安全风险的公司列入实体清单，试图避免加剧与<strong>北京</strong>的紧张关系。</p>
+<p>与此同时，据媒体报道，在刚全面上线并转为按使用量计费的 <strong><code>Copilot Cowork</code></strong> 中，<strong>微软</strong>正在探索使用微调版的 <strong><code>DeepSeek V4</code></strong> 或其他开源模型，以替代成本高昂的 <strong><code>Anthropic</code></strong> 和 <strong><code>OpenAI</code></strong> 模型。</p></div>
+</article>
+<article class="story" id="story-25">
+  <div class="story-header">
+    <div class="story-num">25</div>
+    <div class="story-title-block">
+      <div class="story-categories"><span class="story-cat">前瞻与传闻</span></div>
+      <h2 class="story-title"><a href="https://www.wired.com/story/the-white-house-wants-anthropic-to-block-all-jailbreaks-that-may-not-be-possible/" target="_blank">美国政府限制Anthropic模型，要求彻底阻断jailbreak</a></h2>
+    </div>
+  </div>
+  <div class="story-summary">特朗普政府正限制Anthropic重新发布前沿模型Fable 5，要求确保防护措施无法被绕过。安全专家认为这在技术上无法实现，Anthropic员工指责该限制为政治性针对，引发业界对闭源模型供应链风险的担忧。</div>
+  
+  <div class="story-body"><p>据媒体报道，<strong>特朗普政府</strong>正限制 <strong>Anthropic</strong> 重新发布最新模型 <code>Fable 5</code>，要求必须确保其防护措施无法被绕过。安全专家称这在技术上无法实现，而 <strong>Anthropic</strong> 员工则指责该限制为政治性针对。</p>
+<p>据报道，<strong>美国政府</strong>官员向媒体表示，如果 <strong>Anthropic</strong> 希望重新发布前沿模型 <code>Fable 5</code>，必须确保该模型的 <code>guardrails</code> 不能被绕过，但安全专家认为这根本无法实现。</p>
+<p>还有报道称，<strong>Anthropic</strong> 员工指责<strong>特朗普政府</strong>的这一限制措施为政治性针对。</p>
+<p>此事引发了业界对于闭源模型供应链风险及政策不可预测性的担忧。</p></div>
+</article>
+</section>
+
+<!-- Back to Top -->
+<button class="back-to-top" id="backToTop" onclick="scrollToTop()" aria-label="回到顶部">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg>
+</button>
+
+<footer class="footer">
+  <div class="footer-brand">Tech<span class="accent">Daily</span></div>
+  <div class="footer-info">© 2026 techdou.com</div>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="modal-header"><span class="modal-term" id="modalTerm"></span><button class="modal-close" onclick="closeModal()">&times;</button></div>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
+<!-- Image Lightbox -->
+<div class="image-lightbox" id="imageLightbox" aria-hidden="true">
+  <div class="image-lightbox-inner">
+    <button class="image-lightbox-close" type="button" aria-label="关闭图片预览" onclick="closeImageLightbox()">×</button>
+    <img id="imageLightboxImg" src="" alt="放大预览">
+    <div class="image-lightbox-caption" id="imageLightboxCaption"></div>
+  </div>
+</div>
+
+<!-- DouknowAI Pet -->
+<iframe src="/pet.html?v=5" class="pet-iframe" id="petIframe" title="DouknowAI Pet"></iframe>
+
+<script>window.GLOSSARY = {
+  "计划任务": {
+    "tag": "产品功能",
+    "def": "支持用户设定具体时间或周期自动执行的任务系统，可定时发送提醒、处理重复工作或监控变化。"
+  },
+  "模型容量": {
+    "tag": "基础设施",
+    "def": "AI模型服务在特定时间内处理请求的能力上限，超载时会导致用户收到错误提示。"
+  },
+  "MolmoMotion": {
+    "tag": "模型",
+    "def": "Ai2基于Molmo 2视觉语言骨干开源的3D运动预测模型，支持根据视觉历史和语言指令预测物体未来轨迹。"
+  }
+};</script>
+<script>window.TechDailyAudioUrl = "https://news.techdou.com/2026/06/18/audio.mp3";</script>
+</body>
+<script>
+
+// ============================================================
+// 1. Runtime Configuration
+// ============================================================
+const CONFIG = window.TechDailyConfig || {
+  scrollOffset: 86,
+  backToTopThreshold: 420,
+  revealThreshold: 0.12
+};
+
+// 术语表兜底：模板生成器未注入 GLOSSARY 时，提供常见 AI/计算机术语解释，不再阻断关键词点击解释。
+const DEFAULT_GLOSSARY = {
+  "Nex": { tag: "模型 / 机构", def: "这里指被新闻提及的开源模型或相关团队名称。文中它被用作对比对象，用来判断某个新模型是否直接继承了原有模型能力与身份特征。" },
+  "Qwen": { tag: "大模型", def: "Qwen 是阿里通义系列大模型。新闻上下文里，它作为被融合的底座模型之一，用来说明 Rio 3.5 的权重来源。" },
+  "权重": { tag: "机器学习", def: "权重是神经网络中存储知识的参数。模型的能力、风格与偏好主要由这些参数决定。" },
+  "Gemini": { tag: "大模型", def: "Gemini 是 Google DeepMind 推出的多模态大模型系列，可处理文本、图像等多种输入。" },
+  "蒸馏": { tag: "训练方法", def: "蒸馏（Distillation）是让小模型或新模型学习大模型行为的一种方法，本质上是把教师模型的输出模式转移给学生模型。" },
+  "线性融合": { tag: "模型合并", def: "线性融合是按一定比例把两个模型的参数逐元素加权合并，例如 0.6 × A + 0.4 × B。" },
+  "On-Policy": { tag: "强化学习", def: "On-Policy 指使用当前策略自己采样的数据进行优化的一类方法，强调“边做边学、按当前策略更新”。" },
+  "SFT": { tag: "训练阶段", def: "SFT 是监督微调（Supervised Fine-Tuning），通常用高质量问答或指令数据，把基础模型调整成更会听指令的助手。" },
+  "RL": { tag: "训练阶段", def: "RL 是强化学习（Reinforcement Learning），通过奖励机制让模型朝更符合目标的方向优化。" },
+  "Token": { tag: "基础概念", def: "Token 是大模型处理文本时的最小片段单位，可以理解为“模型读写时计数的文字块”。" },
+  "KYC": { tag: "合规", def: "KYC 是 Know Your Customer（了解你的客户），指平台通过证件等方式做实名或身份核验。" },
+  "Anthropic": { tag: "AI 公司", def: "Anthropic 是一家专注大模型研发的 AI 公司，以 Claude 系列模型闻名。" },
+  "出口管制": { tag: "政策", def: "出口管制指政府对技术、产品、芯片或模型能力跨境流动设置限制，以控制安全与合规风险。" },
+  "Seedance": { tag: "视频模型", def: "Seedance 是用于视频生成的模型或系列名称，文中讨论的是它的版本与定价策略。" },
+  "张量": { tag: "数学 / 深度学习", def: "张量可以理解为多维数组，是神经网络中表示参数、特征和中间结果的基本数据结构。" },
+  "余弦相似度": { tag: "相似度度量", def: "余弦相似度用来衡量两个向量方向是否接近，越接近 1，说明两者越相似。" },
+  "Mythos": { tag: "模型名", def: "这里指新闻中的一个具体模型名称。模板把它作为术语处理，便于读者点击查看解释。" },
+  "剪映": { tag: "创作工具", def: "剪映是字节跳动推出的视频剪辑与内容创作工具，常与短视频生产场景结合。" },
+  "fable": { tag: "模型 / 项目", def: "这里指新闻语境中的特定模型或项目名称，常与访问权限、平台策略等讨论一起出现。" }
+};
+const GLOSSARY = window.GLOSSARY || DEFAULT_GLOSSARY;
+
+/**
+ * DouknowAI Pet iframe bridge
+ *
+ * 说明：
+ * 1. iframe 保持 pointer-events:none，页面正文链接和按钮不会被透明层挡住。
+ * 2. pet.html 每 80ms 向父页面发送宠物命中区域。
+ * 3. 父页面只在指针落到宠物命中区域时接管拖拽，并通过 postMessage 控制宠物。
+ * 4. 默认运动平面为当前视口；如需指定某个块元素作为宠物活动平面：
+ *    - 给元素添加 data-pet-plane 或 class="pet-plane"
+ *    - 或在 body 上添加 data-pet-plane-selector="#yourBlock"
+ */
+function initPetIframeBridge() {
+  var iframe = document.getElementById('petIframe');
+  if (!iframe || iframe.dataset.bridgeReady === '1') return;
+  iframe.dataset.bridgeReady = '1';
+
+  var petBounds = null;
+  var dragging = false;
+  var activePointerId = null;
+
+  function post(type, payload) {
+    if (!iframe.contentWindow) return;
+    iframe.contentWindow.postMessage(Object.assign({
+      source: 'techdaily-parent',
+      type: type
+    }, payload || {}), '*');
+  }
+
+  function getPoint(e) {
+    return { x: e.clientX, y: e.clientY };
+  }
+
+  function isInsidePet(point) {
+    if (!petBounds) return false;
+    var hitPadding = 8;
+    return point.x >= petBounds.left - hitPadding &&
+      point.x <= petBounds.right + hitPadding &&
+      point.y >= petBounds.top - hitPadding &&
+      point.y <= petBounds.bottom + hitPadding;
+  }
+
+  function findPetPlaneRect() {
+    var selector = document.body ? document.body.getAttribute('data-pet-plane-selector') : '';
+    var plane = null;
+
+    if (selector) {
+      try { plane = document.querySelector(selector); } catch (err) { plane = null; }
+    }
+    if (!plane) plane = document.querySelector('[data-pet-plane], .pet-plane');
+
+    if (!plane) {
+      return { left: 0, top: 0, width: window.innerWidth, height: window.innerHeight };
+    }
+
+    var rect = plane.getBoundingClientRect();
+    var left = Math.max(0, rect.left);
+    var top = Math.max(0, rect.top);
+    var right = Math.min(window.innerWidth, rect.right);
+    var bottom = Math.min(window.innerHeight, rect.bottom);
+
+    // 如果目标块当前几乎不可见，则临时回退到视口，避免宠物被夹在不可见区域。
+    if (right - left < 80 || bottom - top < 80) {
+      return { left: 0, top: 0, width: window.innerWidth, height: window.innerHeight };
+    }
+
+    return { left: left, top: top, width: right - left, height: bottom - top };
+  }
+
+  function syncPetPlane() {
+    post('douknow-pet-surface', { rect: findPetPlaneRect() });
+  }
+
+  window.addEventListener('message', function (event) {
+    if (event.source !== iframe.contentWindow) return;
+    var data = event.data || {};
+    if (data.source === 'douknow-pet' && data.type === 'douknow-pet-bounds') {
+      petBounds = data.bounds;
+    }
+  });
+
+  document.addEventListener('pointerdown', function (e) {
+    var point = getPoint(e);
+    if (!isInsidePet(point)) return;
+
+    dragging = true;
+    activePointerId = e.pointerId;
+    document.body.classList.add('pet-dragging');
+    post('douknow-pet-drag-start', point);
+    e.preventDefault();
+    e.stopPropagation();
+  }, { capture: true, passive: false });
+
+  document.addEventListener('pointermove', function (e) {
+    var point = getPoint(e);
+    post('douknow-pet-pointer', point);
+
+    if (!dragging || e.pointerId !== activePointerId) return;
+    post('douknow-pet-drag-move', point);
+    e.preventDefault();
+    e.stopPropagation();
+  }, { capture: true, passive: false });
+
+  function endDrag(e) {
+    if (!dragging) return;
+    if (e && activePointerId != null && e.pointerId !== activePointerId) return;
+    dragging = false;
+    activePointerId = null;
+    document.body.classList.remove('pet-dragging');
+    post('douknow-pet-drag-end');
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+  }
+
+  document.addEventListener('pointerup', endDrag, { capture: true, passive: false });
+  document.addEventListener('pointercancel', endDrag, { capture: true, passive: false });
+
+  window.addEventListener('resize', syncPetPlane);
+  window.addEventListener('scroll', syncPetPlane, { passive: true });
+  iframe.addEventListener('load', syncPetPlane);
+  setTimeout(syncPetPlane, 120);
+  setInterval(syncPetPlane, 500);
+}
+
+// ============================================================
+// 2. DOM READY INITIALIZATION
+// ============================================================
+
+/**
+ * Initialize all enhancements when DOM is ready.
+ * Uses DOMContentLoaded for reliable execution.
+ */
+document.addEventListener('DOMContentLoaded', function () {
+  initSidebar();
+  initModal();
+  initAudioPlayer();
+  initBackToTop();
+  initReadingProgress();
+  initTechTermTooltips();
+  initScrollReveal();
+  initHoverEnhancers();
+  initKeyboardShortcuts();
+  initStoryNumberAnimation();
+  initArchiveMenu();
+  adaptNoImageStories();
+  adaptMultiImageStories();
+  adaptResponsiveCollections();
+  initStoryImageInteractions();
+  initKeywordExplanations();
+});
+
+
+// ============================================================
+// 3. SIDEBAR NAVIGATION
+// ============================================================
+
+/**
+ * Toggle sidebar open/closed state.
+ * Also toggles the overlay for backdrop click-to-close.
+ */
+function toggleSidebar(forceOpen) {
+  const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('sidebarOverlay');
+  if (!sidebar || !overlay) return;
+
+  const shouldOpen = (typeof forceOpen === 'boolean') ? forceOpen : !sidebar.classList.contains('active');
+  sidebar.classList.toggle('active', shouldOpen);
+  overlay.classList.toggle('active', shouldOpen);
+  document.body.style.overflow = shouldOpen ? 'hidden' : '';
+}
+
+/**
+ * Initialize sidebar event listeners.
+ */
+function initSidebar() {
+  // Overlay click handled by inline onclick
+  // This function is a hook for any additional sidebar initialization
+  const sidebar = document.getElementById('sidebar');
+  if (sidebar) {
+    // Ensure sidebar closes on escape key
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && sidebar.classList.contains('active')) {
+        toggleSidebar();
+      }
+    });
+  }
+}
+
+
+// ============================================================
+// 4. MODAL SYSTEM
+// ============================================================
+
+const modalOverlay = document.getElementById('modalOverlay');
+
+/**
+ * Open the modal with glossary definition for a term.
+ * @param {string} term - The glossary term to display.
+ */
+function openModal(term, e) {
+  var evt = e || window.event;
+  if (evt && typeof evt.stopPropagation === 'function') evt.stopPropagation();
+  const entry = GLOSSARY[term];
+  if (!entry) return;
+
+  const modalTermEl = document.getElementById('modalTerm');
+  const modalBodyEl = document.getElementById('modalBody');
+
+  if (modalTermEl) modalTermEl.textContent = term;
+  if (modalBodyEl) {
+    modalBodyEl.innerHTML =
+      (entry.tag ? '<span class="tag">' + entry.tag + '</span>' : '') +
+      '<p>' + entry.def + '</p>';
+  }
+
+  if (modalOverlay) {
+    modalOverlay.classList.add('active');
+    // Prevent body scroll when modal is open
+    document.body.style.overflow = 'hidden';
+  }
+}
+
+/**
+ * Close the modal overlay.
+ * @param {Event} e - Optional event object for click detection.
+ */
+function closeModal(e) {
+  if (e && e.target !== modalOverlay && !e.target.classList.contains('modal-close')) return;
+  if (modalOverlay) {
+    modalOverlay.classList.remove('active');
+    // Restore body scroll
+    if (!document.getElementById('sidebar').classList.contains('active')) {
+      document.body.style.overflow = '';
+    }
+  }
+}
+
+/**
+ * Initialize modal system with keyboard and accessibility support.
+ */
+function initModal() {
+  if (!modalOverlay) return;
+
+  // Close on overlay click
+  modalOverlay.addEventListener('click', function (e) {
+    if (e.target === modalOverlay) closeModal();
+  });
+
+  // Close on escape key (handled in global keyboard handler)
+  // Focus trap for accessibility
+  modalOverlay.addEventListener('keydown', function (e) {
+    if (e.key === 'Tab') {
+      const focusable = modalOverlay.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+      if (focusable.length === 0) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+
+      if (e.shiftKey && document.activeElement === first) {
+        last.focus();
+        e.preventDefault();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        first.focus();
+        e.preventDefault();
+      }
+    }
+  });
+}
+
+
+// ============================================================
+// 5. AUDIO PLAYER
+// ============================================================
+
+let audioEl = null;
+let isPlaying = false;
+
+/**
+ * Toggle audio playback state.
+ * Creates audio element on first play.
+ */
+function togglePlay() {
+  var btn = document.getElementById('playBtn');
+  if (!btn) return;
+
+  if (!audioEl) {
+    var audioSrc = window.TechDailyAudioUrl || "https://news.techdou.com/broadcast.mp3";
+    if (!audioSrc) { alert("播报音频生成中..."); return; }
+    audioEl = new Audio(audioSrc);
+
+    var timeEl = document.getElementById('audioTime');
+    if (timeEl) timeEl.textContent = '0:00';
+
+    audioEl.addEventListener('error', function () {
+      console.warn('[Audio] 加载失败:', audioSrc);
+      if (timeEl) timeEl.textContent = '0:00';
+    });
+
+    audioEl.addEventListener('loadedmetadata', function () {
+      if (!audioEl.duration || isNaN(audioEl.duration)) return;
+      var m = Math.floor(audioEl.duration / 60);
+      var s = Math.floor(audioEl.duration % 60);
+      if (timeEl) timeEl.textContent = m + ':' + (s < 10 ? '0' : '') + s;
+    });
+
+    audioEl.addEventListener('canplay', function () {
+      if (!audioEl.duration || isNaN(audioEl.duration)) return;
+      var m = Math.floor(audioEl.duration / 60);
+      var s = Math.floor(audioEl.duration % 60);
+      if (timeEl) timeEl.textContent = m + ':' + (s < 10 ? '0' : '') + s;
+    });
+
+    audioEl.addEventListener('timeupdate', function () {
+      if (!audioEl.duration || isNaN(audioEl.duration)) return;
+      var pct = (audioEl.currentTime / audioEl.duration) * 100;
+      var fillEl = document.getElementById('progressFill');
+      if (fillEl) fillEl.style.width = pct + '%';
+      var m = Math.floor(audioEl.currentTime / 60);
+      var s = Math.floor(audioEl.currentTime % 60);
+      var totalM = Math.floor(audioEl.duration / 60);
+      var totalS = Math.floor(audioEl.duration % 60);
+      if (timeEl) timeEl.textContent = m + ':' + (s < 10 ? '0' : '') + s + ' / ' + totalM + ':' + (totalS < 10 ? '0' : '') + totalS;
+    });
+
+    audioEl.addEventListener('ended', function () {
+      isPlaying = false;
+      var playIcon = document.getElementById('playIcon');
+      var pauseIcon = document.getElementById('pauseIcon');
+      var fillEl = document.getElementById('progressFill');
+      if (playIcon) playIcon.style.display = '';
+      if (pauseIcon) pauseIcon.style.display = 'none';
+      if (fillEl) fillEl.style.width = '0%';
+      if (audioEl.duration && !isNaN(audioEl.duration)) {
+        var totalM = Math.floor(audioEl.duration / 60);
+        var totalS = Math.floor(audioEl.duration % 60);
+        if (timeEl) timeEl.textContent = totalM + ':' + (totalS < 10 ? '0' : '') + totalS;
+      }
+    });
+  }
+
+  if (isPlaying) {
+    audioEl.pause();
+    isPlaying = false;
+    var playIcon = document.getElementById('playIcon');
+    var pauseIcon = document.getElementById('pauseIcon');
+    if (playIcon) playIcon.style.display = '';
+    if (pauseIcon) pauseIcon.style.display = 'none';
+  } else {
+    audioEl.play().catch(function(err) { console.warn('[Audio]', err); });
+    isPlaying = true;
+    var playIcon = document.getElementById('playIcon');
+    var pauseIcon = document.getElementById('pauseIcon');
+    if (playIcon) playIcon.style.display = 'none';
+    if (pauseIcon) pauseIcon.style.display = '';
+  }
+}
+
+function initAudioPlayer() {
+  // Audio track click-to-seek
+  var track = document.querySelector('.audio-track');
+  if (track && audioEl) {
+    track.addEventListener('click', function (e) {
+      var rect = track.getBoundingClientRect();
+      var pct = (e.clientX - rect.left) / rect.width;
+      if (audioEl.duration) {
+        audioEl.currentTime = pct * audioEl.duration;
+      }
+    });
+  }
+}
+
+
+// ============================================================
+// 6. SMOOTH SCROLL UTILITIES
+// ============================================================
+
+/**
+ * Scroll to a story element by its number with smooth animation.
+ * @param {string} num - The story number/ID suffix.
+ */
+function scrollToStory(num) {
+  const el = document.getElementById('story-' + num);
+  if (!el) return false;
+
+  // 目录点击时，inline handler 会随后关闭 sidebar；这里延迟一帧，避免 body overflow:hidden 时滚动失效。
+  window.setTimeout(function () {
+    const offset = (window.TechDailyConfig && window.TechDailyConfig.scrollOffset) || CONFIG.scrollOffset || 86;
+    const top = el.getBoundingClientRect().top + window.pageYOffset - offset;
+    window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+
+    el.classList.add('reveal-scale', 'visible', 'story-jump-highlight');
+    window.setTimeout(function () {
+      el.classList.remove('story-jump-highlight');
+    }, 900);
+  }, 80);
+
+  return false;
+}
+
+/**
+ * Scroll to top of page with smooth animation.
+ */
+function scrollToTop() {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+
+// ============================================================
+// 7. BACK TO TOP BUTTON
+// ============================================================
+
+/**
+ * Initialize back-to-top button visibility based on scroll position.
+ */
+function initBackToTop() {
+  var backToTopBtn = document.getElementById('backToTop');
+  if (!backToTopBtn) return;
+
+  var scrollThreshold = CONFIG.backToTopThreshold;
+  var ticking = false;
+
+  function updateBackToTop() {
+    if (window.pageYOffset > scrollThreshold) {
+      backToTopBtn.classList.add('visible');
+    } else {
+      backToTopBtn.classList.remove('visible');
+    }
+    ticking = false;
+  }
+
+  window.addEventListener('scroll', function () {
+    if (!ticking) {
+      requestAnimationFrame(updateBackToTop);
+      ticking = true;
+    }
+  });
+
+  // Initial check
+  updateBackToTop();
+}
+
+
+// ============================================================
+// 8. READING PROGRESS BAR
+// ============================================================
+
+/**
+ * Initialize reading progress bar at top of viewport.
+ * Shows scroll progress from 0% to 100% across the page.
+ */
+function initReadingProgress() {
+  var progressBar = document.getElementById('readingProgressBar') || document.getElementById('readingProgress');
+  if (!progressBar) return;
+
+  var ticking = false;
+
+  function updateProgress() {
+    var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    var docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    if (docHeight <= 0) return;
+    var progress = (scrollTop / docHeight) * 100;
+    progressBar.style.width = progress + '%';
+
+    // Update ring rotation on back-to-top button
+    var ring = document.getElementById('progressRing');
+    if (ring) {
+      ring.style.transform = 'rotate(' + (-90 + progress * 3.6) + 'deg)';
+    }
+
+    ticking = false;
+  }
+
+  window.addEventListener('scroll', function () {
+    if (!ticking) {
+      requestAnimationFrame(updateProgress);
+      ticking = true;
+    }
+  });
+
+  // Initial update
+  updateProgress();
+}
+
+
+// ============================================================
+// 9. TECH TERM TOOLTIP ENHANCEMENT
+// ============================================================
+
+/**
+ * Enhance all tech-term elements with tooltip data attributes.
+ * Extracts short definitions from the GLOSSARY and sets them
+ * as data-tooltip for CSS tooltip display.
+ */
+function initTechTermTooltips() {
+  var terms = document.querySelectorAll('.tech-term');
+  terms.forEach(function (term) {
+    // Get term from onclick attribute
+    var onclick = term.getAttribute('onclick');
+    if (onclick) {
+      var match = onclick.match(/openModal\('([^']+)'\)/);
+      if (match) {
+        var termKey = match[1];
+        var entry = GLOSSARY[termKey];
+        if (entry && !term.getAttribute('data-tooltip')) {
+          // Create a short tooltip (first 20 chars + ...)
+          var shortDef = entry.def.length > 25 ? entry.def.substring(0, 25) + '...' : entry.def;
+          term.setAttribute('data-tooltip', shortDef);
+        }
+        if (entry && !term.getAttribute('data-term')) {
+          term.setAttribute('data-term', termKey);
+        }
+      }
+    }
+  });
+}
+
+
+// ============================================================
+// 10. SCROLL REVEAL ANIMATIONS
+// ============================================================
+
+/**
+ * Initialize IntersectionObserver-based scroll reveal animations.
+ * Adds 'visible' class when elements enter the viewport.
+ */
+function initScrollReveal() {
+  // Base reveal observer
+  var revealObserver = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        // Optionally unobserve after reveal
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: CONFIG.revealThreshold, rootMargin: '0px 0px -40px 0px' });
+
+  // Observe all reveal elements
+  document.querySelectorAll('.brief-item, .story, .reveal, .reveal-fade, .reveal-scale, .reveal-left').forEach(function (el) {
+    if (!el.classList.contains('reveal') &&
+      !el.classList.contains('reveal-fade') &&
+      !el.classList.contains('reveal-scale') &&
+      !el.classList.contains('reveal-left')) {
+      el.classList.add('reveal');
+    }
+    revealObserver.observe(el);
+  });
+
+  // Stagger reveal observer (for grids/lists)
+  var staggerObserver = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        staggerObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.reveal-stagger').forEach(function (el) {
+    staggerObserver.observe(el);
+  });
+
+  // Story number animation on scroll into view
+  var numObserver = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        entry.target.style.animation = 'bounceIn 0.5s ease forwards';
+        numObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  document.querySelectorAll('.story-num').forEach(function (el) {
+    numObserver.observe(el);
+  });
+}
+
+
+// ============================================================
+// 11. HOVER EFFECT ENHANCERS
+// ============================================================
+
+/**
+ * Add enhanced hover interactions to various elements.
+ * Uses event delegation for performance.
+ */
+function initHoverEnhancers() {
+  // Brief item hover: add tilt effect
+  document.querySelectorAll('.brief-item').forEach(function (item) {
+    item.addEventListener('mousemove', function (e) {
+      var rect = item.getBoundingClientRect();
+      var x = e.clientX - rect.left;
+      var y = e.clientY - rect.top;
+      var centerX = rect.width / 2;
+      var centerY = rect.height / 2;
+      var rotateX = (y - centerY) / centerY * -1.5;
+      var rotateY = (x - centerX) / centerX * 1.5;
+      item.style.transform = 'perspective(600px) rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg) translateY(-3px)';
+    });
+
+    item.addEventListener('mouseleave', function () {
+      item.style.transform = '';
+    });
+  });
+
+  // Story card hover: enhance visual feedback
+  document.querySelectorAll('.story').forEach(function (story) {
+    story.addEventListener('mouseenter', function () {
+      var num = story.querySelector('.story-num');
+      if (num) num.style.transition = 'all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)';
+    });
+  });
+}
+
+
+// ============================================================
+// 12. KEYBOARD SHORTCUTS
+// ============================================================
+
+/**
+ * Initialize global keyboard shortcuts.
+ * - Escape: Close modal or sidebar
+ * - 'T' key: Scroll to top
+ */
+function initKeyboardShortcuts() {
+  document.addEventListener('keydown', function (e) {
+    // Escape closes modal or sidebar
+    if (e.key === 'Escape') {
+      var modal = document.getElementById('modalOverlay');
+      var sidebar = document.getElementById('sidebar');
+
+      if (modal && modal.classList.contains('active')) {
+        closeModal();
+      } else if (sidebar && sidebar.classList.contains('active')) {
+        toggleSidebar();
+      }
+    }
+
+    // 'T' or 't' scrolls to top (when not in input)
+    if ((e.key === 't' || e.key === 'T') && !isInputFocused()) {
+      e.preventDefault();
+      scrollToTop();
+    }
+  });
+}
+
+/**
+ * Check if focus is currently in an input field.
+ * @returns {boolean} True if an input element is focused.
+ */
+function isInputFocused() {
+  var tag = document.activeElement.tagName.toLowerCase();
+  return tag === 'input' || tag === 'textarea' || tag === 'select' || document.activeElement.isContentEditable;
+}
+
+
+// ============================================================
+// 13. UTILITY FUNCTIONS
+// ============================================================
+
+/**
+ * Check if the device supports touch events.
+ * @returns {boolean} True if touch is supported.
+ */
+function isTouchDevice() {
+  return window.matchMedia('(pointer: coarse)').matches ||
+    'ontouchstart' in window ||
+    navigator.maxTouchPoints > 0;
+}
+
+/**
+ * Debounce function to limit execution frequency.
+ * @param {Function} func - The function to debounce.
+ * @param {number} wait - Milliseconds to wait.
+ * @returns {Function} Debounced function.
+ */
+function debounce(func, wait) {
+  var timeout;
+  return function () {
+    var context = this;
+    var args = arguments;
+    clearTimeout(timeout);
+    timeout = setTimeout(function () {
+      func.apply(context, args);
+    }, wait);
+  };
+}
+
+/**
+ * Throttle function to limit execution frequency.
+ * @param {Function} func - The function to throttle.
+ * @param {number} limit - Milliseconds between executions.
+ * @returns {Function} Throttled function.
+ */
+function throttle(func, limit) {
+  var inThrottle;
+  return function () {
+    var context = this;
+    var args = arguments;
+    if (!inThrottle) {
+      func.apply(context, args);
+      inThrottle = true;
+      setTimeout(function () {
+        inThrottle = false;
+      }, limit);
+    }
+  };
+}
+
+
+// ============================================================
+// 14. STORY NUMBER ANIMATION
+// ============================================================
+
+/**
+ * Initialize entrance animation for story numbers.
+ * Uses IntersectionObserver for scroll-triggered animation.
+ */
+function initStoryNumberAnimation() {
+  var storyNums = document.querySelectorAll('.story-num');
+
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        // Add a subtle scale animation
+        entry.target.style.transition = 'all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)';
+        entry.target.style.transform = 'scale(1.1)';
+        setTimeout(function () {
+          entry.target.style.transform = 'scale(1)';
+        }, 200);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  storyNums.forEach(function (num) {
+    observer.observe(num);
+  });
+}
+
+
+// ============================================================
+// 15. SECTION DIVIDER ANIMATION
+// ============================================================
+
+/**
+ * Animate section dividers when they scroll into view.
+ */
+function initSectionDividerAnimation() {
+  var dividers = document.querySelectorAll('.section-divider');
+
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '0';
+        entry.target.style.transition = 'opacity 0.6s ease';
+        setTimeout(function () {
+          entry.target.style.opacity = '1';
+        }, 50);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.3 });
+
+  dividers.forEach(function (d) { observer.observe(d); });
+}
+
+
+// ============================================================
+// 16. PREFERS REDUCED MOTION HANDLING
+// ============================================================
+
+/**
+ * Check if user prefers reduced motion and disable animations.
+ * This is handled primarily via CSS media query, but we also
+ * add a class to the body for JavaScript-based animations.
+ */
+if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  document.documentElement.classList.add('reduced-motion');
+}
+
+
+// ============================================================
+// 17. PRINT STYLES HELPER
+// ============================================================
+
+/**
+ * Add print-specific behaviors.
+ * Ensures content is readable when printed.
+ */
+window.addEventListener('beforeprint', function () {
+  // Make all reveal elements visible for printing
+  document.querySelectorAll('.reveal, .reveal-fade, .reveal-scale, .reveal-left, .reveal-stagger > *').forEach(function (el) {
+    el.style.opacity = '1';
+    el.style.transform = 'none';
+  });
+  // Hide floating elements
+  var floatNav = document.querySelector('.float-nav');
+  var backToTop = document.getElementById('backToTop');
+  var progressBar = document.getElementById('readingProgressBar') || document.getElementById('readingProgress');
+  if (floatNav) floatNav.style.display = 'none';
+  if (backToTop) backToTop.style.display = 'none';
+  if (progressBar) progressBar.style.display = 'none';
+});
+
+window.addEventListener('afterprint', function () {
+  // Restore floating elements
+  var floatNav = document.querySelector('.float-nav');
+  var backToTop = document.getElementById('backToTop');
+  var progressBar = document.getElementById('readingProgressBar') || document.getElementById('readingProgress');
+  if (floatNav) floatNav.style.display = '';
+  if (backToTop) backToTop.style.display = '';
+  if (progressBar) progressBar.style.display = '';
+});
+
+
+// ============================================
+// Pet Party Integration
+// ============================================
+
+let petParty = null;
+let petPartyVisible = true;
+
+function scrollToTop() {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  setTimeout(initPetIframeBridge, 120);
+});
+
+
+// ============================================================
+// FIX 3+4: ADAPT NO-IMAGE STORIES
+// ============================================================
+/* 修正3: 改为检测img元素数量，而非children.length，
+   避免.story-images容器存在但无实际图片时误判 */
+function adaptNoImageStories() {
+  document.querySelectorAll('.story').forEach(function (story) {
+    var imgs = story.querySelector('.story-images');
+    var imgCount = imgs ? imgs.querySelectorAll('img').length : 0;
+    if (imgCount === 0) {
+      story.classList.add('story--no-images');
+    }
+  });
+}
+
+// ============================================================
+// FIX 5: ADAPT MULTI-IMAGE STORIES
+// ============================================================
+function adaptMultiImageStories() {
+  document.querySelectorAll('.story-images').forEach(function (imgs) {
+    var imgCount = imgs.querySelectorAll('img').length;
+    imgs.dataset.imageCount = String(imgCount);
+    imgs.classList.toggle('story-images--single', imgCount === 1);
+    imgs.classList.toggle('story-images--multiple', imgCount > 1);
+  });
+}
+
+function adaptResponsiveCollections() {
+  document.querySelectorAll('.brief-grid').forEach(function (grid) {
+    var count = grid.querySelectorAll('.brief-item').length;
+    grid.dataset.count = String(count);
+    grid.classList.toggle('is-odd', count % 2 === 1);
+    grid.classList.toggle('is-even', count > 0 && count % 2 === 0);
+  });
+
+  document.querySelectorAll('.story-categories, .story-tags').forEach(function (box) {
+    var count = box.children.length;
+    box.dataset.count = String(count);
+    box.classList.toggle('is-odd', count % 2 === 1);
+    box.classList.toggle('is-even', count > 0 && count % 2 === 0);
+  });
+}
+
+
+
+// ============================================================
+// FIX 7: IMAGE LIGHTBOX + HORIZONTAL WHEEL SCROLL + TERM ACCESSIBILITY
+// ============================================================
+function openImageLightbox(src, alt) {
+  var box = document.getElementById('imageLightbox');
+  var img = document.getElementById('imageLightboxImg');
+  var caption = document.getElementById('imageLightboxCaption');
+  if (!box || !img) return;
+  img.src = src;
+  img.alt = alt || '放大预览';
+  if (caption) caption.textContent = alt || '';
+  box.classList.add('active');
+  box.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeImageLightbox() {
+  var box = document.getElementById('imageLightbox');
+  var img = document.getElementById('imageLightboxImg');
+  if (!box || !img) return;
+  box.classList.remove('active');
+  box.setAttribute('aria-hidden', 'true');
+  img.src = '';
+  if (!document.getElementById('sidebar').classList.contains('active') && !(window.modalOverlay && modalOverlay.classList.contains('active'))) {
+    document.body.style.overflow = '';
+  }
+}
+
+function initStoryImageInteractions() {
+  document.querySelectorAll('.story-images').forEach(function (wrap) {
+    var hasOverflow = function () { return wrap.scrollWidth > wrap.clientWidth + 2; };
+
+    wrap.addEventListener('wheel', function (e) {
+      if (!hasOverflow()) return;
+      var mostlyVertical = Math.abs(e.deltaY) >= Math.abs(e.deltaX);
+      if (!mostlyVertical) return;
+      wrap.scrollLeft += e.deltaY;
+      e.preventDefault();
+    }, { passive: false });
+
+    wrap.querySelectorAll('img').forEach(function (img) {
+      img.setAttribute('tabindex', '0');
+      img.setAttribute('role', 'button');
+      img.setAttribute('aria-label', (img.alt || '图片') + '，点击放大查看');
+      img.addEventListener('click', function () { openImageLightbox(img.currentSrc || img.src, img.alt || '图片预览'); });
+      img.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          openImageLightbox(img.currentSrc || img.src, img.alt || '图片预览');
+        }
+      });
+    });
+  });
+
+  var box = document.getElementById('imageLightbox');
+  if (box && !box.dataset.bound) {
+    box.dataset.bound = '1';
+    box.addEventListener('click', function (e) {
+      if (e.target === box) closeImageLightbox();
+    });
+  }
+}
+
+function initKeywordExplanations() {
+  document.querySelectorAll('.tech-term').forEach(function (term) {
+    term.setAttribute('role', 'button');
+    term.setAttribute('tabindex', '0');
+    var termKey = term.getAttribute('data-term') || term.textContent.trim();
+    term.addEventListener('keydown', function (e) {
+      if ((e.key === 'Enter' || e.key === ' ') && GLOSSARY[termKey]) {
+        e.preventDefault();
+        openModal(termKey, e);
+      }
+    });
+  });
+}
+
+// ============================================================
+// FIX 6: ARCHIVE DROPDOWN
+// ============================================================
+function toggleArchive() {
+  var dropdown = document.getElementById('archiveDropdown');
+  if (!dropdown) return;
+  dropdown.classList.toggle('open');
+}
+
+function initArchiveMenu() {
+  var listEl = document.getElementById('archiveList');
+  if (!listEl) return;
+
+  // Determine page date: from body data-date, URL path, or fallback to today
+  var pageDate = null;
+  var bodyDate = document.body ? document.body.getAttribute('data-date') : '';
+  if (bodyDate && /^\d{4}-\d{2}-\d{2}$/.test(bodyDate)) {
+    pageDate = new Date(bodyDate + 'T00:00:00');
+  }
+  if (!pageDate || isNaN(pageDate.getTime())) {
+    var pathMatch = window.location.pathname.match(/\/([0-9]{4})\/([0-9]{2})\/([0-9]{2})/);
+    if (pathMatch) {
+      pageDate = new Date(pathMatch[1] + '-' + pathMatch[2] + '-' + pathMatch[3] + 'T00:00:00');
+    }
+  }
+  if (!pageDate || isNaN(pageDate.getTime())) {
+    pageDate = new Date();
+  }
+
+  var html = '';
+  for (var i = 0; i < 7; i++) {
+    var d = new Date(pageDate);
+    d.setDate(d.getDate() - i);
+    var y = d.getFullYear();
+    var m = String(d.getMonth() + 1).padStart(2, '0');
+    var day = String(d.getDate()).padStart(2, '0');
+    var dateStr = y + '年' + m + '月' + day + '日';
+    var urlPath = '/' + y + '/' + m + '/' + day + '/';
+    var weekDays = ['日', '一', '二', '三', '四', '五', '六'];
+    var weekDay = weekDays[d.getDay()];
+    if (i === 0) {
+      html += '<span class="archive-item archive-item-current">' + dateStr + ' 星期' + weekDay + ' ✓</span>';
+    } else {
+      html += '<a class="archive-item" href="' + urlPath + '">' + dateStr + ' 星期' + weekDay + '</a>';
+    }
+  }
+  listEl.innerHTML = html;
+}
+
+document.addEventListener('click', function (e) {
+  var dropdown = document.getElementById('archiveDropdown');
+  if (dropdown && !dropdown.contains(e.target)) {
+    dropdown.classList.remove('open');
+  }
+});
+
+document.addEventListener('keydown', function (e) {
+  if (e.key === 'Escape') {
+    var box = document.getElementById('imageLightbox');
+    if (box && box.classList.contains('active')) closeImageLightbox();
+  }
+});
+
+</script>
+</body>
+

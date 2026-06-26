@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>更新中 · TechDaily</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'DM Sans', -apple-system, 'PingFang SC', sans-serif;
+    background: #f5f1e8;
+    color: #1a1a1a;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .container {
+    text-align: center;
+    padding: 40px;
+  }
+  .emoji {
+    font-size: 64px;
+    margin-bottom: 24px;
+    animation: bounce 1.4s ease-in-out infinite;
+  }
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+  }
+  h1 {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: #1a1a1a;
+  }
+  p {
+    font-size: 16px;
+    color: #6b6358;
+    line-height: 1.6;
+  }
+  .spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid #ddd6c8;
+    border-top-color: #8b1a1a;
+    border-radius: 50%;
+    margin: 24px auto 0;
+    animation: spin 0.8s linear infinite;
+  }
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+  .home-link {
+    display: inline-block;
+    margin-top: 32px;
+    padding: 10px 24px;
+    background: #8b1a1a;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background 0.2s;
+  }
+  .home-link:hover { background: #6b1414; }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="emoji">📰</div>
+  <h1>今日日报更新中</h1>
+  <p>正在抓取最新科技资讯，请稍后再来看看～</p>
+  <div class="spinner"></div>
+  <br>
+  <a href="/" class="home-link">返回首页</a>
+</div>
+</body>
+</html>

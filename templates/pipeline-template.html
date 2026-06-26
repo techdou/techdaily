@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>TechDaily · {{DATE_DISPLAY}}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Noto+Serif+SC:wght@400;600;700;900&family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #1a1a1a; --ink-soft: #2b251f; --ink-muted: #6b6358;
+  --paper: #f5f1e8; --paper-warm: #efe9dc; --paper-card: #fffdf8; --paper-dark: #e0d8c8;
+  --accent: #8b1a1a; --accent-soft: #c44d4d; --accent-bg: rgba(139,26,26,0.06);
+  --rule: #c8c0b0; --rule-soft: #ddd6c8;
+  --font-serif: 'Noto Serif SC','Playfair Display',Georgia,serif;
+  --font-display: 'Playfair Display','Noto Serif SC',Georgia,serif;
+  --font-sans: 'DM Sans',-apple-system,'PingFang SC',sans-serif;
+  --font-mono: 'JetBrains Mono','SF Mono',Consolas,monospace;
+  --max-width: 1200px; --reading-width: 720px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:var(--font-sans);background:var(--paper);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased}
+img{max-width:100%;height:auto;display:block;margin:0 auto}
+a{color:inherit;text-decoration:none}
+
+/* Floating nav */
+.float-nav{position:fixed;top:80px;left:20px;z-index:50}
+.float-btn{width:44px;height:44px;border-radius:50%;background:var(--ink);color:var(--paper);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(0,0,0,0.15);font-size:1.2rem;transition:transform .2s,background .2s}
+.float-btn:hover{background:var(--accent);transform:scale(1.1)}
+.sidebar{position:fixed;top:0;left:0;bottom:0;width:260px;background:var(--paper-card);box-shadow:4px 0 24px rgba(0,0,0,0.12);z-index:300;transform:translateX(-100%);transition:transform .3s ease;padding:20px;overflow-y:auto}
+.sidebar.active{transform:translateX(0)}
+.sidebar-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.3);z-index:299;display:none}
+.sidebar-overlay.active{display:block}
+.sidebar-title{font-family:var(--font-display);font-size:1.1rem;font-weight:700;margin-bottom:16px;padding-bottom:12px;border-bottom:2px solid var(--ink)}
+.sidebar-link{display:block;font-size:.88rem;color:var(--ink-soft);padding:4px 0;cursor:pointer;transition:color .15s;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sidebar-link:hover{color:var(--accent)}
+
+/* Masthead */
+.masthead{position:sticky;top:0;z-index:100;background:var(--ink);color:var(--paper);padding:14px 0;box-shadow:0 2px 20px rgba(0,0,0,.12);overflow:visible}
+.masthead-inner{max-width:var(--max-width);margin:0 auto;padding:0 20px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.masthead-brand{display:flex;align-items:baseline;gap:10px}
+.masthead-title{font-family:var(--font-display);font-size:clamp(1.4rem,3.5vw,2.2rem);font-weight:900;letter-spacing:-0.02em;line-height:1}
+.masthead-title .accent{color:var(--accent-soft)}
+.masthead-sub{font-family:var(--font-serif);font-size:.78rem;font-style:italic;opacity:.5}
+.masthead-date{font-family:var(--font-mono);font-size:.75rem;opacity:.6;text-align:right}
+.masthead-nav{display:flex;align-items:center;gap:8px;margin-left:auto;margin-right:24px}
+.masthead-nav-link{display:inline-flex;align-items:center;gap:5px;padding:6px 12px;font-family:var(--font-sans);font-size:.82rem;color:var(--paper);text-decoration:none;border-radius:var(--radius-md);background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);transition:all .2s ease}
+.masthead-nav-link:hover{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.25)}
+.masthead-nav-link svg{width:12px;height:12px}
+
+/* Hero */
+.hero{max-width:var(--max-width);margin:0 auto;padding:24px 20px 12px}
+.hero-cover{width:100%;max-height:min(42vh,400px);object-fit:cover;border-radius:4px;box-shadow:0 2px 12px rgba(0,0,0,0.06)}
+.hero-bar{display:flex;align-items:center;justify-content:space-between;margin-top:12px;padding-bottom:12px;border-bottom:3px double var(--ink);flex-wrap:wrap;gap:8px}
+.hero-issue{font-family:var(--font-mono);font-size:.76rem;color:var(--ink-muted)}
+
+/* Category pills */
+.cat-nav{max-width:var(--max-width);margin:0 auto;padding:16px 20px 8px;display:flex;gap:8px;flex-wrap:wrap}
+.cat-pill{font-family:var(--font-mono);font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:var(--accent);background:var(--accent-bg);padding:5px 12px;border-radius:20px;cursor:pointer;transition:all .15s;border:1px solid transparent}
+.cat-pill:hover{background:var(--accent);color:white}
+
+/* Brief section */
+.brief-section{max-width:var(--max-width);margin:0 auto;padding:20px 20px 12px}
+.brief-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.brief-title{font-family:var(--font-display);font-size:clamp(1.1rem,2.5vw,1.5rem);font-weight:700;display:flex;align-items:center;gap:8px}
+.brief-title::before{content:'';display:block;width:4px;height:clamp(1.1rem,2.5vw,1.5rem);background:var(--accent);border-radius:2px}
+
+/* Audio player */
+.audio-player{display:flex;align-items:center;gap:14px;background:var(--paper-card);border:1px solid var(--rule-soft);border-radius:8px;padding:12px 16px;margin-bottom:16px;box-shadow:0 2px 8px rgba(0,0,0,0.04)}
+.audio-player.audio-disabled{opacity:.6}
+.audio-play-btn{width:44px;height:44px;border-radius:50%;background:var(--accent);border:none;color:white;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:transform .15s,background .15s}
+.audio-play-btn:hover{transform:scale(1.06);background:var(--accent-soft)}
+.audio-play-btn svg{width:18px;height:18px;fill:currentColor}
+.audio-info{flex:1;min-width:0}
+.audio-label{font-weight:600;font-size:.95rem}
+.audio-desc{font-size:.78rem;color:var(--ink-muted);margin-top:2px}
+.audio-progress-wrap{display:flex;align-items:center;gap:8px;flex:1;max-width:180px}
+.audio-track{flex:1;height:4px;background:var(--rule-soft);border-radius:2px;overflow:hidden}
+.audio-fill{height:100%;background:var(--accent-soft);width:0%;transition:width .3s}
+.audio-time{font-family:var(--font-mono);font-size:.72rem;color:var(--ink-muted);white-space:nowrap;min-width:36px;text-align:right}
+
+/* Brief grid */
+.brief-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+.brief-item{background:var(--paper-card);border:1px solid var(--rule-soft);border-radius:8px;padding:14px;cursor:pointer;transition:box-shadow .2s,transform .2s;display:flex;flex-direction:column}
+.brief-item:hover{box-shadow:0 6px 20px rgba(0,0,0,0.08);transform:translateY(-2px)}
+.brief-head{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.brief-num{font-family:var(--font-display);font-size:1.4rem;font-weight:900;color:var(--accent);opacity:.7;line-height:1}
+.brief-cat{font-family:var(--font-mono);font-size:.65rem;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--accent);background:var(--accent-bg);padding:2px 6px;border-radius:2px}
+.brief-title{font-family:var(--font-serif);font-size:.92rem;font-weight:600;line-height:1.5;color:var(--ink)}
+
+.tech-term{color:var(--accent);cursor:pointer;font-weight:500;padding:0 1px;transition:background .15s;border-radius:2px;white-space:nowrap;display:inline}
+.tech-term:hover{background:var(--accent-bg)}
+
+/* Section divider */
+.section-divider{max-width:var(--max-width);margin:24px auto 8px;padding:0 20px}
+.section-divider-inner{border-top:1px solid var(--rule);padding-top:12px;display:flex;align-items:center;gap:8px}
+.section-label{font-family:var(--font-display);font-size:clamp(1rem,2vw,1.3rem);font-weight:700}
+.section-label::before{content:'';display:inline-block;width:4px;height:clamp(1rem,2vw,1.3rem);background:var(--accent);border-radius:2px;margin-right:8px;vertical-align:middle}
+
+/* Stories */
+.stories{max-width:var(--max-width);margin:0 auto;padding:12px 20px 40px}
+.story{padding:28px 0;border-bottom:1px solid var(--rule-soft)}
+.story:last-child{border-bottom:none}
+.story-header{display:flex;align-items:flex-start;gap:14px;margin-bottom:12px}
+.story-num{font-family:var(--font-display);font-size:clamp(1.8rem,3.5vw,2.4rem);font-weight:900;color:var(--accent);line-height:.8;flex-shrink:0;opacity:.75}
+.story-title-block{flex:1}
+.story-categories{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:6px}
+.story-cat{font-family:var(--font-mono);font-size:.65rem;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--accent);background:var(--accent-bg);padding:3px 8px;border-radius:2px}
+.story-title{font-family:var(--font-serif);font-size:clamp(1.15rem,2.2vw,1.5rem);font-weight:700;line-height:1.35}
+.story-title a{color:var(--ink);transition:color .15s}
+.story-title a:hover{color:var(--accent)}
+.story-summary{font-family:var(--font-serif);font-size:clamp(.9rem,1.4vw,1rem);line-height:1.7;color:var(--ink-soft);padding:10px 14px;border-left:3px solid var(--accent);background:var(--accent-bg);border-radius:0 4px 4px 0;margin:12px 0}
+.story-images{display:flex;gap:12px;margin:16px 0;overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:4px;justify-content:center;align-items:center}
+.story-images img{width:auto;max-width:100%;max-height:320px;object-fit:cover;border-radius:4px;box-shadow:0 2px 12px rgba(0,0,0,0.06);flex-shrink:0;cursor:pointer;transition:transform .3s}
+.story-images img:hover{transform:scale(1.02)}
+.story-body{font-size:clamp(.88rem,1.2vw,.96rem);line-height:1.85;color:var(--ink-soft);max-width:var(--reading-width)}
+.story-body p{margin-bottom:14px;text-indent:2em}
+.story-body p:first-child{text-indent:0}
+
+/* Modal */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.45);backdrop-filter:blur(6px);z-index:200;display:none;align-items:center;justify-content:center;padding:20px}
+.modal-overlay.active{display:flex}
+.modal{background:var(--paper-card);border-radius:12px;max-width:480px;width:100%;max-height:75vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,0.3);animation:modalIn .2s ease}
+@keyframes modalIn{from{opacity:0;transform:scale(.95) translateY(10px)}to{opacity:1;transform:scale(1) translateY(0)}}
+.modal-header{padding:18px 18px 10px;border-bottom:1px solid var(--rule-soft);display:flex;align-items:center;justify-content:space-between}
+.modal-term{font-family:var(--font-display);font-size:1.25rem;font-weight:700}
+.modal-close{background:none;border:none;font-size:1.4rem;color:var(--ink-muted);cursor:pointer;padding:4px 8px}
+.modal-close:hover{color:var(--accent)}
+.modal-body{padding:14px 18px 20px;font-size:.9rem;line-height:1.7;color:var(--ink-soft)}
+.modal-body .tag{display:inline-block;font-family:var(--font-mono);font-size:.68rem;background:var(--paper-dark);padding:2px 8px;border-radius:2px;margin-bottom:8px;color:var(--ink-muted)}
+
+/* Footer */
+.footer{background:var(--ink);color:rgba(245,241,232,.5);padding:32px 20px;text-align:center}
+.footer-brand{font-family:var(--font-display);font-size:1.05rem;font-weight:700;color:var(--paper)}
+.footer-brand .accent{color:var(--accent-soft)}
+.footer-info{font-size:.74rem;margin-top:4px}
+
+/* Reveal animation */
+.reveal{opacity:0;transform:translateY(14px);transition:opacity .5s ease,transform .5s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+/* Mobile */
+@media(max-width:768px){
+  .float-nav{top:72px;left:12px}
+  .float-btn{width:40px;height:40px;font-size:1rem}
+  .masthead-inner{padding:0 14px;flex-wrap:wrap;gap:4px}
+  .masthead-sub{display:none}
+  .hero{padding:16px 14px 8px}
+  .hero-cover{max-height:200px}
+  .cat-nav{padding:12px 14px 4px}
+  .brief-section{padding:16px 14px 8px}
+  .brief-grid{grid-template-columns:1fr}
+  .brief-item{padding:12px}
+  .audio-player{flex-wrap:wrap;gap:8px}
+  .audio-progress-wrap{width:100%;max-width:none}
+  .section-divider{padding:0 14px}
+  .stories{padding:8px 14px 24px}
+  .story{padding:20px 0}
+  .story-num{font-size:1.6rem}
+  .story-title{font-size:1.05rem}
+  .story-summary{font-size:.88rem;padding:8px 12px}
+  .story-images img{max-height:220px}
+  .story-body{font-size:.88rem;line-height:1.75}
+  .story-body p{margin-bottom:10px}
+  .footer{padding:24px 14px}
+}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none}}
+
+/* Pet iframe */
+.pet-iframe{position:fixed;top:0;left:0;width:100vw;height:100vh;border:none;pointer-events:none;z-index:50;background:transparent;overflow:hidden}
+
+/* Back to top */
+.back-to-top{position:fixed;bottom:28px;right:28px;width:48px;height:48px;border-radius:50%;background:var(--paper-card);color:var(--ink-muted);border:1px solid var(--rule-soft);cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(0,0,0,0.12);z-index:150;opacity:0;visibility:hidden;transform:translateY(12px);transition:all .3s;font-size:1.2rem}
+.back-to-top.visible{opacity:1;visibility:visible;transform:translateY(0)}
+.back-to-top:hover{background:var(--accent);color:var(--paper-card);border-color:var(--accent);transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,0.2)}
+.back-to-top:active{transform:translateY(-1px) scale(0.96)}
+
+/* Sidebar category */
+.sidebar-cat-name{font-family:var(--font-mono);font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--accent);margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.sidebar-cat-name::before{content:'';display:inline-block;width:6px;height:6px;background:var(--accent);border-radius:50%;opacity:.6}
+</style>
+</head>
+<body>
+
+<div class="float-nav">
+  <button class="float-btn" onclick="toggleSidebar()" title="目录">☰</button>
+</div>
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+<nav class="sidebar" id="sidebar">
+  <div class="sidebar-title">📰 目录</div>
+{{SIDEBAR_HTML}}
+</nav>
+
+<header class="masthead">
+  <div class="masthead-inner">
+    <div class="masthead-brand">
+      <div class="masthead-title">Tech<span class="accent">Daily</span></div>
+      <div class="masthead-sub">— 每日科技快报</div>
+    </div>
+    <div class="masthead-nav">
+      <a href="/archive.html" class="masthead-nav-link archive-link">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="3" cy="3" r="1.5"/><circle cx="3" cy="8" r="1.5"/><circle cx="3" cy="13" r="1.5"/><path d="M7 4h6M7 9h6M7 14h6" stroke-linecap="round"/></svg>
+        <span>往期回顾</span>
+      </a>
+    </div>
+    <div class="masthead-date">{{DATE_DISPLAY}}<br><span style="font-family:var(--font-serif);font-style:italic">{{WEEKDAY}}</span></div>
+  </div>
+</header>
+
+<section class="hero">
+  <img class="hero-cover" src="{{COVER_IMAGE}}" alt="今日封面" loading="eager">
+  <div class="hero-bar">
+    <span class="hero-issue">第 {{ISSUE}} 期 · {{DATE_DISPLAY}}</span>
+  </div>
+</section>
+
+<div class="cat-nav">
+{{CAT_PILLS}}
+</div>
+
+<section class="brief-section" id="brief">
+  <div class="brief-header">
+    <div class="brief-title">今日精要</div>
+  </div>
+{{AUDIO_SECTION}}
+  <div class="brief-grid">
+{{BRIEF_HTML}}
+  </div>
+</section>
+
+<div class="section-divider">
+  <div class="section-divider-inner">
+    <span class="section-label">详细报道</span>
+  </div>
+</div>
+
+<section class="stories" id="stories">
+{{STORIES_HTML}}
+</section>
+
+<!-- Back to Top -->
+<button class="back-to-top" id="backToTop" onclick="scrollToTop()" aria-label="回到顶部">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg>
+</button>
+
+<footer class="footer">
+  <div class="footer-brand">Tech<span class="accent">Daily</span></div>
+  <div class="footer-info">© 2026 techdou.com</div>
+</footer>
+
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="modal-header">
+      <span class="modal-term" id="modalTerm"></span>
+      <button class="modal-close" onclick="closeModal()">&times;</button>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
+<script>
+const GLOSSARY = {{GLOSSARY_JSON}};
+
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('active');
+  document.getElementById('sidebarOverlay').classList.toggle('active');
+}
+
+const modalOverlay = document.getElementById('modalOverlay');
+function openModal(term) {
+  const entry = GLOSSARY[term];
+  if (!entry) return;
+  document.getElementById('modalTerm').textContent = term;
+  document.getElementById('modalBody').innerHTML = 
+    (entry.tag ? '<span class="tag">' + entry.tag + '</span>' : '') + 
+    '<p>' + entry.def + '</p>';
+  modalOverlay.classList.add('active');
+}
+function closeModal(e) {
+  if (e && e.target !== modalOverlay && !e.target.classList.contains('modal-close')) return;
+  modalOverlay.classList.remove('active');
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeModal(); toggleSidebar(); } });
+
+function scrollToStory(num) {
+  document.getElementById('story-' + num).scrollIntoView({behavior: 'smooth'});
+}
+
+function scrollToTop() {
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+// Back-to-top visibility
+window.addEventListener('scroll', function() {
+  var btn = document.getElementById('backToTop');
+  if (!btn) return;
+  if (window.scrollY > 400) {
+    btn.classList.add('visible');
+  } else {
+    btn.classList.remove('visible');
+  }
+});
+
+let audioEl = null;
+let isPlaying = false;
+function togglePlay() {
+  const btn = document.getElementById('playBtn');
+  if (!btn) return;
+  if (!audioEl) {
+    var audioSrc = "{{AUDIO_URL}}";
+    if (!audioSrc) { alert("播报音频生成中..."); return; }
+    audioEl = new Audio(audioSrc);
+    audioEl.addEventListener('loadedmetadata', function() {
+      var m = Math.floor(audioEl.duration / 60);
+      var s = Math.floor(audioEl.duration % 60);
+      document.getElementById('audioTime').textContent = m + ':' + (s < 10 ? '0' : '') + s;
+    });
+    audioEl.addEventListener('timeupdate', function() {
+      if (!audioEl.duration) return;
+      var pct = (audioEl.currentTime / audioEl.duration) * 100;
+      document.getElementById('progressFill').style.width = pct + '%';
+      var m = Math.floor(audioEl.currentTime / 60);
+      var s = Math.floor(audioEl.currentTime % 60);
+      var tm = Math.floor(audioEl.duration / 60);
+      var ts = Math.floor(audioEl.duration % 60);
+      document.getElementById('audioTime').textContent = 
+        m + ':' + (s < 10 ? '0' : '') + s + ' / ' + tm + ':' + (ts < 10 ? '0' : '') + ts;
+    });
+    audioEl.addEventListener('ended', function() {
+      isPlaying = false;
+      document.getElementById('playIcon').style.display = '';
+      document.getElementById('pauseIcon').style.display = 'none';
+      document.getElementById('progressFill').style.width = '0%';
+    });
+  }
+  if (isPlaying) {
+    audioEl.pause(); isPlaying = false;
+    document.getElementById('playIcon').style.display = '';
+    document.getElementById('pauseIcon').style.display = 'none';
+  } else {
+    audioEl.play(); isPlaying = true;
+    document.getElementById('playIcon').style.display = 'none';
+    document.getElementById('pauseIcon').style.display = '';
+  }
+}
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.06 });
+document.querySelectorAll('.brief-item, .story').forEach(el => {
+  el.classList.add('reveal');
+  observer.observe(el);
+});
+</script>
+
+<iframe src="/pet.html?v=5" class="pet-iframe" id="petIframe" title="DouknowAI Pet"></iframe>
+
+</body>
+</html>

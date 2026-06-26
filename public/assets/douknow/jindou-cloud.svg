@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="192" viewBox="0 0 512 192" fill="none">
+  <defs>
+    <linearGradient id="g1" x1="256" y1="24" x2="256" y2="176" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFDF8"/>
+      <stop offset="1" stop-color="#DFEAFB"/>
+    </linearGradient>
+    <linearGradient id="g2" x1="256" y1="88" x2="256" y2="176" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E8F1FF" stop-opacity="0.15"/>
+      <stop offset="1" stop-color="#8EA8D8" stop-opacity="0.45"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="256" y1="78" x2="256" y2="142" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F8E3A5"/>
+      <stop offset="1" stop-color="#D8A84E"/>
+    </linearGradient>
+    <filter id="shadow" x="20" y="38" width="472" height="138" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="7" stdDeviation="8" flood-color="#98A8C8" flood-opacity="0.22"/>
+    </filter>
+  </defs>
+  <g filter="url(#shadow)">
+    <path d="M88 112c-22 0-40-16-40-37 0-19 15-34 33-37 4-18 21-31 41-31 11 0 21 4 29 10 11-13 28-21 47-21 17 0 33 6 44 18 10-4 21-6 33-6 17 0 32 4 45 12 11-8 25-12 40-12 20 0 38 9 49 24 6-2 12-3 19-3 24 0 44 18 46 41 18 3 31 18 31 36 0 20-17 36-38 36H88Z" fill="url(#g1)" stroke="#E9C879" stroke-width="2"/>
+    <path d="M93 118c18-21 45-31 81-31 17 0 34 2 51 5 16-10 35-15 58-15 25 0 45 5 63 16 14-4 28-6 43-6 26 0 48 7 67 20 8 6 16 13 23 22H93Z" fill="url(#g2)"/>
+    <path d="M128 116c17 0 25-20 38-20 13 0 20 11 32 11 16 0 19-22 39-22 17 0 20 13 34 13 16 0 20-17 37-17 13 0 23 13 37 13 16 0 26-14 43-14 17 0 24 11 36 20H128Z" fill="#FFF" fill-opacity="0.55"/>
+    <path d="M169 86c32-16 141-16 174 0" stroke="#F0D38C" stroke-width="4" stroke-linecap="round"/>
+    <path d="M197 80c7 0 11 4 11 10-5 0-10 3-12 8-4-4-6-8-6-11 0-4 3-7 7-7Z" fill="none" stroke="url(#gold)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M311 80c7 0 11 4 11 10-5 0-10 3-12 8-4-4-6-8-6-11 0-4 3-7 7-7Z" fill="none" stroke="url(#gold)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M120 90c-12 2-18 11-18 21 10-2 16 4 17 12 6-6 10-13 10-19 0-7-3-12-9-14Z" fill="none" stroke="url(#gold)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M390 90c12 2 18 11 18 21-10-2-16 4-17 12-6-6-10-13-10-19 0-7 3-12 9-14Z" fill="none" stroke="url(#gold)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M233 120c6 2 10 7 10 12-7 0-12 4-14 10-5-5-8-10-8-14 0-5 5-8 12-8Z" fill="none" stroke="url(#gold)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M279 120c-6 2-10 7-10 12 7 0 12 4 14 10 5-5 8-10 8-14 0-5-5-8-12-8Z" fill="none" stroke="url(#gold)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M254 114c6 4 10 10 10 16-5-1-9 2-11 7-4-4-6-8-6-12 0-4 3-8 7-11Z" fill="url(#gold)"/>
+  </g>
+</svg>

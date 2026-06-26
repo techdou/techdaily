@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>TechDaily · 2026年6月25日</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Noto+Serif+SC:wght@400;600;700;900&family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #1a1a1a; --ink-soft: #2b251f; --ink-muted: #6b6358;
+  --paper: #f5f1e8; --paper-warm: #efe9dc; --paper-card: #fffdf8; --paper-dark: #e0d8c8;
+  --accent: #8b1a1a; --accent-soft: #c44d4d; --accent-bg: rgba(139,26,26,0.06);
+  --rule: #c8c0b0; --rule-soft: #ddd6c8;
+  --font-serif: 'Noto Serif SC','Playfair Display',Georgia,serif;
+  --font-display: 'Playfair Display','Noto Serif SC',Georgia,serif;
+  --font-sans: 'DM Sans',-apple-system,'PingFang SC',sans-serif;
+  --font-mono: 'JetBrains Mono','SF Mono',Consolas,monospace;
+  --max-width: 1200px; --reading-width: 720px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:var(--font-sans);background:var(--paper);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased}
+img{max-width:100%;height:auto;display:block;margin:0 auto}
+a{color:inherit;text-decoration:none}
+
+/* Floating nav */
+.float-nav{position:fixed;top:80px;left:20px;z-index:50}
+.float-btn{width:44px;height:44px;border-radius:50%;background:var(--ink);color:var(--paper);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(0,0,0,0.15);font-size:1.2rem;transition:transform .2s,background .2s}
+.float-btn:hover{background:var(--accent);transform:scale(1.1)}
+.sidebar{position:fixed;top:0;left:0;bottom:0;width:260px;background:var(--paper-card);box-shadow:4px 0 24px rgba(0,0,0,0.12);z-index:300;transform:translateX(-100%);transition:transform .3s ease;padding:20px;overflow-y:auto}
+.sidebar.active{transform:translateX(0)}
+.sidebar-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.3);z-index:299;display:none}
+.sidebar-overlay.active{display:block}
+.sidebar-title{font-family:var(--font-display);font-size:1.1rem;font-weight:700;margin-bottom:16px;padding-bottom:12px;border-bottom:2px solid var(--ink)}
+.sidebar-link{display:block;font-size:.88rem;color:var(--ink-soft);padding:4px 0;cursor:pointer;transition:color .15s;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sidebar-link:hover{color:var(--accent)}
+
+/* Masthead */
+.masthead{background:var(--ink);color:var(--paper);padding:14px 0;position:sticky;top:0;z-index:100;box-shadow:0 2px 20px rgba(0,0,0,0.12)}
+.masthead-inner{max-width:var(--max-width);margin:0 auto;padding:0 20px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.masthead-brand{display:flex;align-items:baseline;gap:10px}
+.masthead-title{font-family:var(--font-display);font-size:clamp(1.4rem,3.5vw,2.2rem);font-weight:900;letter-spacing:-0.02em;line-height:1}
+.masthead-title .accent{color:var(--accent-soft)}
+.masthead-sub{font-family:var(--font-serif);font-size:.78rem;font-style:italic;opacity:.5}
+.masthead-date{font-family:var(--font-mono);font-size:.75rem;opacity:.6;text-align:right}
+.masthead-nav{display:flex;align-items:center;gap:8px;margin-left:auto;margin-right:24px}
+.masthead{position:sticky;top:0;z-index:100;background:var(--ink);color:var(--paper);padding:14px 0;box-shadow:0 2px 20px rgba(0,0,0,.12);overflow:visible}
+.masthead-nav-link{display:inline-flex;align-items:center;gap:5px;padding:6px 12px;font-family:var(--font-sans);font-size:.82rem;color:var(--paper);text-decoration:none;border-radius:var(--radius-md);background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);transition:all .2s ease}
+.masthead-nav-link:hover{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.25)}
+.masthead-nav-link svg{width:12px;height:12px}
+
+/* Hero */
+.hero{max-width:var(--max-width);margin:0 auto;padding:24px 20px 12px}
+.hero-cover{width:100%;max-height:min(42vh,400px);object-fit:cover;border-radius:4px;box-shadow:0 2px 12px rgba(0,0,0,0.06)}
+.hero-bar{display:flex;align-items:center;justify-content:space-between;margin-top:12px;padding-bottom:12px;border-bottom:3px double var(--ink);flex-wrap:wrap;gap:8px}
+.hero-issue{font-family:var(--font-mono);font-size:.76rem;color:var(--ink-muted)}
+
+/* Category pills */
+.cat-nav{max-width:var(--max-width);margin:0 auto;padding:16px 20px 8px;display:flex;gap:8px;flex-wrap:wrap}
+.cat-pill{font-family:var(--font-mono);font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:var(--accent);background:var(--accent-bg);padding:5px 12px;border-radius:20px;cursor:pointer;transition:all .15s;border:1px solid transparent}
+.cat-pill:hover{background:var(--accent);color:white}
+
+/* Brief section */
+.brief-section{max-width:var(--max-width);margin:0 auto;padding:20px 20px 12px}
+.brief-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.brief-title{font-family:var(--font-display);font-size:clamp(1.1rem,2.5vw,1.5rem);font-weight:700;display:flex;align-items:center;gap:8px}
+.brief-title::before{content:'';display:block;width:4px;height:clamp(1.1rem,2.5vw,1.5rem);background:var(--accent);border-radius:2px}
+
+/* Audio player */
+.audio-player{display:flex;align-items:center;gap:14px;background:var(--paper-card);border:1px solid var(--rule-soft);border-radius:8px;padding:12px 16px;margin-bottom:16px;box-shadow:0 2px 8px rgba(0,0,0,0.04)}
+.audio-player.audio-disabled{opacity:.6}
+.audio-play-btn{width:44px;height:44px;border-radius:50%;background:var(--accent);border:none;color:white;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:transform .15s,background .15s}
+.audio-play-btn:hover{transform:scale(1.06);background:var(--accent-soft)}
+.audio-play-btn svg{width:18px;height:18px;fill:currentColor}
+.audio-info{flex:1;min-width:0}
+.audio-label{font-weight:600;font-size:.95rem}
+.audio-desc{font-size:.78rem;color:var(--ink-muted);margin-top:2px}
+.audio-progress-wrap{display:flex;align-items:center;gap:8px;flex:1;max-width:180px}
+.audio-track{flex:1;height:4px;background:var(--rule-soft);border-radius:2px;overflow:hidden}
+.audio-fill{height:100%;background:var(--accent-soft);width:0%;transition:width .3s}
+.audio-time{font-family:var(--font-mono);font-size:.72rem;color:var(--ink-muted);white-space:nowrap;min-width:36px;text-align:right}
+
+/* Brief grid */
+.brief-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+.brief-item{background:var(--paper-card);border:1px solid var(--rule-soft);border-radius:8px;padding:14px;cursor:pointer;transition:box-shadow .2s,transform .2s;display:flex;flex-direction:column}
+.brief-item:hover{box-shadow:0 6px 20px rgba(0,0,0,0.08);transform:translateY(-2px)}
+.brief-head{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.brief-num{font-family:var(--font-display);font-size:1.4rem;font-weight:900;color:var(--accent);opacity:.7;line-height:1}
+.brief-cat{font-family:var(--font-mono);font-size:.65rem;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--accent);background:var(--accent-bg);padding:2px 6px;border-radius:2px}
+.brief-title{font-family:var(--font-serif);font-size:.92rem;font-weight:600;line-height:1.5;color:var(--ink)}
+
+.tech-term{color:var(--accent);cursor:pointer;font-weight:500;padding:0 1px;transition:background .15s;border-radius:2px;white-space:nowrap;display:inline}
+.tech-term:hover{background:var(--accent-bg)}
+
+/* Section divider */
+.section-divider{max-width:var(--max-width);margin:24px auto 8px;padding:0 20px}
+.section-divider-inner{border-top:1px solid var(--rule);padding-top:12px;display:flex;align-items:center;gap:8px}
+.section-label{font-family:var(--font-display);font-size:clamp(1rem,2vw,1.3rem);font-weight:700}
+.section-label::before{content:'';display:inline-block;width:4px;height:clamp(1rem,2vw,1.3rem);background:var(--accent);border-radius:2px;margin-right:8px;vertical-align:middle}
+
+/* Stories */
+.stories{max-width:var(--max-width);margin:0 auto;padding:12px 20px 40px}
+.story{padding:28px 0;border-bottom:1px solid var(--rule-soft)}
+.story:last-child{border-bottom:none}
+.story-header{display:flex;align-items:flex-start;gap:14px;margin-bottom:12px}
+.story-num{font-family:var(--font-display);font-size:clamp(1.8rem,3.5vw,2.4rem);font-weight:900;color:var(--accent);line-height:.8;flex-shrink:0;opacity:.75}
+.story-title-block{flex:1}
+.story-categories{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:6px}
+.story-cat{font-family:var(--font-mono);font-size:.65rem;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--accent);background:var(--accent-bg);padding:3px 8px;border-radius:2px}
+.story-title{font-family:var(--font-serif);font-size:clamp(1.15rem,2.2vw,1.5rem);font-weight:700;line-height:1.35}
+.story-title a{color:var(--ink);transition:color .15s}
+.story-title a:hover{color:var(--accent)}
+.story-summary{font-family:var(--font-serif);font-size:clamp(.9rem,1.4vw,1rem);line-height:1.7;color:var(--ink-soft);padding:10px 14px;border-left:3px solid var(--accent);background:var(--accent-bg);border-radius:0 4px 4px 0;margin:12px 0}
+.story-images{display:flex;gap:12px;margin:16px 0;overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:4px;justify-content:center;align-items:center}
+.story-images img{width:auto;max-width:100%;max-height:320px;object-fit:cover;border-radius:4px;box-shadow:0 2px 12px rgba(0,0,0,0.06);flex-shrink:0;cursor:pointer;transition:transform .3s}
+.story-images img:hover{transform:scale(1.02)}
+.story-body{font-size:clamp(.88rem,1.2vw,.96rem);line-height:1.85;color:var(--ink-soft);max-width:var(--reading-width)}
+.story-body p{margin-bottom:14px;text-indent:2em}
+.story-body p:first-child{text-indent:0}
+
+/* Modal */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.45);backdrop-filter:blur(6px);z-index:200;display:none;align-items:center;justify-content:center;padding:20px}
+.modal-overlay.active{display:flex}
+.modal{background:var(--paper-card);border-radius:12px;max-width:480px;width:100%;max-height:75vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,0.3);animation:modalIn .2s ease}
+@keyframes modalIn{from{opacity:0;transform:scale(.95) translateY(10px)}to{opacity:1;transform:scale(1) translateY(0)}}
+.modal-header{padding:18px 18px 10px;border-bottom:1px solid var(--rule-soft);display:flex;align-items:center;justify-content:space-between}
+.modal-term{font-family:var(--font-display);font-size:1.25rem;font-weight:700}
+.modal-close{background:none;border:none;font-size:1.4rem;color:var(--ink-muted);cursor:pointer;padding:4px 8px}
+.modal-close:hover{color:var(--accent)}
+.modal-body{padding:14px 18px 20px;font-size:.9rem;line-height:1.7;color:var(--ink-soft)}
+.modal-body .tag{display:inline-block;font-family:var(--font-mono);font-size:.68rem;background:var(--paper-dark);padding:2px 8px;border-radius:2px;margin-bottom:8px;color:var(--ink-muted)}
+
+/* Footer */
+.footer{background:var(--ink);color:rgba(245,241,232,.5);padding:32px 20px;text-align:center}
+.footer-brand{font-family:var(--font-display);font-size:1.05rem;font-weight:700;color:var(--paper)}
+.footer-brand .accent{color:var(--accent-soft)}
+.footer-info{font-size:.74rem;margin-top:4px}
+
+/* Reveal animation */
+.reveal{opacity:0;transform:translateY(14px);transition:opacity .5s ease,transform .5s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+/* Mobile */
+@media(max-width:768px){
+  .float-nav{top:72px;left:12px}
+  .float-btn{width:40px;height:40px;font-size:1rem}
+  .masthead-inner{padding:0 14px;flex-wrap:wrap;gap:4px}
+  .masthead-sub{display:none}
+  .hero{padding:16px 14px 8px}
+  .hero-cover{max-height:200px}
+  .cat-nav{padding:12px 14px 4px}
+  .brief-section{padding:16px 14px 8px}
+  .brief-grid{grid-template-columns:1fr}
+  .brief-item{padding:12px}
+  .audio-player{flex-wrap:wrap;gap:8px}
+  .audio-progress-wrap{width:100%;max-width:none}
+  .section-divider{padding:0 14px}
+  .stories{padding:8px 14px 24px}
+  .story{padding:20px 0}
+  .story-num{font-size:1.6rem}
+  .story-title{font-size:1.05rem}
+  .story-summary{font-size:.88rem;padding:8px 12px}
+  .story-images img{max-height:220px}
+  .story-body{font-size:.88rem;line-height:1.75}
+  .story-body p{margin-bottom:10px}
+  .footer{padding:24px 14px}
+}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+
+<div class="float-nav">
+  <button class="float-btn" onclick="toggleSidebar()" title="目录">☰</button>
+</div>
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+<nav class="sidebar" id="sidebar">
+  <div class="sidebar-title">📰 目录</div>
+  <div class="sidebar-cat">
+    <div class="sidebar-cat-name">今日精要</div>
+    <span class="sidebar-link" onclick="scrollToStory('1'); toggleSidebar()">1. OpenAI 联合 Broadcom 推出自研 AI 芯片 ...</span>
+<span class="sidebar-link" onclick="scrollToStory('2'); toggleSidebar()">2. 豆包专业版发布 推出 68 元起阶梯订阅及大学生特惠...</span>
+<span class="sidebar-link" onclick="scrollToStory('3'); toggleSidebar()">3. 阿里发布开源首个语言世界模型Qwen-AgentWorld...</span>
+<span class="sidebar-link" onclick="scrollToStory('4'); toggleSidebar()">4. Google 推出 Gemini 3.5 Flash 内置 ...</span>
+<span class="sidebar-link" onclick="scrollToStory('5'); toggleSidebar()">5. Google Flow Agent 接入 Street Vi...</span>
+<span class="sidebar-link" onclick="scrollToStory('6'); toggleSidebar()">6. Notion 推出 External Agents 功能，接...</span>
+<span class="sidebar-link" onclick="scrollToStory('7'); toggleSidebar()">7. Figma 发布 Config 2026 更新：引入 Mot...</span>
+<span class="sidebar-link" onclick="scrollToStory('8'); toggleSidebar()">8. 英国政府资助牛津大学和 UCL 建立下一代 AI 研究实验室...</span>
+<span class="sidebar-link" onclick="scrollToStory('9'); toggleSidebar()">9. 高通宣布收购AI软件公司Modular...</span>
+<span class="sidebar-link" onclick="scrollToStory('10'); toggleSidebar()">10. Stripe联合多方出资5亿美元成立非营利组织Interce...</span>
+<span class="sidebar-link" onclick="scrollToStory('11'); toggleSidebar()">11. 社区发现 Claude Code 新版代码暗示 Fable ...</span>
+  </div>
+</nav>
+
+<header class="masthead">
+  <div class="masthead-inner">
+    <div class="masthead-brand">
+      <div class="masthead-title">Tech<span class="accent">Daily</span></div>
+      <div class="masthead-sub">— 每日科技快报</div>
+    </div>
+    <div class="masthead-nav">
+      <a href="/archive.html" class="masthead-nav-link archive-link">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="3" cy="3" r="1.5"/><circle cx="3" cy="8" r="1.5"/><circle cx="3" cy="13" r="1.5"/><path d="M7 4h6M7 9h6M7 14h6" stroke-linecap="round"/></svg>
+        <span>往期回顾</span>
+      </a>
+    </div>
+    <div class="masthead-date">2026年6月25日<br><span style="font-family:var(--font-serif);font-style:italic">星期四</span></div>
+  </div>
+</header>
+
+<section class="hero">
+  <img class="hero-cover" src="https://assets.juya.uk/imagehub/20260625/202606250827289935071838_cover_5c20.png" alt="今日封面" loading="eager">
+  <div class="hero-bar">
+    <span class="hero-issue">第 20260625 期 · 2026年6月25日</span>
+  </div>
+</section>
+
+<div class="cat-nav">
+  <span class="cat-pill" onclick="scrollToStory('1')">要闻</span>
+<span class="cat-pill" onclick="scrollToStory('3')">模型发布</span>
+<span class="cat-pill" onclick="scrollToStory('5')">产品应用</span>
+<span class="cat-pill" onclick="scrollToStory('8')">行业动态</span>
+<span class="cat-pill" onclick="scrollToStory('11')">前瞻与传闻</span>
+</div>
+
+<section class="brief-section" id="brief">
+  <div class="brief-header">
+    <div class="brief-title">今日精要</div>
+  </div>
+  <div class="audio-player" id="audioPlayer">
+  <button class="audio-play-btn" id="playBtn" onclick="togglePlay()">
+    <svg viewBox="0 0 24 24" id="playIcon"><polygon points="5,3 19,12 5,21"/></svg>
+    <svg viewBox="0 0 24 24" id="pauseIcon" style="display:none"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+  </button>
+  <div class="audio-info">
+    <div class="audio-label">🎙 今日精要播报</div>
+    <div class="audio-desc">1-2分钟速览今日 AI 要闻</div>
+  </div>
+  <div class="audio-progress-wrap">
+    <div class="audio-track"><div class="audio-fill" id="progressFill"></div></div>
+    <span class="audio-time" id="audioTime">—:—</span>
+  </div>
+</div>
+  <div class="brief-grid">
+
+    <div class="brief-item" onclick="scrollToStory('1')">
+      <div class="brief-head">
+        <span class="brief-num">1</span>
+        <span class="brief-cat">要闻</span>
+      </div>
+      <div class="brief-title"><span class="tech-term" onclick="openModal('OpenAI')">OpenAI</span> 联合 Broadcom 推出自研 AI 芯片 Jalapeño</div>
+    </div>
+
+    <div class="brief-item" onclick="scrollToStory('2')">
+      <div class="brief-head">
+        <span class="brief-num">2</span>
+        <span class="brief-cat">要闻</span>
+      </div>
+      <div class="brief-title">豆包专业版发布 推出 68 元起阶梯订阅及大学生特惠</div>
+    </div>
+
+    <div class="brief-item" onclick="scrollToStory('3')">
+      <div class="brief-head">
+        <span class="brief-num">3</span>
+        <span class="brief-cat">模型发布</span>
+      </div>
+      <div class="brief-title">阿里发布开源首个语言世界模型<span class="tech-term" onclick="openModal('Qwen')">Qwen</span>-<span class="tech-term" onclick="openModal('Agent')">Agent</span>World</div>
+    </div>
+
+    <div class="brief-item" onclick="scrollToStory('4')">
+      <div class="brief-head">
+        <span class="brief-num">4</span>
+        <span class="brief-cat">模型发布</span>
+      </div>
+      <div class="brief-title">Google 推出 <span class="tech-term" onclick="openModal('Gemini')">Gemini</span> 3.5 Flash 内置 Computer Use 功能</div>
+    </div>
+
+    <div class="brief-item" onclick="scrollToStory('5')">
+      <div class="brief-head">
+        <span class="brief-num">5</span>
+        <span class="brief-cat">产品应用</span>
+      </div>
+      <div class="brief-title">Google Flow <span class="tech-term" onclick="openModal('Agent')">Agent</span> 接入 Street View 生成真实场景图像</div>
+    </div>
+
+    <div class="brief-item" onclick="scrollToStory('6')">
+      <div class="brief-head">
+        <span class="brief-num">6</span>
+        <span class="brief-cat">产品应用</span>
+      </div>
+      <div class="brief-title">Notion 推出 External <span class="tech-term" onclick="openModal('Agent')">Agent</span>s 功能，接入 Claude 与 Cursor</div>
+    </div>
+
+    <div class="brief-item" onclick="scrollToStory('7')">
+      <div class="brief-head">
+        <span class="brief-num">7</span>
+        <span class="brief-cat">产品应用</span>
+      </div>
+      <div class="brief-title">Figma 发布 Config 2026 更新：引入 Motion、生成式插件与 <span class="tech-term" onclick="openModal('Agent')">Agent</span></div>
+    </div>
+
+    <div class="brief-item" onclick="scrollToStory('8')">
+      <div class="brief-head">
+        <span class="brief-num">8</span>
+        <span class="brief-cat">行业动态</span>
+      </div>
+      <div class="brief-title">英国政府资助牛津大学和 UCL 建立下一代 AI 研究实验室</div>
+    </div>
+
+    <div class="brief-item" onclick="scrollToStory('9')">
+      <div class="brief-head">
+        <span class="brief-num">9</span>
+        <span class="brief-cat">行业动态</span>
+      </div>
+      <div class="brief-title">高通宣布收购AI软件公司Modular</div>
+    </div>
+
+    <div class="brief-item" onclick="scrollToStory('10')">
+      <div class="brief-head">
+        <span class="brief-num">10</span>
+        <span class="brief-cat">行业动态</span>
+      </div>
+      <div class="brief-title">Stripe联合多方出资5亿美元成立非营利组织Intercept</div>
+    </div>
+
+    <div class="brief-item" onclick="scrollToStory('11')">
+      <div class="brief-head">
+        <span class="brief-num">11</span>
+        <span class="brief-cat">前瞻与传闻</span>
+      </div>
+      <div class="brief-title">社区发现 Claude Code 新版代码暗示 Fable 5 或将回归</div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider">
+  <div class="section-divider-inner">
+    <span class="section-label">详细报道</span>
+  </div>
+</div>
+
+<section class="stories" id="stories">
+<article class="story" id="story-1">
+  <div class="story-header">
+    <div class="story-num">1</div>
+    <div class="story-title-block">
+      <div class="story-categories"><span class="story-cat">要闻</span></div>
+      <h2 class="story-title"><a href="https://openai.com/index/openai-broadcom-jalapeno-inference-chip/" target="_blank">OpenAI 联合 Broadcom 推出自研 AI 芯片 Jalapeño</a></h2>
+    </div>
+  </div>
+  <div class="story-summary"><span class="tech-term" onclick="openModal('OpenAI')">OpenAI</span> 联合博通推出首款自研AI芯片Jalapeño，专为大型语言模型推理设计，历时九个月完成开发。目前芯片仍在测试，官方数据显示其性能功耗比优于现有方案。该芯片计划于二零二六年底部署，将支持ChatGPT和Codex等产品，以降低运营成本。</div>
+  <div class="story-images"><img src="https://assets.juya.uk/imagehub/aidaily/5c201d5b-706b-4dca-9dd5-d5c8d8ee6e1b/08cb46eb-81c7-4986-ab59-5a4db13aac51/m001.png" alt="配图" loading="lazy"></div>
+  <div class="story-body"><p><span class="tech-term" onclick="openModal('OpenAI')">OpenAI</span> 联合 Broadcom 推出其首款自研 AI 芯片 Jalapeño，这是一款专门针对大型语言模型推理工作负载定制的加速器。该芯片从零开始设计，历时九个月完成流片，期间 <span class="tech-term" onclick="openModal('OpenAI')">OpenAI</span> 的自有模型被用于加速设计与优化流程。虽然芯片仍在测试阶段，但官方称初期数据显示其性能功耗比显著优于当前最先进的替代方案。Jalapeño 计划于 2026 年底进行初步部署，旨在支持 ChatGPT、Codex 及 API 等产品，并扩展 <span class="tech-term" onclick="openModal('OpenAI')">OpenAI</span> 的全栈基础设施。</p></div>
+</article>
+<article class="story" id="story-2">
+  <div class="story-header">
+    <div class="story-num">2</div>
+    <div class="story-title-block">
+      <div class="story-categories"><span class="story-cat">要闻</span></div>
+      <h2 class="story-title"><a href="https://mp.weixin.qq.com/s/Sb-NMXTrWFQES1EDO_Gr2g" target="_blank">豆包专业版发布 推出 68 元起阶梯订阅及大学生特惠</a></h2>
+    </div>
+  </div>
+  <div class="story-summary">豆包正式上线专业版服务，推出基于豆包 2.1 系列大模型的全新办公任务模式，支持操作本地电脑、浏览器与调用 Skills 技能。免费用户现已可体验接入 2.1 Turbo 模型的该模式，专业版用户则可使用 2.1 Pro 模型并享有更高额度，目前提供连续包月 68 元至 500 元的三档订阅套餐，即将上线针对大学生的教育优惠方案。</div>
+  <div class="story-images"><img src="https://assets.juya.uk/imagehub/aidaily/5c201d5b-706b-4dca-9dd5-d5c8d8ee6e1b/0d1b2cb8-a017-4ddd-b120-1ba301629917/m001.png" alt="配图" loading="lazy"><img src="https://assets.juya.uk/imagehub/aidaily/5c201d5b-706b-4dca-9dd5-d5c8d8ee6e1b/0d1b2cb8-a017-4ddd-b120-1ba301629917/m002.png" alt="配图" loading="lazy"></div>
+  <div class="story-body"><p>豆包正式推出专业版服务，基于最新的豆包 2.1 系列大模型，为专业用户处理复杂生产力场景提供更高使用额度及全新方案。此次上线的办公任务模式支持在用户授权下操作本地电脑与浏览器、执行定时任务、调用首批 Skills 技能包以及部署网站应用。免费用户可体验接入 2.1 Turbo 模型的办公任务模式，专业版用户则接入 2.1 Pro 模型，官方提供 68 元、200 元与 500 元的三档连续包月套餐。此外，官方即将推出针对大学生的 6 个月特惠活动，并为视障人群提供专属优惠方案。</p></div>
+</article>
+<article class="story" id="story-3">
+  <div class="story-header">
+    <div class="story-num">3</div>
+    <div class="story-title-block">
+      <div class="story-categories"><span class="story-cat">模型发布</span></div>
+      <h2 class="story-title"><a href="https://qwen.ai/blog?id=qwen-agentworld" target="_blank">阿里发布开源首个语言世界模型Qwen-AgentWorld</a></h2>
+    </div>
+  </div>
+  <div class="story-summary">阿里千问团队发布原生语言世界模型 <span class="tech-term" onclick="openModal('Qwen')">Qwen</span>-<span class="tech-term" onclick="openModal('Agent')">Agent</span>World，该模型专为 AI <span class="tech-term" onclick="openModal('Agent')">Agent</span> 研发，单一模型同时覆盖文本类与 GUI 类共七大智能体交互环境。该模型含{2|两}个版本，目前已开放配套评测基准 <span class="tech-term" onclick="openModal('Agent')">Agent</span>WorldBench 以及 35B-A3B 版本模型<span class="tech-term" onclick="openModal('权重')">权重</span>。</div>
+  <div class="story-images"><img src="https://assets.juya.uk/imagehub/aidaily/5c201d5b-706b-4dca-9dd5-d5c8d8ee6e1b/c86b0526-4eb4-4fe3-8bad-b3feae72e1b0/m001.png" alt="配图" loading="lazy"><img src="https://assets.juya.uk/imagehub/aidaily/5c201d5b-706b-4dca-9dd5-d5c8d8ee6e1b/c86b0526-4eb4-4fe3-8bad-b3feae72e1b0/m002.png" alt="配图" loading="lazy"></div>
+  <div class="story-body"><p>阿里千问团队发布了自称首个原生语言世界模型 <span class="tech-term" onclick="openModal('Qwen')">Qwen</span>-<span class="tech-term" onclick="openModal('Agent')">Agent</span>World，并提供 35B-A3B 与 397B-A17B 两种规模，目前官方已开源 35B-A3B 版本模型<span class="tech-term" onclick="openModal('权重')">权重</span>及配套评测基准 <span class="tech-term" onclick="openModal('Agent')">Agent</span>WorldBench。该模型专为 AI <span class="tech-term" onclick="openModal('Agent')">Agent</span> 研发，将环境建模贯穿继续预训练、监督微调到强化学习的全流程，单一模型即可同时覆盖文本类与GUI类共七大智能体交互环境。官方称，<span class="tech-term" onclick="openModal('Qwen')">Qwen</span>-<span class="tech-term" onclick="openModal('Agent')">Agent</span>World 并非为了替代真实环境，而是作为互补路径增强通用智能体的决策能力。</p></div>
+</article>
+<article class="story" id="story-4">
+  <div class="story-header">
+    <div class="story-num">4</div>
+    <div class="story-title-block">
+      <div class="story-categories"><span class="story-cat">模型发布</span></div>
+      <h2 class="story-title"><a href="https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-computer-use-gemini-3-5-flash/" target="_blank">Google 推出 Gemini 3.5 Flash 内置 Computer Use 功能</a></h2>
+    </div>
+  </div>
+  <div class="story-summary">Google 官方宣布，<span class="tech-term" onclick="openModal('Gemini')">Gemini</span> 3.5 Flash 已支持 Computer Use 功能，现已通过 <span class="tech-term" onclick="openModal('Gemini')">Gemini</span> API 等渠道开放。开发者可借此构建跨浏览器、移动端和桌面环境操作的自定义 <span class="tech-term" onclick="openModal('Agent')">Agent</span></div>
+  <div class="story-images"><img src="https://assets.juya.uk/imagehub/aidaily/5c201d5b-706b-4dca-9dd5-d5c8d8ee6e1b/257fe68d-4fbb-4a1a-bdb9-caddbb17595f/m001.png" alt="配图" loading="lazy"></div>
+  <div class="story-body"><p>Google DeepMind 宣布将 Computer Use 作为 <span class="tech-term" onclick="openModal('Gemini')">Gemini</span> 3.5 Flash 的内置工具正式推出，该功能此前仅作为独立的 <span class="tech-term" onclick="openModal('Gemini')">Gemini</span> 2.5 计算机使用模型提供。开发者现可使用 3.5 Flash 构建能在浏览器、移动端和桌面环境中查看、推理和执行操作的自定义 <span class="tech-term" onclick="openModal('Agent')">Agent</span>，用于持续软件测试等长程和企业自动化任务。该功能已通过 <span class="tech-term" onclick="openModal('Gemini')">Gemini</span> API 和 <span class="tech-term" onclick="openModal('Gemini')">Gemini</span> Enterprise <span class="tech-term" onclick="openModal('Agent')">Agent</span> Platform 向开发者和企业开放。</p></div>
+</article>
+<article class="story" id="story-5">
+  <div class="story-header">
+    <div class="story-num">5</div>
+    <div class="story-title-block">
+      <div class="story-categories"><span class="story-cat">产品应用</span></div>
+      <h2 class="story-title"><a href="https://x.com/FlowbyGoogle/status/2069464858878230640" target="_blank">Google Flow Agent 接入 Street View 生成真实场景图像</a></h2>
+    </div>
+  </div>
+  <div class="story-summary">Google Flow 官方宣布，其 <span class="tech-term" onclick="openModal('Agent')">Agent</span> 现已支持基于 Google Maps Street View 生成图像与视频，该功能目前仅限美国地区使用。</div>
+  <div class="story-images"><img src="https://assets.juya.uk/imagehub/aidaily/5c201d5b-706b-4dca-9dd5-d5c8d8ee6e1b/1cf967a2-302e-466c-bf40-4eb031403d8f/m001.gif" alt="配图" loading="lazy"></div>
+  <div class="story-body"><p>Google Flow 官方表示，其产品中的 <span class="tech-term" onclick="openModal('Agent')">Agent</span> 现已支持参考 Google Maps Street View 来生成图像与视频。用户在提示词中包含特定位置，即可让生成的场景具备真实的现实世界细节。官方强调该功能目前仅限美国地区可用。</p></div>
+</article>
+<article class="story" id="story-6">
+  <div class="story-header">
+    <div class="story-num">6</div>
+    <div class="story-title-block">
+      <div class="story-categories"><span class="story-cat">产品应用</span></div>
+      <h2 class="story-title"><a href="https://x.com/NotionHQ/status/2069816393395012009" target="_blank">Notion 推出 External Agents 功能，接入 Claude 与 Cursor</a></h2>
+    </div>
+  </div>
+  <div class="story-summary">Notion 官方宣布推出 External <span class="tech-term" onclick="openModal('Agent')">Agent</span>s 功能，用户可在 Notion 内直接向智能体分配任务并协同工作，首批支持 Claude 和 Cursor。</div>
+  <div class="story-images"><img src="https://assets.juya.uk/imagehub/aidaily/5c201d5b-706b-4dca-9dd5-d5c8d8ee6e1b/61e69b48-83fb-416e-a1bd-cc7424deb711/m001.gif" alt="配图" loading="lazy"></div>
+  <div class="story-body"><p>Notion 官方宣布推出 External <span class="tech-term" onclick="openModal('Agent')">Agent</span>s（外部智能体）功能，首批支持 Claude 和 Cursor。用户可在 Notion 内直接向智能体分配任务并协同工作。根据官方帮助文档，Claude 智能体目前处于 Beta 阶段，面向 Business 和 Enterprise plans，通过 Notion credits 按运行次数计费，不支持个人 <span class="tech-term" onclick="openModal('Anthropic')">Anthropic</span> 账户。而 Cursor 官方博客指出，Notion 借助 Cursor SDK 完成集成，用户可通过配置 MCP 服务器等方式定制 Cursor，让其端到端完成代码规划、测试并发起 PR。Notion 还表示未来将引入更多智能体，并支持企业连接自建的智能体。</p></div>
+</article>
+<article class="story" id="story-7">
+  <div class="story-header">
+    <div class="story-num">7</div>
+    <div class="story-title-block">
+      <div class="story-categories"><span class="story-cat">产品应用</span></div>
+      <h2 class="story-title"><a href="https://www.figma.com/blog/introducing-figma-motion/" target="_blank">Figma 发布 Config 2026 更新：引入 Motion、生成式插件与 Agent</a></h2>
+    </div>
+  </div>
+  <div class="story-summary">Figma 宣布在画布中原生推出多项新工具。其中 Figma Motion  能将时间轴与关键帧带入设计文件，并支持通过 Figma <span class="tech-term" onclick="openModal('Agent')">Agent</span> 生成动画及在 Dev Mode 中导出代码。此外，官方还预告了代码层、3D 变换等即将推出的新功能。</div>
+  <div class="story-images"><img src="https://assets.juya.uk/imagehub/aidaily/5c201d5b-706b-4dca-9dd5-d5c8d8ee6e1b/00e74c75-5f8f-42ac-8f0b-a09b0fe6e252/m001.png" alt="配图" loading="lazy"></div>
+  <div class="story-body"><p>Figma 官方宣布推出 Figma Motion，将动画时间轴、关键帧和预设直接整合进设计画布，目前该功能已进入公开测试阶段。用户可利用 Figma <span class="tech-term" onclick="openModal('Agent')">Agent</span> 根据提示生成关键帧，且动画支持导出为 MP4 等格式或在 Dev Mode 中复制 CSS、JSON 及 React 代码，并兼容 MCP。同时，官方还推出了由 <span class="tech-term" onclick="openModal('Agent')">Agent</span> 生成的 Shader 效果、生成式插件和 Weave 工具，并预告了即将于 7 月推送的代码层、3D 变换等新功能。Motion 功能的可用性因账户类型而异，其中 Starter 用户支持受限导出，付费计划用户则可使用完整系统集成及 Figma <span class="tech-term" onclick="openModal('Agent')">Agent</span> 功能。</p></div>
+</article>
+<article class="story" id="story-8">
+  <div class="story-header">
+    <div class="story-num">8</div>
+    <div class="story-title-block">
+      <div class="story-categories"><span class="story-cat">行业动态</span></div>
+      <h2 class="story-title"><a href="https://www.gov.uk/government/news/uk-backs-new-ai-labs-to-make-technology-cheaper-more-reliable-and-easier-to-use" target="_blank">英国政府资助牛津大学和 UCL 建立下一代 AI 研究实验室</a></h2>
+    </div>
+  </div>
+  <div class="story-summary">近日，英国政府宣布提供最高 6000 万英镑资金，在牛津大学和伦敦大学学院设立两个新的 AI 研究实验室。官方称，此举旨在开发下一代成本更低、更可靠且易于企业和公共服务采用的开源 AI 技术。</div>
+  
+  <div class="story-body"><p>英国政府宣布将在未来 6 年内提供最高 6000 万英镑，在牛津大学和伦敦大学学院设立两个新的 AI 研究实验室。这两个实验室将分别专注于开发可在普通硬件上运行的新型开源 AI 技术以及重新思考 AI 的高效学习与适应方式。官方表示，此举旨在降低先进 AI 工具的运行成本与使用门槛，使更多英国企业和公共服务能够采用这些技术。此外，政府还将为实验室提供大规模计算资源支持。</p></div>
+</article>
+<article class="story" id="story-9">
+  <div class="story-header">
+    <div class="story-num">9</div>
+    <div class="story-title-block">
+      <div class="story-categories"><span class="story-cat">行业动态</span></div>
+      <h2 class="story-title"><a href="https://investor.qualcomm.com/news-events/press-releases/news-details/2026/Qualcomm-to-Acquire-Modular/default.aspx" target="_blank">高通宣布收购AI软件公司Modular</a></h2>
+    </div>
+  </div>
+  <div class="story-summary">高通宣布收购AI软件公司Modular以强化生成式与<span class="tech-term" onclick="openModal('Agent')">Agent</span>ic AI基础。有报道称此项全股票交易估值约39亿美元，预计于2026年下半年完成。</div>
+  
+  <div class="story-body"><p>高通已同意收购AI软件基础设施初创公司Modular，旨在结合其硬件优势，加速端到云AI平台的部署。官方称，Modular的平台使开发者能够跨CPU、GPU和NPU等架构构建和部署AI，无需重写代码，从而提升每瓦性能并降低总拥有成本。尽管高通未披露财务细节，但据《华尔街日报》和路透社计算，该交易估值约为39.2亿美元。此项收购尚需满足惯例交割条件和监管批准。</p></div>
+</article>
+<article class="story" id="story-10">
+  <div class="story-header">
+    <div class="story-num">10</div>
+    <div class="story-title-block">
+      <div class="story-categories"><span class="story-cat">行业动态</span></div>
+      <h2 class="story-title"><a href="https://www.technologyreview.com/2026/06/24/1139621/stripe-anthropic-and-openai-are-backing-an-effort-to-stop-respiratory-infections/" target="_blank">Stripe联合多方出资5亿美元成立非营利组织Intercept</a></h2>
+    </div>
+  </div>
+  <div class="story-summary">据媒体报道，Stripe联合<span class="tech-term" onclick="openModal('Anthropic')">Anthropic</span>、<span class="tech-term" onclick="openModal('OpenAI')">OpenAI</span>及Bill Gates等出资5亿美元，成立非营利组织Intercept，旨在预防感冒与流感，其最终目标是彻底消除呼吸道病毒。</div>
+  
+  <div class="story-body"><p>据媒体报道，支付公司Stripe联合<span class="tech-term" onclick="openModal('Anthropic')">Anthropic</span>、<span class="tech-term" onclick="openModal('OpenAI')">OpenAI</span> Foundation、Bill Gates及Jane Street Capital部分交易员等，共同为新成立的非营利组织Intercept提供5亿美元资金。该组织由Stripe高管Nan Ransohoff与Charlie Petty领导，计划通过补助和投资支持包括疫苗在内的预防方法及大规模空气净化系统，其最终目标是彻底消除所有呼吸道病毒。</p></div>
+</article>
+<article class="story" id="story-11">
+  <div class="story-header">
+    <div class="story-num">11</div>
+    <div class="story-title-block">
+      <div class="story-categories"><span class="story-cat">前瞻与传闻</span></div>
+      <h2 class="story-title"><a href="https://x.com/synthwavedd/status/2069813760622043483" target="_blank">社区发现 Claude Code 新版代码暗示 Fable 5 或将回归</a></h2>
+    </div>
+  </div>
+  <div class="story-summary">有用户发现，Claude Code 新版出现 {Fable 5|"Fable 5"} 周限额相关字符串，暗示其或将回归并纳入订阅。也有用户指出 Fable 已重新现身于 AWS 的模型卡片，但未必实际可用。相关消息均未获官方确认。</div>
+  <div class="story-images"><img src="https://assets.juya.uk/imagehub/aidaily/5c201d5b-706b-4dca-9dd5-d5c8d8ee6e1b/a5910f84-c053-4cec-987e-1e206320e92e/m001.png" alt="配图" loading="lazy"><img src="https://assets.juya.uk/imagehub/aidaily/5c201d5b-706b-4dca-9dd5-d5c8d8ee6e1b/a5910f84-c053-4cec-987e-1e206320e92e/m002.png" alt="配图" loading="lazy"></div>
+  <div class="story-body"><p>据多位社区用户发现，Claude Code v2.1.190 版本新增了与 Fable 5 相关的字符串，其中包括"You've used your Fable 5 usage for this week"，暗示该模型或将回归并按周限额永久纳入订阅计划。社区用户 Chetaslua 确认了上述代码变动，并报告 Claude Fable 已重新出现在 AWS 模型卡片上，可能很快在所有渠道恢复上线，但同时指出模型卡片上线不等同于实际可用。有用户对此提出质疑，称 <span class="tech-term" onclick="openModal('Anthropic')">Anthropic</span> 此前已说明 Fable 在 6 月 22 日后需消耗积分使用，相关讨论尚无官方确认。</p><p>提示：内容由AI辅助创作，可能存在幻觉和错误。</p></div>
+</article>
+</section>
+
+<footer class="footer">
+  <div class="footer-brand">Tech<span class="accent">Daily</span></div>
+  <div class="footer-info">© 2026 techdou.com</div>
+</footer>
+
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="modal-header">
+      <span class="modal-term" id="modalTerm"></span>
+      <button class="modal-close" onclick="closeModal()">&times;</button>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
+<script>
+const GLOSSARY = {"蒸馏": {"tag": "Model Training", "def": "Knowledge Distillation，将大模型知识转移到小模型的技术。"}, "SFT": {"tag": "Fine-tuning", "def": "Supervised Fine-Tuning，监督微调。"}, "RL": {"tag": "RL", "def": "Reinforcement Learning，强化学习。"}, "RLHF": {"tag": "Alignment", "def": "基于人类反馈的强化学习。"}, "Agent": {"tag": "AI Agent", "def": "能自主感知、规划、调用工具的智能体。"}, "权重": {"tag": "Model", "def": "Weights，神经网络中的可学习参数。"}, "张量": {"tag": "Math", "def": "Tensor，多维数组，深度学习的基本数据单元。"}, "KYC": {"tag": "Compliance", "def": "Know Your Customer，身份验证流程。"}, "Token": {"tag": "LLM", "def": "语言模型处理文本的基本单位。"}, "出口管制": {"tag": "Policy", "def": "Export Control，政府对技术出口的限制。"}, "SOTA": {"tag": "Benchmark", "def": "State-of-the-Art，已知最优成绩。"}, "线性融合": {"tag": "Model Merge", "def": "Linear Model Merging，权重按比例混合。"}, "fable": {"tag": "AI Model", "def": "Anthropic 前沿模型。"}, "Mythos": {"tag": "AI Model", "def": "Anthropic 前沿模型。"}, "Seedance": {"tag": "Video", "def": "字节跳动 AI 视频生成模型。"}, "剪映": {"tag": "Tool", "def": "字节跳动视频编辑工具。"}, "Qwen": {"tag": "Open Model", "def": "阿里通义千问开源模型。"}, "Gemini": {"tag": "AI Model", "def": "Google DeepMind 多模态模型。"}, "Nex": {"tag": "AI Model", "def": "开源模型公司。"}, "Anthropic": {"tag": "Company", "def": "AI 安全公司，Claude 开发者。"}, "OpenAI": {"tag": "Company", "def": "ChatGPT 开发者。"}};
+
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('active');
+  document.getElementById('sidebarOverlay').classList.toggle('active');
+}
+
+const modalOverlay = document.getElementById('modalOverlay');
+function openModal(term) {
+  const entry = GLOSSARY[term];
+  if (!entry) return;
+  document.getElementById('modalTerm').textContent = term;
+  document.getElementById('modalBody').innerHTML = 
+    (entry.tag ? '<span class="tag">' + entry.tag + '</span>' : '') + 
+    '<p>' + entry.def + '</p>';
+  modalOverlay.classList.add('active');
+}
+function closeModal(e) {
+  if (e && e.target !== modalOverlay && !e.target.classList.contains('modal-close')) return;
+  modalOverlay.classList.remove('active');
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeModal(); toggleSidebar(); } });
+
+function scrollToStory(num) {
+  document.getElementById('story-' + num).scrollIntoView({behavior: 'smooth'});
+}
+
+let audioEl = null;
+let isPlaying = false;
+function togglePlay() {
+  const btn = document.getElementById('playBtn');
+  if (!btn) return;
+  if (!audioEl) {
+    var audioSrc = "https://news.techdou.com/broadcast.mp3";
+    if (!audioSrc) { alert("播报音频生成中..."); return; }
+    audioEl = new Audio(audioSrc);
+    audioEl.addEventListener('loadedmetadata', function() {
+      var m = Math.floor(audioEl.duration / 60);
+      var s = Math.floor(audioEl.duration % 60);
+      document.getElementById('audioTime').textContent = m + ':' + (s < 10 ? '0' : '') + s;
+    });
+    audioEl.addEventListener('timeupdate', function() {
+      if (!audioEl.duration) return;
+      var pct = (audioEl.currentTime / audioEl.duration) * 100;
+      document.getElementById('progressFill').style.width = pct + '%';
+      var m = Math.floor(audioEl.currentTime / 60);
+      var s = Math.floor(audioEl.currentTime % 60);
+      var tm = Math.floor(audioEl.duration / 60);
+      var ts = Math.floor(audioEl.duration % 60);
+      document.getElementById('audioTime').textContent = 
+        m + ':' + (s < 10 ? '0' : '') + s + ' / ' + tm + ':' + (ts < 10 ? '0' : '') + ts;
+    });
+    audioEl.addEventListener('ended', function() {
+      isPlaying = false;
+      document.getElementById('playIcon').style.display = '';
+      document.getElementById('pauseIcon').style.display = 'none';
+      document.getElementById('progressFill').style.width = '0%';
+    });
+  }
+  if (isPlaying) {
+    audioEl.pause(); isPlaying = false;
+    document.getElementById('playIcon').style.display = '';
+    document.getElementById('pauseIcon').style.display = 'none';
+  } else {
+    audioEl.play(); isPlaying = true;
+    document.getElementById('playIcon').style.display = 'none';
+    document.getElementById('pauseIcon').style.display = '';
+  }
+}
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.06 });
+document.querySelectorAll('.brief-item, .story').forEach(el => {
+  el.classList.add('reveal');
+  observer.observe(el);
+});
+</script>
+
+<iframe src="/pet.html?v=5" class="pet-iframe" id="petIframe" title="DouknowAI Pet"></iframe></body>
+</html>
