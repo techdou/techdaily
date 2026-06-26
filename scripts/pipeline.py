@@ -1,0 +1,684 @@
+#!/usr/bin/env python3
+"""
+TechDaily Pipeline - Full automation from RSS to deployed website.
+
+Flow: Fetch RSS → Parse XML → Extract Data → AI Summarize → Generate HTML → TTS Audio → Deploy
+
+Usage:
+    python pipeline.py --date 2026-06-15
+    python pipeline.py  # auto-detects today's date
+"""
+
+import argparse
+import json
+import os
+import re
+import subprocess
+import sys
+import tempfile
+import urllib.request
+from datetime import datetime, timedelta, timezone
+from html import unescape
+from pathlib import Path
+from urllib.request import urlopen
+import xml.etree.ElementTree as ET
+
+# Import HTML generator (external template-based)
+from html_generator import generate_html, validate_html
+
+# ========================================
+# CONFIG
+# ========================================
+RSS_URL = "https://daily.juya.uk/rss.xml"
+OUTPUT_DIR = Path.home() / "Project" / "daily-news" / "output"
+AUDIO_DIR = OUTPUT_DIR
+STATE_FILE = Path.home() / ".openclaw" / "skills" / "daily-news" / "state.json"
+
+# MMX voice
+TTS_VOICE = "Podcast_girl"
+TTS_FORMAT = "mp3"
+
+# Deploy config
+DEPLOY_SUBDOMAIN = "news"
+DOMAIN = "techdou.com"
+
+# ========================================
+# TECH GLOSSARY
+# ========================================
+GLOSSARY = {
+    "蒸馏": {"tag": "Model Training", "def": "Knowledge Distillation，将大模型知识转移到小模型的技术。"},
+    "SFT": {"tag": "Fine-tuning", "def": "Supervised Fine-Tuning，监督微调。"},
+    "RL": {"tag": "RL", "def": "Reinforcement Learning，强化学习。"},
+    "RLHF": {"tag": "Alignment", "def": "基于人类反馈的强化学习。"},
+    "Agent": {"tag": "AI Agent", "def": "能自主感知、规划、调用工具的智能体。"},
+    "权重": {"tag": "Model", "def": "Weights，神经网络中的可学习参数。"},
+    "张量": {"tag": "Math", "def": "Tensor，多维数组，深度学习的基本数据单元。"},
+    "KYC": {"tag": "Compliance", "def": "Know Your Customer，身份验证流程。"},
+    "Token": {"tag": "LLM", "def": "语言模型处理文本的基本单位。"},
+    "出口管制": {"tag": "Policy", "def": "Export Control，政府对技术出口的限制。"},
+    "SOTA": {"tag": "Benchmark", "def": "State-of-the-Art，已知最优成绩。"},
+    "线性融合": {"tag": "Model Merge", "def": "Linear Model Merging，权重按比例混合。"},
+    "fable": {"tag": "AI Model", "def": "Anthropic 前沿模型。"},
+    "Mythos": {"tag": "AI Model", "def": "Anthropic 前沿模型。"},
+    "Seedance": {"tag": "Video", "def": "字节跳动 AI 视频生成模型。"},
+    "剪映": {"tag": "Tool", "def": "字节跳动视频编辑工具。"},
+    "Qwen": {"tag": "Open Model", "def": "阿里通义千问开源模型。"},
+    "Gemini": {"tag": "AI Model", "def": "Google DeepMind 多模态模型。"},
+    "Nex": {"tag": "AI Model", "def": "开源模型公司。"},
+    "Anthropic": {"tag": "Company", "def": "AI 安全公司，Claude 开发者。"},
+    "OpenAI": {"tag": "Company", "def": "ChatGPT 开发者。"},
+}
+
+
+def strip_html(text):
+    """Remove HTML tags, return plain text."""
+    if not text:
+        return ""
+    clean = re.sub(r'<[^>]+>', '', text)
+    return unescape(clean).strip()
+
+
+def item_title(item):
+    """Return an RSS item's stripped title."""
+    title = item.find('title')
+    return title.text.strip() if title is not None and title.text else ""
+
+
+
+
+# ========================================
+# STEP 1: FETCH RSS
+# ========================================
+def fetch_rss(url=RSS_URL):
+    """Fetch RSS XML from URL."""
+    print("📡 Fetching RSS...")
+    req = urllib.request.Request(
+        url,
+        headers={
+            'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36',
+            'Accept': 'application/rss+xml,application/xml,text/xml,*/*'
+        }
+    )
+    with urlopen(req, timeout=30) as resp:
+        data = resp.read()
+    print(f"   ✅ Fetched {len(data)} bytes")
+    return data
+
+
+# ========================================
+# STEP 2: PARSE XML
+# ========================================
+def parse_rss(xml_bytes, target_date=None):
+    """
+    Parse RSS XML and extract structured data.
+    
+    Returns dict with:
+        date, title, link, cover_image, overview[], stories[]
+    """
+    print("🔍 Parsing XML...")
+    root = ET.fromstring(xml_bytes)
+    
+    # RSS namespace
+    ns = {'content': 'http://purl.org/rss/1.0/modules/content/'}
+    
+    channel = root.find('channel')
+    items = channel.findall('item')
+    print(f"   Found {len(items)} items")
+    
+    # Find target item: exact validated date, partial title match, then latest.
+    target_item = None
+    if target_date:
+        try:
+            datetime.strptime(target_date, '%Y-%m-%d')
+        except ValueError as exc:
+            raise ValueError(f"Invalid target date {target_date!r}; expected YYYY-MM-DD") from exc
+
+        for item in items:
+            if item_title(item) == target_date:
+                target_item = item
+                break
+
+        if target_item is None:
+            for item in items:
+                if target_date in item_title(item):
+                    target_item = item
+                    print(f"   ⚠️  No exact title match for {target_date}; using partial match: {item_title(item)}")
+                    break
+
+        if target_item is None and items:
+            target_item = items[0]
+            print(f"   ⚠️  No RSS item matched {target_date}; using latest item: {item_title(target_item)}")
+    elif items:
+        target_item = items[0]
+
+    if target_item is None:
+        raise ValueError("No RSS items found")
+    
+    date = item_title(target_item)
+    link = target_item.find('link').text.strip() if target_item.find('link') is not None else ""
+    
+    # Get content:encoded (full HTML)
+    content_elem = target_item.find('content:encoded', ns)
+    if content_elem is None:
+        # Try without namespace
+        content_elem = target_item.find('{http://purl.org/rss/1.0/modules/content/}encoded')
+    
+    html_content = content_elem.text if content_elem is not None else ""
+    
+    # Extract cover image
+    cover_match = re.search(r'<img\s+src="([^"]+)"', html_content)
+    cover_image = cover_match.group(1) if cover_match else ""
+    
+    # Extract overview sections (h3 + ul)
+    overview = []
+    h3_pattern = r'<h3>(.*?)</h3>'
+    ul_pattern = r'<h3>.*?</h3>\s*<ul>(.*?)</ul>'
+    
+    categories = re.findall(h3_pattern, html_content, re.DOTALL)
+    uls = re.findall(ul_pattern, html_content, re.DOTALL)
+    
+    for cat, ul_content in zip(categories, uls):
+        li_items = re.findall(r'<li>(.*?)</li>', ul_content, re.DOTALL)
+        for li in li_items:
+            # Extract title text
+            title_text = strip_html(li)
+            # Extract link
+            link_match = re.search(r'<a\s+href="([^"]+)"', li)
+            item_link = link_match.group(1) if link_match else ""
+            # Extract number
+            num_match = re.search(r'#(\d+)', li)
+            num = num_match.group(1) if num_match else ""
+            
+            overview.append({
+                'category': strip_html(cat),
+                'title': title_text,
+                'link': item_link,
+                'num': num
+            })
+    
+    # Extract detailed stories
+    stories = []
+    # RSS may use <h2> or <h3> for story titles; try both
+    story_pattern = re.compile(
+        r'<h[23]>\s*<a\s+href="([^"]+)"[^>]*>(.*?)</a>\s*<code[^>]*>#(\d+)</code>\s*</h[23]>',
+        re.DOTALL
+    )
+    
+    for match in story_pattern.finditer(html_content):
+        story_link = match.group(1)
+        story_title = strip_html(match.group(2))
+        story_num = match.group(3)
+        
+        # Find the content after this match until next story or end
+        start_pos = match.end()
+        next_match = story_pattern.search(html_content, start_pos)
+        end_pos = next_match.start() if next_match else len(html_content)
+        part = html_content[start_pos:end_pos]
+        
+        # Extract blockquote summary
+        bq_match = re.search(r'<blockquote>(.*?)</blockquote>', part, re.DOTALL)
+        summary = strip_html(bq_match.group(1)) if bq_match else ""
+        
+        # Extract all images
+        imgs = re.findall(r'<img\s+src="([^"]+)"', part)
+        
+        # Extract body paragraphs (p tags after blockquote, before related links)
+        p_texts = re.findall(r'<p>(.*?)</p>', part, re.DOTALL)
+        body_parts = []
+        for p in p_texts:
+            clean = strip_html(p)
+            if clean and not clean.startswith('相关链接') and clean not in ['']:
+                body_parts.append(clean)
+        
+        stories.append({
+            'num': story_num,
+            'title': story_title,
+            'link': story_link,
+            'summary': summary,
+            'images': imgs,
+            'full_text': '\n\n'.join(body_parts[:6])  # limit paragraphs
+        })
+    
+    result = {
+        'date': date,
+        'title': date,
+        'link': link,
+        'cover_image': cover_image,
+        'overview': overview,
+        'stories': stories,
+    }
+    
+    print(f"   ✅ Parsed: {len(overview)} overview items, {len(stories)} stories")
+    return result
+
+
+# ========================================
+# STEP 3: AI SUMMARIZE (via OpenClaw model)
+# ========================================
+def ai_summarize(stories):
+    """
+    Generate one-sentence summaries for each story using AI.
+    For now, use the existing summary from RSS. Future: call LLM API.
+    """
+    print("🧠 AI Summarize (using RSS summaries)...")
+    # The RSS already provides good summaries in blockquote
+    # We can enhance them if needed, but for now use as-is
+    for story in stories:
+        if not story.get('summary') and story.get('full_text'):
+            # Fallback: use first sentence of full text
+            text = story['full_text']
+            first_sentence = text.split('。')[0] + '。' if '。' in text else text[:100]
+            story['summary'] = first_sentence
+    print("   ✅ Summaries ready")
+    return stories
+
+
+# ========================================
+# STEP 4: GENERATE BROADCAST SCRIPT
+# ========================================
+def generate_broadcast_script(data):
+    """Generate spoken broadcast script (1-2 minutes)."""
+    print("📝 Generating broadcast script...")
+    date = data['date']
+    stories = data['stories']
+    
+    lines = [
+        f"欢迎收听 TechDaily 每日科技快报。今天是 {date}。",
+        "",
+        f"今日共有 {len(stories)} 条科技要闻。",
+        ""
+    ]
+    
+    for i, story in enumerate(stories, 1):
+        summary = story.get('summary', story['title'])
+        # Truncate to ~100 chars for spoken flow
+        brief = summary[:120] if len(summary) > 120 else summary
+        lines.append(f"第 {i} 条，{brief}")
+    
+    lines.extend(["", "以上就是今日 TechDaily 的全部内容。感谢收听，我们明天再见。"])
+    
+    script = '\n'.join(lines)
+    print(f"   ✅ Script: {len(script)} chars")
+    return script
+
+
+# ========================================
+# STEP 5: TTS (MMX Speech Synthesize)
+# ========================================
+def synthesize_audio(script, output_path, voice=TTS_VOICE, max_retries=3):
+    """Use MMX CLI to generate MP3 audio with retry."""
+    print(f"🎙️  Synthesizing audio...")
+    
+    # Write script to temp file
+    tmp_txt = f"/tmp/tts_{os.path.basename(output_path)}.txt"
+    with open(tmp_txt, 'w', encoding='utf-8') as f:
+        f.write(script)
+    
+    for attempt in range(1, max_retries + 1):
+        cmd = [
+            "mmx", "speech", "synthesize",
+            "--text-file", tmp_txt,
+            "--voice", voice,
+            "--format", TTS_FORMAT,
+            "--sample-rate", "32000",
+            "--bitrate", "128000",
+            "--out", output_path
+        ]
+        
+        result = subprocess.run(cmd, capture_output=True, text=True)
+        
+        if result.returncode == 0:
+            os.unlink(tmp_txt)
+            size_kb = os.path.getsize(output_path) / 1024
+            print(f"   ✅ Audio: {output_path} ({size_kb:.1f} KB)")
+            return True
+        
+        print(f"   ⚠️  TTS attempt {attempt}/{max_retries} failed: {result.stderr.strip()}")
+        if attempt < max_retries:
+            print(f"   ⏳ Retrying in 10s...")
+            import time
+            time.sleep(10)
+    
+    os.unlink(tmp_txt)
+    print(f"   ❌ TTS failed after {max_retries} attempts. Deploying without audio.")
+    return False
+
+
+# ========================================
+# STEP 6: GENERATE HTML
+# ========================================
+# ========================================
+# STEP 7: DEPLOY
+# ========================================
+def deploy_site(subdomain, source_file, audio_file=None, date=None):
+    """Deploy using cloud-deploy skill."""
+    print(f"🚀 Deploying to {subdomain}.{DOMAIN}...")
+    
+    # Extract date from source_file name if not provided
+    if date is None:
+        date = Path(source_file).stem  # e.g., "2026-06-26"
+    
+    # First deploy HTML
+    cmd = [
+        "bash", str(Path.home() / ".openclaw/skills/cloud-deploy/scripts/deploy.sh"),
+        "--subdomain", subdomain,
+        "--source", str(source_file)
+    ]
+    result = subprocess.run(cmd, capture_output=True, text=True)
+    if result.returncode != 0:
+        print(f"   ❌ Deploy failed: {result.stderr}")
+        return False
+    
+    print(result.stdout)
+    
+    # If audio exists, upload it to date directory
+    if audio_file and os.path.exists(audio_file):
+        print(f"📤 Uploading audio...")
+        server_user = os.environ.get('SERVER_USER', 'ubuntu')
+        server_host = os.environ.get('SERVER_HOST', '43.153.24.30')
+        remote_dir = f"/var/www/{subdomain}.{DOMAIN}"
+
+        y, m, d = date.split('-')
+
+        scp_cmd = ["scp", str(audio_file), f"{server_user}@{server_host}:/tmp/audio.mp3"]
+        scp_result = subprocess.run(scp_cmd, capture_output=True, text=True)
+        if scp_result.returncode != 0:
+            print(f"   ❌ SCP failed: {scp_result.stderr.strip()}")
+            print(f"      (audio will not be available)")
+        else:
+            ssh_cmd = [
+                "ssh", f"{server_user}@{server_host}",
+                f"sudo mkdir -p {remote_dir}/{y}/{m}/{d} && "
+                f"sudo cp /tmp/audio.mp3 {remote_dir}/{y}/{m}/{d}/audio.mp3 && "
+                f"sudo chown -R www-data:www-data {remote_dir}/{y}/{m}/{d}/"
+            ]
+            ssh_result = subprocess.run(ssh_cmd, capture_output=True, text=True)
+            if ssh_result.returncode != 0:
+                print(f"   ❌ SSH failed: {ssh_result.stderr.strip()}")
+            else:
+                print(f"   ✅ Audio uploaded to /{y}/{m}/{d}/audio.mp3")
+
+    deploy_url = f"https://{subdomain}.{DOMAIN}"
+    print(f"🔎 Health checking {deploy_url}...")
+    try:
+        with urllib.request.urlopen(deploy_url, timeout=30) as resp:
+            print(f"   ✅ Health check OK: HTTP {resp.status}")
+    except Exception as exc:
+        print(f"   ⚠️  Health check failed: {exc}")
+        return False
+    
+    return True
+
+
+def save_state(data, html_path, audio_path=None, deployed=False, skip_tts=False, skip_deploy=False):
+    """Persist the latest pipeline run metadata."""
+    STATE_FILE.parent.mkdir(parents=True, exist_ok=True)
+    state = {
+        "last_run_at": datetime.now(timezone.utc).isoformat(timespec="seconds").replace("+00:00", "Z"),
+        "date": data.get("date"),
+        "title": data.get("title"),
+        "stories": len(data.get("stories", [])),
+        "overview_items": len(data.get("overview", [])),
+        "html_path": str(html_path),
+        "audio_path": str(audio_path) if audio_path and os.path.exists(audio_path) else None,
+        "deployed": deployed,
+        "deployed_url": f"https://{DEPLOY_SUBDOMAIN}.{DOMAIN}" if deployed else None,
+        "skip_tts": skip_tts,
+        "skip_deploy": skip_deploy,
+    }
+    with open(STATE_FILE, 'w', encoding='utf-8') as f:
+        json.dump(state, f, ensure_ascii=False, indent=2)
+    print(f"💾 State saved: {STATE_FILE}")
+
+
+# ========================================
+# MAIN PIPELINE
+# ========================================
+def deploy_no_update(target_date=None):
+    """Deploy the no-update placeholder page when RSS is unavailable."""
+    if target_date is None:
+        target_date = datetime.now().strftime('%Y-%m-%d')
+    
+    print("📝 Deploying no-update placeholder...")
+    
+    y, m, d = target_date.split('-')
+    date_path = f"{y}/{m}/{d}"
+    
+    no_update_html = Path.home() / ".openclaw" / "skills" / "daily-news" / "assets" / "no-update.html"
+    if not no_update_html.exists():
+        print(f"   ❌ no-update.html not found at {no_update_html}")
+        return False
+    
+    server_user = os.environ.get('SERVER_USER', 'ubuntu')
+    server_host = os.environ.get('SERVER_HOST', '43.153.24.30')
+    remote_dir = f"/var/www/{DEPLOY_SUBDOMAIN}.{DOMAIN}"
+    
+    # Create directory and copy file
+    ssh_cmd = [
+        "ssh", f"{server_user}@{server_host}",
+        f"sudo mkdir -p {remote_dir}/{date_path} && "
+        f"sudo cp {remote_dir}/no-update.html {remote_dir}/{date_path}/index.html && "
+        f"sudo chown -R www-data:www-data {remote_dir}/{date_path}/ && "
+        f"sudo ln -sfn {date_path}/index.html {remote_dir}/index.html"
+    ]
+    result = subprocess.run(ssh_cmd, capture_output=True, text=True)
+    if result.returncode != 0:
+        print(f"   ❌ Deploy failed: {result.stderr}")
+        return False
+    
+    print(f"   ✅ No-update page deployed: {remote_dir}/{date_path}/")
+    print(f"   🔗 https://{DEPLOY_SUBDOMAIN}.{DOMAIN}")
+    return True
+
+
+def retry_pipeline(target_date, skip_tts=False, skip_deploy=False):
+    """Retry pipeline after waiting for RSS update."""
+    import time
+    
+    print("=" * 50)
+    print("🔄 TechDaily Retry Check")
+    print("=" * 50)
+    print(f"⏰ Sleeping 3600s before retry ({target_date})...")
+    time.sleep(3600)
+    
+    print("📡 Retrying RSS fetch...")
+    xml_data = None
+    try:
+        xml_data = fetch_rss()
+    except Exception as exc:
+        print(f"   ❌ RSS fetch still failed: {exc}")
+        _write_alert(target_date, f"RSS 1h retry still failed: {exc}")
+        return None
+    
+    try:
+        data = parse_rss(xml_data, target_date)
+    except Exception as exc:
+        print(f"   ❌ RSS parse still failed: {exc}")
+        _write_alert(target_date, f"RSS 1h retry parse failed: {exc}")
+        return None
+    
+    if target_date and data.get('date') != target_date:
+        print(f"   ⚠️  RSS data date ({data.get('date')}) still doesn't match target ({target_date})")
+        _write_alert(target_date, f"RSS 1h retry: still no update for {target_date}")
+        return None
+    
+    # Success! Run full pipeline
+    print("   ✅ RSS update found! Running full pipeline...")
+    return run_pipeline(target_date=target_date, skip_tts=skip_tts, skip_deploy=skip_deploy)
+
+
+def _write_alert(target_date, message):
+    """Write alert flag for heartbeat to pick up."""
+    alert_file = ALERT_DIR / f"rss-alert-{target_date}.flag"
+    alert_data = {
+        "date": target_date,
+        "message": message,
+        "timestamp": datetime.now().isoformat(),
+        "domain": f"https://{DEPLOY_SUBDOMAIN}.{DOMAIN}"
+    }
+    with open(alert_file, 'w', encoding='utf-8') as f:
+        json.dump(alert_data, f, ensure_ascii=False, indent=2)
+    print(f"   🚨 Alert written: {alert_file}")
+
+
+def _spawn_retry(target_date, skip_tts=False, skip_deploy=False):
+    """Spawn a detached process to retry RSS check after 1 hour."""
+    import subprocess
+    import sys
+    
+    retry_cmd = [
+        sys.executable, __file__,
+        '--date', target_date,
+        '--retry-only',
+        '--skip-tts' if skip_tts else '',
+        '--skip-deploy' if skip_deploy else ''
+    ]
+    retry_cmd = [c for c in retry_cmd if c]
+    
+    print(f"   🔄 Spawning retry process in background...")
+    try:
+        subprocess.Popen(
+            retry_cmd,
+            start_new_session=True,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+            stdin=subprocess.DEVNULL
+        )
+        print(f"   ✅ Retry process spawned (PID detached)")
+    except Exception as exc:
+        print(f"   ❌ Failed to spawn retry: {exc}")
+
+
+def run_pipeline(target_date=None, skip_tts=False, skip_deploy=False):
+    """Run the full pipeline."""
+    print("=" * 50)
+    print("🦞 TechDaily Pipeline")
+    print("=" * 50)
+    
+    # Step 1: Fetch RSS
+    xml_data = None
+    try:
+        xml_data = fetch_rss()
+    except Exception as exc:
+        print(f"   ❌ RSS fetch failed: {exc}")
+        if not skip_deploy:
+            print("🔄 Deploying no-update page and spawning retry...")
+            deploy_no_update(target_date)
+            _spawn_retry(target_date, skip_tts, skip_deploy)
+        return None
+    
+    # Step 2: Parse
+    data = None
+    try:
+        data = parse_rss(xml_data, target_date)
+    except Exception as exc:
+        print(f"   ❌ RSS parse failed: {exc}")
+        if not skip_deploy:
+            print("🔄 Deploying no-update page and spawning retry...")
+            deploy_no_update(target_date)
+            _spawn_retry(target_date, skip_tts, skip_deploy)
+        return None
+    
+    # Check if parsed data is for the target date
+    if target_date and data.get('date') != target_date:
+        print(f"   ⚠️  RSS data date ({data.get('date')}) doesn't match target ({target_date})")
+        if not skip_deploy:
+            print("🔄 Deploying no-update page and spawning retry...")
+            deploy_no_update(target_date)
+            _spawn_retry(target_date, skip_tts, skip_deploy)
+        return None
+    
+    # Step 3: Summarize
+    data['stories'] = ai_summarize(data['stories'])
+    
+    # Step 4: Generate broadcast script
+    script = generate_broadcast_script(data)
+    
+    # Save script
+    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+    script_path = OUTPUT_DIR / f"{data['date']}_broadcast.txt"
+    with open(script_path, 'w', encoding='utf-8') as f:
+        f.write(script)
+    print(f"📝 Script saved: {script_path}")
+    
+    # Step 5: TTS Audio
+    audio_path = OUTPUT_DIR / f"{data['date']}_broadcast.mp3"
+    audio_url = None
+    
+    y, m, d = data['date'].split('-')
+    expected_audio_url = f"https://{DEPLOY_SUBDOMAIN}.{DOMAIN}/{y}/{m}/{d}/audio.mp3"
+    
+    if not skip_tts:
+        success = synthesize_audio(script, str(audio_path))
+        if success:
+            audio_url = expected_audio_url
+    else:
+        # If skipping TTS, check if audio already exists on server
+        server_user = os.environ.get('SERVER_USER', 'ubuntu')
+        server_host = os.environ.get('SERVER_HOST', '43.153.24.30')
+        remote_dir = f"/var/www/{DEPLOY_SUBDOMAIN}.{DOMAIN}"
+        
+        check_cmd = [
+            "ssh", f"{server_user}@{server_host}",
+            f"test -f {remote_dir}/{y}/{m}/{d}/audio.mp3 && echo EXISTS || echo MISSING"
+        ]
+        result = subprocess.run(check_cmd, capture_output=True, text=True)
+        if "EXISTS" in result.stdout:
+            audio_url = expected_audio_url
+            print(f"   ✅ Found existing audio: {expected_audio_url}")
+    
+    # Step 6: Generate HTML
+    html_path = OUTPUT_DIR / f"{data['date']}.html"
+    generate_html(data, str(html_path), GLOSSARY, audio_url)
+    
+    # Step 7: Deploy
+    deployed = False
+    if not skip_deploy:
+        deployed = deploy_site(DEPLOY_SUBDOMAIN, html_path, audio_path if not skip_tts else None, data['date'])
+    
+    save_state(data, html_path, audio_path, deployed, skip_tts, skip_deploy)
+    
+    print("\n" + "=" * 50)
+    print("✅ Pipeline complete!")
+    print(f"   📄 HTML: {html_path}")
+    if not skip_tts:
+        print(f"   🎙️  Audio: {audio_path}")
+    print(f"   🔗 https://{DEPLOY_SUBDOMAIN}.{DOMAIN}")
+    print("=" * 50)
+    
+    return data
+
+
+def main():
+    parser = argparse.ArgumentParser(description='TechDaily Pipeline')
+    parser.add_argument('--date', help='Target date (YYYY-MM-DD), default: latest')
+    parser.add_argument('--skip-tts', action='store_true', help='Skip audio generation')
+    parser.add_argument('--skip-deploy', action='store_true', help='Skip deployment')
+    parser.add_argument('--retry-only', action='store_true', help='Retry check mode (internal use)')
+    parser.add_argument('--parse-only', action='store_true', help='Only fetch and parse RSS, print JSON')
+    
+    args = parser.parse_args()
+    
+    if args.parse_only:
+        xml_data = fetch_rss()
+        data = parse_rss(xml_data, args.date)
+        print(json.dumps(data, ensure_ascii=False, indent=2))
+        return
+    
+    if args.retry_only:
+        retry_pipeline(
+            target_date=args.date,
+            skip_tts=args.skip_tts,
+            skip_deploy=args.skip_deploy
+        )
+        return
+    
+    run_pipeline(
+        target_date=args.date,
+        skip_tts=args.skip_tts,
+        skip_deploy=args.skip_deploy
+    )
+
+
+if __name__ == '__main__':
+    main()
