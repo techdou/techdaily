@@ -102,14 +102,16 @@ pipeline.py 内部调用 `assemble.py` 生成 HTML：
 
 **模板文件不要改**，除非明确要做 UI 升级。
 
-## 关键配置
+## 部署流程（GitHub 版本管理）
 
-| 项目 | 值 |
-|------|-----|
-| RSS 源 | `https://daily.juya.uk/rss.xml` |
-| 服务器 | `ubuntu@43.153.24.30` |
-| 部署路径 | `/var/www/news.techdou.com/YYYY/MM/DD/` |
-| 域名 | `https://news.techdou.com` |
+```
+Mac 本地生成 → public/YYYY/MM/DD/ → git commit + push GitHub → 服务器 git pull + rsync webroot
+```
+
+- **本地**：pipeline.py 生成到 `public/` 目录
+- **GitHub**：`github.com/techdou/techdaily` 做版本管理
+- **服务器**：`/var/www/news.techdou.com-repo/` git pull → rsync 到 webroot
+- **同步脚本**：服务器 `/var/www/sync-from-git.sh`
 
 ## 错误处理
 
