@@ -23,8 +23,8 @@ from pathlib import Path
 from urllib.request import urlopen
 import xml.etree.ElementTree as ET
 
-# Import HTML generator (external template-based)
-from html_generator import generate_html, validate_html
+# Import HTML assembler (full template-head + template-tail)
+import assemble as html_assembler
 
 # ========================================
 # CONFIG
@@ -76,6 +76,32 @@ def strip_html(text):
         return ""
     clean = re.sub(r'<[^>]+>', '', text)
     return unescape(clean).strip()
+
+
+def clean_rss_artifacts(text):
+    """Remove {var|alternative} template artifacts from RSS source.
+
+    The RSS feed (daily.juya.uk) uses a conditional syntax like:
+      {部分用户|"部分用户"}  → keep first part: 部分用户
+      {/|或}            → keep first part: /
+      {2|两}            → keep first part: 2
+    We keep the first segment (before |) and discard the alternative.
+    """
+    if not text:
+        return text
+    # Match {content|alternative} - keep content (first part)
+    def replace_artifact(m):
+        inner = m.group(1)
+        # Split on | and keep first part, strip quotes
+        parts = inner.split('|', 1)
+        kept = parts[0].strip()
+        # Remove surrounding quotes
+        if (kept.startswith('"') and kept.endswith('"')) or (kept.startswith("'") and kept.endswith("'")):
+            kept = kept[1:-1]
+        # Also clean HTML entities
+        kept = unescape(kept)
+        return kept
+    return re.sub(r'\{([^{}]+\|[^{}]+)\}', replace_artifact, text)
 
 
 def item_title(item):
@@ -190,8 +216,8 @@ def parse_rss(xml_bytes, target_date=None):
             num = num_match.group(1) if num_match else ""
             
             overview.append({
-                'category': strip_html(cat),
-                'title': title_text,
+                'category': clean_rss_artifacts(strip_html(cat)),
+                'title': clean_rss_artifacts(title_text),
                 'link': item_link,
                 'num': num
             })
@@ -232,11 +258,11 @@ def parse_rss(xml_bytes, target_date=None):
         
         stories.append({
             'num': story_num,
-            'title': story_title,
+            'title': clean_rss_artifacts(story_title),
             'link': story_link,
-            'summary': summary,
+            'summary': clean_rss_artifacts(summary),
             'images': imgs,
-            'full_text': '\n\n'.join(body_parts[:6])  # limit paragraphs
+            'full_text': clean_rss_artifacts('\n\n'.join(body_parts[:6]))  # limit paragraphs
         })
     
     result = {
@@ -408,6 +434,161 @@ def deploy_site(subdomain, source_file, audio_file=None, date=None):
         return False
     
     return True
+
+
+# ========================================
+# STEP 6b: Build content.json for assemble.py
+# ========================================
+def _generate_full_html(data, output_path, glossary, audio_url, rss_xml_bytes):
+    """Generate HTML using assemble.py with full template-head + template-tail.
+
+    Converts pipeline data format → assemble.py content.json format,
+    then calls assemble.assemble() for rich HTML output.
+    """
+    print("🎨 Generating HTML (full template via assemble.py)...")
+
+    date = data['date']
+    try:
+        dt = datetime.strptime(date, '%Y-%m-%d')
+        weekdays = ['星期一', '星期二', '星期三', '星期四', '星期五', '星期六', '星期日']
+        weekday = weekdays[dt.weekday()]
+        date_display = f"{dt.year}年{dt.month}月{dt.day}日"
+    except Exception:
+        weekday = ''
+        date_display = date
+
+    # Build categories list (unique, preserving order)
+    seen_cats = []
+    cat_first = {}
+    for item in data['overview']:
+        cat = item.get('category', '其他')
+        if cat not in seen_cats:
+            seen_cats.append(cat)
+            cat_first[cat] = item.get('num', '1')
+    categories = [{'name': c, 'first_id': cat_first[c]} for c in seen_cats]
+
+    # Build briefs
+    briefs = []
+    for item in data['overview']:
+        num = item.get('num', '')
+        title = item.get('title', '').replace(' ↗', '').replace(f' #{num}', '').strip()
+        briefs.append({
+            'num': num.zfill(2) if num.isdigit() else num,
+            'cat': item.get('category', ''),
+            'title': title,
+            'story_id': num
+        })
+
+    # Build sidebar
+    sidebar_cats = {}
+    for item in data['overview']:
+        cat = item.get('category', '其他')
+        if cat not in sidebar_cats:
+            sidebar_cats[cat] = []
+        num = item.get('num', '')
+        title = item.get('title', '').replace(' ↗', '').replace(f' #{num}', '').strip()
+        sidebar_cats[cat].append({'id': num, 'title': title[:35]})
+    sidebar = [{'cat': c, 'items': items} for c, items in sidebar_cats.items()]
+
+    # Build stories in assemble.py format
+    stories = []
+    for s in data['stories']:
+        num = s.get('num', '')
+        # Find category from overview
+        cat = next((o['category'] for o in data['overview'] if o.get('num') == num), '其他')
+        # Build digest with glossary highlighting
+        digest = s.get('summary', '')
+        # Apply glossary highlighting to digest
+        digest = _highlight_terms(digest, glossary)
+        stories.append({
+            'id': num,
+            'cat': cat,
+            'title': s.get('title', ''),
+            'source_url': s.get('link', ''),
+            'digest': digest,
+            'images': s.get('images', []),
+            'num': num.zfill(2) if num.isdigit() else num
+        })
+
+    # Build content.json
+    content = {
+        'date': date,
+        'date_display': date_display,
+        'weekday': weekday,
+        'issue': date.replace('-', ''),
+        'cover_image': data.get('cover_image', ''),
+        'categories': categories,
+        'briefs': briefs,
+        'sidebar': sidebar,
+        'stories': stories,
+        'glossary': glossary
+    }
+
+    # Save RSS to temp file for assemble.py body extraction
+    rss_tmp = f'/tmp/pipeline_rss_{date}.xml'
+    with open(rss_tmp, 'wb') as f:
+        f.write(rss_xml_bytes)
+
+    # Load templates
+    project_root = Path(__file__).parent.parent
+    head_file = project_root / 'templates' / 'template-head.html'
+    tail_file = project_root / 'templates' / 'template-tail.html'
+
+    # Fallback to skill directory
+    if not head_file.exists():
+        head_file = project_root / 'assets' / 'template-head.html'
+    if not tail_file.exists():
+        tail_file = project_root / 'assets' / 'template-tail.html'
+
+    with open(head_file, 'r', encoding='utf-8') as f:
+        head_html = f.read()
+    with open(tail_file, 'r', encoding='utf-8') as f:
+        tail_html = f.read()
+
+    # Extract RSS bodies
+    rss_bodies = html_assembler.parse_rss_bodies(rss_tmp)
+
+    # Clean RSS bodies of artifacts
+    if rss_bodies:
+        rss_bodies = {k: clean_rss_artifacts(v) for k, v in rss_bodies.items()}
+
+    # Assemble!
+    html_output = html_assembler.assemble(content, head_html, tail_html, rss_bodies)
+
+    with open(output_path, 'w', encoding='utf-8') as f:
+        f.write(html_output)
+
+    # Validate (assemble doesn't have validate_html, skip if not available)
+    if hasattr(html_assembler, 'validate_html'):
+        html_assembler.validate_html(html_output)
+
+    size_kb = len(html_output) / 1024
+    print(f"   ✅ HTML: {output_path} ({size_kb:.1f} KB)")
+    return output_path
+
+
+def _highlight_terms(text, glossary):
+    """Wrap tech terms with clickable spans (lightweight version)."""
+    if not text or not glossary:
+        return text
+    import html as html_module
+    terms = sorted(glossary.keys(), key=len, reverse=True)
+    escaped = [re.escape(t) for t in terms]
+    pattern = '(' + '|'.join(escaped) + ')'
+
+    def replace(m):
+        term = m.group(1)
+        return f'<span class="tech-term" onclick="openModal(\'{term}\')">{term}</span>'
+
+    # Split by HTML tags to avoid modifying inside tags
+    parts = re.split(r'(<[^>]+>)', text)
+    result = []
+    for part in parts:
+        if part.startswith('<') and part.endswith('>'):
+            result.append(part)
+        else:
+            result.append(re.sub(pattern, replace, part))
+    return ''.join(result)
 
 
 def save_state(data, html_path, audio_path=None, deployed=False, skip_tts=False, skip_deploy=False):
@@ -612,6 +793,20 @@ def run_pipeline(target_date=None, skip_tts=False, skip_deploy=False):
         success = synthesize_audio(script, str(audio_path))
         if success:
             audio_url = expected_audio_url
+        else:
+            # TTS failed but still set audio_url so player shows (audio may 404 but UI is correct)
+            # Check if existing audio is on server
+            server_user = os.environ.get('SERVER_USER', 'ubuntu')
+            server_host = os.environ.get('SERVER_HOST', '43.153.24.30')
+            remote_dir = f"/var/www/{DEPLOY_SUBDOMAIN}.{DOMAIN}"
+            check_cmd = [
+                "ssh", f"{server_user}@{server_host}",
+                f"test -f {remote_dir}/{y}/{m}/{d}/audio.mp3 && echo EXISTS || echo MISSING"
+            ]
+            result = subprocess.run(check_cmd, capture_output=True, text=True)
+            if "EXISTS" in result.stdout:
+                audio_url = expected_audio_url
+                print(f"   ✅ Found existing audio on server: {expected_audio_url}")
     else:
         # If skipping TTS, check if audio already exists on server
         server_user = os.environ.get('SERVER_USER', 'ubuntu')
@@ -627,9 +822,9 @@ def run_pipeline(target_date=None, skip_tts=False, skip_deploy=False):
             audio_url = expected_audio_url
             print(f"   ✅ Found existing audio: {expected_audio_url}")
     
-    # Step 6: Generate HTML
+    # Step 6: Generate HTML using assemble.py (full template-head + template-tail)
     html_path = OUTPUT_DIR / f"{data['date']}.html"
-    generate_html(data, str(html_path), GLOSSARY, audio_url)
+    _generate_full_html(data, str(html_path), GLOSSARY, audio_url, xml_data)
     
     # Step 7: Deploy
     deployed = False
