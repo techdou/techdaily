@@ -377,53 +377,67 @@ def synthesize_audio(script, output_path, voice=TTS_VOICE, max_retries=3):
 # STEP 7: DEPLOY
 # ========================================
 def deploy_site(subdomain, source_file, audio_file=None, date=None):
-    """Deploy using cloud-deploy skill."""
-    print(f"🚀 Deploying to {subdomain}.{DOMAIN}...")
+    """Deploy via GitHub: copy to public/ → git push → server git pull."""
+    print(f"🚀 Deploying to {subdomain}.{DOMAIN} via GitHub...")
     
-    # Extract date from source_file name if not provided
     if date is None:
-        date = Path(source_file).stem  # e.g., "2026-06-26"
+        date = Path(source_file).stem
     
-    # First deploy HTML
-    cmd = [
-        "bash", str(Path.home() / ".openclaw/skills/cloud-deploy/scripts/deploy.sh"),
-        "--subdomain", subdomain,
-        "--source", str(source_file)
-    ]
-    result = subprocess.run(cmd, capture_output=True, text=True)
-    if result.returncode != 0:
-        print(f"   ❌ Deploy failed: {result.stderr}")
-        return False
+    project_root = Path.home() / "Project" / "news.techdou.com"
+    y, m, d = date.split('-')
+    date_path = f"{y}/{m}/{d}"
+    public_dir = project_root / "public" / date_path
+    public_dir.mkdir(parents=True, exist_ok=True)
     
-    print(result.stdout)
+    # 1. Copy HTML to public/
+    import shutil
+    shutil.copy2(source_file, str(public_dir / "index.html"))
+    print(f"   ✅ HTML → public/{date_path}/index.html")
     
-    # If audio exists, upload it to date directory
+    # 2. Copy audio to public/ (if exists)
     if audio_file and os.path.exists(audio_file):
-        print(f"📤 Uploading audio...")
-        server_user = os.environ.get('SERVER_USER', 'ubuntu')
-        server_host = os.environ.get('SERVER_HOST', '43.153.24.30')
-        remote_dir = f"/var/www/{subdomain}.{DOMAIN}"
-
-        y, m, d = date.split('-')
-
-        scp_cmd = ["scp", str(audio_file), f"{server_user}@{server_host}:/tmp/audio.mp3"]
-        scp_result = subprocess.run(scp_cmd, capture_output=True, text=True)
-        if scp_result.returncode != 0:
-            print(f"   ❌ SCP failed: {scp_result.stderr.strip()}")
-            print(f"      (audio will not be available)")
-        else:
-            ssh_cmd = [
-                "ssh", f"{server_user}@{server_host}",
-                f"sudo mkdir -p {remote_dir}/{y}/{m}/{d} && "
-                f"sudo cp /tmp/audio.mp3 {remote_dir}/{y}/{m}/{d}/audio.mp3 && "
-                f"sudo chown -R www-data:www-data {remote_dir}/{y}/{m}/{d}/"
-            ]
-            ssh_result = subprocess.run(ssh_cmd, capture_output=True, text=True)
-            if ssh_result.returncode != 0:
-                print(f"   ❌ SSH failed: {ssh_result.stderr.strip()}")
-            else:
-                print(f"   ✅ Audio uploaded to /{y}/{m}/{d}/audio.mp3")
-
+        shutil.copy2(audio_file, str(public_dir / "audio.mp3"))
+        print(f"   ✅ Audio → public/{date_path}/audio.mp3")
+    
+    # 3. Git commit + push
+    result = subprocess.run(
+        ["bash", "-c", f"cd {project_root} && git add -A && "
+         f"if ! git diff --cached --quiet; then git commit -m 'daily: deploy {date}'; fi && "
+         f"git push origin main"],
+        capture_output=True, text=True
+    )
+    if result.returncode != 0:
+        print(f"   ❌ Git push failed: {result.stderr.strip()}")
+        return False
+    print(f"   ✅ Pushed to GitHub")
+    
+    # 4. Server: git pull + sync
+    server_user = os.environ.get('SERVER_USER', 'ubuntu')
+    server_host = os.environ.get('SERVER_HOST', '43.153.24.30')
+    sync_result = subprocess.run(
+        ["ssh", f"{server_user}@{server_host}", "bash /var/www/sync-from-git.sh"],
+        capture_output=True, text=True
+    )
+    if sync_result.returncode != 0:
+        print(f"   ❌ Server sync failed: {sync_result.stderr.strip()}")
+        return False
+    print(sync_result.stdout.strip())
+    
+    # 5. Update symlink
+    remote_dir = f"/var/www/{subdomain}.{DOMAIN}"
+    subprocess.run(
+        ["ssh", f"{server_user}@{server_host}",
+         f"sudo ln -sfn {date_path}/index.html {remote_dir}/index.html"],
+        capture_output=True, text=True
+    )
+    
+    # 6. Regenerate archive
+    subprocess.run(
+        ["bash", str(project_root / "scripts" / "gen-archive.sh")],
+        capture_output=True, text=True
+    )
+    
+    # 7. Health check
     deploy_url = f"https://{subdomain}.{DOMAIN}"
     print(f"🔎 Health checking {deploy_url}...")
     try:
@@ -616,7 +630,7 @@ def save_state(data, html_path, audio_path=None, deployed=False, skip_tts=False,
 # MAIN PIPELINE
 # ========================================
 def deploy_no_update(target_date=None):
-    """Deploy the no-update placeholder page when RSS is unavailable."""
+    """Deploy the no-update placeholder page via GitHub flow."""
     if target_date is None:
         target_date = datetime.now().strftime('%Y-%m-%d')
     
@@ -625,29 +639,41 @@ def deploy_no_update(target_date=None):
     y, m, d = target_date.split('-')
     date_path = f"{y}/{m}/{d}"
     
-    no_update_html = Path.home() / ".openclaw" / "skills" / "daily-news" / "assets" / "no-update.html"
-    if not no_update_html.exists():
-        print(f"   ❌ no-update.html not found at {no_update_html}")
+    project_root = Path.home() / "Project" / "news.techdou.com"
+    no_update_source = project_root / "templates" / "no-update.html"
+    if not no_update_source.exists():
+        print(f"   ❌ no-update.html not found at {no_update_source}")
         return False
     
+    # Copy to public/ and git push
+    public_dir = project_root / "public" / date_path
+    public_dir.mkdir(parents=True, exist_ok=True)
+    import shutil
+    shutil.copy2(str(no_update_source), str(public_dir / "index.html"))
+    
+    subprocess.run(
+        ["bash", "-c", f"cd {project_root} && git add -A && "
+         f"if ! git diff --cached --quiet; then git commit -m 'daily: no-update {target_date}'; fi && "
+         f"git push origin main"],
+        capture_output=True, text=True
+    )
+    
+    # Server sync
     server_user = os.environ.get('SERVER_USER', 'ubuntu')
     server_host = os.environ.get('SERVER_HOST', '43.153.24.30')
     remote_dir = f"/var/www/{DEPLOY_SUBDOMAIN}.{DOMAIN}"
     
-    # Create directory and copy file
-    ssh_cmd = [
-        "ssh", f"{server_user}@{server_host}",
-        f"sudo mkdir -p {remote_dir}/{date_path} && "
-        f"sudo cp {remote_dir}/no-update.html {remote_dir}/{date_path}/index.html && "
-        f"sudo chown -R www-data:www-data {remote_dir}/{date_path}/ && "
-        f"sudo ln -sfn {date_path}/index.html {remote_dir}/index.html"
-    ]
-    result = subprocess.run(ssh_cmd, capture_output=True, text=True)
-    if result.returncode != 0:
-        print(f"   ❌ Deploy failed: {result.stderr}")
-        return False
+    subprocess.run(
+        ["ssh", f"{server_user}@{server_host}", "bash /var/www/sync-from-git.sh"],
+        capture_output=True, text=True
+    )
+    subprocess.run(
+        ["ssh", f"{server_user}@{server_host}",
+         f"sudo ln -sfn {date_path}/index.html {remote_dir}/index.html"],
+        capture_output=True, text=True
+    )
     
-    print(f"   ✅ No-update page deployed: {remote_dir}/{date_path}/")
+    print(f"   ✅ No-update page deployed via git: {remote_dir}/{date_path}/")
     print(f"   🔗 https://{DEPLOY_SUBDOMAIN}.{DOMAIN}")
     return True
 
