@@ -149,13 +149,14 @@ audio.mp3 **纳入 git 版本管理**（不再排除）。原因：
 
 服务器端 `/var/www/sync-from-git.sh` 的 rsync 规则：
 ```bash
-# --delete 清理 repo 已删文件，但排除运行时文件
+# --delete 清理 repo 已删文件，只排除根目录首页 symlink
 rsync -a --delete \
     --exclude='.git' \
-    --exclude='index.html' \   # 保护首页 symlink（pipeline 运行时创建）
+    --exclude='/index.html' \   # 只保护 webroot 根的 symlink（pipeline 运行时创建）
     $REPO/public/ $WEBROOT/
 ```
-> **不要在 sync-from-git.sh 中排除 audio.mp3**，音频已在 git 中管理。
+> 用 `/index.html` 锚定根目录，子目录的 `YYYY/MM/DD/index.html` 不受影响。
+> audio.mp3 已纳入 git 管理，正常同步。
 
 ## 错误处理
 
