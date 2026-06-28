@@ -630,51 +630,32 @@ def save_state(data, html_path, audio_path=None, deployed=False, skip_tts=False,
 # MAIN PIPELINE
 # ========================================
 def deploy_no_update(target_date=None):
-    """Deploy the no-update placeholder page via GitHub flow."""
+    """Switch homepage to the pending placeholder (no-update page).
+
+    The pending page lives at public/pending.html and is synced to the server
+    via the normal git flow. Here we only flip the root /index.html symlink to
+    point at it — no per-date copy, no git push, so the archive stays clean.
+    """
     if target_date is None:
         target_date = datetime.now().strftime('%Y-%m-%d')
-    
-    print("📝 Deploying no-update placeholder...")
-    
-    y, m, d = target_date.split('-')
-    date_path = f"{y}/{m}/{d}"
-    
-    project_root = Path.home() / "Project" / "news.techdou.com"
-    no_update_source = project_root / "templates" / "no-update.html"
-    if not no_update_source.exists():
-        print(f"   ❌ no-update.html not found at {no_update_source}")
-        return False
-    
-    # Copy to public/ and git push
-    public_dir = project_root / "public" / date_path
-    public_dir.mkdir(parents=True, exist_ok=True)
-    import shutil
-    shutil.copy2(str(no_update_source), str(public_dir / "index.html"))
-    
-    subprocess.run(
-        ["bash", "-c", f"cd {project_root} && git add -A && "
-         f"if ! git diff --cached --quiet; then git commit -m 'daily: no-update {target_date}'; fi && "
-         f"git push origin main"],
-        capture_output=True, text=True
-    )
-    
-    # Server sync
+
+    print(f"📝 Switching homepage to pending (no-update) for {target_date}...")
+
     server_user = os.environ.get('SERVER_USER', 'ubuntu')
     server_host = os.environ.get('SERVER_HOST', '43.153.24.30')
     remote_dir = f"/var/www/{DEPLOY_SUBDOMAIN}.{DOMAIN}"
-    
-    subprocess.run(
-        ["ssh", f"{server_user}@{server_host}", "bash /var/www/sync-from-git.sh"],
-        capture_output=True, text=True
-    )
-    subprocess.run(
+
+    # pending.html is already on the server (synced via git); just repoint symlink.
+    result = subprocess.run(
         ["ssh", f"{server_user}@{server_host}",
-         f"sudo ln -sfn {date_path}/index.html {remote_dir}/index.html"],
+         f"sudo ln -sfn pending.html {remote_dir}/index.html"],
         capture_output=True, text=True
     )
-    
-    print(f"   ✅ No-update page deployed via git: {remote_dir}/{date_path}/")
-    print(f"   🔗 https://{DEPLOY_SUBDOMAIN}.{DOMAIN}")
+    if result.returncode != 0:
+        print(f"   ❌ Failed to switch symlink: {result.stderr.strip()}")
+        return False
+
+    print(f"   ✅ Homepage → pending.html (https://{DEPLOY_SUBDOMAIN}.{DOMAIN})")
     return True
 
 

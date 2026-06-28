@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" width="100%" height="100%">
+  <!-- 背景底色 (米黄色) -->
+  <rect width="1000" height="1000" fill="#F4E9D1" />
+
+  <!-- 顶部深灰色主色块 -->
+  <polygon points="190,140 810,140 730,280 190,280" fill="#363738" />
+
+  <!-- 红色 "7" 字形侧色块 -->
+  <polygon points="190,280 440,280 510,400 320,540 270,540 270,450 190,390" fill="#D5493D" />
+
+  <!-- 右下角深灰色平行四边形色块 -->
+  <polygon points="580,380 790,350 720,480 510,510" fill="#363738" />
+
+  <!-- 下方放大的 "news" 字体 LOGO -->
+  <g transform="translate(500, 690)">
+    <!-- 基础文字 (深灰色) -->
+    <text 
+      text-anchor="middle" 
+      font-family="'Helvetica Neue', Helvetica, Arial, 'PingFang SC', sans-serif" 
+      font-size="160" 
+      font-weight="900" 
+      font-style="italic" 
+      fill="#363738" 
+      letter-spacing="-2">
+      n<tspan fill="#D5493D">e</tspan>ws
+    </text>
+  </g>
+</svg>

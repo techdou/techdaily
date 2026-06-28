@@ -8,20 +8,23 @@ REMOTE="ubuntu@43.153.24.30"
 WEBROOT="/var/www/news.techdou.com"
 
 ssh "$REMOTE" "python3 - > /tmp/archive-gen.html" << 'PYEOF'
-import os, datetime, sys
+import os, datetime, sys, re
 from collections import OrderedDict
 
 WEBROOT = "/var/www/news.techdou.com"
+# Only YYYY/MM/DD/index.html paths count as daily reports. Anchored regex
+# avoids accidentally picking up unrelated directories that merely start
+# with "20" (e.g. backups), and the date validity check below filters the rest.
+DATE_PATH = re.compile(r'^(\d{4})/(\d{2})/(\d{2})/index\.html$')
 entries = []
 for root, dirs, files in os.walk(WEBROOT):
     for fn in files:
         if fn == "index.html":
             fp = os.path.join(root, fn)
             rel = os.path.relpath(fp, WEBROOT).replace("\\", "/")
-            parts = rel.split("/")
-            if len(parts) >= 4 and parts[0].startswith("20"):
-                entries.append(rel)
+            entries.append(rel)
 
+entries = [e for e in entries if DATE_PATH.match(e)]
 entries.sort(reverse=True)
 
 items = []
@@ -43,10 +46,10 @@ html.append('''<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>往期回顾 · TechDaily</title>
-<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
-<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<meta name="description" content="TechDaily 科技日报往期回顾 — 按月归档的全部历史日报">
+<link rel="icon" type="image/svg+xml" href="/assets/logo/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght,0,400;0,700;0,900;1,400&family=Noto+Serif+SC:wght,400;600;700;900&family=DM+Sans:wght,400;500;700&family=JetBrains+Mono:wght,400;600&display=swap" rel="stylesheet">
@@ -83,7 +86,7 @@ a{color:inherit;text-decoration:none}
 .container{max-width:900px;margin:0 auto;padding:36px 20px 60px}
 
 /* === MONTH GROUP === */
-.month-group{margin-bottom:44px;animation:fadeUp .5s ease forwards}
+.month-group{margin-bottom:44px}
 .month-title{font-family:var(--font-display);font-size:1.35rem;font-weight:700;margin-bottom:20px;display:flex;align-items:baseline;gap:12px;letter-spacing:-0.01em}
 .month-title .num{color:var(--accent);font-style:italic;font-weight:400}
 .month-title .line{flex:1;height:1px;background:linear-gradient(90deg,var(--rule) 0%,transparent 100%)}
@@ -123,6 +126,22 @@ a{color:inherit;text-decoration:none}
 /* === ANIMATIONS === */
 @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
 
+/* Progressive enhancement: cards are visible by default. Only when JS runs
+   (html.js) do we hide them until they scroll into view, then fade in. */
+html.js .item{opacity:0;transform:translateY(14px);transition:opacity .4s ease,transform .4s ease}
+html.js .item.visible{opacity:1;transform:none}
+html.js .month-group{opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s ease}
+html.js .month-group.visible{opacity:1;transform:none}
+
+/* Keyboard focus parity with hover */
+.item:focus-visible{outline:2px solid var(--accent);outline-offset:3px;box-shadow:var(--shadow-md)}
+.filter-btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.back:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+/* Empty state */
+.empty{grid-column:1/-1;text-align:center;padding:48px 20px;font-family:var(--font-serif);font-style:italic;color:var(--ink-muted);font-size:.95rem}
+.empty .accent{color:var(--accent);font-weight:600}
+
 /* === RESPONSIVE === */
 @media(max-width:768px){
   .header{padding:44px 16px 36px}
@@ -138,13 +157,14 @@ a{color:inherit;text-decoration:none}
 </head>
 <body>
 <header class="header"><div class="header-inner">
-<img src="/assets/favicon.svg" class="logo" alt="TechDaily" onerror="this.style.display='none'">
+<img src="/assets/logo/favicon.svg" class="logo" alt="TechDaily" onerror="this.style.display='none'">
 <h1>往期<span class="accent">回顾</span></h1>
 <div class="sub">— TechDaily 科技日报归档</div>
 <div class="ornament"><span class="ornament-line"></span><span class="ornament-dot"></span><span class="ornament-line"></span></div>
 </div></header>
-<nav class="nav"><a href="/" class="back">← 返回今日日报</a><div class="filter"><button class="filter-btn active" data-filter="recent">最近 7 天</button><button class="filter-btn" data-filter="all">全部</button></div></nav>
+<nav class="nav"><a href="/" class="back">← 返回今日日报</a><div class="filter" role="group" aria-label="筛选历史日报"><button class="filter-btn active" data-filter="recent" aria-pressed="true">最近 7 天</button><button class="filter-btn" data-filter="all" aria-pressed="false">全部</button></div></nav>
 <main class="container" id="container">''')
+html.append('<div id="empty-state" class="empty" hidden>当前筛选下暂无日报，试试切换到 <span class="accent">全部</span></div>')
 
 months = OrderedDict()
 for it in items:
@@ -158,22 +178,63 @@ for ym, month_items in months.items():
     html.append(f'<div class="month-group" data-month="{ym}"><div class="month-title"><span class="num">{y} · {m}</span><span class="line"></span><span class="count">{count} 期</span></div><div class="grid">')
     for it in month_items:
         m_val, d_val = it["date_short"].split('.')
-        html.append(f'<a class="item" data-date="{it["date_iso"]}" href="{it["url"]}"><div class="item-head"><div class="item-date">{m_val}<span class="slash">.</span>{d_val}</div><div class="item-weekday">{it["weekday"]}</div></div><div class="item-body"><div class="item-meta"><span class="item-meta-dot"></span><span>{it["date_iso"]}</span></div><span class="item-arrow">→</span></div></a>')
+        label = f"{it['date_iso']} {it['weekday']} 日报"
+        html.append(f'<a class="item" data-date="{it["date_iso"]}" href="{it["url"]}" aria-label="{label}"><div class="item-head"><div class="item-date">{m_val}<span class="slash">.</span>{d_val}</div><div class="item-weekday">{it["weekday"]}</div></div><div class="item-body"><div class="item-meta"><span class="item-meta-dot"></span><span>{it["date_iso"]}</span></div><span class="item-arrow">→</span></div></a>')
     html.append('</div></div>')
 
 html.append('''</main>
 <footer class="footer"><div class="footer-ornament"><span class="footer-ornament-line"></span><span class="footer-ornament-dot"></span><span class="footer-ornament-line"></span></div><div class="footer-text">© 2026 <span class="accent">TechDaily</span> · techdou.com</div></footer>
-<iframe src="/pet.html?v=5" class="pet-iframe" id="petIframe" title="DouknowAI Pet" style="position:fixed;top:0;left:0;width:100vw;height:100vh;border:none;pointer-events:none;z-index:50;background:transparent;overflow:hidden"></iframe>
 <script>
-const filterBtns=document.querySelectorAll('.filter-btn');const allItems=document.querySelectorAll('.item');
-function applyFilter(f){const n=new Date();const w=new Date(n.getTime()-7*24*60*60*1000);allItems.forEach(i=>{let s=true;if(f==='recent'){const d=new Date(i.dataset.date);s=d>=w}i.style.display=s?'':'none'});document.querySelectorAll('.month-group').forEach(g=>{const v=g.querySelectorAll('.item:not([style*="display: none"])');g.style.display=v.length===0?'none':''})}
-filterBtns.forEach(b=>b.addEventListener('click',()=>{filterBtns.forEach(x=>x.classList.remove('active'));b.classList.add('active');applyFilter(b.dataset.filter)}));
+// Mark JS as active so the progressive-enhancement CSS takes over the
+// initial hidden state (cards default to visible for no-JS / crawlers).
+document.documentElement.classList.add('js');
+
+const filterBtns=document.querySelectorAll('.filter-btn');
+const allItems=Array.from(document.querySelectorAll('.item'));
+const allGroups=Array.from(document.querySelectorAll('.month-group'));
+const emptyState=document.getElementById('empty-state');
+
+// Parse a YYYY-MM-DD string as a LOCAL date (avoids the UTC-midnight drift
+// of new Date("2026-06-26") when compared against the local "now").
+function localDate(iso){const[y,m,d]=iso.split('-').map(Number);return new Date(y,m-1,d)}
+
+function applyFilter(f){
+  const now=new Date();
+  const weekAgo=new Date(now.getFullYear(),now.getMonth(),now.getDate()-7);
+  let visible=0;
+  allItems.forEach(i=>{
+    let show=true;
+    if(f==='recent'){show=localDate(i.dataset.date)>=weekAgo}
+    i.style.display=show?'':'none';
+    if(show)visible++;
+  });
+  // Hide empty month groups; show non-empty ones.
+  allGroups.forEach(g=>{
+    const hasVisible=[...g.querySelectorAll('.item')].some(i=>i.style.display!=='none');
+    g.style.display=hasVisible?'':'none';
+  });
+  emptyState.hidden=visible>0;
+}
+filterBtns.forEach(b=>b.addEventListener('click',()=>{
+  filterBtns.forEach(x=>{x.classList.remove('active');x.setAttribute('aria-pressed','false')});
+  b.classList.add('active');b.setAttribute('aria-pressed','true');
+  applyFilter(b.dataset.filter);
+}));
 applyFilter('recent');
-const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible')})},{threshold:0.06});
-allItems.forEach((el,i)=>{el.style.opacity='0';el.style.transform='translateY(14px)';el.style.transition='opacity .4s ease, transform .4s ease';el.style.transitionDelay=(i*30)+'ms';obs.observe(el)});
-const visObs=new MutationObserver(m=>{m.forEach(x=>{if(x.target.classList.contains('visible')){x.target.style.opacity='1';x.target.style.transform='translateY(0)'}})});
-allItems.forEach(el=>visObs.observe(el,{attributes:true,attributeFilter:['class']}));
+
+// Single IntersectionObserver drives both card + month-group fade-in.
+// (One observer, not two: the callback adds .visible and detaches itself.)
+const io=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target)}
+  });
+},{threshold:0.06});
+[...allItems,...allGroups].forEach((el,i)=>{
+  el.style.transitionDelay=(i%20*30)+'ms';  // stagger within a batch, cap to avoid long waits
+  io.observe(el);
+});
 </script>
+<iframe src="/pet.html?v=5" class="pet-iframe" id="petIframe" title="DouknowAI Pet 吉祥物" style="position:fixed;top:0;left:0;width:100vw;height:100vh;border:none;pointer-events:none;z-index:50;background:transparent;overflow:hidden" loading="lazy"></iframe>
 </body></html>''')
 
 sys.stdout.write('\n'.join(html))
@@ -185,5 +246,12 @@ ssh "$REMOTE" "
     sudo chown www-data:www-data $WEBROOT/archive.html
     sudo chmod 644 $WEBROOT/archive.html
     rm -f /tmp/archive-gen.html
-    echo '✅ archive.html updated'
+    echo '✅ archive.html updated on server'
 "
+
+# Pull the same file back into the repo so the local public/archive.html
+# stays in sync with what's serving online (the GitHub Pages mirror and git
+# history would otherwise drift from the live site).
+LOCAL_ARCHIVE="$(cd "$(dirname "$0")/.." && pwd)/public/archive.html"
+scp -q "$REMOTE:$WEBROOT/archive.html" "$LOCAL_ARCHIVE"
+echo "✅ Pulled archive.html → public/archive.html"
