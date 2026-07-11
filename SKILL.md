@@ -209,3 +209,4 @@ rsync -a --delete \
 | 06-28 | audio.mp3 纳入 git 版本管理！rsync --delete 会删 git 没有的文件，排除 .gitignore 导致音频全丢 |
 | 06-28 | sync-from-git.sh 必须 `--exclude='index.html'` 保护首页 symlink，否则 rsync 会删掉它 |
 | 06-28 | gen-archive.sh 需要 SSH 到本机（`ubuntu@43.153.24.30`），服务器需配 self SSH key |
+| 07-11 | RSS 源可能不给某些新闻配超链接 → story 正则不能强制要求 `<a>` 标签，链接改为可选提取（pipeline.py + assemble.py 两处同步修复） |

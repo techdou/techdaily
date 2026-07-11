@@ -98,13 +98,13 @@ def parse_rss_bodies(rss_path):
     for part in parts:
         # Match story number in <code>#N</code> after the title link
         h2_match = re.search(
-            r'<h[23]>\s*<a\s+href="([^"]+)"[^>]*>(.*?)</a>\s*<code[^>]*>#(\d+)</code>\s*</h[23]>',
+            r'<h[23]>\s*(.*?)\s*<code[^>]*>#(\d+)</code>\s*</h[23]>',
             part, re.DOTALL
         )
         if not h2_match:
             continue
 
-        story_num = h2_match.group(3).zfill(2)  # "1" → "01"
+        story_num = h2_match.group(2).zfill(2)  # "1" → "01"
 
         # Extract body paragraphs (<p> tags), excluding blockquote and related links
         p_matches = re.finditer(r'<p>(.*?)</p>', part, re.DOTALL)
