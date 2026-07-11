@@ -4,8 +4,8 @@
 # Usage: bash scripts/gen-archive.sh
 set -e
 
-REMOTE="ubuntu@43.153.24.30"
-WEBROOT="/var/www/news.techdou.com"
+REMOTE="${DEPLOY_SERVER:?Error: DEPLOY_SERVER not set}"
+WEBROOT="${DEPLOY_PATH:?Error: DEPLOY_PATH not set}"
 
 ssh "$REMOTE" "python3 - > /tmp/archive-gen.html" << 'PYEOF'
 import os, datetime, sys, re

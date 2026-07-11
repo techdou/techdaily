@@ -13,8 +13,8 @@
 
 set -e
 
-REMOTE="ubuntu@43.153.24.30"
-WEBROOT="/var/www/news.techdou.com"
+REMOTE="${DEPLOY_SERVER:?Error: DEPLOY_SERVER not set}"
+WEBROOT="${DEPLOY_PATH:?Error: DEPLOY_PATH not set}"
 
 echo "🔄 Switching homepage to pending (no-update)..."
 ssh "$REMOTE" "sudo ln -sfn pending.html ${WEBROOT}/index.html"

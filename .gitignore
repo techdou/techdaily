@@ -9,6 +9,12 @@
 *.pem
 credentials.json
 secrets.json
+*.secret
+
+# === API Keys / Tokens ===
+*.token
+*.apikey
+mmx_config.json
 
 # === Build Artifacts ===
 __pycache__/
@@ -21,13 +27,14 @@ build/
 # === Runtime State ===
 state.json
 *.state
+*.local
 
 # === OS Files ===
 .DS_Store
 Thumbs.db
 desktop.ini
 
-# === Editor ===
+# === Editor / IDE ===
 .vscode/
 .idea/
 *.swp
@@ -38,3 +45,10 @@ desktop.ini
 *.tmp
 *.bak
 *.log
+
+# === OpenClaw Skill（含部署细节，不公开） ===
+SKILL.md
+
+# === Local Config ===
+config.local.json
+deploy.local.sh

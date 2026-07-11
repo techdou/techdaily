@@ -38,9 +38,9 @@ STATE_FILE = Path.home() / ".openclaw" / "skills" / "daily-news" / "state.json"
 TTS_VOICE = "Podcast_girl"
 TTS_FORMAT = "mp3"
 
-# Deploy config
-DEPLOY_SUBDOMAIN = "news"
-DOMAIN = "techdou.com"
+# Deploy config (override via environment variables in production)
+DEPLOY_SUBDOMAIN = os.environ.get('DEPLOY_SUBDOMAIN', 'news')
+DOMAIN = os.environ.get('DEPLOY_DOMAIN', 'techdou.com')
 
 # ========================================
 # TECH GLOSSARY
@@ -415,8 +415,8 @@ def deploy_site(subdomain, source_file, audio_file=None, date=None):
     print(f"   ✅ Pushed to GitHub")
     
     # 4. Server: git pull + sync
-    server_user = os.environ.get('SERVER_USER', 'ubuntu')
-    server_host = os.environ.get('SERVER_HOST', '43.153.24.30')
+    server_user = os.environ.get('DEPLOY_USER', os.environ.get('SERVER_USER', ''))
+    server_host = os.environ.get('DEPLOY_HOST', os.environ.get('SERVER_HOST', ''))
     sync_result = subprocess.run(
         ["ssh", f"{server_user}@{server_host}", "bash /var/www/sync-from-git.sh"],
         capture_output=True, text=True
@@ -644,8 +644,8 @@ def deploy_no_update(target_date=None):
 
     print(f"📝 Switching homepage to pending (no-update) for {target_date}...")
 
-    server_user = os.environ.get('SERVER_USER', 'ubuntu')
-    server_host = os.environ.get('SERVER_HOST', '43.153.24.30')
+    server_user = os.environ.get('DEPLOY_USER', os.environ.get('SERVER_USER', ''))
+    server_host = os.environ.get('DEPLOY_HOST', os.environ.get('SERVER_HOST', ''))
     remote_dir = f"/var/www/{DEPLOY_SUBDOMAIN}.{DOMAIN}"
 
     # pending.html is already on the server (synced via git); just repoint symlink.
@@ -746,6 +746,13 @@ def run_pipeline(target_date=None, skip_tts=False, skip_deploy=False):
     print("🦞 TechDaily Pipeline")
     print("=" * 50)
     
+    # Check deploy config if deployment is needed
+    if not skip_deploy:
+        if not os.environ.get('DEPLOY_HOST') and not os.environ.get('SERVER_HOST'):
+            print("   ❌ DEPLOY_HOST (or SERVER_HOST) environment variable not set")
+            print("   Set DEPLOY_USER, DEPLOY_HOST, DEPLOY_PATH before running.")
+            return None
+    
     # Step 1: Fetch RSS
     xml_data = None
     try:
@@ -806,8 +813,8 @@ def run_pipeline(target_date=None, skip_tts=False, skip_deploy=False):
         else:
             # TTS failed but still set audio_url so player shows (audio may 404 but UI is correct)
             # Check if existing audio is on server
-            server_user = os.environ.get('SERVER_USER', 'ubuntu')
-            server_host = os.environ.get('SERVER_HOST', '43.153.24.30')
+            server_user = os.environ.get('DEPLOY_USER', os.environ.get('SERVER_USER', ''))
+            server_host = os.environ.get('DEPLOY_HOST', os.environ.get('SERVER_HOST', ''))
             remote_dir = f"/var/www/{DEPLOY_SUBDOMAIN}.{DOMAIN}"
             check_cmd = [
                 "ssh", f"{server_user}@{server_host}",
@@ -819,8 +826,8 @@ def run_pipeline(target_date=None, skip_tts=False, skip_deploy=False):
                 print(f"   ✅ Found existing audio on server: {expected_audio_url}")
     else:
         # If skipping TTS, check if audio already exists on server
-        server_user = os.environ.get('SERVER_USER', 'ubuntu')
-        server_host = os.environ.get('SERVER_HOST', '43.153.24.30')
+        server_user = os.environ.get('DEPLOY_USER', os.environ.get('SERVER_USER', ''))
+        server_host = os.environ.get('DEPLOY_HOST', os.environ.get('SERVER_HOST', ''))
         remote_dir = f"/var/www/{DEPLOY_SUBDOMAIN}.{DOMAIN}"
         
         check_cmd = [
