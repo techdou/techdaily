@@ -226,7 +226,7 @@ def parse_rss(xml_bytes, target_date=None):
     stories = []
     # RSS may use <h2> or <h3> for story titles; try both
     story_pattern = re.compile(
-        r'<h[23]>\s*(.*?)\s*<code[^>]*>#(\d+)</code>\s*</h[23]>',
+        r'<h[23]>\s*((?:(?!</h[23]>).)*?)\s*<code[^>]*>#(\d+)</code>\s*</h[23]>',
         re.DOTALL
     )
     

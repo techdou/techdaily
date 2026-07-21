@@ -98,7 +98,7 @@ def parse_rss_bodies(rss_path):
     for part in parts:
         # Match story number in <code>#N</code> after the title link
         h2_match = re.search(
-            r'<h[23]>\s*(.*?)\s*<code[^>]*>#(\d+)</code>\s*</h[23]>',
+            r'<h[23]>\s*((?:(?!</h[23]>).)*?)\s*<code[^>]*>#(\d+)</code>\s*</h[23]>',
             part, re.DOTALL
         )
         if not h2_match:
