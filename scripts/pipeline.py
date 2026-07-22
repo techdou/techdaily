@@ -225,6 +225,12 @@ def parse_rss(xml_bytes, target_date=None):
     # Extract detailed stories
     stories = []
     # RSS may use <h2> or <h3> for story titles; try both
+    #
+    # ⚠️ CRITICAL: 必须使用负向前瞻 (?:(?!</h[23]>).)*? 而不是 .*?
+    # 原因：.*? 配合 re.DOTALL 会跨越 </h2> 标签边界，从概览区的 <h2>概览
+    # 一路匹配到详情区的第一个 <code>#N</code></h2>，导致所有标题被吞进第一条。
+    # 负向前瞻确保匹配内容中不会出现 </h2> 或 </h3>，从而限制在单个标签内。
+    # 详见 SKILL.md「正则解析 HTML 的坑」
     story_pattern = re.compile(
         r'<h[23]>\s*((?:(?!</h[23]>).)*?)\s*<code[^>]*>#(\d+)</code>\s*</h[23]>',
         re.DOTALL
@@ -276,6 +282,16 @@ def parse_rss(xml_bytes, target_date=None):
         'overview': overview,
         'stories': stories,
     }
+    
+    # ── Title length validation ──
+    # 防止正则匹配异常导致标题内容过长（正常标题 < 80 字）
+    # 如果标题超过 100 字，说明解析可能有问题，打印警告
+    TITLE_MAX_LEN = 100
+    suspicious = [s for s in stories if len(s.get('title', '')) > TITLE_MAX_LEN]
+    if suspicious:
+        print(f"   ⚠️  WARNING: {len(suspicious)} story title(s) exceed {TITLE_MAX_LEN} chars — possible regex parsing bug!")
+        for s in suspicious:
+            print(f"       #{s['num']} ({len(s['title'])} chars): {s['title'][:60]}...")
     
     print(f"   ✅ Parsed: {len(overview)} overview items, {len(stories)} stories")
     return result

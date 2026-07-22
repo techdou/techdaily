@@ -3,6 +3,13 @@
 # Flow: local public/ → git push → server git pull → sync to webroot
 # Usage: bash scripts/deploy.sh YYYY-MM-DD
 # Example: bash scripts/deploy.sh 2026-06-27
+#
+# ⚠️ 如果改用 rsync 部署，必须加 --no-perms --no-owner --no-group
+# 否则 Mac 的 UID/权限(700)会带到服务器，导致 Nginx(www-data) 读不了 → 500
+# rsync 后还需修正权限：
+#   sudo chown -R www-data:www-data /var/www/news.techdou.com/
+#   sudo find /var/www/news.techdou.com -type d -exec chmod 755 {} \;
+#   sudo find /var/www/news.techdou.com -type f -exec chmod 644 {} \;
 set -e
 
 DATE="${1:?Usage: bash scripts/deploy.sh YYYY-MM-DD}"

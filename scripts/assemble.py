@@ -97,6 +97,9 @@ def parse_rss_bodies(rss_path):
 
     for part in parts:
         # Match story number in <code>#N</code> after the title link
+        #
+        # ⚠️ CRITICAL: 必须用负向前瞻 (?:(?!</h[23]>).)*? 限制匹配不跨标签边界
+        # .*? + DOTALL 会跨越 </h2> 边界，把概览区内容吞进标题。详见 SKILL.md
         h2_match = re.search(
             r'<h[23]>\s*((?:(?!</h[23]>).)*?)\s*<code[^>]*>#(\d+)</code>\s*</h[23]>',
             part, re.DOTALL
