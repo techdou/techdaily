@@ -30,17 +30,18 @@ import assemble as html_assembler
 # CONFIG
 # ========================================
 RSS_URL = "https://daily.juya.uk/rss.xml"
-OUTPUT_DIR = Path.home() / "Project" / "daily-news" / "output"
+OUTPUT_DIR = Path.home() / "Project" / "news.techdou.com" / "output"
 AUDIO_DIR = OUTPUT_DIR
 STATE_FILE = Path.home() / ".openclaw" / "skills" / "daily-news" / "state.json"
+ALERT_DIR = Path.home() / ".openclaw" / "skills" / "daily-news" / "alerts"
 
 # MMX voice
 TTS_VOICE = "Podcast_girl"
 TTS_FORMAT = "mp3"
 
-# Deploy config (override via environment variables in production)
-DEPLOY_SUBDOMAIN = os.environ.get('DEPLOY_SUBDOMAIN', 'news')
-DOMAIN = os.environ.get('DEPLOY_DOMAIN', 'techdou.com')
+# Deploy config
+DEPLOY_SUBDOMAIN = "news"
+DOMAIN = "techdou.com"
 
 # ========================================
 # TECH GLOSSARY
@@ -225,24 +226,15 @@ def parse_rss(xml_bytes, target_date=None):
     # Extract detailed stories
     stories = []
     # RSS may use <h2> or <h3> for story titles; try both
-    #
-    # ⚠️ CRITICAL: 必须使用负向前瞻 (?:(?!</h[23]>).)*? 而不是 .*?
-    # 原因：.*? 配合 re.DOTALL 会跨越 </h2> 标签边界，从概览区的 <h2>概览
-    # 一路匹配到详情区的第一个 <code>#N</code></h2>，导致所有标题被吞进第一条。
-    # 负向前瞻确保匹配内容中不会出现 </h2> 或 </h3>，从而限制在单个标签内。
-    # 详见 SKILL.md「正则解析 HTML 的坑」
     story_pattern = re.compile(
-        r'<h[23]>\s*((?:(?!</h[23]>).)*?)\s*<code[^>]*>#(\d+)</code>\s*</h[23]>',
+        r'<h[23]>\s*<a\s+href="([^"]+)"[^>]*>(.*?)</a>\s*<code[^>]*>#(\d+)</code>\s*</h[23]>',
         re.DOTALL
     )
     
     for match in story_pattern.finditer(html_content):
-        raw_title = match.group(1)
-        story_num = match.group(2)
-        # Extract link if present, otherwise empty
-        link_match = re.search(r'<a\s+href="([^"]+)"', raw_title)
-        story_link = link_match.group(1) if link_match else ""
-        story_title = strip_html(raw_title)
+        story_link = match.group(1)
+        story_title = strip_html(match.group(2))
+        story_num = match.group(3)
         
         # Find the content after this match until next story or end
         start_pos = match.end()
@@ -282,16 +274,6 @@ def parse_rss(xml_bytes, target_date=None):
         'overview': overview,
         'stories': stories,
     }
-    
-    # ── Title length validation ──
-    # 防止正则匹配异常导致标题内容过长（正常标题 < 80 字）
-    # 如果标题超过 100 字，说明解析可能有问题，打印警告
-    TITLE_MAX_LEN = 100
-    suspicious = [s for s in stories if len(s.get('title', '')) > TITLE_MAX_LEN]
-    if suspicious:
-        print(f"   ⚠️  WARNING: {len(suspicious)} story title(s) exceed {TITLE_MAX_LEN} chars — possible regex parsing bug!")
-        for s in suspicious:
-            print(f"       #{s['num']} ({len(s['title'])} chars): {s['title'][:60]}...")
     
     print(f"   ✅ Parsed: {len(overview)} overview items, {len(stories)} stories")
     return result
@@ -431,8 +413,8 @@ def deploy_site(subdomain, source_file, audio_file=None, date=None):
     print(f"   ✅ Pushed to GitHub")
     
     # 4. Server: git pull + sync
-    server_user = os.environ.get('DEPLOY_USER', os.environ.get('SERVER_USER', ''))
-    server_host = os.environ.get('DEPLOY_HOST', os.environ.get('SERVER_HOST', ''))
+    server_user = os.environ.get('SERVER_USER', 'ubuntu')
+    server_host = os.environ.get('SERVER_HOST', '43.153.24.30')
     sync_result = subprocess.run(
         ["ssh", f"{server_user}@{server_host}", "bash /var/www/sync-from-git.sh"],
         capture_output=True, text=True
@@ -660,8 +642,8 @@ def deploy_no_update(target_date=None):
 
     print(f"📝 Switching homepage to pending (no-update) for {target_date}...")
 
-    server_user = os.environ.get('DEPLOY_USER', os.environ.get('SERVER_USER', ''))
-    server_host = os.environ.get('DEPLOY_HOST', os.environ.get('SERVER_HOST', ''))
+    server_user = os.environ.get('SERVER_USER', 'ubuntu')
+    server_host = os.environ.get('SERVER_HOST', '43.153.24.30')
     remote_dir = f"/var/www/{DEPLOY_SUBDOMAIN}.{DOMAIN}"
 
     # pending.html is already on the server (synced via git); just repoint symlink.
@@ -762,13 +744,6 @@ def run_pipeline(target_date=None, skip_tts=False, skip_deploy=False):
     print("🦞 TechDaily Pipeline")
     print("=" * 50)
     
-    # Check deploy config if deployment is needed
-    if not skip_deploy:
-        if not os.environ.get('DEPLOY_HOST') and not os.environ.get('SERVER_HOST'):
-            print("   ❌ DEPLOY_HOST (or SERVER_HOST) environment variable not set")
-            print("   Set DEPLOY_USER, DEPLOY_HOST, DEPLOY_PATH before running.")
-            return None
-    
     # Step 1: Fetch RSS
     xml_data = None
     try:
@@ -829,8 +804,8 @@ def run_pipeline(target_date=None, skip_tts=False, skip_deploy=False):
         else:
             # TTS failed but still set audio_url so player shows (audio may 404 but UI is correct)
             # Check if existing audio is on server
-            server_user = os.environ.get('DEPLOY_USER', os.environ.get('SERVER_USER', ''))
-            server_host = os.environ.get('DEPLOY_HOST', os.environ.get('SERVER_HOST', ''))
+            server_user = os.environ.get('SERVER_USER', 'ubuntu')
+            server_host = os.environ.get('SERVER_HOST', '43.153.24.30')
             remote_dir = f"/var/www/{DEPLOY_SUBDOMAIN}.{DOMAIN}"
             check_cmd = [
                 "ssh", f"{server_user}@{server_host}",
@@ -842,8 +817,8 @@ def run_pipeline(target_date=None, skip_tts=False, skip_deploy=False):
                 print(f"   ✅ Found existing audio on server: {expected_audio_url}")
     else:
         # If skipping TTS, check if audio already exists on server
-        server_user = os.environ.get('DEPLOY_USER', os.environ.get('SERVER_USER', ''))
-        server_host = os.environ.get('DEPLOY_HOST', os.environ.get('SERVER_HOST', ''))
+        server_user = os.environ.get('SERVER_USER', 'ubuntu')
+        server_host = os.environ.get('SERVER_HOST', '43.153.24.30')
         remote_dir = f"/var/www/{DEPLOY_SUBDOMAIN}.{DOMAIN}"
         
         check_cmd = [

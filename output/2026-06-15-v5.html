@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>TechDaily · 2026-06-15</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Noto+Serif+SC:wght@400;600;700;900&family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #1a1a1a;
+  --ink-soft: #2b251f;
+  --ink-muted: #6b6358;
+  --paper: #f5f1e8;
+  --paper-warm: #efe9dc;
+  --paper-card: #fffdf8;
+  --paper-dark: #e0d8c8;
+  --accent: #8b1a1a;
+  --accent-soft: #c44d4d;
+  --accent-bg: rgba(139, 26, 26, 0.06);
+  --rule: #c8c0b0;
+  --rule-soft: #ddd6c8;
+  --font-serif: 'Noto Serif SC', 'Playfair Display', Georgia, serif;
+  --font-display: 'Playfair Display', 'Noto Serif SC', Georgia, serif;
+  --font-sans: 'DM Sans', -apple-system, 'PingFang SC', sans-serif;
+  --font-mono: 'JetBrains Mono', 'SF Mono', Consolas, monospace;
+  --max-width: 1200px;
+  --reading-width: 640px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body {
+  font-family: var(--font-sans);
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+img { max-width: 100%; height: auto; display: block; }
+a { color: inherit; text-decoration: none; }
+
+/* ========================================
+   FLOATING NAV - FIXED: moved down
+   ======================================== */
+.float-nav {
+  position: fixed;
+  top: 80px;  /* FIXED: was 20px, now below masthead (~60px + padding) */
+  left: 20px;
+  z-index: 200;
+}
+.float-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--ink);
+  color: var(--paper);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+  font-size: 1.2rem;
+  transition: transform 0.2s, background 0.2s;
+}
+.float-btn:hover { background: var(--accent); transform: scale(1.1); }
+
+.sidebar {
+  position: fixed;
+  top: 0; left: 0; bottom: 0;
+  width: 280px;
+  background: var(--paper-card);
+  box-shadow: 4px 0 24px rgba(0,0,0,0.12);
+  z-index: 199;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+  padding: 24px;
+  overflow-y: auto;
+}
+.sidebar.active { transform: translateX(0); }
+.sidebar-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.3);
+  z-index: 198;
+  display: none;
+}
+.sidebar-overlay.active { display: block; }
+
+.sidebar-title {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--ink);
+}
+.sidebar-cat {
+  margin-bottom: 18px;
+}
+.sidebar-cat-name {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+.sidebar-link {
+  display: block;
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+  padding: 5px 0;
+  cursor: pointer;
+  transition: color 0.15s;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.sidebar-link:hover { color: var(--accent); }
+
+/* ========================================
+   MASTHEAD
+   ======================================== */
+.masthead {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 14px 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 20px rgba(0,0,0,0.12);
+}
+.masthead-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.masthead-brand {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+.masthead-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 3.5vw, 2.2rem);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+.masthead-title .accent { color: var(--accent-soft); }
+.masthead-sub {
+  font-family: var(--font-serif);
+  font-size: 0.78rem;
+  font-style: italic;
+  opacity: 0.5;
+}
+.masthead-date {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  opacity: 0.6;
+  text-align: right;
+}
+
+/* ========================================
+   HERO
+   ======================================== */
+.hero {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 24px 20px 12px;
+}
+.hero-cover {
+  width: 100%;
+  max-height: min(42vh, 400px);
+  object-fit: cover;
+  border-radius: 4px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+.hero-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 12px;
+  padding-bottom: 12px;
+  border-bottom: 3px double var(--ink);
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.hero-issue {
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  color: var(--ink-muted);
+}
+
+/* ========================================
+   CATEGORY PILLS
+   ======================================== */
+.cat-nav {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 16px 20px 8px;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.cat-pill {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--accent);
+  background: var(--accent-bg);
+  padding: 5px 12px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.15s;
+  border: 1px solid transparent;
+}
+.cat-pill:hover {
+  background: var(--accent);
+  color: white;
+}
+
+/* ========================================
+   TODAY'S BRIEF
+   ======================================== */
+.brief-section {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 20px 20px 12px;
+}
+.brief-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+.brief-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.brief-title::before {
+  content: '';
+  display: block;
+  width: 4px;
+  height: clamp(1.1rem, 2.5vw, 1.5rem);
+  background: var(--accent);
+  border-radius: 2px;
+}
+
+/* Audio player */
+.audio-player {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--paper-card);
+  border: 1px solid var(--rule-soft);
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+.audio-player.audio-disabled { opacity: 0.6; }
+.audio-play-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: none;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: transform 0.15s, background 0.15s;
+}
+.audio-play-btn:hover { transform: scale(1.06); background: var(--accent-soft); }
+.audio-play-btn svg { width: 18px; height: 18px; fill: currentColor; }
+.audio-info { flex: 1; min-width: 0; }
+.audio-label { font-weight: 600; font-size: 0.95rem; }
+.audio-desc { font-size: 0.78rem; color: var(--ink-muted); margin-top: 2px; }
+.audio-progress-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  max-width: 180px;
+}
+.audio-track {
+  flex: 1;
+  height: 4px;
+  background: var(--rule-soft);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.audio-fill {
+  height: 100%;
+  background: var(--accent-soft);
+  width: 0%;
+  transition: width 0.3s;
+}
+.audio-time {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--ink-muted);
+  white-space: nowrap;
+  min-width: 36px;
+  text-align: right;
+}
+
+/* FIXED: Brief grid with equal height and odd/even support */
+.brief-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 12px;
+  align-items: stretch;  /* FIXED: equal height */
+}
+.brief-item {
+  background: var(--paper-card);
+  border: 1px solid var(--rule-soft);
+  border-radius: 8px;
+  padding: 14px;
+  cursor: pointer;
+  transition: box-shadow 0.2s, transform 0.2s;
+  display: flex;
+  flex-direction: column;
+  height: 100%;  /* FIXED: fill grid cell */
+}
+.brief-item:hover {
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+  transform: translateY(-2px);
+}
+.brief-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.brief-num {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: var(--accent);
+  opacity: 0.7;
+  line-height: 1;
+}
+.brief-cat {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--accent);
+  background: var(--accent-bg);
+  padding: 2px 6px;
+  border-radius: 2px;
+}
+.brief-title {
+  font-family: var(--font-serif);
+  font-size: 0.92rem;
+  font-weight: 600;
+  line-height: 1.5;
+  color: var(--ink);
+  flex: 1;  /* FIXED: push content to fill */
+}
+
+/* Tags */
+.tech-term {
+  color: var(--accent);
+  cursor: pointer;
+  font-weight: 500;
+  padding: 0 1px;
+  transition: background 0.15s;
+  border-radius: 2px;
+  white-space: nowrap;
+  display: inline;
+}
+.tech-term:hover { background: var(--accent-bg); }
+
+/* ========================================
+   SECTION DIVIDER
+   ======================================== */
+.section-divider {
+  max-width: var(--max-width);
+  margin: 24px auto 8px;
+  padding: 0 20px;
+}
+.section-divider-inner {
+  border-top: 1px solid var(--rule);
+  padding-top: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.section-label {
+  font-family: var(--font-display);
+  font-size: clamp(1rem, 2vw, 1.3rem);
+  font-weight: 700;
+}
+.section-label::before {
+  content: '';
+  display: inline-block;
+  width: 4px;
+  height: clamp(1rem, 2vw, 1.3rem);
+  background: var(--accent);
+  border-radius: 2px;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+/* ========================================
+   STORIES - FIXED: Horizontal layout on PC
+   ======================================== */
+.stories {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 12px 20px 40px;
+}
+.story {
+  padding: 28px 0;
+  border-bottom: 1px solid var(--rule-soft);
+}
+.story:last-child { border-bottom: none; }
+
+/* Story layout: horizontal on desktop, vertical on mobile */
+.story-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Images area */
+.story-visuals {
+  order: -1;  /* Images first on mobile */
+}
+.story-images {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 4px;
+}
+.story-images img {
+  width: auto;
+  max-width: 100%;
+  max-height: 320px;
+  object-fit: cover;
+  border-radius: 4px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+.story-images img:hover { transform: scale(1.02); }
+
+/* Desktop: horizontal layout */
+@media (min-width: 1024px) {
+  .story {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    align-items: start;
+  }
+  .story-header {
+    grid-column: 1 / -1;  /* Full width header */
+  }
+  .story-visuals {
+    order: 0;  /* Reset order */
+  }
+  .story-images {
+    flex-direction: column;
+    overflow-x: visible;
+  }
+  .story-images img {
+    width: 100%;
+    max-height: none;
+    max-height: min(50vh, 400px);
+  }
+  .story-text {
+    /* Text column */
+  }
+  .story-body {
+    max-width: none;  /* Remove reading-width limit */
+  }
+}
+
+/* Mobile: vertical layout (default) */
+.story-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 12px;
+}
+.story-num {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+  font-weight: 900;
+  color: var(--accent);
+  line-height: 0.8;
+  flex-shrink: 0;
+  opacity: 0.75;
+}
+.story-title-block { flex: 1; }
+.story-categories {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 6px;
+}
+.story-cat {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--accent);
+  background: var(--accent-bg);
+  padding: 3px 8px;
+  border-radius: 2px;
+}
+.story-title {
+  font-family: var(--font-serif);
+  font-size: clamp(1.15rem, 2.2vw, 1.5rem);
+  font-weight: 700;
+  line-height: 1.35;
+}
+.story-title a {
+  color: var(--ink);
+  transition: color 0.15s;
+}
+.story-title a:hover { color: var(--accent); }
+
+.story-summary {
+  font-family: var(--font-serif);
+  font-size: clamp(0.9rem, 1.4vw, 1rem);
+  line-height: 1.7;
+  color: var(--ink-soft);
+  padding: 10px 14px;
+  border-left: 3px solid var(--accent);
+  background: var(--accent-bg);
+  border-radius: 0 4px 4px 0;
+  margin: 12px 0;
+}
+
+.story-body {
+  font-size: clamp(0.88rem, 1.2vw, 0.96rem);
+  line-height: 1.85;
+  color: var(--ink-soft);
+  max-width: var(--reading-width);
+}
+.story-body p {
+  margin-bottom: 14px;
+  text-indent: 2em;
+}
+.story-body p:first-child { text-indent: 0; }
+
+/* ========================================
+   MODAL
+   ======================================== */
+.modal-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.45);
+  backdrop-filter: blur(6px);
+  z-index: 200;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.modal-overlay.active { display: flex; }
+.modal {
+  background: var(--paper-card);
+  border-radius: 12px;
+  max-width: 480px;
+  width: 100%;
+  max-height: 75vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+  animation: modalIn 0.2s ease;
+}
+@keyframes modalIn {
+  from { opacity: 0; transform: scale(0.95) translateY(10px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+.modal-header {
+  padding: 18px 18px 10px;
+  border-bottom: 1px solid var(--rule-soft);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.modal-term { font-family: var(--font-display); font-size: 1.25rem; font-weight: 700; }
+.modal-close {
+  background: none; border: none;
+  font-size: 1.4rem; color: var(--ink-muted);
+  cursor: pointer; padding: 4px 8px;
+}
+.modal-close:hover { color: var(--accent); }
+.modal-body {
+  padding: 14px 18px 20px;
+  font-size: 0.9rem; line-height: 1.7; color: var(--ink-soft);
+}
+.modal-body .tag {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  background: var(--paper-dark);
+  padding: 2px 8px; border-radius: 2px;
+  margin-bottom: 8px; color: var(--ink-muted);
+}
+
+/* ========================================
+   FOOTER
+   ======================================== */
+.footer {
+  background: var(--ink);
+  color: rgba(245,241,232,0.5);
+  padding: 32px 20px;
+  text-align: center;
+}
+.footer-brand {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--paper);
+}
+.footer-brand .accent { color: var(--accent-soft); }
+.footer-info { font-size: 0.74rem; margin-top: 4px; }
+</style>
+</head>
+<body>
+
+<!-- FLOATING NAV -->
+<div class="float-nav">
+  <button class="float-btn" onclick="toggleSidebar()" title="目录">☰</button>
+</div>
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+<nav class="sidebar" id="sidebar">
+  <div class="sidebar-title">📰 目录</div>
+  <div class="sidebar-cat">
+    <div class="sidebar-cat-name">模型发布</div>
+    <span class="sidebar-link" onclick="scrollToStory('1')">1. 里约热内卢市信息技术公司Rio 3.5模型被曝融合Nex...</span>
+  </div>
+</nav>
+
+<!-- MASTHEAD -->
+<header class="masthead">
+  <div class="masthead-inner">
+    <div class="masthead-brand">
+      <div class="masthead-title">Tech<span class="accent">Daily</span></div>
+      <div class="masthead-sub">AI · Technology · Daily Briefing</div>
+    </div>
+    <div class="masthead-date">2026-06-15 · 第 001 期</div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <img class="hero-cover" src="https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1200&h=400&fit=crop" alt="AI Daily Cover">
+  <div class="hero-bar">
+    <div class="hero-issue">TECHDAILY · AI EARLY EDITION</div>
+  </div>
+</section>
+
+<!-- CATEGORY PILLS -->
+<div class="cat-nav">
+  <span class="cat-pill" onclick="scrollToCat('模型发布')">模型发布</span>
+</div>
+
+<!-- TODAY'S BRIEF -->
+<section class="brief-section" id="brief">
+  <div class="brief-header">
+    <div class="brief-title">今日精要</div>
+  </div>
+  <div class="audio-player audio-disabled">
+    <button class="audio-play-btn" disabled>
+      <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+    </button>
+    <div class="audio-info">
+      <div class="audio-label">🎙 今日精要播报</div>
+      <div class="audio-desc">音频生成中...</div>
+    </div>
+  </div>
+  <div class="brief-grid">
+    <div class="brief-item" onclick="scrollToStory('1')">
+      <div class="brief-head">
+        <span class="brief-num">1</span>
+        <span class="brief-cat">模型发布</span>
+      </div>
+      <div class="brief-title">里约热内卢市信息技术公司Rio 3.5模型被曝融合<span class="tech-term" onclick="openModal('Nex')">Nex</span>与<span class="tech-term" onclick="openModal('Qwen')">Qwen</span><span class="tech-term" onclick="openModal('权重')">权重</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION DIVIDER -->
+<div class="section-divider">
+  <div class="section-divider-inner">
+    <span class="section-label">详细报道</span>
+  </div>
+</div>
+
+<!-- STORIES -->
+<section class="stories" id="stories">
+<article class="story" id="story-1">
+  <div class="story-header">
+    <div class="story-num">1</div>
+    <div class="story-title-block">
+      <div class="story-categories"><span class="story-cat">模型发布</span></div>
+      <h2 class="story-title"><a href="https://github.com/nex-agi/Nex-N2/issues/4" target="_blank">里约热内卢市信息技术公司Rio 3.5模型被曝融合Nex与Qwen权重</a></h2>
+    </div>
+  </div>
+  <div class="story-summary">有开发者在 GitHub 上指出，里约热内卢市信息技术公司 发布的 Rio-3.5-Open-397B 模型是开源模型 <span class="tech-term" onclick="openModal('Nex')">Nex</span> N2 Pro 与 <span class="tech-term" onclick="openModal('Qwen')">Qwen</span>3.5-397B-A17B 按约 0.6 比 0.4 比例的<span class="tech-term" onclick="openModal('线性融合')">线性融合</span>。</div>
+  <div class="story-content">
+    <div class="story-visuals">
+      <div class="story-images">
+        <img src="https://assets.juya.uk/imagehub/aidaily/4df09b0c-7bcb-4dbe-8747-df2930dcb574/39cac061-1859-44f1-8ae7-577a3750c287/m001.png" alt="配图" loading="lazy">
+      </div>
+    </div>
+    <div class="story-text">
+      <div class="story-body"><p>有开发者在 GitHub 上指出...</p></div>
+    </div>
+  </div>
+</article>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-brand">Tech<span class="accent">Daily</span></div>
+  <div class="footer-info">© 2026 techdou.com</div>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="modal-header">
+      <span class="modal-term" id="modalTerm"></span>
+      <button class="modal-close" onclick="closeModal()">&times;</button>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
+<script>
+const GLOSSARY = {"蒸馏": {"tag": "Model Training", "def": "Knowledge Distillation（知识蒸馏），将大模型（教师模型）的知识转移到小模型（学生模型）的技术。"}, "SFT": {"tag": "Fine-tuning", "def": "Supervised Fine-Tuning（监督微调），在预训练模型基础上使用标注数据进行训练。"}, "RL": {"tag": "Machine Learning", "def": "Reinforcement Learning（强化学习），通过让模型与环境交互、获取奖励信号来优化策略。"}, "RLHF": {"tag": "Alignment", "def": "基于人类反馈的强化学习，先训练奖励模型再用 RL 优化语言模型。"}, "Agent": {"tag": "AI Application", "def": "AI Agent（智能体），能自主感知环境、规划任务、调用工具并执行行动的 AI 系统。"}, "权重": {"tag": "Model", "def": "Weights，神经网络中的可学习参数。模型的「知识」编码在权重矩阵中。"}, "张量": {"tag": "Mathematics", "def": "Tensor，多维数组的通用术语，深度学习中数据表示和计算的基本单元。"}, "余弦相似度": {"tag": "Mathematics", "def": "Cosine Similarity，衡量两个向量方向一致程度的指标。"}, "KYC": {"tag": "Compliance", "def": "Know Your Customer（了解你的客户），金融和合规领域的身份验证流程。"}, "Token": {"tag": "LLM", "def": "语言模型处理文本的基本单位。"}, "出口管制": {"tag": "Policy", "def": "Export Control，政府对特定技术或产品出口实施的限制措施。"}, "SOTA": {"tag": "Benchmark", "def": "State-of-the-Art，在某个任务或基准测试上取得的已知最好成绩。"}, "线性融合": {"tag": "Model Merge", "def": "Linear Model Merging，将两个模型的权重按特定比例线性组合的技术。"}, "On-Policy": {"tag": "RL", "def": "在线策略，强化学习中使用当前策略产生数据进行训练的方法。"}, "fable": {"tag": "AI Model", "def": "Anthropic 旗下的一款前沿 AI 模型。"}, "Mythos": {"tag": "AI Model", "def": "Anthropic 旗下的一款前沿 AI 模型。"}, "Seedance": {"tag": "Video Generation", "def": "字节跳动推出的 AI 视频生成模型系列。"}, "剪映": {"tag": "Video Tool", "def": "字节跳动旗下的视频编辑工具。"}, "Qwen": {"tag": "Open Model", "def": "阿里巴巴通义千问团队推出的开源大语言模型系列。"}, "Gemini": {"tag": "AI Model", "def": "Google DeepMind 推出的多模态大语言模型系列。"}, "Nex": {"tag": "AI Model", "def": "AI 模型公司，其开源模型 Nex N2 Pro 被广泛使用。"}, "Anthropic": {"tag": "AI Company", "def": "AI 安全公司，Claude 的开发者。"}, "OpenAI": {"tag": "AI Company", "def": "ChatGPT 和 GPT 系列的开发者。"}};
+
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('active');
+  document.getElementById('sidebarOverlay').classList.toggle('active');
+}
+
+function scrollToStory(id) {
+  document.getElementById('story-' + id).scrollIntoView({behavior: 'smooth', block: 'start'});
+  document.getElementById('sidebar').classList.remove('active');
+  document.getElementById('sidebarOverlay').classList.remove('active');
+}
+
+function scrollToCat(cat) {
+  // Find first story with this category
+  const stories = document.querySelectorAll('.story');
+  for (let s of stories) {
+    const catEl = s.querySelector('.story-cat');
+    if (catEl && catEl.textContent === cat) {
+      s.scrollIntoView({behavior: 'smooth', block: 'start'});
+      break;
+    }
+  }
+}
+
+function openModal(term) {
+  const entry = GLOSSARY[term];
+  if (!entry) return;
+  document.getElementById('modalTerm').textContent = term;
+  document.getElementById('modalBody').innerHTML = 
+    '<span class="tag">' + entry.tag + '</span><br><br>' + entry.def;
+  document.getElementById('modalOverlay').classList.add('active');
+}
+
+function closeModal(event) {
+  if (!event || event.target === document.getElementById('modalOverlay')) {
+    document.getElementById('modalOverlay').classList.remove('active');
+  }
+}
+
+// Audio player
+let audio = null;
+let isPlaying = false;
+
+function togglePlay() {
+  if (!audio) {
+    audio = new Audio('broadcast.mp3');
+    audio.addEventListener('loadedmetadata', function() {
+      const duration = formatTime(audio.duration);
+      document.getElementById('audioTime').textContent = '0:00 / ' + duration;
+    });
+    audio.addEventListener('timeupdate', function() {
+      const pct = (audio.currentTime / audio.duration) * 100;
+      document.getElementById('progressFill').style.width = pct + '%';
+      const current = formatTime(audio.currentTime);
+      const total = formatTime(audio.duration);
+      document.getElementById('audioTime').textContent = current + ' / ' + total;
+    });
+    audio.addEventListener('ended', function() {
+      isPlaying = false;
+      document.getElementById('playIcon').style.display = 'block';
+      document.getElementById('pauseIcon').style.display = 'none';
+      document.getElementById('progressFill').style.width = '0%';
+    });
+  }
+  
+  if (isPlaying) {
+    audio.pause();
+    document.getElementById('playIcon').style.display = 'block';
+    document.getElementById('pauseIcon').style.display = 'none';
+  } else {
+    audio.play();
+    document.getElementById('playIcon').style.display = 'none';
+    document.getElementById('pauseIcon').style.display = 'block';
+  }
+  isPlaying = !isPlaying;
+}
+
+function formatTime(t) {
+  if (!t || isNaN(t)) return '—:—';
+  const m = Math.floor(t / 60);
+  const s = Math.floor(t % 60);
+  return m + ':' + (s < 10 ? '0' : '') + s;
+}
+
+// Keyboard shortcuts
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    document.getElementById('modalOverlay').classList.remove('active');
+    document.getElementById('sidebar').classList.remove('active');
+    document.getElementById('sidebarOverlay').classList.remove('active');
+  }
+});
+</script>
+
+</body>
+</html>

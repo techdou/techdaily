@@ -1,0 +1,13 @@
+欢迎收听 TechDaily 早报。今天是2026年6月20日，星期六。以下是今日AI领域重点新闻。
+
+首先，OpenAI Codex 桌面端发布重大更新，现已支持在本地 Mac 与远程主机之间无缝交接工作会话，用户可随时切换工作位置，不再需要保持笔记本常开机。
+
+Anthropic 修复了影响约 3% 用户的 Claude Code 额度显示异常 bug，但部分用户反馈额度未完全恢复。同时，AlphaFold 核心负责人、诺贝尔奖得主 John Jumper 宣布离开 Google DeepMind，计划加入 Anthropic。
+
+开发生态方面，Gemini 3.5 Flash 修复了高频输出循环问题并重置了所有用户配额。Cloudflare 推出 Temporary Accounts 功能，让 AI Agent 无需注册即可临时部署 Worker，大幅降低 Agent 部署门槛。
+
+行业动态方面，白宫与 Anthropic 正在制定 AI 安全漏洞评估框架，以替代此前因越狱争议施加的出口管制。欧盟委员会选定意大利 Domyn 领导的 EUROPA 联盟，计划开发超 4000 亿参数、覆盖 24 种欧盟语言的开源前沿模型。
+
+最后提醒开发者注意，OpenAI Codex 的 SQLite 日志因默认使用全局 TRACE 级别，持续以约 5 MB/s 写入磁盘，年写入量推算高达 640 TB，可能严重损耗 SSD 寿命。建议采取临时缓解措施。
+
+以上就是今日 TechDaily 早报的全部内容，感谢您的收听，我们明天见。

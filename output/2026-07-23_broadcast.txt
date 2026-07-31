@@ -1,0 +1,26 @@
+欢迎收听 TechDaily 每日科技快报。今天是 2026-07-23。
+
+今日共有 20 条科技要闻。
+
+第 1 条，韩国机构 Upstage 发布开源模型 Solar Open 2，该模型总参数250B、激活参数15B，专为 Agentic 场景设计。据官方数据，该模型在 MMLU-Pro、LiveCodeBench 及韩语基准中取得同类模型最高分。
+第 2 条，微软发布开源图像模型系列 Mage-Flow，该模型参数量为 4B，支持 512 至 2048 原生分辨率的文生图与指令编辑，并提供 4 步 Turbo 版本。
+第 3 条，据社区用户发帖分享，月之暗面客服回复称，KIMI 目前已开放所有订阅预约申请。用户需提交预约表单并等待系统审核，通过后方可购买，具体的审核条件与处理时长未知。
+第 4 条，Anthropic 宣布 Claude Security 插件开启 Beta 测试，付费用户现可在 Claude Code 终端扫描代码库漏洞。该插件能将发现转化为补丁建议，补丁需人工审核后手动应用。
+第 5 条，Cursor推出模型路由器Cursor Router，现已面向Teams和Enterprise订阅方案正式上线。官方称该工具能自动分配最合适的模型，在保持前沿水准时降低最高约60%成本。
+第 6 条，OpenAI Developers 宣布对 Codex 应用发布多项更新，提升运行速度与导航体验。更新涵盖长对话、侧边栏、代码审查及日常工作流。
+第 7 条，OpenAI Developers 宣布本周起向所有账户开放 API 平台的硬性消费限额功能。用户可自行选择并设置 API 消费上限。
+第 8 条，腾讯旗下AI创意智能体Miora宣布全量上线，官方称新用户免费获1000积分。Miora可调用多Agent协作处理图片与视频，提供8种官方技能。
+第 9 条，Anthropic 为 Claude 上线 Anthropic Economic Index connector，用户可在 claude.ai 启用并直接向 Claude 提问查询相关数据。
+第 10 条，谷歌宣布首批安卓 Gemini Intelligence 功能正向三星全新折叠屏设备推出。核心更新包含扩展至 40 多款应用的任务自动化功能，以及预装的 Gemini Notebook。
+第 11 条，研究者Dmitry Rybin称，GPT 5.6 Pro为开放近30年的Dinitz–Garg–Goemans猜想找到反例：分流成本为58，而合规不可分拆流至少为60。
+第 12 条，美国政府官员公开指控月之暗面在开发 Kimi K3 模型时大规模蒸馏了 Anthropic 的 Fable 模型，并威胁可能采取制裁和实体清单措施。目前美国尚未公布可独立验证的技术证据，也未正式实施任何禁令或制裁。
+第 13 条，AMD与Anthropic宣布达成战略合作，Anthropic将部署最高2吉瓦AMD Instinct MI450系列GPU。AMD承诺对Anthropic战略投资最高50亿美元。
+第 14 条，Anthropic宣布为其经济未来研究基金承诺2亿美元，资助应对AI经济影响的研究，涵盖职场影响等五大领域。全球符合条件的大学、研究机构和非营利组织可申请。
+第 15 条，Google 宣布扩大与美国能源部的 Genesis Mission 合作，承诺投入4000万美元的 AI tokens 和 Google Cloud 积分，为科研人员提供 AlphaEvolve、AlphaFold 3 等前沿 AI 工具
+第 16 条，OpenAI宣布与美国能源部合作，为研究员提供四百万美元Codex额度，投入三百万美元API支持高温超导体攻关，并开放生物模型GPT-Rosalind及高级网络能力访问。
+第 17 条，美国能源部与Arcee AI宣布共建开放权重科学模型Genesis-Science-1。该项目在美能源部Genesis Mission框架下推进，目前处于开发阶段。
+第 18 条，OpenAI宣布在乔治亚州开发3.2吉瓦Project Camellia数据中心。项目私人全额出资，采用闭环冷却系统，承诺不增加当地居民水电负担。
+第 19 条，OpenAI 推出企业级 AI agent 平台 OpenAI Presence，帮助企业部署语音和聊天 agent 处理客户服务与内部业务流程。该产品目前面向符合条件的企业客户限量开放。
+第 20 条，据报道，三星正在洽谈对 Mistral 的投资，此轮融资对后者的估值可能约为 200 亿欧元。目前谈判仍在进行中，条款可能变动，尚未作出最终决定。
+
+以上就是今日 TechDaily 的全部内容。感谢收听，我们明天再见。

@@ -1,0 +1,4914 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>TechDaily · 2026年7月19日</title>
+<link rel="icon" type="image/svg+xml" href="/assets/logo/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Noto+Serif+SC:wght@400;600;700;900&family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+/**
+ * ============================================================
+ * TechDaily UI Design Enhancement Stylesheet
+ * ============================================================
+ * This file contains all visual enhancements for the TechDaily
+ * newspaper-style tech news page. It is designed to be used
+ * alongside the existing HTML structure.
+ *
+ * Sections:
+ * 1. CSS Custom Properties (Variables)
+ * 2. Global Typography & Base Styles
+ * 3. Floating Navigation
+ * 4. Masthead (Header)
+ * 5. Hero Section
+ * 6. Category Pills
+ * 7. Today's Brief Section
+ * 8. Audio Player
+ * 9. Section Dividers (Decorative)
+ * 10. Stories (Detailed Articles)
+ * 11. Tech Terms & Tooltips
+ * 12. Modal Enhancements
+ * 13. Footer
+ * 14. Back to Top Button
+ * 15. Scroll Animations (Reveal)
+ * 16. Decorative Elements
+ * 17. Keyframes
+ * 18. Responsive Design
+ * 19. Reduced Motion Support
+ * ============================================================
+ */
+
+
+/* ============================================================
+   1. CSS CUSTOM PROPERTIES (VARIABLES)
+   ============================================================ */
+
+:root {
+  /* -- Core Colors (preserved + enhanced) -- */
+  --ink: #1a1a1a;
+  --ink-soft: #2b251f;
+  --ink-muted: #6b6358;
+  --paper: #f5f1e8;
+  --paper-warm: #efe9dc;
+  --paper-card: #fffdf8;
+  --paper-dark: #e0d8c8;
+  --accent: #8b1a1a;
+  --accent-soft: #c44d4d;
+  --accent-bg: rgba(139, 26, 26, 0.06);
+  --rule: #c8c0b0;
+  --rule-soft: #ddd6c8;
+
+  /* -- Typography (preserved) -- */
+  --font-serif: 'Noto Serif SC', 'Playfair Display', Georgia, 'Songti SC', serif;
+  --font-display: 'Playfair Display', 'Noto Serif SC', Georgia, serif;
+  --font-sans: 'DM Sans', -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  --font-mono: 'JetBrains Mono', 'SF Mono', Consolas, 'Courier New', monospace;
+
+  /* -- Layout (enhanced) -- */
+  --max-width: 1280px;
+  --reading-width: 720px;
+
+  /* -- Shadow System (NEW) -- */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.12);
+  --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.16);
+  --shadow-inset: inset 0 1px 3px rgba(0, 0, 0, 0.03);
+
+  /* -- Gradients (NEW) -- */
+  --gradient-warm: linear-gradient(135deg, var(--paper-card) 0%, var(--paper-warm) 100%);
+  --gradient-paper: linear-gradient(180deg, var(--paper-card) 0%, var(--paper) 100%);
+  --gradient-accent: linear-gradient(135deg, var(--accent) 0%, var(--accent-soft) 100%);
+  --gradient-rule: linear-gradient(90deg, transparent 0%, var(--rule) 50%, transparent 100%);
+  --gradient-overlay: linear-gradient(180deg, rgba(26, 26, 26, 0.03) 0%, transparent 100%);
+
+  /* -- Spacing Scale (NEW) -- */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 40px;
+  --space-3xl: 56px;
+
+  /* -- Border Radius (NEW) -- */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-full: 9999px;
+
+  /* -- Transitions (NEW) -- */
+  --transition-fast: 150ms ease;
+  --transition-base: 250ms ease;
+  --transition-slow: 400ms ease;
+  --transition-bounce: 300ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+
+/* ============================================================
+   2. GLOBAL TYPOGRAPHY & BASE STYLES
+   ============================================================ */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  font-family: var(--font-sans);
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* -- Selection Styling (NEW) -- */
+::selection {
+  background: var(--accent);
+  color: var(--paper-card);
+}
+
+::-moz-selection {
+  background: var(--accent);
+  color: var(--paper-card);
+}
+
+/* -- Scrollbar Styling (NEW) -- */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--paper);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--rule);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--ink-muted);
+}
+
+
+/* ============================================================
+   3. FLOATING NAVIGATION
+   ============================================================ */
+
+.float-nav {
+  position: fixed;
+  top: 80px;
+  left: 20px;
+  z-index: 50;
+}
+
+.float-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-full);
+  background: var(--ink);
+  color: var(--paper);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-md);
+  font-size: 1.2rem;
+  transition: all var(--transition-base);
+  position: relative;
+  overflow: hidden;
+}
+
+.float-btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--gradient-accent);
+  opacity: 0;
+  transition: opacity var(--transition-base);
+  border-radius: inherit;
+  z-index: -1;
+}
+
+.float-btn:hover {
+  transform: scale(1.1) rotate(2deg);
+  box-shadow: var(--shadow-lg);
+}
+
+.float-btn:hover::after {
+  opacity: 1;
+}
+
+.float-btn:active {
+  transform: scale(0.96);
+}
+
+/* -- Sidebar -- */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 280px;
+  background: var(--paper-card);
+  box-shadow: 4px 0 32px rgba(0, 0, 0, 0.14);
+  z-index: 300;
+  transform: translateX(-100%);
+  transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  padding: 24px;
+  overflow-y: auto;
+  border-right: 1px solid var(--rule-soft);
+}
+
+.sidebar.active {
+  transform: translateX(0);
+}
+
+.sidebar-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  z-index: 299;
+  display: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.sidebar-overlay.active {
+  display: block;
+  opacity: 1;
+}
+
+.sidebar-title {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  padding-bottom: 14px;
+  border-bottom: 2px solid var(--ink);
+  letter-spacing: 0.01em;
+}
+
+.sidebar-cat {
+  margin-bottom: 18px;
+}
+
+.sidebar-cat-name {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.sidebar-cat-name::before {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  background: var(--accent);
+  border-radius: 50%;
+  opacity: 0.6;
+}
+
+.sidebar-link {
+  display: block;
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+  padding: 5px 0;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  border-left: 2px solid transparent;
+  padding-left: 8px;
+  margin-left: -8px;
+}
+
+.sidebar-link:hover {
+  color: var(--accent);
+  border-left-color: var(--accent-soft);
+  background: var(--accent-bg);
+  border-radius: 0 4px 4px 0;
+}
+
+
+/* ============================================================
+   4. MASTHEAD (HEADER)
+   ============================================================ */
+
+.masthead {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 16px 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 24px rgba(0, 0, 0, 0.14);
+  transition: box-shadow var(--transition-base);
+}
+
+.masthead-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.masthead-brand {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.masthead-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 3.5vw, 2.4rem);
+  font-weight: 900;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.masthead-title .accent {
+  color: var(--accent-soft);
+  text-shadow: 0 0 20px rgba(196, 77, 77, 0.3);
+}
+
+.masthead-sub {
+  font-family: var(--font-serif);
+  font-size: 0.8rem;
+  font-style: italic;
+  opacity: 0.5;
+  letter-spacing: 0.02em;
+}
+
+.masthead-date {
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  opacity: 0.6;
+  text-align: right;
+  letter-spacing: 0.02em;
+  line-height: 1.5;
+}
+
+/* —— 往期回顾导航按钮（v2026-06-25 新增） —— */
+.masthead-nav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+  margin-right: 24px;
+}
+
+.masthead-nav-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 12px;
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  color: var(--paper);
+  text-decoration: none;
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.masthead-nav-link:hover {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.masthead-nav-link:active { transform: scale(0.97); }
+
+.masthead-nav-link svg {
+  width: 12px;
+  height: 12px;
+  opacity: 0.85;
+}
+
+@media (max-width: 767px) {
+  .masthead-nav-link span { display: none; }
+  .masthead-nav { margin-right: 16px; }
+  .masthead-nav-link { padding: 6px 9px; }
+}
+
+
+/* ============================================================
+   5. HERO SECTION
+   ============================================================ */
+
+.hero {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 32px 24px 16px;
+  position: relative;
+}
+
+.hero-cover {
+  width: 100%;
+  max-height: min(42vh, 420px);
+  object-fit: cover;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  transition: box-shadow var(--transition-base);
+  position: relative;
+}
+
+/* -- Hero subtle texture overlay (NEW) -- */
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 32px;
+  left: 24px;
+  right: 24px;
+  bottom: calc(100% - 32px - min(42vh, 420px));
+  background: var(--gradient-overlay);
+  border-radius: var(--radius-md);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.hero-cover:hover {
+  box-shadow: var(--shadow-lg);
+}
+
+.hero-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 16px;
+  padding-bottom: 14px;
+  border-bottom: 3px double var(--ink);
+  flex-wrap: wrap;
+  gap: 10px;
+  position: relative;
+}
+
+/* -- Decorative diamond on hero bar (NEW) -- */
+.hero-bar::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+  width: 8px;
+  height: 8px;
+  background: var(--paper);
+  border: 2px solid var(--ink);
+}
+
+.hero-issue {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--ink-muted);
+  letter-spacing: 0.02em;
+}
+
+
+/* ============================================================
+   6. CATEGORY PILLS
+   ============================================================ */
+
+.cat-nav {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 20px 24px 10px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.cat-pill {
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--accent);
+  background: var(--accent-bg);
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: all var(--transition-base);
+  border: 1px solid transparent;
+  position: relative;
+  overflow: hidden;
+}
+
+.cat-pill::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--gradient-accent);
+  opacity: 0;
+  transition: opacity var(--transition-base);
+  z-index: 0;
+}
+
+.cat-pill span,
+.cat-pill {
+  position: relative;
+  z-index: 1;
+}
+
+.cat-pill:hover {
+  color: white;
+  border-color: var(--accent);
+  transform: scale(1.03);
+  box-shadow: var(--shadow-sm);
+}
+
+.cat-pill:hover::after {
+  opacity: 1;
+}
+
+.cat-pill:active {
+  transform: scale(0.98);
+}
+
+
+/* ============================================================
+   7. TODAY'S BRIEF SECTION
+   ============================================================ */
+
+.brief-section {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 28px 24px 16px;
+}
+
+.brief-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.brief-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.15rem, 2.5vw, 1.6rem);
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  letter-spacing: 0.01em;
+}
+
+.brief-title::before {
+  content: '';
+  display: block;
+  width: 5px;
+  height: clamp(1.15rem, 2.5vw, 1.6rem);
+  background: var(--gradient-accent);
+  border-radius: 3px;
+}
+
+/* -- Brief Grid (equal height cards) -- */
+.brief-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 14px;
+}
+
+/* FIX 2: brief-item 确保 flex 列布局且高度填满 */
+.brief-item {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* FIX 2: 标题区域自适应填充剩余空间 */
+.brief-item .brief-title {
+  flex: 1;
+}
+
+.brief-item {
+  background: var(--paper-card);
+  background: var(--gradient-warm);
+  border: 1px solid var(--rule-soft);
+  border-radius: var(--radius-md);
+  padding: 18px;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+/* -- Subtle corner accent on cards (NEW) -- */
+.brief-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(225deg, var(--paper-dark) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity var(--transition-base);
+  border-radius: 0 0 0 40px;
+}
+
+.brief-item:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-3px);
+  border-color: var(--accent-soft);
+}
+
+.brief-item:hover::before {
+  opacity: 1;
+}
+
+.brief-item:active {
+  transform: translateY(-1px);
+}
+
+.brief-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.brief-num {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: var(--accent);
+  opacity: 0.7;
+  line-height: 1;
+  text-shadow: 0 1px 2px rgba(139, 26, 26, 0.15);
+  transition: all var(--transition-base);
+  min-width: 24px;
+  text-align: center;
+}
+
+.brief-item:hover .brief-num {
+  opacity: 1;
+  transform: scale(1.08);
+  text-shadow: 0 2px 8px rgba(139, 26, 26, 0.25);
+}
+
+.brief-cat {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--accent);
+  background: var(--accent-bg);
+  padding: 3px 8px;
+  border-radius: var(--radius-sm);
+}
+
+.brief-item .brief-title {
+  font-family: var(--font-serif);
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.55;
+  color: var(--ink);
+  letter-spacing: 0.005em;
+  word-break: keep-all;        /* 修正5: 不在单词中间换行 */
+  overflow-wrap: break-word;   /* 修正5: 超长单词整体换行 */
+}
+
+
+/* ============================================================
+   8. AUDIO PLAYER
+   ============================================================ */
+
+.audio-player {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: var(--paper-card);
+  background: var(--gradient-warm);
+  border: 1px solid var(--rule-soft);
+  border-radius: var(--radius-lg);
+  padding: 14px 18px;
+  margin-bottom: 20px;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow var(--transition-base);
+}
+
+.audio-player:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.audio-player.audio-disabled {
+  opacity: 0.55;
+  filter: grayscale(0.4);
+}
+
+.audio-play-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-full);
+  background: var(--accent);
+  background: var(--gradient-accent);
+  border: none;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all var(--transition-base);
+  box-shadow: 0 2px 8px rgba(139, 26, 26, 0.25);
+}
+
+.audio-play-btn:hover {
+  transform: scale(1.08);
+  box-shadow: 0 4px 16px rgba(139, 26, 26, 0.35);
+}
+
+.audio-play-btn:active {
+  transform: scale(0.96);
+}
+
+.audio-play-btn svg {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+}
+
+.audio-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.audio-label {
+  font-weight: 600;
+  font-size: 0.96rem;
+  letter-spacing: 0.01em;
+}
+
+.audio-desc {
+  font-size: 0.8rem;
+  color: var(--ink-muted);
+  margin-top: 3px;
+  letter-spacing: 0.01em;
+}
+
+.audio-progress-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  max-width: 200px;
+}
+
+.audio-track {
+  flex: 1;
+  height: 5px;
+  background: var(--rule-soft);
+  border-radius: 3px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: height var(--transition-fast);
+}
+
+.audio-track:hover {
+  height: 7px;
+}
+
+.audio-fill {
+  height: 100%;
+  background: var(--gradient-accent);
+  width: 0%;
+  transition: width 0.3s ease;
+  border-radius: 3px;
+}
+
+.audio-time {
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  color: var(--ink-muted);
+  white-space: nowrap;
+  min-width: 40px;
+  text-align: right;
+  letter-spacing: 0.02em;
+}
+
+
+/* ============================================================
+   9. SECTION DIVIDERS (Decorative)
+   ============================================================ */
+
+.section-divider {
+  max-width: var(--max-width);
+  margin: 36px auto 10px;
+  padding: 0 24px;
+}
+
+.section-divider-inner {
+  border-top: 1px solid var(--rule);
+  padding-top: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+}
+
+/* -- Center decorative diamond (NEW) -- */
+.section-divider-inner::before {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  background: var(--accent);
+  transform: rotate(45deg);
+  border-radius: 1px;
+}
+
+/* -- Right gradient fade (NEW) -- */
+.section-divider-inner::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--gradient-rule);
+}
+
+.section-label {
+  font-family: var(--font-display);
+  font-size: clamp(1.05rem, 2vw, 1.35rem);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  white-space: nowrap;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+}
+
+.section-label::before {
+  content: '';
+  display: inline-block;
+  width: 5px;
+  height: clamp(1.05rem, 2vw, 1.35rem);
+  background: var(--gradient-accent);
+  border-radius: 3px;
+  margin-right: 0;
+  vertical-align: middle;
+}
+
+/* -- Enhanced decorative divider variant (NEW) -- */
+.section-divider-decorated .section-divider-inner {
+  border-top: none;
+  padding-top: 20px;
+  justify-content: center;
+}
+
+.section-divider-decorated .section-divider-inner::before {
+  display: none;
+}
+
+.section-divider-decorated .section-divider-inner::after {
+  display: none;
+}
+
+.section-divider-line {
+  flex: 1;
+  height: 1px;
+  background: var(--gradient-rule);
+  max-width: 200px;
+}
+
+.section-divider-dots {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  padding: 0 12px;
+}
+
+.section-divider-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--rule);
+}
+
+.section-divider-dot:nth-child(2) {
+  background: var(--accent);
+  width: 7px;
+  height: 7px;
+}
+
+.section-divider-diamond {
+  width: 8px;
+  height: 8px;
+  background: var(--accent);
+  transform: rotate(45deg);
+  border-radius: 1px;
+  opacity: 0.7;
+}
+
+
+/* ============================================================
+   10. STORIES (Detailed Articles)
+   ============================================================ */
+
+.stories {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 16px 24px 48px;
+}
+
+.story {
+  padding: 36px 0;
+  border-bottom: 1px solid var(--rule-soft);
+  position: relative;
+  transition: padding var(--transition-base);
+}
+
+.story:last-child {
+  border-bottom: none;
+}
+
+/* -- Subtle hover highlight on stories (NEW) -- */
+.story::before {
+  content: '';
+  position: absolute;
+  inset: 16px -20px;
+  background: var(--accent-bg);
+  opacity: 0;
+  border-radius: var(--radius-lg);
+  transition: opacity var(--transition-base);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.story:hover::before {
+  opacity: 0.5;
+}
+
+.story > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* -- Story Header -- */
+.story-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+
+/* -- Enhanced Story Number (NEW decorative circle) -- */
+.story-num {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+  font-weight: 900;
+  color: var(--accent);
+  line-height: 0.85;
+  flex-shrink: 0;
+  opacity: 0.8;
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--accent-bg);
+  border-radius: var(--radius-full);
+  border: 2px solid rgba(139, 26, 26, 0.12);
+  transition: all var(--transition-base);
+  text-shadow: 0 1px 2px rgba(139, 26, 26, 0.15);
+}
+
+.story:hover .story-num {
+  opacity: 1;
+  background: var(--accent);
+  color: var(--paper-card);
+  border-color: var(--accent);
+  box-shadow: 0 4px 16px rgba(139, 26, 26, 0.25);
+  transform: scale(1.05);
+}
+
+.story-title-block {
+  flex: 1;
+  padding-top: 4px;
+}
+
+.story-categories {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+
+.story-cat {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--accent);
+  background: var(--accent-bg);
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-fast);
+}
+
+.story-cat:hover {
+  background: var(--accent);
+  color: var(--paper-card);
+}
+
+/* -- Story Title with animated underline (NEW) -- */
+.story-title {
+  font-family: var(--font-serif);
+  font-size: clamp(1.18rem, 2.2vw, 1.55rem);
+  font-weight: 700;
+  line-height: 1.35;
+  letter-spacing: 0.01em;
+}
+
+.story-title a {
+  color: var(--ink);
+  transition: color var(--transition-fast);
+  position: relative;
+  display: inline;
+}
+
+/* -- Animated underline on hover (NEW) -- */
+.story-title a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--gradient-accent);
+  transition: width 0.35s ease;
+  border-radius: 1px;
+}
+
+.story-title a:hover {
+  color: var(--accent);
+}
+
+.story-title a:hover::after {
+  width: 100%;
+}
+
+/* -- Summary Box with italic and decorative quotes (NEW) -- */
+.story-summary {
+  font-family: var(--font-serif);
+  font-size: clamp(0.92rem, 1.4vw, 1.02rem);
+  line-height: 1.75;
+  color: var(--ink-soft);
+  padding: 14px 18px;
+  border-left: 4px solid var(--accent);
+  background: var(--accent-bg);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  margin: 16px 0;
+  position: relative;
+  font-style: italic;
+  letter-spacing: 0.01em;
+}
+
+/* -- Opening quote decoration (NEW) -- */
+.story-summary::before {
+  content: '\201C';
+  position: absolute;
+  top: 4px;
+  left: 10px;
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  color: var(--accent);
+  opacity: 0.12;
+  line-height: 1;
+  pointer-events: none;
+}
+
+/* -- Story Images -- */
+.story-images {
+  display: flex;
+  gap: 14px;
+  margin: 20px 0;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 6px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--rule) transparent;
+  justify-content: center;
+  align-items: center;
+}
+
+.story-images::-webkit-scrollbar {
+  height: 4px;
+}
+
+.story-images::-webkit-scrollbar-thumb {
+  background: var(--rule);
+  border-radius: 2px;
+}
+
+.story-images img {
+  width: auto;
+  max-width: 100%;
+  max-height: 340px;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  border: 1px solid transparent;
+}
+
+.story-images img:hover {
+  transform: scale(1.02) translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--rule-soft);
+}
+
+/* -- Enhanced Story Body Typography (NEW) -- */
+.story-body {
+  font-size: clamp(0.92rem, 1.3vw, 1rem);
+  line-height: 1.9;
+  color: var(--ink-soft);
+  max-width: var(--reading-width);
+  letter-spacing: 0.01em;
+}
+
+/* -- Modern paragraph spacing (replaces text-indent) -- */
+.story-body p {
+  margin-bottom: 1.2em;
+  text-indent: 0;
+}
+
+.story-body p:last-child {
+  margin-bottom: 0;
+}
+
+/* -- First letter styling for first paragraph (NEW) -- */
+/* 修正6: 调整首字下沉样式，避免与正文重叠 */
+.story-body > p:first-of-type::first-letter {
+  font-family: var(--font-display);
+  font-size: 3.0em;            /* 从3.2em略降为3.0em，减少侵占空间 */
+  font-weight: 700;
+  float: left;
+  line-height: 0.85;           /* 从0.8提高到0.85，增加行间距 */
+  margin-right: 8px;           /* 从6px增加到8px，与正文保持更大间距 */
+  margin-top: 2px;             /* 从4px降为2px，减少对上方空间的侵占 */
+  margin-bottom: 2px;          /* 新增：确保下方段落不与首字重叠 */
+  color: var(--accent);
+  text-shadow: 1px 1px 0 rgba(139, 26, 26, 0.15);
+}
+
+/* -- Story body emphasis styling (NEW) -- */
+.story-body strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.story-body em {
+  color: var(--ink-soft);
+  font-style: italic;
+}
+
+
+/* ============================================================
+   11. TECH TERMS & TOOLTIPS
+   ============================================================ */
+
+.tech-term {
+  color: var(--accent);
+  cursor: pointer;
+  font-weight: 500;
+  padding: 0 3px;
+  transition: all var(--transition-fast);
+  border-radius: 3px;
+  white-space: nowrap;
+  display: inline;
+  border-bottom: 1px dashed var(--accent-soft);
+  position: relative;
+}
+
+.tech-term:hover {
+  background: var(--accent);
+  color: var(--paper-card);
+  border-bottom-color: transparent;
+}
+
+/* -- Tooltip on hover (NEW) -- */
+.tech-term[data-tooltip]::before {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%) scale(0.95);
+  background: var(--ink);
+  color: var(--paper-card);
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 0.75rem;
+  font-family: var(--font-sans);
+  font-weight: 400;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: all var(--transition-fast);
+  z-index: 50;
+  box-shadow: var(--shadow-md);
+  letter-spacing: 0.01em;
+}
+
+.tech-term[data-tooltip]::after {
+  content: '';
+  position: absolute;
+  bottom: calc(100% + 3px);
+  left: 50%;
+  transform: translateX(-50%) scale(0.95);
+  border: 5px solid transparent;
+  border-top-color: var(--ink);
+  opacity: 0;
+  transition: all var(--transition-fast);
+  z-index: 50;
+}
+
+.tech-term[data-tooltip]:hover::before,
+.tech-term[data-tooltip]:hover::after {
+  opacity: 1;
+  transform: translateX(-50%) scale(1);
+}
+
+
+/* ============================================================
+   12. MODAL ENHANCEMENTS
+   ============================================================ */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  z-index: 200;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.modal-overlay.active {
+  display: flex;
+  opacity: 1;
+}
+
+.modal {
+  background: var(--paper-card);
+  border-radius: var(--radius-lg);
+  max-width: 340px;
+  width: auto;
+  max-height: 60vh;
+  overflow-y: auto;
+  box-shadow: var(--shadow-xl);
+  animation: modalIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  border: 1px solid var(--rule-soft);
+  position: relative;
+}
+
+/* -- Modal decorative corner (NEW) -- */
+.modal::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--gradient-accent);
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+}
+
+@keyframes modalIn {
+  from {
+    opacity: 0;
+    transform: scale(0.92) translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.modal-header {
+  padding: 22px 24px 14px;
+  border-bottom: 1px solid var(--rule-soft);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
+
+.modal-term {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  color: var(--ink);
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  font-size: 1.6rem;
+  color: var(--ink-muted);
+  cursor: pointer;
+  padding: 6px 10px;
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-fast);
+  line-height: 1;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-close:hover {
+  color: var(--accent);
+  background: var(--accent-bg);
+  transform: rotate(90deg);
+}
+
+.modal-body {
+  padding: 12px 16px 16px;
+  font-size: 0.82rem;
+  line-height: 1.6;
+  color: var(--ink-soft);
+  letter-spacing: 0.01em;
+}
+
+.modal-body .tag {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+  background: var(--paper-dark);
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  margin-bottom: 10px;
+  color: var(--ink-muted);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.modal-body p {
+  margin-bottom: 0.8em;
+}
+
+
+/* ============================================================
+   13. FOOTER
+   ============================================================ */
+
+.footer {
+  background: var(--ink);
+  color: rgba(245, 241, 232, 0.5);
+  padding: 40px 24px;
+  text-align: center;
+  position: relative;
+}
+
+/* -- Decorative top border (NEW) -- */
+.footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 3px;
+  background: var(--gradient-accent);
+  border-radius: 0 0 3px 3px;
+}
+
+.footer-brand {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--paper);
+  letter-spacing: 0.02em;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.footer-brand .accent {
+  color: var(--accent-soft);
+}
+
+.footer-info {
+  font-size: 0.78rem;
+  margin-top: 6px;
+  letter-spacing: 0.02em;
+}
+
+
+/* ============================================================
+   14. BACK TO TOP BUTTON
+   ============================================================ */
+
+.back-to-top {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-full);
+  background: var(--paper-card);
+  color: var(--ink-muted);
+  border: 1px solid var(--rule-soft);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-md);
+  z-index: 150;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(12px);
+  transition: all var(--transition-base);
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+.back-to-top.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.back-to-top:hover {
+  background: var(--accent);
+  color: var(--paper-card);
+  border-color: var(--accent);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg);
+}
+
+.back-to-top:active {
+  transform: translateY(-1px) scale(0.96);
+}
+
+/* -- Progress ring (NEW) -- */
+.back-to-top-ring {
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  border-top-color: var(--accent);
+  opacity: 0;
+  transition: opacity var(--transition-base);
+  transform: rotate(-90deg);
+}
+
+.back-to-top.visible .back-to-top-ring {
+  opacity: 0.4;
+}
+
+
+/* ============================================================
+   15. SCROLL ANIMATIONS (REVEAL)
+   ============================================================ */
+
+/* -- Base reveal -- */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* -- Stagger reveal for child elements (NEW) -- */
+.reveal-stagger {
+  opacity: 1;
+  transform: none;
+}
+
+.reveal-stagger > * {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.reveal-stagger.visible > *:nth-child(1) { transition-delay: 0ms; }
+.reveal-stagger.visible > *:nth-child(2) { transition-delay: 60ms; }
+.reveal-stagger.visible > *:nth-child(3) { transition-delay: 120ms; }
+.reveal-stagger.visible > *:nth-child(4) { transition-delay: 180ms; }
+.reveal-stagger.visible > *:nth-child(5) { transition-delay: 240ms; }
+.reveal-stagger.visible > *:nth-child(6) { transition-delay: 300ms; }
+.reveal-stagger.visible > *:nth-child(7) { transition-delay: 360ms; }
+.reveal-stagger.visible > *:nth-child(8) { transition-delay: 420ms; }
+.reveal-stagger.visible > *:nth-child(9) { transition-delay: 480ms; }
+.reveal-stagger.visible > *:nth-child(10) { transition-delay: 540ms; }
+
+.reveal-stagger.visible > * {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* -- Reveal variants (NEW) -- */
+.reveal-fade {
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+
+.reveal-fade.visible {
+  opacity: 1;
+}
+
+.reveal-scale {
+  opacity: 0;
+  transform: scale(0.96);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.reveal-scale.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-20px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.reveal-left.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+
+/* ============================================================
+   16. DECORATIVE ELEMENTS
+   ============================================================ */
+
+/* -- Ornamental divider line (NEW) -- */
+.ornament-line {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: var(--space-lg) 0;
+}
+
+.ornament-line::before,
+.ornament-line::after {
+  content: '';
+  flex: 1;
+  max-width: 160px;
+  height: 1px;
+  background: var(--gradient-rule);
+}
+
+.ornament-diamond {
+  width: 7px;
+  height: 7px;
+  background: var(--accent);
+  transform: rotate(45deg);
+  border-radius: 1px;
+  opacity: 0.6;
+}
+
+/* -- Decorative section number badge (NEW) -- */
+.section-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background: var(--accent);
+  color: var(--paper-card);
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  font-weight: 700;
+  border-radius: 50%;
+  box-shadow: 0 2px 8px rgba(139, 26, 26, 0.25);
+}
+
+/* -- Quote marks decoration (NEW) -- */
+.quote-open,
+.quote-close {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  line-height: 1;
+  color: var(--accent);
+  opacity: 0.2;
+  display: inline-block;
+  vertical-align: text-top;
+}
+
+.quote-open {
+  margin-right: 2px;
+}
+
+.quote-close {
+  margin-left: 2px;
+}
+
+/* -- Reading progress bar (NEW) -- */
+.reading-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: var(--gradient-accent);
+  z-index: 300;
+  width: 0%;
+  transition: width 0.1s linear;
+  box-shadow: 0 1px 4px rgba(139, 26, 26, 0.25);
+}
+
+
+/* ============================================================
+   17. KEYFRAMES
+   ============================================================ */
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.8;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes rotateIn {
+  from {
+    opacity: 0;
+    transform: rotate(-180deg) scale(0.5);
+  }
+  to {
+    opacity: 1;
+    transform: rotate(0) scale(1);
+  }
+}
+
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  70% {
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+
+/* ============================================================
+   18. RESPONSIVE DESIGN
+   ============================================================ */
+
+/* -- Tablet (768px - 1024px) -- */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .brief-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .story-num {
+    width: 48px;
+    height: 48px;
+    font-size: clamp(1.6rem, 3vw, 2rem);
+  }
+
+  .story-title {
+    font-size: clamp(1.1rem, 2vw, 1.35rem);
+  }
+
+  .story-images img {
+    max-height: 280px;
+  }
+}
+
+/* -- Mobile (max-width: 767px) -- */
+@media (max-width: 767px) {
+  /* Layout adjustments */
+  .float-nav {
+    top: 72px;
+    left: 14px;
+  }
+
+  .float-btn {
+    width: 42px;
+    height: 42px;
+    font-size: 1.1rem;
+  }
+
+  .masthead-inner {
+    padding: 0 16px;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .masthead-sub {
+    display: none;
+  }
+
+  .masthead-title {
+    font-size: clamp(1.3rem, 5vw, 1.8rem);
+    letter-spacing: 0.01em;
+  }
+
+  /* Hero */
+  .hero {
+    padding: 20px 16px 10px;
+  }
+
+  .hero-cover {
+    max-height: 220px;
+    border-radius: var(--radius-sm);
+  }
+
+  .hero-bar {
+    margin-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  .hero-bar::after {
+    width: 6px;
+    height: 6px;
+  }
+
+  /* Category pills */
+  .cat-nav {
+    padding: 14px 16px 6px;
+  }
+
+  .cat-pill {
+    font-size: 0.7rem;
+    padding: 5px 12px;
+  }
+
+  /* Brief section */
+  .brief-section {
+    padding: 20px 16px 10px;
+  }
+
+  .brief-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .brief-item {
+    padding: 16px;
+  }
+
+  .brief-num {
+    font-size: 1.3rem;
+  }
+
+  /* Audio player */
+  .audio-player {
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 12px 14px;
+  }
+
+  .audio-progress-wrap {
+    width: 100%;
+    max-width: none;
+  }
+
+  .audio-play-btn {
+    width: 44px;
+    height: 44px;
+  }
+
+  /* Section dividers */
+  .section-divider {
+    margin: 28px auto 8px;
+    padding: 0 16px;
+  }
+
+  .section-divider-inner {
+    padding-top: 12px;
+  }
+
+  /* Stories */
+  .stories {
+    padding: 10px 16px 32px;
+  }
+
+  .story {
+    padding: 28px 0;
+  }
+
+  .story::before {
+    inset: 8px -10px;
+  }
+
+  .story-num {
+    font-size: 1.4rem;
+    width: 44px;
+    height: 44px;
+  }
+
+  .story-title {
+    font-size: 1.08rem;
+  }
+
+  .story-summary {
+    font-size: 0.9rem;
+    padding: 10px 14px;
+    margin: 12px 0;
+  }
+
+  .story-summary::before {
+    font-size: 2rem;
+  }
+
+  .story-images {
+    gap: 10px;
+    margin: 14px 0;
+  }
+
+  .story-images img {
+    max-height: 220px;
+    border-radius: var(--radius-sm);
+  }
+
+  .story-body {
+    font-size: 0.92rem;
+    line-height: 1.8;
+  }
+
+  .story-body p {
+    margin-bottom: 1em;
+  }
+
+  .story-body > p:first-of-type::first-letter {
+    font-size: 2.8em;
+  }
+
+  /* Modal */
+  .modal {
+    border-radius: var(--radius-md);
+    max-width: calc(100vw - 24px);
+    max-height: 50vh;
+    margin: 0;
+  }
+
+  .modal-header {
+    padding: 12px 14px 8px;
+  }
+
+  .modal-body {
+    padding: 10px 14px 14px;
+    font-size: 0.78rem;
+    line-height: 1.55;
+  }
+
+  .modal-term {
+    font-size: 0.95rem;
+  }
+
+  .modal-overlay {
+    padding: 8px;
+  }
+
+  /* Footer */
+  .footer {
+    padding: 32px 16px;
+  }
+
+  /* Back to top */
+  .back-to-top {
+    bottom: 20px;
+    right: 20px;
+    width: 44px;
+    height: 44px;
+  }
+
+  /* Sidebar */
+  .sidebar {
+    width: 260px;
+    padding: 20px;
+  }
+}
+
+/* -- Small mobile (max-width: 375px) -- */
+@media (max-width: 375px) {
+  .masthead-title {
+    font-size: 1.2rem;
+  }
+
+  .hero-cover {
+    max-height: 160px;
+  }
+
+  .brief-grid {
+    gap: 10px;
+  }
+
+  .brief-item {
+    padding: 14px;
+  }
+
+  .story-num {
+    width: 38px;
+    height: 38px;
+    font-size: 1.2rem;
+  }
+
+  .story-title {
+    font-size: 1rem;
+  }
+
+  .story-body {
+    font-size: 0.9rem;
+    line-height: 1.85;
+  }
+}
+
+
+/* ============================================================
+   19. REDUCED MOTION SUPPORT
+   ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .reveal,
+  .reveal-fade,
+  .reveal-scale,
+  .reveal-left,
+  .reveal-stagger > * {
+    opacity: 1;
+    transform: none;
+  }
+
+  .back-to-top {
+    transition: none;
+  }
+}
+
+
+/* ============================================================
+   20. UTILITY CLASSES
+   ============================================================ */
+
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+
+/* ========================================
+   LAYOUT FIXES OVERRIDES
+   ======================================== */
+
+/* ========================================
+   TechDaily Layout Fixes
+   File: layout-fixes.css
+   ======================================== */
+
+/* ========================================
+   FIX 1: 悬浮球与侧边栏位置调整
+   将悬浮球下移到 header 下方，sidebar 顶部对齐
+   ======================================== */
+
+/* 悬浮球：从 top:20px 改为 86px（header 60-70px + 间距） */
+.float-nav {
+  position: fixed;
+  top: 86px;           /* FIX 1: 下移避免与 masthead 重叠 */
+  left: 20px;
+  z-index: 200;
+}
+
+/* 侧边栏：从 top:0 改为与悬浮球对齐，留出 header 空间 */
+.sidebar {
+  position: fixed;
+  top: 76px;           /* FIX 1: 下移避免被 header 遮挡 */
+  left: 0;
+  bottom: 0;
+  width: 260px;
+  background: var(--paper-card);
+  box-shadow: 4px 0 24px rgba(0,0,0,0.12);
+  z-index: 199;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.sidebar.active { transform: translateX(0); }
+
+.sidebar-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.3);
+  z-index: 198;
+  display: none;
+}
+.sidebar-overlay.active { display: block; }
+
+/* ========================================
+   FIX 2: 侧边栏分类样式优化
+   支持多分类分组呈现
+   ======================================== */
+
+.sidebar-title {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--ink);
+}
+
+/* 分类组容器 */
+.sidebar-cat {
+  margin-bottom: 16px;
+}
+.sidebar-cat:last-child {
+  margin-bottom: 0;
+}
+
+/* 分类名称 */
+.sidebar-cat-name {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--accent);
+  margin-bottom: 6px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--rule-soft);
+}
+
+/* 侧边栏链接 */
+.sidebar-link {
+  display: block;
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+  padding: 4px 0;
+  cursor: pointer;
+  transition: color 0.15s;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  border-bottom: 1px dotted var(--rule-soft);
+}
+.sidebar-link:last-child {
+  border-bottom: none;
+}
+.sidebar-link:hover { color: var(--accent); }
+
+/* ========================================
+   FIX 4: Brief Grid 奇偶适配
+   改用 auto-fit 替代 auto-fill，避免尾部空白列
+   ======================================== */
+
+.brief-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));  /* FIX 4: auto-fit + minmax */
+  grid-auto-rows: 1fr;
+  gap: 16px;
+}
+
+/* ========================================
+   FIX 5: 文章标签区域
+   在标题下方、摘要上方显示关键词标签
+   ======================================== */
+
+/* 标签容器 */
+.story-tags {
+  display: none;  /* REMOVED: 关键词标签已移除 */
+}
+
+/* 单个标签 */
+.story-tag {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--ink-muted);
+  background: var(--paper-dark);
+  padding: 3px 10px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+  border: 1px solid var(--rule-soft);
+}
+
+.story-tag:hover {
+  background: var(--accent-bg);
+  color: var(--accent);
+  border-color: var(--accent-soft);
+}
+
+/* ========================================
+   FIX 3: PC端详细报道两栏布局（最关键）
+   左栏：标题+摘要+正文  |  右栏：图片
+   ======================================== */
+
+/* --- 移动端优先：保持原有单栏布局（默认）--- */
+.story {
+  padding: 40px 0;
+  border-bottom: 1px solid var(--rule-soft);
+}
+.story:last-child { border-bottom: none; }
+
+.story-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 0;  /* tags接管了下方间距 */
+}
+
+.story-num {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+  font-weight: 900;
+  color: var(--accent);
+  line-height: 0.8;
+  flex-shrink: 0;
+  opacity: 0.75;
+}
+
+.story-title-block { flex: 1; }
+
+.story-categories {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 6px;
+}
+
+.story-cat {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--accent);
+  background: var(--accent-bg);
+  padding: 3px 8px;
+  border-radius: 2px;
+}
+
+.story-title {
+  font-family: var(--font-serif);
+  font-size: clamp(1.15rem, 2.2vw, 1.5rem);
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.story-title a {
+  color: var(--ink);
+  transition: color 0.15s;
+}
+.story-title a:hover { color: var(--accent); }
+
+/* Summary box */
+.story-summary {
+  font-family: var(--font-serif);
+  font-size: clamp(0.9rem, 1.4vw, 1rem);
+  line-height: 1.7;
+  color: var(--ink-soft);
+  padding: 10px 14px;
+  border-left: 3px solid var(--accent);
+  background: var(--accent-bg);
+  border-radius: 0 4px 4px 0;
+  margin: 12px 0;
+}
+
+/* 移动端：story-images 保持横向滚动 */
+.story-images {
+  display: flex;
+  gap: 12px;
+  margin: 16px 0;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 4px;
+  justify-content: center;
+  align-items: center;
+}
+
+.story-images img {
+  width: auto;
+  max-width: 100%;
+  max-height: 320px;
+  object-fit: cover;
+  border-radius: 4px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+
+.story-images img:hover { transform: scale(1.02); }
+
+/* story-body - FIX 3: 提升可读性 */
+.story-body {
+  font-size: clamp(0.92rem, 1.3vw, 1.02rem);
+  line-height: 2.0;            /* 修正4: 从1.95提高到2.0 */
+  color: var(--ink-soft);
+  max-width: var(--reading-width);
+}
+
+.story-body p {
+  margin-bottom: 1.8em;        /* 修正4: 从1.6em提高到1.8em */
+  text-indent: 0;
+}
+
+/* ========================================
+   FIX 3 (cont'd): PC端两栏布局 (grid-template-areas)
+   @media (min-width: 1024px) {
+
+  /* PC端详细报道：上下分布（标题→摘要→正文→图片垂直堆叠） */
+  .story {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 40px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .story-header { margin-bottom: 0; }
+
+  .story-summary { margin: 0; }
+
+  .story-body {
+    max-width: var(--reading-width);
+    margin: 0;
+  }
+
+  /* 图片区：上下居中 */
+  .story-images {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin: 8px 0 0 0;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .story-images img {
+    max-width: 100%;
+    height: auto;
+    max-height: 480px;
+    object-fit: contain;
+    border-radius: 8px;
+  }
+
+  /* 多图时横向排列 */
+  .story-images--multiple {
+    flex-direction: row !important;
+    overflow-x: auto !important;
+    overflow-y: visible !important;
+    gap: 12px !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding-bottom: 8px !important;
+    scrollbar-width: thin;
+    scrollbar-color: var(--rule) transparent;
+  }
+
+  .story-images--multiple::-webkit-scrollbar { height: 4px; }
+  .story-images--multiple::-webkit-scrollbar-thumb { background: var(--rule); border-radius: 2px; }
+
+  .story-images--multiple img {
+    flex: 0 0 auto;
+    max-width: 320px;
+    width: auto;
+    height: auto;
+    max-height: 240px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+
+  /* FIX 1: 标题防止被挤成竖排 */
+  .story-title {
+    word-break: keep-all;
+    overflow-wrap: break-word;
+    white-space: normal;
+    min-width: 0;
+  }
+
+  .story-header {
+    min-width: 0;
+  }
+
+}
+
+/* ========================================
+   移动端适配 (< 1024px)
+   ======================================== */
+
+@media (max-width: 1023px) {
+  /* 保持单栏布局，确保 tags 不占用过多空间 */
+  .story-tags {
+    display: none;  /* REMOVED */
+  }
+}
+
+/* ========================================
+   小屏手机适配 (< 768px)
+   ======================================== */
+
+@media (max-width: 768px) {
+  /* FIX 1: 移动端悬浮球位置 */
+  .float-nav {
+    top: 78px;           /* 移动端 header 略小，相应调整 */
+    left: 12px;
+  }
+  .float-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+  }
+
+  /* FIX 1: 移动端侧边栏 */
+  .sidebar {
+    top: 68px;           /* 移动端 header 约55-60px */
+    width: 240px;
+    padding: 16px;
+  }
+
+  /* FIX 4: 移动端 brief-grid 单列 */
+  .brief-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .story {
+    padding: 20px 0;
+  }
+  .story-num { font-size: 1.6rem; }
+  .story-title { font-size: 1.05rem; }
+  .story-summary { font-size: 0.88rem; padding: 8px 12px; }
+  .story-images img { max-height: 220px; }
+  .story-body { font-size: 0.92rem; line-height: 1.85; }
+  .story-body p { margin-bottom: 1.4em; }
+
+  /* FIX 5: 移动端 tags */
+  .story-tags {
+    margin: 6px 0 8px 0;
+    gap: 4px;
+  }
+  .story-tag {
+    font-size: 0.65rem;
+    padding: 2px 8px;
+  }
+}
+
+/* ========================================
+   减弱动画（无障碍）
+   ======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; }
+}
+
+
+/* ========================================
+   DOUKNOW PET STYLES
+   ======================================== */
+
+/**
+ * douknow-pet.css - Styles for DouknowAI (豆懂AI) Pet Party
+ * 
+ * Provides canvas positioning, container styles, and optional
+ * visual enhancements for the pet animation system.
+ */
+
+/* ============================================
+   Pet Party Container
+   ============================================ */
+
+/**
+ * Default container for the pet party canvas.
+ * The canvas covers the full viewport and pets walk freely across the page.
+ * 
+ * Usage: <div id="douknow-pet-party" class="douknow-pet-container"></div>
+ */
+.douknow-pet-container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 250px;
+  pointer-events: none;
+  z-index: 50;
+  overflow: hidden;
+}
+
+/**
+ * Alternative: Full-page overlay mode
+ * Pets can walk anywhere on the page
+ */
+.douknow-pet-container.douknow-pet-container--fullpage {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  bottom: auto;
+}
+
+/**
+ * Alternative: Section-contained mode
+ * Pets walk within a specific section of the page
+ */
+.douknow-pet-container.douknow-pet-container--inline {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  bottom: auto;
+  left: auto;
+}
+
+/* ============================================
+   Canvas Element
+   ============================================ */
+
+.douknow-pet-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  /* Hardware acceleration for smooth rendering */
+  transform: translateZ(0);
+  will-change: contents;
+}
+
+/* ============================================
+   Optional: Section Integration Styles
+   ============================================ */
+
+/**
+ * When integrating into a specific section,
+ * use this wrapper to position pets at the bottom of that section.
+ */
+.douknow-pet-section {
+  position: relative;
+  /* Ensure section has enough space for pets */
+  min-height: 300px;
+}
+
+.douknow-pet-section .douknow-pet-container {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 180px;
+}
+
+/* ============================================
+   Optional: Interactive Mode
+   ============================================ */
+
+/**
+ * When pointer-events are enabled on the canvas,
+ * pets can be clicked for interaction.
+ */
+.douknow-pet-container.douknow-pet-container--interactive {
+  pointer-events: auto;
+}
+
+.douknow-pet-container.douknow-pet-container--interactive .douknow-pet-canvas {
+  pointer-events: auto;
+  cursor: crosshair;
+}
+
+/* ============================================
+   Optional: Loading State
+   ============================================ */
+
+.douknow-pet-container.douknow-pet-container--loading::before {
+  content: '';
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 30px;
+  height: 30px;
+  border: 3px solid rgba(74, 222, 128, 0.2);
+  border-top-color: rgba(74, 222, 128, 0.8);
+  border-radius: 50%;
+  animation: douknow-pet-spin 0.8s linear infinite;
+}
+
+@keyframes douknow-pet-spin {
+  to {
+    transform: translateX(-50%) rotate(360deg);
+  }
+}
+
+/* ============================================
+   Optional: Toggle Button
+   ============================================ */
+
+.douknow-pet-toggle {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  border: 2px solid rgba(74, 222, 128, 0.5);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  z-index: 100;
+  transition: all 0.3s ease;
+  pointer-events: auto;
+}
+
+.douknow-pet-toggle:hover {
+  background: rgba(74, 222, 128, 0.2);
+  border-color: rgba(74, 222, 128, 0.8);
+  transform: scale(1.1);
+}
+
+.douknow-pet-toggle:active {
+  transform: scale(0.95);
+}
+
+.douknow-pet-toggle.douknow-pet-toggle--hidden {
+  opacity: 0.5;
+}
+
+/* ============================================
+   Mobile Adaptations
+   ============================================ */
+
+@media (max-width: 768px) {
+  .douknow-pet-container {
+    height: 180px;
+  }
+
+  .douknow-pet-container.douknow-pet-container--fullpage {
+    height: 100vh;
+  }
+
+  .douknow-pet-section .douknow-pet-container {
+    height: 140px;
+  }
+
+  .douknow-pet-toggle {
+    width: 38px;
+    height: 38px;
+    font-size: 16px;
+    bottom: 15px;
+    right: 15px;
+  }
+}
+
+
+
+/* ========================================
+   FIX 4 (new): 无图片报道自适应布局
+   检测到无图片时自动切换为单栏
+   ======================================== */
+
+.story--no-images .story-images {
+  display: none;
+}
+
+.story--no-images .story-images {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .story--no-images .story-body {
+    max-width: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .douknow-pet-container {
+    height: 150px;
+  }
+
+  .douknow-pet-section .douknow-pet-container {
+    height: 120px;
+  }
+}
+
+/* ============================================
+   Reduced Motion Support
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .douknow-pet-canvas {
+    /* The JS code also checks for this preference */
+    display: none;
+  }
+
+  .douknow-pet-container {
+    display: none;
+  }
+}
+
+/* ============================================
+   Dark Mode Support
+   ============================================ */
+
+@media (prefers-color-scheme: dark) {
+  .douknow-pet-toggle {
+    background: rgba(30, 30, 30, 0.9);
+    border-color: rgba(74, 222, 128, 0.4);
+    color: #fff;
+  }
+}
+
+/* ============================================
+   Print Styles - Hide pets when printing
+   ============================================ */
+
+@media print {
+  .douknow-pet-container,
+  .douknow-pet-toggle {
+    display: none !important;
+  }
+}
+
+
+
+
+/* ========================================
+   FIX 6: 往期回顾下拉导航
+   ======================================== */
+
+.masthead-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.archive-dropdown {
+  position: relative;
+}
+
+.archive-toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: var(--paper);
+  padding: 6px 12px;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.archive-toggle:hover {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.archive-toggle:active { transform: scale(0.97); }
+
+.archive-arrow {
+  width: 12px;
+  height: 12px;
+  transition: transform var(--transition-fast);
+  opacity: 0.7;
+}
+
+.archive-dropdown.open .archive-arrow {
+  transform: rotate(180deg);
+}
+
+.archive-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  width: 200px;
+  background: var(--paper-card);
+  border: 1px solid var(--rule-soft);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  padding: 10px 0;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-6px);
+  transition: all var(--transition-fast);
+  z-index: 110;
+}
+
+.archive-dropdown.open .archive-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.archive-menu-title {
+  font-family: var(--font-display);
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--ink);
+  padding: 0 14px 8px;
+  border-bottom: 1px solid var(--rule-soft);
+  margin-bottom: 6px;
+}
+
+.archive-list {
+  max-height: 240px;
+  overflow-y: auto;
+}
+
+.archive-item {
+  display: block;
+  padding: 7px 14px;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+  text-decoration: none;
+}
+
+.archive-item:hover {
+  background: var(--accent-bg);
+  color: var(--accent);
+}
+
+.archive-item-current {
+  color: var(--accent);
+  font-weight: 600;
+  background: var(--accent-bg);
+}
+
+@media (max-width: 767px) {
+  .masthead-right { gap: 10px; }
+  .archive-label { display: none; }
+  .archive-toggle { padding: 6px 8px; }
+  .archive-menu { right: -40px; width: 180px; }
+}
+
+
+/* ========================================
+   Pet Iframe Embed
+   ======================================== */
+
+.pet-iframe {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;       /* 全页面透明舞台：宠物不再局限在底部 140px */
+  border: none;
+  pointer-events: none; /* 由父页面桥接拖拽，避免 iframe 覆盖正文点击 */
+  z-index: 50;
+  background: transparent;
+  overflow: hidden;
+}
+
+body.pet-dragging {
+  cursor: grabbing;
+  user-select: none;
+}
+
+/* ============================================================
+   TechDaily Template Fix Pack v2
+   目标：修复今日精要标题吞字、详细报道 PC 宽度、多图横向滑动、Tags/Grid 自适应。
+   放在样式表末尾作为最终覆盖层，避免被前面的重复样式覆盖。
+   ============================================================ */
+
+/* 1) 今日精要：区分「栏目标题」与「卡片标题」，避免 .brief-title 复用导致卡片标题被伪元素/弹性布局挤压 */
+.brief-header > .brief-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  flex: 0 0 auto;
+  min-width: 0;
+}
+
+.brief-grid {
+  display: flex !important;
+  flex-wrap: wrap;
+  align-items: stretch;
+  gap: 16px;
+}
+
+.brief-grid > .brief-item {
+  flex: 1 1 280px;
+  min-width: min(100%, 260px);
+  max-width: none;
+  min-height: 132px;
+  box-sizing: border-box;
+}
+
+.brief-item .brief-title {
+  display: block !important;
+  flex: 0 1 auto !important;
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  height: auto;
+  min-height: auto;
+  overflow: visible;
+  text-overflow: clip;
+  white-space: normal;
+  word-break: normal;
+  overflow-wrap: anywhere;
+  line-height: 1.58;
+}
+
+.brief-item .brief-title::before {
+  content: none !important;
+  display: none !important;
+}
+
+.brief-item .tech-term,
+.story-title .tech-term {
+  white-space: normal;
+}
+
+/* Grid 奇偶数自适应：最后一行自动拉伸填满，不再只挤在左侧 */
+@media (min-width: 1180px) {
+  .brief-grid > .brief-item { flex-basis: calc((100% - 48px) / 4); }
+}
+
+@media (min-width: 900px) and (max-width: 1179px) {
+  .brief-grid > .brief-item { flex-basis: calc((100% - 32px) / 3); }
+}
+
+@media (min-width: 640px) and (max-width: 899px) {
+  .brief-grid > .brief-item { flex-basis: calc((100% - 16px) / 2); }
+}
+
+@media (max-width: 639px) {
+  .brief-grid > .brief-item { flex-basis: 100%; }
+}
+
+/* 2) Tags/分类标签：多标签、单双数、长标签都能换行适配 */
+.story-categories,
+.story-tags {
+  display: flex !important;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  max-width: 100%;
+}
+
+.story-tag,
+.story-cat {
+  flex: 0 1 auto;
+  max-width: 100%;
+  white-space: normal;
+  line-height: 1.4;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+
+/* 3) 详细报道：PC 端正文不再锁死 720px，标题、摘要、详细内容跟随容器铺满 */
+.stories {
+  width: 100%;
+  max-width: min(var(--max-width), calc(100vw - 48px));
+  box-sizing: border-box;
+}
+
+.story {
+  width: 100%;
+  max-width: 100%;
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 14px;
+  box-sizing: border-box;
+}
+
+.story-header,
+.story-title-block,
+.story-summary,
+.story-body,
+.story-images {
+  width: 100%;
+  max-width: none !important;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.story-title a {
+  word-break: normal;
+  overflow-wrap: anywhere;
+}
+
+.story-summary {
+  margin: 0;
+}
+
+.story-body {
+  margin: 0;
+  font-size: clamp(0.95rem, 1.05vw, 1.05rem);
+  line-height: 1.95;
+  text-wrap: pretty;
+}
+
+.story-body p {
+  max-width: none;
+}
+
+/* 4) 多图：固定视觉尺寸，一行横向排列，用横向滑块查看 */
+.story-images {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  justify-content: flex-start !important;
+  align-items: stretch !important;
+  gap: 14px;
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x proximity;
+  padding: 8px 4px 14px;
+  margin: 4px 0 0;
+  scrollbar-width: thin;
+  scrollbar-color: var(--rule) transparent;
+}
+
+.story-images::-webkit-scrollbar { height: 6px; }
+.story-images::-webkit-scrollbar-track { background: transparent; }
+.story-images::-webkit-scrollbar-thumb {
+  background: var(--rule);
+  border-radius: 999px;
+}
+
+.story-images img {
+  flex: 0 0 auto !important;
+  width: clamp(240px, 30vw, 360px) !important;
+  height: clamp(160px, 20vw, 240px) !important;
+  max-width: none !important;
+  max-height: none !important;
+  object-fit: cover;
+  scroll-snap-align: start;
+}
+
+.story-images:not(.story-images--multiple) {
+  justify-content: center !important;
+  overflow-x: hidden !important;
+}
+
+.story-images:not(.story-images--multiple) img {
+  width: min(100%, 720px) !important;
+  height: auto !important;
+  max-height: 420px !important;
+  object-fit: contain;
+}
+
+.story--no-images .story-images {
+  display: none !important;
+}
+
+@media (max-width: 767px) {
+  .stories {
+    max-width: 100%;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .story {
+    gap: 12px;
+  }
+
+  .story-images img {
+    width: min(78vw, 320px) !important;
+    height: min(52vw, 220px) !important;
+  }
+
+  .story-images:not(.story-images--multiple) img {
+    width: 100% !important;
+    height: auto !important;
+    max-height: 320px !important;
+  }
+}
+
+/* 5) 悬浮目录层级：确保点开后可点击，不被 pet iframe 或遮罩层误挡 */
+.float-nav { z-index: 310 !important; }
+.sidebar { z-index: 309 !important; }
+.sidebar-overlay { z-index: 308 !important; }
+.pet-iframe { z-index: 120 !important; }
+
+.story-jump-highlight::before {
+  opacity: 0.75 !important;
+  background: rgba(139, 26, 26, 0.055) !important;
+}
+
+
+
+/* ============================================================
+   TechDaily Template Fix Pack v3
+   目标：多图横向铺满+滚轮查看、关键词解释可用、正文更紧凑、图片点击放大、标签居中自适应、pet 舞台优化
+   ============================================================ */
+
+/* 多图容器：整行铺满、横向滚动、滚轮映射到横向滚动 */
+.story-images {
+  width: 100% !important;
+  max-width: 100% !important;
+  padding: 8px 0 14px !important;
+  margin: 6px 0 0 !important;
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+}
+.story-images.story-images--multiple {
+  justify-content: flex-start !important;
+  align-items: stretch !important;
+  gap: 16px !important;
+}
+.story-images.story-images--multiple img {
+  flex: 0 0 min(86vw, 760px) !important;
+  width: min(86vw, 760px) !important;
+  height: clamp(230px, 34vw, 430px) !important;
+  object-fit: cover !important;
+  border-radius: 10px;
+  scroll-snap-align: start;
+  cursor: zoom-in;
+}
+.story-images.story-images--single {
+  justify-content: center !important;
+}
+.story-images.story-images--single img {
+  width: min(100%, 960px) !important;
+  height: clamp(240px, 36vw, 460px) !important;
+  object-fit: cover !important;
+  border-radius: 10px;
+  cursor: zoom-in;
+}
+
+/* 正文更紧凑，修正首字下沉导致的段间距异常 */
+.story {
+  gap: 10px !important;
+  padding: 34px 0 !important;
+}
+.story-header {
+  margin-bottom: 0 !important;
+}
+.story-summary {
+  padding: 9px 13px !important;
+  margin: 0 !important;
+}
+.story-body {
+  line-height: 1.78 !important;
+  letter-spacing: 0.003em !important;
+}
+.story-body p {
+  margin-bottom: 0.88em !important;
+}
+.story-body > p:first-of-type::first-letter {
+  float: none !important;
+  display: inline-block;
+  font-size: 2.15em !important;
+  line-height: 0.96 !important;
+  margin-right: 5px !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  vertical-align: baseline;
+}
+
+/* 标签：随机数量自适应并居中 */
+.story-categories,
+.story-tags {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  justify-content: center !important;
+  align-items: center !important;
+  gap: 8px !important;
+  width: 100%;
+}
+.story-cat,
+.story-tag {
+  text-align: center;
+  border-radius: 999px;
+}
+
+/* tech-term 视觉反馈 */
+.tech-term {
+  cursor: pointer;
+}
+
+/* 图片查看 Lightbox */
+.image-lightbox {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 28px;
+  background: rgba(20, 18, 14, 0.78);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  z-index: 360;
+}
+.image-lightbox.active {
+  display: flex;
+}
+.image-lightbox-inner {
+  position: relative;
+  max-width: min(92vw, 1280px);
+  max-height: 88vh;
+}
+.image-lightbox img {
+  max-width: 100%;
+  max-height: 88vh;
+  width: auto;
+  height: auto;
+  border-radius: 14px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.28);
+}
+.image-lightbox-close {
+  position: absolute;
+  top: -14px;
+  right: -14px;
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.96);
+  color: var(--ink);
+  box-shadow: var(--shadow-md);
+  cursor: pointer;
+  font-size: 20px;
+  line-height: 1;
+}
+.image-lightbox-caption {
+  margin-top: 10px;
+  text-align: center;
+  color: rgba(255,255,255,0.92);
+  font-size: 0.92rem;
+}
+
+/* 关键词解释弹窗内的小标签更清晰 */
+.modal-body .tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+/* pet iframe 舞台更轻，更不干扰正文 */
+.pet-iframe {
+  z-index: 118 !important;
+}
+
+@media (max-width: 767px) {
+  .story { padding: 26px 0 !important; gap: 9px !important; }
+  .story-body { font-size: 0.96rem !important; line-height: 1.74 !important; }
+  .story-body p { margin-bottom: 0.8em !important; }
+  .story-images.story-images--multiple img {
+    flex-basis: 90vw !important;
+    width: 90vw !important;
+    height: clamp(220px, 52vw, 320px) !important;
+  }
+  .story-images.story-images--single img {
+    width: 100% !important;
+    height: clamp(220px, 56vw, 320px) !important;
+  }
+}
+
+/* ============================================================
+   TechDaily Template Fix Pack v5
+   目标：修复今日精要手机端布局（序号与分类同行、减少间距）、
+         音频URL动态注入、403错误页面修复
+   ============================================================ */
+
+/* 手机端：今日精要序号与分类放一行，整体更紧凑 */
+@media (max-width: 767px) {
+  .brief-grid {
+    gap: 6px !important;
+  }
+
+  .brief-item {
+    padding: 8px 10px !important;
+    gap: 0 !important;
+    flex-direction: column !important;
+    min-height: auto !important;
+  }
+
+  /* 序号 + 分类 放在同一行 */
+  .brief-item .brief-head {
+    display: flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    margin-bottom: 2px !important;
+    flex-wrap: nowrap !important;
+  }
+
+  .brief-item .brief-num {
+    font-size: 1.0rem !important;
+    min-width: auto !important;
+    line-height: 1.2;
+  }
+
+  .brief-item .brief-cat {
+    font-size: 0.55rem !important;
+    padding: 1px 5px !important;
+    line-height: 1.2;
+  }
+
+  .brief-item .brief-title {
+    font-size: 0.85rem !important;
+    line-height: 1.35 !important;
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+  }
+
+  /* 音频播放器手机端更紧凑 */
+  .audio-player {
+    padding: 8px 10px !important;
+    margin-bottom: 8px !important;
+    gap: 8px !important;
+  }
+
+  .audio-label {
+    font-size: 0.85rem !important;
+  }
+
+  .audio-desc {
+    font-size: 0.7rem !important;
+  }
+}
+
+@media (max-width: 375px) {
+  .brief-item {
+    padding: 6px 8px !important;
+  }
+  .brief-item .brief-title {
+    font-size: 0.82rem !important;
+  }
+  .brief-item .brief-head {
+    gap: 4px !important;
+  }
+}
+
+</style>
+</head>
+
+<body data-date="2026-07-19">
+<!-- Reading Progress Bar -->
+<div class="reading-progress-container">
+  <div class="reading-progress-bar" id="readingProgressBar"></div>
+</div>
+
+<!-- FLOATING NAV -->
+<div class="float-nav">
+  <button class="float-btn" onclick="toggleSidebar()" title="目录">☰</button>
+</div>
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+<nav class="sidebar" id="sidebar">
+  <div class="sidebar-title">📰 目录</div>
+  <div class="sidebar-cat">
+    <div class="sidebar-cat-name">要闻</div>
+    <span class="sidebar-link" onclick="scrollToStory('1'); toggleSidebar()">1. Claude Fable 5 将于 7 月 20 日起纳入 Max 和</span>
+    <span class="sidebar-link" onclick="scrollToStory('2'); toggleSidebar()">2. Tibo称已重置所有付费用户Codex和ChatGPT Work使用限</span>
+  </div>
+  <div class="sidebar-cat">
+    <div class="sidebar-cat-name">模型发布</div>
+    <span class="sidebar-link" onclick="scrollToStory('3'); toggleSidebar()">3. 商汤推出 SenseNova U1 Pro 具备原生图文交错思考能力</span>
+    <span class="sidebar-link" onclick="scrollToStory('4'); toggleSidebar()">4. 京东发布JoyAI-Talker与JoyAI-Video-Edit模型</span>
+  </div>
+  <div class="sidebar-cat">
+    <div class="sidebar-cat-name">开发生态</div>
+    <span class="sidebar-link" onclick="scrollToStory('5'); toggleSidebar()">5. Cerebras调整免费API访问政策 8月17日起终止现有免费层级</span>
+    <span class="sidebar-link" onclick="scrollToStory('6'); toggleSidebar()">6. Amp推出月度订阅服务Beta版</span>
+  </div>
+  <div class="sidebar-cat">
+    <div class="sidebar-cat-name">产品应用</div>
+    <span class="sidebar-link" onclick="scrollToStory('7'); toggleSidebar()">7. WorkBuddy正式发布手机APP</span>
+  </div>
+  <div class="sidebar-cat">
+    <div class="sidebar-cat-name">行业动态</div>
+    <span class="sidebar-link" onclick="scrollToStory('8'); toggleSidebar()">8. 中国电信宣布将适度超前建设算力基础设施，目前数据中心超900个</span>
+    <span class="sidebar-link" onclick="scrollToStory('9'); toggleSidebar()">9. 阶跃星辰与上海期智研究院共建智能体前沿研究院</span>
+    <span class="sidebar-link" onclick="scrollToStory('10'); toggleSidebar()">10. 阿里云发布灵骏真武M890超节点实例并开放邀测</span>
+  </div>
+  <div class="sidebar-cat">
+    <div class="sidebar-cat-name">前瞻与传闻</div>
+    <span class="sidebar-link" onclick="scrollToStory('11'); toggleSidebar()">11. Elon Musk 称 Grok 2T 模型下周完成初始训练</span>
+    <span class="sidebar-link" onclick="scrollToStory('12'); toggleSidebar()">12. 白宫被指直接掌控前沿AI模型访问权限</span>
+  </div>
+</nav>
+
+<!-- MASTHEAD -->
+<header class="masthead">
+  <div class="masthead-inner">
+    <div class="masthead-brand">
+      <div class="masthead-title">Tech<span class="accent">Daily</span></div>
+      <div class="masthead-sub">— 每日科技快报</div>
+    </div>
+    <div class="masthead-nav">
+      <a href="/archive.html" class="masthead-nav-link archive-link">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="3" cy="3" r="1.5"/><circle cx="3" cy="8" r="1.5"/><circle cx="3" cy="13" r="1.5"/><path d="M7 4h6M7 9h6M7 14h6" stroke-linecap="round"/></svg>
+        <span>往期回顾</span>
+      </a>
+    </div>
+    <div class="masthead-date">2026年7月19日<br><span style="font-family:var(--font-serif);font-style:italic">星期日</span></div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <img class="hero-cover" src="https://assets.juya.uk/imagehub/20260719/202607190853135476773c02_cover_a913.png" alt="今日封面" loading="eager">
+  <div class="hero-bar">
+    <span class="hero-issue">第 20260719 期 · 2026年7月19日</span>
+  </div>
+</section>
+
+<!-- CATEGORY PILLS -->
+<div class="cat-nav">
+<span class="cat-pill active" onclick="scrollToStory('1')">要闻</span>
+<span class="cat-pill" onclick="scrollToStory('3')">模型发布</span>
+<span class="cat-pill" onclick="scrollToStory('5')">开发生态</span>
+<span class="cat-pill" onclick="scrollToStory('7')">产品应用</span>
+<span class="cat-pill" onclick="scrollToStory('8')">行业动态</span>
+<span class="cat-pill" onclick="scrollToStory('11')">前瞻与传闻</span>
+</div>
+
+<!-- TODAY'S BRIEF -->
+<section class="brief-section" id="brief">
+  <div class="brief-header">
+    <div class="brief-title">今日精要</div>
+  </div>
+  <div class="audio-player" id="audioPlayer">
+    <button class="audio-play-btn" id="playBtn" onclick="togglePlay()">
+      <svg viewBox="0 0 24 24" id="playIcon"><polygon points="5,3 19,12 5,21"/></svg>
+      <svg viewBox="0 0 24 24" id="pauseIcon" style="display:none"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+    </button>
+    <div class="audio-info">
+      <div class="audio-label">🎙 今日精要播报</div>
+      <div class="audio-desc">1-2分钟速览今日 AI 要闻</div>
+    </div>
+    <div class="audio-progress-wrap">
+      <div class="audio-track"><div class="audio-fill" id="progressFill"></div></div>
+      <span class="audio-time" id="audioTime">0:00</span>
+    </div>
+  </div>
+  <div class="brief-grid">
+    <div class="brief-item" onclick="scrollToStory('1')">
+      <div class="brief-head">
+        <span class="brief-num">01</span>
+        <span class="brief-cat">要闻</span>
+      </div>
+      <h3 class="brief-title">Claude Fable 5 将于 7 月 20 日起纳入 Max 和 Team Premium 方案</h3>
+    </div>
+    <div class="brief-item" onclick="scrollToStory('2')">
+      <div class="brief-head">
+        <span class="brief-num">02</span>
+        <span class="brief-cat">要闻</span>
+      </div>
+      <h3 class="brief-title">Tibo称已重置所有付费用户Codex和ChatGPT Work使用限制</h3>
+    </div>
+    <div class="brief-item" onclick="scrollToStory('3')">
+      <div class="brief-head">
+        <span class="brief-num">03</span>
+        <span class="brief-cat">模型发布</span>
+      </div>
+      <h3 class="brief-title">商汤推出 SenseNova U1 Pro 具备原生图文交错思考能力</h3>
+    </div>
+    <div class="brief-item" onclick="scrollToStory('4')">
+      <div class="brief-head">
+        <span class="brief-num">04</span>
+        <span class="brief-cat">模型发布</span>
+      </div>
+      <h3 class="brief-title">京东发布JoyAI-Talker与JoyAI-Video-Edit模型</h3>
+    </div>
+    <div class="brief-item" onclick="scrollToStory('5')">
+      <div class="brief-head">
+        <span class="brief-num">05</span>
+        <span class="brief-cat">开发生态</span>
+      </div>
+      <h3 class="brief-title">Cerebras调整免费API访问政策 8月17日起终止现有免费层级</h3>
+    </div>
+    <div class="brief-item" onclick="scrollToStory('6')">
+      <div class="brief-head">
+        <span class="brief-num">06</span>
+        <span class="brief-cat">开发生态</span>
+      </div>
+      <h3 class="brief-title">Amp推出月度订阅服务Beta版</h3>
+    </div>
+    <div class="brief-item" onclick="scrollToStory('7')">
+      <div class="brief-head">
+        <span class="brief-num">07</span>
+        <span class="brief-cat">产品应用</span>
+      </div>
+      <h3 class="brief-title">WorkBuddy正式发布手机APP</h3>
+    </div>
+    <div class="brief-item" onclick="scrollToStory('8')">
+      <div class="brief-head">
+        <span class="brief-num">08</span>
+        <span class="brief-cat">行业动态</span>
+      </div>
+      <h3 class="brief-title">中国电信宣布将适度超前建设算力基础设施，目前数据中心超900个</h3>
+    </div>
+    <div class="brief-item" onclick="scrollToStory('9')">
+      <div class="brief-head">
+        <span class="brief-num">09</span>
+        <span class="brief-cat">行业动态</span>
+      </div>
+      <h3 class="brief-title">阶跃星辰与上海期智研究院共建智能体前沿研究院</h3>
+    </div>
+    <div class="brief-item" onclick="scrollToStory('10')">
+      <div class="brief-head">
+        <span class="brief-num">10</span>
+        <span class="brief-cat">行业动态</span>
+      </div>
+      <h3 class="brief-title">阿里云发布灵骏真武M890超节点实例并开放邀测</h3>
+    </div>
+    <div class="brief-item" onclick="scrollToStory('11')">
+      <div class="brief-head">
+        <span class="brief-num">11</span>
+        <span class="brief-cat">前瞻与传闻</span>
+      </div>
+      <h3 class="brief-title">Elon Musk 称 Grok 2T 模型下周完成初始训练</h3>
+    </div>
+    <div class="brief-item" onclick="scrollToStory('12')">
+      <div class="brief-head">
+        <span class="brief-num">12</span>
+        <span class="brief-cat">前瞻与传闻</span>
+      </div>
+      <h3 class="brief-title">白宫被指直接掌控前沿AI模型访问权限</h3>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION DIVIDER -->
+<div class="section-divider">
+  <div class="section-divider-inner">
+    <span class="section-label">详细报道</span>
+  </div>
+</div>
+
+<!-- STORIES -->
+<section class="stories" id="stories">
+<article class="story" id="story-1">
+  <div class="story-header">
+    <div class="story-num">1</div>
+    <div class="story-title-block">
+      <div class="story-categories"><span class="story-cat">要闻</span></div>
+      <h2 class="story-title"><a href="https://x.com/claudeai/status/2078302415804379218" target="_blank">概览
+要闻
+Claude Fable 5 将于 7 月 20 日起纳入 Max 和 Team Premium 方案 ↗ #1Tibo称已重置所有付费用户Codex和ChatGPT Work使用限制 ↗ #2
+模型发布
+商汤推出 SenseNova U1 Pro 具备原生图文交错思考能力 ↗ #3京东发布JoyAI-Talker与JoyAI-Video-Edit模型 ↗ #4
+开发生态
+Cerebras调整免费API访问政策 8月17日起终止现有免费层级 ↗ #5Amp推出月度订阅服务Beta版 ↗ #6
+产品应用
+WorkBuddy正式发布手机APP ↗ #7
+行业动态
+中国电信宣布将适度超前建设算力基础设施，目前数据中心超900个 ↗ #8阶跃星辰与上海期智研究院共建智能体前沿研究院 ↗ #9阿里云发布灵骏真武M890超节点实例并开放邀测 ↗ #10
+前瞻与传闻
+Elon Musk 称 Grok 2T 模型下周完成初始训练 ↗ #11白宫被指直接掌控前沿AI模型访问权限 ↗ #12
+
+要闻
+Claude Fable 5 将于 7 月 20 日起纳入 Max 和 Team Premium 方案</a></h2>
+    </div>
+  </div>
+  <div class="story-summary"><span class="tech-term" onclick="openModal('Anthropic')">Anthropic</span> 宣布自当地时间 7 月 20 日起，Claude Fable 5 将按 50% 的使用限额纳入所有 Max 和 Team Premium 订阅方案。而 Pro 和 Team Standard 用户需通过使用额度调用该模型，并将获得一次性 100 美元使用额度。此外，Claude Code 的周使用限额提升 50% 的限时活动将延长至 8 月 19 日。</div>
+  <div class="story-images story-images--multiple"><img src="https://assets.juya.uk/imagehub/aidaily/a9136bde-df90-418d-8e83-d403a6b99d12/b47c0fbd-5d4a-4ac8-9def-a783eda22a55/m001_5acf0d89.png" alt="配图" loading="lazy"><img src="https://assets.juya.uk/imagehub/aidaily/a9136bde-df90-418d-8e83-d403a6b99d12/b47c0fbd-5d4a-4ac8-9def-a783eda22a55/m002_eecfaf9a.png" alt="配图" loading="lazy"></div>
+  <div class="story-body"><p>Anthropic 宣布自当地时间 7 月 20 日起，Claude Fable 5 将纳入所有 Max 和 Team Premium 订阅方案，使用限额为标准方案的 50%。Pro 和 Team Standard 用户则需通过使用额度（usage credits）访问 Fable，并将获得一次性 100 美元额度。与此同时，Anthropic 还宣布将 Claude Code 周使用限额提升 50% 的临时政策延长至 8 月 19 日，适用于所有 Pro、Max、Team 及按席位计费的 Enterprise 用户。官方解释称，Fable 的需求难以预测，因此分阶段向订阅方案开放，并在获得额外算力后多次延长访问权限，此次调整旨在为用户提供更多确定性。</p></div>
+</article>
+<article class="story" id="story-2">
+  <div class="story-header">
+    <div class="story-num">2</div>
+    <div class="story-title-block">
+      <div class="story-categories"><span class="story-cat">要闻</span></div>
+      <h2 class="story-title"><a href="https://x.com/thsottiaux/status/2078320950488297917" target="_blank">Tibo称已重置所有付费用户Codex和ChatGPT Work使用限制</a></h2>
+    </div>
+  </div>
+  <div class="story-summary">Codex 负责人 Tibo 于北京时间7月18日约11点半宣布为所有Codex和ChatGPT Work付费用户重置使用限制，并称可能顺带重置了其他地方的速率限制。</div>
+  <div class="story-images story-images--multiple"><img src="https://assets.juya.uk/imagehub/aidaily/a9136bde-df90-418d-8e83-d403a6b99d12/75521714-db2f-4ea3-808c-48a20ac505f5/m001_4d7b6113.png" alt="配图" loading="lazy"><img src="https://assets.juya.uk/imagehub/aidaily/a9136bde-df90-418d-8e83-d403a6b99d12/75521714-db2f-4ea3-808c-48a20ac505f5/m002_52d7eb14.png" alt="配图" loading="lazy"></div>
+  <div class="story-body"><p>Codex 负责人 Tibo 于北京时间7月18日约11点半宣布已为所有Codex和ChatGPT Work的付费用户重置使用限制。Tibo随后表示，此次操作可能也顺带重置了其他频率限制。</p></div>
+</article>
+<article class="story" id="story-3">
+  <div class="story-header">
+    <div class="story-num">3</div>
+    <div class="story-title-block">
+      <div class="story-categories"><span class="story-cat">模型发布</span></div>
+      <h2 class="story-title"><a href="https://www.sensenova.cn/" target="_blank">模型发布
+商汤推出 SenseNova U1 Pro 具备原生图文交错思考能力</a></h2>
+    </div>
+  </div>
+  <div class="story-summary">商汤发布 SenseNova U1 Pro 模型并开启邀测。官方称该模型具备最高 8K 原生分辨率输出与原生图文交错思考能力。其正式版本及 API 预计于 2026 年 8 月上线。</div>
+  <div class="story-images"><img src="https://assets.juya.uk/imagehub/aidaily/a9136bde-df90-418d-8e83-d403a6b99d12/b9473176-9c65-4fce-b07d-1aefbd67aee3/m001_914727b9.png" alt="配图" loading="lazy"></div>
+  <div class="story-body"><p>商汤科技发布日日新 SenseNova U1 Pro 图片创作模型，目前已开启仅限邀请的预览。官方表示，U1 Pro 基于 NEO-Unify 架构，统一了理解、生成与动作，相较于 U1 Lite 升级了原生图文交错思考能力。该模型最高支持 8K 原生分辨率输出，官方宣称其文字渲染出错率极低，且支持数十轮 Agentic Generation Loop 进行长程推理与精准编辑。商汤科技预计于 2026 年 8 月推出该模型的正式版本及 API 服务与定价。</p></div>
+</article>
+<article class="story" id="story-4">
+  <div class="story-header">
+    <div class="story-num">4</div>
+    <div class="story-title-block">
+      <div class="story-categories"><span class="story-cat">模型发布</span></div>
+      <h2 class="story-title"><a href="https://mp.weixin.qq.com/s/K_0jT-scyHgdJJi4y9ci7Q" target="_blank">京东发布JoyAI-Talker与JoyAI-Video-Edit模型</a></h2>
+    </div>
+  </div>
+  <div class="story-summary">京东发布了JoyAI-Talker实时语音交互模型和JoyAI-Video-Edit实时视频编辑模型。据官方介绍，前者具备情绪理解和低延迟对话能力，后者支持对视频进行实时流式编辑。</div>
+  
+  <div class="story-body"><p>京东首次系统展示了面向物理世界的JoyAI模型矩阵，并发布JoyAI-Talker实时语音交互模型与JoyAI-Video-Edit实时视频编辑模型。据京东介绍，JoyAI-Talker具备低延迟对话、情绪理解、工具调用和记忆能力，能通过多模态信息理解用户意图。JoyAI-Video-Edit则支持自定义画面和边预览边修改，实现流式视频编辑，可服务于视频生成和具身智能仿真数据合成。两款模型均在WAIC期间发布，目前未透露具体的开放时间和使用方式。</p></div>
+</article>
+<article class="story" id="story-5">
+  <div class="story-header">
+    <div class="story-num">5</div>
+    <div class="story-title-block">
+      <div class="story-categories"><span class="story-cat">开发生态</span></div>
+      <h2 class="story-title"><a href="https://linux.do/t/topic/2600066" target="_blank">开发生态
+Cerebras调整免费API访问政策 8月17日起终止现有免费层级</a></h2>
+    </div>
+  </div>
+  <div class="story-summary">Cerebras宣布调整免费API访问政策，现有的免费API层级即将终止。新账户即日起需添加验证支付方式才能解锁5美元免费额度，现有账户的当前免费层级将保留至2026年8月17日并随后过渡至新政策。</div>
+  <div class="story-images"><img src="https://assets.juya.uk/imagehub/aidaily/a9136bde-df90-418d-8e83-d403a6b99d12/f0e27608-f70e-4a39-813d-d033401fed1d/m001_750f8f28.png" alt="配图" loading="lazy"></div>
+  <div class="story-body"><p>Cerebras宣布调整免费API访问政策，现有的免费API层级即将终止。自即日起，新注册账户必须添加验证过的支付方式，才能解锁5美元的免费额度。现有账户的当前免费API层级将保留至2026年8月17日。在该日期之后，所有账户都将被转移至基于免费额度的新体验，现有用户也必须绑定支付方式才能继续使用服务。</p></div>
+</article>
+<article class="story" id="story-6">
+  <div class="story-header">
+    <div class="story-num">6</div>
+    <div class="story-title-block">
+      <div class="story-categories"><span class="story-cat">开发生态</span></div>
+      <h2 class="story-title"><a href="https://ampcode.com/news/subscriptions" target="_blank">Amp推出月度订阅服务Beta版</a></h2>
+    </div>
+  </div>
+  <div class="story-summary">Amp 推出按月订阅方案 Beta 版，包含月费 20 美元和 200 美元两档。在当地时间 7 月 19 日及之前订阅，可获首月双倍用量奖励。</div>
+  <div class="story-images"><img src="https://assets.juya.uk/imagehub/aidaily/a9136bde-df90-418d-8e83-d403a6b99d12/0627aa65-ecba-4812-9bac-465d32bbac73/m001_2fb3babd.png" alt="配图" loading="lazy"></div>
+  <div class="story-body"><p>Amp近日宣布推出月度订阅服务Beta版，提供Megawatt和Gigawatt两个层级。每月20美元的Megawatt方案包含750小时小型orbs及20美元 Agent 使用额度，但仅限于低和中模型。每月200美元的Gigawatt方案则包含1000小时大型orbs、200美元 Agent 使用额度，并解锁高和超高模型。订阅用户若想使用超出的额度，仍需链接ChatGPT订阅或添加付费积分。官方强调，用户依然可以选择按量付费。</p></div>
+</article>
+<article class="story" id="story-7">
+  <div class="story-header">
+    <div class="story-num">7</div>
+    <div class="story-title-block">
+      <div class="story-categories"><span class="story-cat">产品应用</span></div>
+      <h2 class="story-title"><a href="https://mp.weixin.qq.com/s/A-6GG_RMw-q-qVSaZ9L7yw" target="_blank">产品应用
+WorkBuddy正式发布手机APP</a></h2>
+    </div>
+  </div>
+  <div class="story-summary">WorkBuddy正式发布手机端应用，iOS、Android与鸿蒙版同步上线，支持连接电脑与云端两种工作模式。</div>
+  <div class="story-images"><img src="https://assets.juya.uk/imagehub/aidaily/a9136bde-df90-418d-8e83-d403a6b99d12/6e960d52-5d30-41d7-a1d9-a3bb9d31e6ac/m001_d065bbb4.png" alt="配图" loading="lazy"></div>
+  <div class="story-body"><p>WorkBuddy正式发布WorkBuddy APP，iOS、Android及鸿蒙三大版本同步上线，官方称该应用是首个登陆鸿蒙系统的通用智能体应用。APP具备桌面端大部分能力，支持手机远程向电脑端发起任务，并提供连接电脑与云端工作两种执行模式。用户可通过文字、语音及文档导入等多模态方式交互，目前已可在应用商店下载。</p></div>
+</article>
+<article class="story" id="story-8">
+  <div class="story-header">
+    <div class="story-num">8</div>
+    <div class="story-title-block">
+      <div class="story-categories"><span class="story-cat">行业动态</span></div>
+      <h2 class="story-title"><a href="https://mp.weixin.qq.com/s/ea_KgQQfq_l7P4tdD95LCQ" target="_blank">行业动态
+中国电信宣布将适度超前建设算力基础设施，目前数据中心超900个</a></h2>
+    </div>
+  </div>
+  <div class="story-summary">中国电信董事长在WAIC表示，中国电信将适度超前建设算力基础设施。目前，中国电信已建成数据中心超900个，总电力容量接近8G瓦，其自称为全国最大的人工智能数据中心服务商。</div>
+  
+  <div class="story-body"><p>中国电信董事长柯瑞文在2026世界人工智能大会期间的主题演讲中宣布，将适度超前建设算力基础设施。中国电信目前已是全国最大的人工智能数据中心服务商，已建成数据中心超900个，总电力容量近8G瓦，其息壤智算平台纳管算力已超过100EFLOPS。未来规划中，中国电信将按照高功率密度、高IT产出率等标准建设新一代人工智能数据中心，持续优化枢纽节点布局并加大储备。同时，公司将加大国产算力规划与布局，在重点城市强化边缘算力池部署，并加快打造弹性敏捷的算力互联网络，包括建设新八纵八横骨干光缆网以及将传输链路向800G演进，以提升训推算效。</p></div>
+</article>
+<article class="story" id="story-9">
+  <div class="story-header">
+    <div class="story-num">9</div>
+    <div class="story-title-block">
+      <div class="story-categories"><span class="story-cat">行业动态</span></div>
+      <h2 class="story-title"><a href="https://mp.weixin.qq.com/s/24191V4sBn40Y3zodXSUvQ" target="_blank">阶跃星辰与上海期智研究院共建智能体前沿研究院</a></h2>
+    </div>
+  </div>
+  <div class="story-summary">阶跃星辰与上海期智研究院宣布共建智能体前沿研究院。双方联合提出智能体时代五大命题，阶跃同步推出 StepStar 人才计划。</div>
+  
+  <div class="story-body"><p>阶跃星辰与上海期智研究院宣布达成合作，双方将共同设立智能体前沿研究院。该研究院将围绕智能体网络及经济原理和 AI Safety 等方向开展联合研究，探索 Agent 时代的基础理论、核心技术、标准体系与产业范式。双方联合提出了涵盖行动权利、责任秩序等维度的“智能体时代五大全球新命题”。此外，阶跃星辰正式推出 StepStar 顶尖人才计划，将在全球范围内招募智能体领域优秀人才。</p></div>
+</article>
+<article class="story" id="story-10">
+  <div class="story-header">
+    <div class="story-num">10</div>
+    <div class="story-title-block">
+      <div class="story-categories"><span class="story-cat">行业动态</span></div>
+      <h2 class="story-title"><a href="https://mp.weixin.qq.com/s/hZdrS9eR3F3q4N3hfvWh-Q" target="_blank">阿里云发布灵骏真武M890超节点实例并开放邀测</a></h2>
+    </div>
+  </div>
+  <div class="story-summary">阿里云发布灵骏真武M890超节点实例，首次提供公共云超节点AI算力。该实例在乌兰察布开放邀测，官方称单台可承载十万亿参数级MoE推理。</div>
+  <div class="story-images"><img src="https://assets.juya.uk/imagehub/aidaily/a9136bde-df90-418d-8e83-d403a6b99d12/6a38ee52-f967-4bdf-bc33-e017983a84b7/m001_f355c5d6.png" alt="配图" loading="lazy"></div>
+  <div class="story-body"><p>阿里云正式发布灵骏真武M890超节点实例，首次通过公共云对外提供超节点形态的AI算力服务。该实例提供64卡算力单元，卡间互联提升至800GB/s，官方称其训练性能相比上一代提升三倍，单台可承载十万亿参数级MoE大模型的推理。目前该实例已在乌兰察布地域开放邀测。同时，阿里云还发布了面向Agent场景的MicroVM安全沙箱与AgenticFS，以及存储层的KVCacheStore和平台层的PAI-EAS TokenWorks等全栈基础设施更新。</p></div>
+</article>
+<article class="story" id="story-11">
+  <div class="story-header">
+    <div class="story-num">11</div>
+    <div class="story-title-block">
+      <div class="story-categories"><span class="story-cat">前瞻与传闻</span></div>
+      <h2 class="story-title"><a href="https://x.com/elonmusk/status/2078289996323148076" target="_blank">前瞻与传闻
+Elon Musk 称 Grok 2T 模型下周完成初始训练</a></h2>
+    </div>
+  </div>
+  <div class="story-summary">Elon Musk表示，SpaceXAI 的 2T 总参数模型将于下周完成初始训练。该模型各方面均优于1.5T总参数的Grok 4.5，可能超越 Kimi K3，且速度与token效率接近Grok 4.5。</div>
+  <div class="story-images"><img src="https://assets.juya.uk/imagehub/aidaily/a9136bde-df90-418d-8e83-d403a6b99d12/a48aa1ef-5bb5-4b3d-aa15-7453b156abac/m001_c6d28b7c.png" alt="配图" loading="lazy"></div>
+  <div class="story-body"><p>Elon Musk发帖表示，SpaceXAI 的2T模型将于下周完成初始训练。他指出，该模型在各方面均优于目前的1.5T模型，可能能够超越Kimi（K3），同时在速度和token效率上接近1.5T模型即Grok 4.5。</p></div>
+</article>
+<article class="story" id="story-12">
+  <div class="story-header">
+    <div class="story-num">12</div>
+    <div class="story-title-block">
+      <div class="story-categories"><span class="story-cat">前瞻与传闻</span></div>
+      <h2 class="story-title"><a href="https://www.cnbc.com/2026/06/02/trump-executive-order-ai.html" target="_blank">白宫被指直接掌控前沿AI模型访问权限</a></h2>
+    </div>
+  </div>
+  <div class="story-summary">据CNBC报道，知情人士称美国政府已启动“金鹰”公私合作项目，旨在与私营部门协作发现并修复网络漏洞；另有消息称，该机制或使白宫参与决定新模型的访问范围。白宫官员回应称，相关合作均属自愿。</div>
+  
+  <div class="story-body"><p>据CNBC报道，白宫本周启动了名为“金鹰”的公私合作项目，旨在发现和修复网络漏洞，一位知情人士称该机制本质上是白宫负责审批哪些公司可以访问新模型。Anthropic和OpenAI此前通过Glasswing和Daybreak项目自行管理访问权限的惯例被打破。一位白宫官员否认此说法，称政府对AI发布不作批准，任何安全测试或会议均为自愿，发布决策完全由公司掌握。</p></div>
+</article>
+</section>
+
+<!-- Back to Top -->
+<button class="back-to-top" id="backToTop" onclick="scrollToTop()" aria-label="回到顶部">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg>
+</button>
+
+<footer class="footer">
+  <div class="footer-brand">Tech<span class="accent">Daily</span></div>
+  <div class="footer-info">© 2026 techdou.com</div>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="modal-header"><span class="modal-term" id="modalTerm"></span><button class="modal-close" onclick="closeModal()">&times;</button></div>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
+<!-- Image Lightbox -->
+<div class="image-lightbox" id="imageLightbox" aria-hidden="true">
+  <div class="image-lightbox-inner">
+    <button class="image-lightbox-close" type="button" aria-label="关闭图片预览" onclick="closeImageLightbox()">×</button>
+    <img id="imageLightboxImg" src="" alt="放大预览">
+    <div class="image-lightbox-caption" id="imageLightboxCaption"></div>
+  </div>
+</div>
+
+<!-- DouknowAI Pet -->
+<iframe src="/pet.html?v=5" class="pet-iframe" id="petIframe" title="DouknowAI Pet"></iframe>
+
+<script>window.GLOSSARY = {
+  "蒸馏": {
+    "tag": "Model Training",
+    "def": "Knowledge Distillation，将大模型知识转移到小模型的技术。"
+  },
+  "SFT": {
+    "tag": "Fine-tuning",
+    "def": "Supervised Fine-Tuning，监督微调。"
+  },
+  "RL": {
+    "tag": "RL",
+    "def": "Reinforcement Learning，强化学习。"
+  },
+  "RLHF": {
+    "tag": "Alignment",
+    "def": "基于人类反馈的强化学习。"
+  },
+  "Agent": {
+    "tag": "AI Agent",
+    "def": "能自主感知、规划、调用工具的智能体。"
+  },
+  "权重": {
+    "tag": "Model",
+    "def": "Weights，神经网络中的可学习参数。"
+  },
+  "张量": {
+    "tag": "Math",
+    "def": "Tensor，多维数组，深度学习的基本数据单元。"
+  },
+  "KYC": {
+    "tag": "Compliance",
+    "def": "Know Your Customer，身份验证流程。"
+  },
+  "Token": {
+    "tag": "LLM",
+    "def": "语言模型处理文本的基本单位。"
+  },
+  "出口管制": {
+    "tag": "Policy",
+    "def": "Export Control，政府对技术出口的限制。"
+  },
+  "SOTA": {
+    "tag": "Benchmark",
+    "def": "State-of-the-Art，已知最优成绩。"
+  },
+  "线性融合": {
+    "tag": "Model Merge",
+    "def": "Linear Model Merging，权重按比例混合。"
+  },
+  "fable": {
+    "tag": "AI Model",
+    "def": "Anthropic 前沿模型。"
+  },
+  "Mythos": {
+    "tag": "AI Model",
+    "def": "Anthropic 前沿模型。"
+  },
+  "Seedance": {
+    "tag": "Video",
+    "def": "字节跳动 AI 视频生成模型。"
+  },
+  "剪映": {
+    "tag": "Tool",
+    "def": "字节跳动视频编辑工具。"
+  },
+  "Qwen": {
+    "tag": "Open Model",
+    "def": "阿里通义千问开源模型。"
+  },
+  "Gemini": {
+    "tag": "AI Model",
+    "def": "Google DeepMind 多模态模型。"
+  },
+  "Nex": {
+    "tag": "AI Model",
+    "def": "开源模型公司。"
+  },
+  "Anthropic": {
+    "tag": "Company",
+    "def": "AI 安全公司，Claude 开发者。"
+  },
+  "OpenAI": {
+    "tag": "Company",
+    "def": "ChatGPT 开发者。"
+  }
+};</script>
+<script>window.TechDailyAudioUrl = "https://news.techdou.com/2026/07/19/audio.mp3";</script>
+</body>
+<script>
+
+// ============================================================
+// 1. Runtime Configuration
+// ============================================================
+const CONFIG = window.TechDailyConfig || {
+  scrollOffset: 86,
+  backToTopThreshold: 420,
+  revealThreshold: 0.12
+};
+
+// 术语表兜底：模板生成器未注入 GLOSSARY 时，提供常见 AI/计算机术语解释，不再阻断关键词点击解释。
+const DEFAULT_GLOSSARY = {
+  "Nex": { tag: "模型 / 机构", def: "这里指被新闻提及的开源模型或相关团队名称。文中它被用作对比对象，用来判断某个新模型是否直接继承了原有模型能力与身份特征。" },
+  "Qwen": { tag: "大模型", def: "Qwen 是阿里通义系列大模型。新闻上下文里，它作为被融合的底座模型之一，用来说明 Rio 3.5 的权重来源。" },
+  "权重": { tag: "机器学习", def: "权重是神经网络中存储知识的参数。模型的能力、风格与偏好主要由这些参数决定。" },
+  "Gemini": { tag: "大模型", def: "Gemini 是 Google DeepMind 推出的多模态大模型系列，可处理文本、图像等多种输入。" },
+  "蒸馏": { tag: "训练方法", def: "蒸馏（Distillation）是让小模型或新模型学习大模型行为的一种方法，本质上是把教师模型的输出模式转移给学生模型。" },
+  "线性融合": { tag: "模型合并", def: "线性融合是按一定比例把两个模型的参数逐元素加权合并，例如 0.6 × A + 0.4 × B。" },
+  "On-Policy": { tag: "强化学习", def: "On-Policy 指使用当前策略自己采样的数据进行优化的一类方法，强调“边做边学、按当前策略更新”。" },
+  "SFT": { tag: "训练阶段", def: "SFT 是监督微调（Supervised Fine-Tuning），通常用高质量问答或指令数据，把基础模型调整成更会听指令的助手。" },
+  "RL": { tag: "训练阶段", def: "RL 是强化学习（Reinforcement Learning），通过奖励机制让模型朝更符合目标的方向优化。" },
+  "Token": { tag: "基础概念", def: "Token 是大模型处理文本时的最小片段单位，可以理解为“模型读写时计数的文字块”。" },
+  "KYC": { tag: "合规", def: "KYC 是 Know Your Customer（了解你的客户），指平台通过证件等方式做实名或身份核验。" },
+  "Anthropic": { tag: "AI 公司", def: "Anthropic 是一家专注大模型研发的 AI 公司，以 Claude 系列模型闻名。" },
+  "出口管制": { tag: "政策", def: "出口管制指政府对技术、产品、芯片或模型能力跨境流动设置限制，以控制安全与合规风险。" },
+  "Seedance": { tag: "视频模型", def: "Seedance 是用于视频生成的模型或系列名称，文中讨论的是它的版本与定价策略。" },
+  "张量": { tag: "数学 / 深度学习", def: "张量可以理解为多维数组，是神经网络中表示参数、特征和中间结果的基本数据结构。" },
+  "余弦相似度": { tag: "相似度度量", def: "余弦相似度用来衡量两个向量方向是否接近，越接近 1，说明两者越相似。" },
+  "Mythos": { tag: "模型名", def: "这里指新闻中的一个具体模型名称。模板把它作为术语处理，便于读者点击查看解释。" },
+  "剪映": { tag: "创作工具", def: "剪映是字节跳动推出的视频剪辑与内容创作工具，常与短视频生产场景结合。" },
+  "fable": { tag: "模型 / 项目", def: "这里指新闻语境中的特定模型或项目名称，常与访问权限、平台策略等讨论一起出现。" }
+};
+const GLOSSARY = window.GLOSSARY || DEFAULT_GLOSSARY;
+
+/**
+ * DouknowAI Pet iframe bridge
+ *
+ * 说明：
+ * 1. iframe 保持 pointer-events:none，页面正文链接和按钮不会被透明层挡住。
+ * 2. pet.html 每 80ms 向父页面发送宠物命中区域。
+ * 3. 父页面只在指针落到宠物命中区域时接管拖拽，并通过 postMessage 控制宠物。
+ * 4. 默认运动平面为当前视口；如需指定某个块元素作为宠物活动平面：
+ *    - 给元素添加 data-pet-plane 或 class="pet-plane"
+ *    - 或在 body 上添加 data-pet-plane-selector="#yourBlock"
+ */
+function initPetIframeBridge() {
+  var iframe = document.getElementById('petIframe');
+  if (!iframe || iframe.dataset.bridgeReady === '1') return;
+  iframe.dataset.bridgeReady = '1';
+
+  var petBounds = null;
+  var dragging = false;
+  var activePointerId = null;
+
+  function post(type, payload) {
+    if (!iframe.contentWindow) return;
+    iframe.contentWindow.postMessage(Object.assign({
+      source: 'techdaily-parent',
+      type: type
+    }, payload || {}), '*');
+  }
+
+  function getPoint(e) {
+    return { x: e.clientX, y: e.clientY };
+  }
+
+  function isInsidePet(point) {
+    if (!petBounds) return false;
+    var hitPadding = 8;
+    return point.x >= petBounds.left - hitPadding &&
+      point.x <= petBounds.right + hitPadding &&
+      point.y >= petBounds.top - hitPadding &&
+      point.y <= petBounds.bottom + hitPadding;
+  }
+
+  function findPetPlaneRect() {
+    var selector = document.body ? document.body.getAttribute('data-pet-plane-selector') : '';
+    var plane = null;
+
+    if (selector) {
+      try { plane = document.querySelector(selector); } catch (err) { plane = null; }
+    }
+    if (!plane) plane = document.querySelector('[data-pet-plane], .pet-plane');
+
+    if (!plane) {
+      return { left: 0, top: 0, width: window.innerWidth, height: window.innerHeight };
+    }
+
+    var rect = plane.getBoundingClientRect();
+    var left = Math.max(0, rect.left);
+    var top = Math.max(0, rect.top);
+    var right = Math.min(window.innerWidth, rect.right);
+    var bottom = Math.min(window.innerHeight, rect.bottom);
+
+    // 如果目标块当前几乎不可见，则临时回退到视口，避免宠物被夹在不可见区域。
+    if (right - left < 80 || bottom - top < 80) {
+      return { left: 0, top: 0, width: window.innerWidth, height: window.innerHeight };
+    }
+
+    return { left: left, top: top, width: right - left, height: bottom - top };
+  }
+
+  function syncPetPlane() {
+    post('douknow-pet-surface', { rect: findPetPlaneRect() });
+  }
+
+  window.addEventListener('message', function (event) {
+    if (event.source !== iframe.contentWindow) return;
+    var data = event.data || {};
+    if (data.source === 'douknow-pet' && data.type === 'douknow-pet-bounds') {
+      petBounds = data.bounds;
+    }
+  });
+
+  document.addEventListener('pointerdown', function (e) {
+    var point = getPoint(e);
+    if (!isInsidePet(point)) return;
+
+    dragging = true;
+    activePointerId = e.pointerId;
+    document.body.classList.add('pet-dragging');
+    post('douknow-pet-drag-start', point);
+    e.preventDefault();
+    e.stopPropagation();
+  }, { capture: true, passive: false });
+
+  document.addEventListener('pointermove', function (e) {
+    var point = getPoint(e);
+    post('douknow-pet-pointer', point);
+
+    if (!dragging || e.pointerId !== activePointerId) return;
+    post('douknow-pet-drag-move', point);
+    e.preventDefault();
+    e.stopPropagation();
+  }, { capture: true, passive: false });
+
+  function endDrag(e) {
+    if (!dragging) return;
+    if (e && activePointerId != null && e.pointerId !== activePointerId) return;
+    dragging = false;
+    activePointerId = null;
+    document.body.classList.remove('pet-dragging');
+    post('douknow-pet-drag-end');
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+  }
+
+  document.addEventListener('pointerup', endDrag, { capture: true, passive: false });
+  document.addEventListener('pointercancel', endDrag, { capture: true, passive: false });
+
+  window.addEventListener('resize', syncPetPlane);
+  window.addEventListener('scroll', syncPetPlane, { passive: true });
+  iframe.addEventListener('load', syncPetPlane);
+  setTimeout(syncPetPlane, 120);
+  setInterval(syncPetPlane, 500);
+}
+
+// ============================================================
+// 2. DOM READY INITIALIZATION
+// ============================================================
+
+/**
+ * Initialize all enhancements when DOM is ready.
+ * Uses DOMContentLoaded for reliable execution.
+ */
+document.addEventListener('DOMContentLoaded', function () {
+  initSidebar();
+  initModal();
+  initAudioPlayer();
+  initBackToTop();
+  initReadingProgress();
+  initTechTermTooltips();
+  initScrollReveal();
+  initHoverEnhancers();
+  initKeyboardShortcuts();
+  initStoryNumberAnimation();
+  initArchiveMenu();
+  adaptNoImageStories();
+  adaptMultiImageStories();
+  adaptResponsiveCollections();
+  initStoryImageInteractions();
+  initKeywordExplanations();
+});
+
+
+// ============================================================
+// 3. SIDEBAR NAVIGATION
+// ============================================================
+
+/**
+ * Toggle sidebar open/closed state.
+ * Also toggles the overlay for backdrop click-to-close.
+ */
+function toggleSidebar(forceOpen) {
+  const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('sidebarOverlay');
+  if (!sidebar || !overlay) return;
+
+  const shouldOpen = (typeof forceOpen === 'boolean') ? forceOpen : !sidebar.classList.contains('active');
+  sidebar.classList.toggle('active', shouldOpen);
+  overlay.classList.toggle('active', shouldOpen);
+  document.body.style.overflow = shouldOpen ? 'hidden' : '';
+}
+
+/**
+ * Initialize sidebar event listeners.
+ */
+function initSidebar() {
+  // Overlay click handled by inline onclick
+  // This function is a hook for any additional sidebar initialization
+  const sidebar = document.getElementById('sidebar');
+  if (sidebar) {
+    // Ensure sidebar closes on escape key
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && sidebar.classList.contains('active')) {
+        toggleSidebar();
+      }
+    });
+  }
+}
+
+
+// ============================================================
+// 4. MODAL SYSTEM
+// ============================================================
+
+const modalOverlay = document.getElementById('modalOverlay');
+
+/**
+ * Open the modal with glossary definition for a term.
+ * @param {string} term - The glossary term to display.
+ */
+function openModal(term, e) {
+  var evt = e || window.event;
+  if (evt && typeof evt.stopPropagation === 'function') evt.stopPropagation();
+  const entry = GLOSSARY[term];
+  if (!entry) return;
+
+  const modalTermEl = document.getElementById('modalTerm');
+  const modalBodyEl = document.getElementById('modalBody');
+
+  if (modalTermEl) modalTermEl.textContent = term;
+  if (modalBodyEl) {
+    modalBodyEl.innerHTML =
+      (entry.tag ? '<span class="tag">' + entry.tag + '</span>' : '') +
+      '<p>' + entry.def + '</p>';
+  }
+
+  if (modalOverlay) {
+    modalOverlay.classList.add('active');
+    // Prevent body scroll when modal is open
+    document.body.style.overflow = 'hidden';
+  }
+}
+
+/**
+ * Close the modal overlay.
+ * @param {Event} e - Optional event object for click detection.
+ */
+function closeModal(e) {
+  if (e && e.target !== modalOverlay && !e.target.classList.contains('modal-close')) return;
+  if (modalOverlay) {
+    modalOverlay.classList.remove('active');
+    // Restore body scroll
+    if (!document.getElementById('sidebar').classList.contains('active')) {
+      document.body.style.overflow = '';
+    }
+  }
+}
+
+/**
+ * Initialize modal system with keyboard and accessibility support.
+ */
+function initModal() {
+  if (!modalOverlay) return;
+
+  // Close on overlay click
+  modalOverlay.addEventListener('click', function (e) {
+    if (e.target === modalOverlay) closeModal();
+  });
+
+  // Close on escape key (handled in global keyboard handler)
+  // Focus trap for accessibility
+  modalOverlay.addEventListener('keydown', function (e) {
+    if (e.key === 'Tab') {
+      const focusable = modalOverlay.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+      if (focusable.length === 0) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+
+      if (e.shiftKey && document.activeElement === first) {
+        last.focus();
+        e.preventDefault();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        first.focus();
+        e.preventDefault();
+      }
+    }
+  });
+}
+
+
+// ============================================================
+// 5. AUDIO PLAYER
+// ============================================================
+
+let audioEl = null;
+let isPlaying = false;
+
+/**
+ * Toggle audio playback state.
+ * Creates audio element on first play.
+ */
+function togglePlay() {
+  var btn = document.getElementById('playBtn');
+  if (!btn) return;
+
+  if (!audioEl) {
+    var audioSrc = window.TechDailyAudioUrl || "https://news.techdou.com/broadcast.mp3";
+    if (!audioSrc) { alert("播报音频生成中..."); return; }
+    audioEl = new Audio(audioSrc);
+
+    var timeEl = document.getElementById('audioTime');
+    if (timeEl) timeEl.textContent = '0:00';
+
+    audioEl.addEventListener('error', function () {
+      console.warn('[Audio] 加载失败:', audioSrc);
+      if (timeEl) timeEl.textContent = '0:00';
+    });
+
+    audioEl.addEventListener('loadedmetadata', function () {
+      if (!audioEl.duration || isNaN(audioEl.duration)) return;
+      var m = Math.floor(audioEl.duration / 60);
+      var s = Math.floor(audioEl.duration % 60);
+      if (timeEl) timeEl.textContent = m + ':' + (s < 10 ? '0' : '') + s;
+    });
+
+    audioEl.addEventListener('canplay', function () {
+      if (!audioEl.duration || isNaN(audioEl.duration)) return;
+      var m = Math.floor(audioEl.duration / 60);
+      var s = Math.floor(audioEl.duration % 60);
+      if (timeEl) timeEl.textContent = m + ':' + (s < 10 ? '0' : '') + s;
+    });
+
+    audioEl.addEventListener('timeupdate', function () {
+      if (!audioEl.duration || isNaN(audioEl.duration)) return;
+      var pct = (audioEl.currentTime / audioEl.duration) * 100;
+      var fillEl = document.getElementById('progressFill');
+      if (fillEl) fillEl.style.width = pct + '%';
+      var m = Math.floor(audioEl.currentTime / 60);
+      var s = Math.floor(audioEl.currentTime % 60);
+      var totalM = Math.floor(audioEl.duration / 60);
+      var totalS = Math.floor(audioEl.duration % 60);
+      if (timeEl) timeEl.textContent = m + ':' + (s < 10 ? '0' : '') + s + ' / ' + totalM + ':' + (totalS < 10 ? '0' : '') + totalS;
+    });
+
+    audioEl.addEventListener('ended', function () {
+      isPlaying = false;
+      var playIcon = document.getElementById('playIcon');
+      var pauseIcon = document.getElementById('pauseIcon');
+      var fillEl = document.getElementById('progressFill');
+      if (playIcon) playIcon.style.display = '';
+      if (pauseIcon) pauseIcon.style.display = 'none';
+      if (fillEl) fillEl.style.width = '0%';
+      if (audioEl.duration && !isNaN(audioEl.duration)) {
+        var totalM = Math.floor(audioEl.duration / 60);
+        var totalS = Math.floor(audioEl.duration % 60);
+        if (timeEl) timeEl.textContent = totalM + ':' + (totalS < 10 ? '0' : '') + totalS;
+      }
+    });
+  }
+
+  if (isPlaying) {
+    audioEl.pause();
+    isPlaying = false;
+    var playIcon = document.getElementById('playIcon');
+    var pauseIcon = document.getElementById('pauseIcon');
+    if (playIcon) playIcon.style.display = '';
+    if (pauseIcon) pauseIcon.style.display = 'none';
+  } else {
+    audioEl.play().catch(function(err) { console.warn('[Audio]', err); });
+    isPlaying = true;
+    var playIcon = document.getElementById('playIcon');
+    var pauseIcon = document.getElementById('pauseIcon');
+    if (playIcon) playIcon.style.display = 'none';
+    if (pauseIcon) pauseIcon.style.display = '';
+  }
+}
+
+function initAudioPlayer() {
+  // Audio track click-to-seek
+  var track = document.querySelector('.audio-track');
+  if (track && audioEl) {
+    track.addEventListener('click', function (e) {
+      var rect = track.getBoundingClientRect();
+      var pct = (e.clientX - rect.left) / rect.width;
+      if (audioEl.duration) {
+        audioEl.currentTime = pct * audioEl.duration;
+      }
+    });
+  }
+}
+
+
+// ============================================================
+// 6. SMOOTH SCROLL UTILITIES
+// ============================================================
+
+/**
+ * Scroll to a story element by its number with smooth animation.
+ * @param {string} num - The story number/ID suffix.
+ */
+function scrollToStory(num) {
+  const el = document.getElementById('story-' + num);
+  if (!el) return false;
+
+  // 目录点击时，inline handler 会随后关闭 sidebar；这里延迟一帧，避免 body overflow:hidden 时滚动失效。
+  window.setTimeout(function () {
+    const offset = (window.TechDailyConfig && window.TechDailyConfig.scrollOffset) || CONFIG.scrollOffset || 86;
+    const top = el.getBoundingClientRect().top + window.pageYOffset - offset;
+    window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+
+    el.classList.add('reveal-scale', 'visible', 'story-jump-highlight');
+    window.setTimeout(function () {
+      el.classList.remove('story-jump-highlight');
+    }, 900);
+  }, 80);
+
+  return false;
+}
+
+/**
+ * Scroll to top of page with smooth animation.
+ */
+function scrollToTop() {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+
+// ============================================================
+// 7. BACK TO TOP BUTTON
+// ============================================================
+
+/**
+ * Initialize back-to-top button visibility based on scroll position.
+ */
+function initBackToTop() {
+  var backToTopBtn = document.getElementById('backToTop');
+  if (!backToTopBtn) return;
+
+  var scrollThreshold = CONFIG.backToTopThreshold;
+  var ticking = false;
+
+  function updateBackToTop() {
+    if (window.pageYOffset > scrollThreshold) {
+      backToTopBtn.classList.add('visible');
+    } else {
+      backToTopBtn.classList.remove('visible');
+    }
+    ticking = false;
+  }
+
+  window.addEventListener('scroll', function () {
+    if (!ticking) {
+      requestAnimationFrame(updateBackToTop);
+      ticking = true;
+    }
+  });
+
+  // Initial check
+  updateBackToTop();
+}
+
+
+// ============================================================
+// 8. READING PROGRESS BAR
+// ============================================================
+
+/**
+ * Initialize reading progress bar at top of viewport.
+ * Shows scroll progress from 0% to 100% across the page.
+ */
+function initReadingProgress() {
+  var progressBar = document.getElementById('readingProgressBar') || document.getElementById('readingProgress');
+  if (!progressBar) return;
+
+  var ticking = false;
+
+  function updateProgress() {
+    var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    var docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    if (docHeight <= 0) return;
+    var progress = (scrollTop / docHeight) * 100;
+    progressBar.style.width = progress + '%';
+
+    // Update ring rotation on back-to-top button
+    var ring = document.getElementById('progressRing');
+    if (ring) {
+      ring.style.transform = 'rotate(' + (-90 + progress * 3.6) + 'deg)';
+    }
+
+    ticking = false;
+  }
+
+  window.addEventListener('scroll', function () {
+    if (!ticking) {
+      requestAnimationFrame(updateProgress);
+      ticking = true;
+    }
+  });
+
+  // Initial update
+  updateProgress();
+}
+
+
+// ============================================================
+// 9. TECH TERM TOOLTIP ENHANCEMENT
+// ============================================================
+
+/**
+ * Enhance all tech-term elements with tooltip data attributes.
+ * Extracts short definitions from the GLOSSARY and sets them
+ * as data-tooltip for CSS tooltip display.
+ */
+function initTechTermTooltips() {
+  var terms = document.querySelectorAll('.tech-term');
+  terms.forEach(function (term) {
+    // Get term from onclick attribute
+    var onclick = term.getAttribute('onclick');
+    if (onclick) {
+      var match = onclick.match(/openModal\('([^']+)'\)/);
+      if (match) {
+        var termKey = match[1];
+        var entry = GLOSSARY[termKey];
+        if (entry && !term.getAttribute('data-tooltip')) {
+          // Create a short tooltip (first 20 chars + ...)
+          var shortDef = entry.def.length > 25 ? entry.def.substring(0, 25) + '...' : entry.def;
+          term.setAttribute('data-tooltip', shortDef);
+        }
+        if (entry && !term.getAttribute('data-term')) {
+          term.setAttribute('data-term', termKey);
+        }
+      }
+    }
+  });
+}
+
+
+// ============================================================
+// 10. SCROLL REVEAL ANIMATIONS
+// ============================================================
+
+/**
+ * Initialize IntersectionObserver-based scroll reveal animations.
+ * Adds 'visible' class when elements enter the viewport.
+ */
+function initScrollReveal() {
+  // Base reveal observer
+  var revealObserver = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        // Optionally unobserve after reveal
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: CONFIG.revealThreshold, rootMargin: '0px 0px -40px 0px' });
+
+  // Observe all reveal elements
+  document.querySelectorAll('.brief-item, .story, .reveal, .reveal-fade, .reveal-scale, .reveal-left').forEach(function (el) {
+    if (!el.classList.contains('reveal') &&
+      !el.classList.contains('reveal-fade') &&
+      !el.classList.contains('reveal-scale') &&
+      !el.classList.contains('reveal-left')) {
+      el.classList.add('reveal');
+    }
+    revealObserver.observe(el);
+  });
+
+  // Stagger reveal observer (for grids/lists)
+  var staggerObserver = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        staggerObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.reveal-stagger').forEach(function (el) {
+    staggerObserver.observe(el);
+  });
+
+  // Story number animation on scroll into view
+  var numObserver = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        entry.target.style.animation = 'bounceIn 0.5s ease forwards';
+        numObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  document.querySelectorAll('.story-num').forEach(function (el) {
+    numObserver.observe(el);
+  });
+}
+
+
+// ============================================================
+// 11. HOVER EFFECT ENHANCERS
+// ============================================================
+
+/**
+ * Add enhanced hover interactions to various elements.
+ * Uses event delegation for performance.
+ */
+function initHoverEnhancers() {
+  // Brief item hover: add tilt effect
+  document.querySelectorAll('.brief-item').forEach(function (item) {
+    item.addEventListener('mousemove', function (e) {
+      var rect = item.getBoundingClientRect();
+      var x = e.clientX - rect.left;
+      var y = e.clientY - rect.top;
+      var centerX = rect.width / 2;
+      var centerY = rect.height / 2;
+      var rotateX = (y - centerY) / centerY * -1.5;
+      var rotateY = (x - centerX) / centerX * 1.5;
+      item.style.transform = 'perspective(600px) rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg) translateY(-3px)';
+    });
+
+    item.addEventListener('mouseleave', function () {
+      item.style.transform = '';
+    });
+  });
+
+  // Story card hover: enhance visual feedback
+  document.querySelectorAll('.story').forEach(function (story) {
+    story.addEventListener('mouseenter', function () {
+      var num = story.querySelector('.story-num');
+      if (num) num.style.transition = 'all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)';
+    });
+  });
+}
+
+
+// ============================================================
+// 12. KEYBOARD SHORTCUTS
+// ============================================================
+
+/**
+ * Initialize global keyboard shortcuts.
+ * - Escape: Close modal or sidebar
+ * - 'T' key: Scroll to top
+ */
+function initKeyboardShortcuts() {
+  document.addEventListener('keydown', function (e) {
+    // Escape closes modal or sidebar
+    if (e.key === 'Escape') {
+      var modal = document.getElementById('modalOverlay');
+      var sidebar = document.getElementById('sidebar');
+
+      if (modal && modal.classList.contains('active')) {
+        closeModal();
+      } else if (sidebar && sidebar.classList.contains('active')) {
+        toggleSidebar();
+      }
+    }
+
+    // 'T' or 't' scrolls to top (when not in input)
+    if ((e.key === 't' || e.key === 'T') && !isInputFocused()) {
+      e.preventDefault();
+      scrollToTop();
+    }
+  });
+}
+
+/**
+ * Check if focus is currently in an input field.
+ * @returns {boolean} True if an input element is focused.
+ */
+function isInputFocused() {
+  var tag = document.activeElement.tagName.toLowerCase();
+  return tag === 'input' || tag === 'textarea' || tag === 'select' || document.activeElement.isContentEditable;
+}
+
+
+// ============================================================
+// 13. UTILITY FUNCTIONS
+// ============================================================
+
+/**
+ * Check if the device supports touch events.
+ * @returns {boolean} True if touch is supported.
+ */
+function isTouchDevice() {
+  return window.matchMedia('(pointer: coarse)').matches ||
+    'ontouchstart' in window ||
+    navigator.maxTouchPoints > 0;
+}
+
+/**
+ * Debounce function to limit execution frequency.
+ * @param {Function} func - The function to debounce.
+ * @param {number} wait - Milliseconds to wait.
+ * @returns {Function} Debounced function.
+ */
+function debounce(func, wait) {
+  var timeout;
+  return function () {
+    var context = this;
+    var args = arguments;
+    clearTimeout(timeout);
+    timeout = setTimeout(function () {
+      func.apply(context, args);
+    }, wait);
+  };
+}
+
+/**
+ * Throttle function to limit execution frequency.
+ * @param {Function} func - The function to throttle.
+ * @param {number} limit - Milliseconds between executions.
+ * @returns {Function} Throttled function.
+ */
+function throttle(func, limit) {
+  var inThrottle;
+  return function () {
+    var context = this;
+    var args = arguments;
+    if (!inThrottle) {
+      func.apply(context, args);
+      inThrottle = true;
+      setTimeout(function () {
+        inThrottle = false;
+      }, limit);
+    }
+  };
+}
+
+
+// ============================================================
+// 14. STORY NUMBER ANIMATION
+// ============================================================
+
+/**
+ * Initialize entrance animation for story numbers.
+ * Uses IntersectionObserver for scroll-triggered animation.
+ */
+function initStoryNumberAnimation() {
+  var storyNums = document.querySelectorAll('.story-num');
+
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        // Add a subtle scale animation
+        entry.target.style.transition = 'all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)';
+        entry.target.style.transform = 'scale(1.1)';
+        setTimeout(function () {
+          entry.target.style.transform = 'scale(1)';
+        }, 200);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  storyNums.forEach(function (num) {
+    observer.observe(num);
+  });
+}
+
+
+// ============================================================
+// 15. SECTION DIVIDER ANIMATION
+// ============================================================
+
+/**
+ * Animate section dividers when they scroll into view.
+ */
+function initSectionDividerAnimation() {
+  var dividers = document.querySelectorAll('.section-divider');
+
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '0';
+        entry.target.style.transition = 'opacity 0.6s ease';
+        setTimeout(function () {
+          entry.target.style.opacity = '1';
+        }, 50);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.3 });
+
+  dividers.forEach(function (d) { observer.observe(d); });
+}
+
+
+// ============================================================
+// 16. PREFERS REDUCED MOTION HANDLING
+// ============================================================
+
+/**
+ * Check if user prefers reduced motion and disable animations.
+ * This is handled primarily via CSS media query, but we also
+ * add a class to the body for JavaScript-based animations.
+ */
+if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  document.documentElement.classList.add('reduced-motion');
+}
+
+
+// ============================================================
+// 17. PRINT STYLES HELPER
+// ============================================================
+
+/**
+ * Add print-specific behaviors.
+ * Ensures content is readable when printed.
+ */
+window.addEventListener('beforeprint', function () {
+  // Make all reveal elements visible for printing
+  document.querySelectorAll('.reveal, .reveal-fade, .reveal-scale, .reveal-left, .reveal-stagger > *').forEach(function (el) {
+    el.style.opacity = '1';
+    el.style.transform = 'none';
+  });
+  // Hide floating elements
+  var floatNav = document.querySelector('.float-nav');
+  var backToTop = document.getElementById('backToTop');
+  var progressBar = document.getElementById('readingProgressBar') || document.getElementById('readingProgress');
+  if (floatNav) floatNav.style.display = 'none';
+  if (backToTop) backToTop.style.display = 'none';
+  if (progressBar) progressBar.style.display = 'none';
+});
+
+window.addEventListener('afterprint', function () {
+  // Restore floating elements
+  var floatNav = document.querySelector('.float-nav');
+  var backToTop = document.getElementById('backToTop');
+  var progressBar = document.getElementById('readingProgressBar') || document.getElementById('readingProgress');
+  if (floatNav) floatNav.style.display = '';
+  if (backToTop) backToTop.style.display = '';
+  if (progressBar) progressBar.style.display = '';
+});
+
+
+// ============================================
+// Pet Party Integration
+// ============================================
+
+let petParty = null;
+let petPartyVisible = true;
+
+function scrollToTop() {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  setTimeout(initPetIframeBridge, 120);
+});
+
+
+// ============================================================
+// FIX 3+4: ADAPT NO-IMAGE STORIES
+// ============================================================
+/* 修正3: 改为检测img元素数量，而非children.length，
+   避免.story-images容器存在但无实际图片时误判 */
+function adaptNoImageStories() {
+  document.querySelectorAll('.story').forEach(function (story) {
+    var imgs = story.querySelector('.story-images');
+    var imgCount = imgs ? imgs.querySelectorAll('img').length : 0;
+    if (imgCount === 0) {
+      story.classList.add('story--no-images');
+    }
+  });
+}
+
+// ============================================================
+// FIX 5: ADAPT MULTI-IMAGE STORIES
+// ============================================================
+function adaptMultiImageStories() {
+  document.querySelectorAll('.story-images').forEach(function (imgs) {
+    var imgCount = imgs.querySelectorAll('img').length;
+    imgs.dataset.imageCount = String(imgCount);
+    imgs.classList.toggle('story-images--single', imgCount === 1);
+    imgs.classList.toggle('story-images--multiple', imgCount > 1);
+  });
+}
+
+function adaptResponsiveCollections() {
+  document.querySelectorAll('.brief-grid').forEach(function (grid) {
+    var count = grid.querySelectorAll('.brief-item').length;
+    grid.dataset.count = String(count);
+    grid.classList.toggle('is-odd', count % 2 === 1);
+    grid.classList.toggle('is-even', count > 0 && count % 2 === 0);
+  });
+
+  document.querySelectorAll('.story-categories, .story-tags').forEach(function (box) {
+    var count = box.children.length;
+    box.dataset.count = String(count);
+    box.classList.toggle('is-odd', count % 2 === 1);
+    box.classList.toggle('is-even', count > 0 && count % 2 === 0);
+  });
+}
+
+
+
+// ============================================================
+// FIX 7: IMAGE LIGHTBOX + HORIZONTAL WHEEL SCROLL + TERM ACCESSIBILITY
+// ============================================================
+function openImageLightbox(src, alt) {
+  var box = document.getElementById('imageLightbox');
+  var img = document.getElementById('imageLightboxImg');
+  var caption = document.getElementById('imageLightboxCaption');
+  if (!box || !img) return;
+  img.src = src;
+  img.alt = alt || '放大预览';
+  if (caption) caption.textContent = alt || '';
+  box.classList.add('active');
+  box.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeImageLightbox() {
+  var box = document.getElementById('imageLightbox');
+  var img = document.getElementById('imageLightboxImg');
+  if (!box || !img) return;
+  box.classList.remove('active');
+  box.setAttribute('aria-hidden', 'true');
+  img.src = '';
+  if (!document.getElementById('sidebar').classList.contains('active') && !(window.modalOverlay && modalOverlay.classList.contains('active'))) {
+    document.body.style.overflow = '';
+  }
+}
+
+function initStoryImageInteractions() {
+  document.querySelectorAll('.story-images').forEach(function (wrap) {
+    var hasOverflow = function () { return wrap.scrollWidth > wrap.clientWidth + 2; };
+
+    wrap.addEventListener('wheel', function (e) {
+      if (!hasOverflow()) return;
+      var mostlyVertical = Math.abs(e.deltaY) >= Math.abs(e.deltaX);
+      if (!mostlyVertical) return;
+      wrap.scrollLeft += e.deltaY;
+      e.preventDefault();
+    }, { passive: false });
+
+    wrap.querySelectorAll('img').forEach(function (img) {
+      img.setAttribute('tabindex', '0');
+      img.setAttribute('role', 'button');
+      img.setAttribute('aria-label', (img.alt || '图片') + '，点击放大查看');
+      img.addEventListener('click', function () { openImageLightbox(img.currentSrc || img.src, img.alt || '图片预览'); });
+      img.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          openImageLightbox(img.currentSrc || img.src, img.alt || '图片预览');
+        }
+      });
+    });
+  });
+
+  var box = document.getElementById('imageLightbox');
+  if (box && !box.dataset.bound) {
+    box.dataset.bound = '1';
+    box.addEventListener('click', function (e) {
+      if (e.target === box) closeImageLightbox();
+    });
+  }
+}
+
+function initKeywordExplanations() {
+  document.querySelectorAll('.tech-term').forEach(function (term) {
+    term.setAttribute('role', 'button');
+    term.setAttribute('tabindex', '0');
+    var termKey = term.getAttribute('data-term') || term.textContent.trim();
+    term.addEventListener('keydown', function (e) {
+      if ((e.key === 'Enter' || e.key === ' ') && GLOSSARY[termKey]) {
+        e.preventDefault();
+        openModal(termKey, e);
+      }
+    });
+  });
+}
+
+// ============================================================
+// FIX 6: ARCHIVE DROPDOWN
+// ============================================================
+function toggleArchive() {
+  var dropdown = document.getElementById('archiveDropdown');
+  if (!dropdown) return;
+  dropdown.classList.toggle('open');
+}
+
+function initArchiveMenu() {
+  var listEl = document.getElementById('archiveList');
+  if (!listEl) return;
+
+  // Determine page date: from body data-date, URL path, or fallback to today
+  var pageDate = null;
+  var bodyDate = document.body ? document.body.getAttribute('data-date') : '';
+  if (bodyDate && /^\d{4}-\d{2}-\d{2}$/.test(bodyDate)) {
+    pageDate = new Date(bodyDate + 'T00:00:00');
+  }
+  if (!pageDate || isNaN(pageDate.getTime())) {
+    var pathMatch = window.location.pathname.match(/\/([0-9]{4})\/([0-9]{2})\/([0-9]{2})/);
+    if (pathMatch) {
+      pageDate = new Date(pathMatch[1] + '-' + pathMatch[2] + '-' + pathMatch[3] + 'T00:00:00');
+    }
+  }
+  if (!pageDate || isNaN(pageDate.getTime())) {
+    pageDate = new Date();
+  }
+
+  var html = '';
+  for (var i = 0; i < 7; i++) {
+    var d = new Date(pageDate);
+    d.setDate(d.getDate() - i);
+    var y = d.getFullYear();
+    var m = String(d.getMonth() + 1).padStart(2, '0');
+    var day = String(d.getDate()).padStart(2, '0');
+    var dateStr = y + '年' + m + '月' + day + '日';
+    var urlPath = '/' + y + '/' + m + '/' + day + '/';
+    var weekDays = ['日', '一', '二', '三', '四', '五', '六'];
+    var weekDay = weekDays[d.getDay()];
+    if (i === 0) {
+      html += '<span class="archive-item archive-item-current">' + dateStr + ' 星期' + weekDay + ' ✓</span>';
+    } else {
+      html += '<a class="archive-item" href="' + urlPath + '">' + dateStr + ' 星期' + weekDay + '</a>';
+    }
+  }
+  listEl.innerHTML = html;
+}
+
+document.addEventListener('click', function (e) {
+  var dropdown = document.getElementById('archiveDropdown');
+  if (dropdown && !dropdown.contains(e.target)) {
+    dropdown.classList.remove('open');
+  }
+});
+
+document.addEventListener('keydown', function (e) {
+  if (e.key === 'Escape') {
+    var box = document.getElementById('imageLightbox');
+    if (box && box.classList.contains('active')) closeImageLightbox();
+  }
+});
+
+</script>
+</body>
+
