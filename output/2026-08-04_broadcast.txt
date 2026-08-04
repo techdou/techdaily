@@ -1,0 +1,22 @@
+欢迎收听 TechDaily 每日科技快报。今天是 2026-08-04。
+
+今日共有 16 条科技要闻。
+
+第 1 条，阿里千问发布Qwen3.8-Max模型正式版。该模型基于 Qwen 3.5 的架构基础构建，总参数达2.4T，激活参数95B。目前已在官方API平台和Token Plan、Qwen Studio、Qoder系列等产品上线。官方称该模型在编程
+第 2 条，MiniMax正式开源全模态生成系统 MiniMax-H3。此次发布的模型权重包括H3-Base的FL2VA和 Ref2VA两个checkpoint。相关权重已获ComfyUI原生支持。其许可证禁止在美国和欧盟等国家和地区使用。
+第 3 条，Qoder 宣布 Qwen3.8-Max 正式上线Qoder全端。8月3日至9月3日期间，新用户和付费用戶可领取800次免费调用，下单可再叠加2000次。此外，每天错峰时段享5折计费，个人版与企业版同享，中国版还推出了邀请福利活动。
+第 4 条，阿里云百炼 Token Plan 宣布上线 Qwen3.8-Max 正式版，原 Qwen3.8-Max-Preview 版本将于8月5日下线，有生效订阅的用户可获一次7天额度重置权益。
+第 5 条，Ant Ling 宣布，在 OpenRouter 平台免费使用 Ling-3.0-flash 模型的期限已延长至太平洋时间8月6日上午8点。用户目前可继续免费体验该模型。
+第 6 条，TRAE在积分体系上线后宣布为老付费用户额外加送通用积分，并将未升级用户的迁移加赠积分翻倍。官方同时表示正推进调整生图生视频限额和支持更大上下文窗口等功能以回应用户诉求。
+第 7 条，Kiro 推出统一的 Kiro agent harness，取代各客户端独立架构。新套件已在 Kiro IDE、CLI、Web 和 iOS 全面上线，实现跨平台一致配置。
+第 8 条，OpenRouter 推出 Ori Eval 评估工具，帮助开发者为项目选择最合适的模型。Ori Eval 通过编程 Agent 自动扫描代码库并运行跨提供商的模型比较。
+第 9 条，Interconnects AI宣布推出两个免费工具帮助洞察开源模型生态，Artifacts Hub用于追踪开源模型趋势，Adoption Dashboard展示按地区和机构的模型采用数据。
+第 10 条，Cloudflare推出开源Agent运行时@cloudflare/computer早期预览版。它为Agent提供独立计算环境，依托SQLite虚拟文件系统，动态编排isolates与Linux容器执行任务。
+第 11 条，Cloudflare 推出全新 Billable Usage API，面向自助服务账户开放，单端点即可按产品查询全部用量与成本。
+第 12 条，NousResearch 发布 Hermes Agent v0.20.0。该版本新增流式对话语音、Agent-to-Agent协议与桌面应用插件 SDK等功能。
+第 13 条，据报道，美国政府已邀请OpenAI、Google、Anthropic等AI公司，于周二审阅一份已完成的自愿AI监管框架。该框架将建立前沿模型发布前向政府提交的流程。
+第 14 条，OpenAI发文详解其第三代语音系统GPT-Live。它采用全双工模型，移除轮次检测器，支持同时听与说。需深度推理或用工具时，它能不中断语音流异步调用GPT-5.5。
+第 15 条，Google Agent Skills 团队发文分享了该项目 Skills 构建与质量机制，项目要求 Skill 通过自动化检查与持续评估，以保证规模化扩展时的质量。
+第 16 条，据社区用户发现，智谱ZCode文档短暂出现 GLM-5.3 相关字样。同时智谱官方GitHub仓库也出现相关字符，但官方尚未透露有关GLM-5.3的更多信息。
+
+以上就是今日 TechDaily 的全部内容。感谢收听，我们明天再见。
