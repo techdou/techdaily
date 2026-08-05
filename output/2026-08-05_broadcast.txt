@@ -1,0 +1,33 @@
+欢迎收听 TechDaily 每日科技快报。今天是 2026-08-05。
+
+今日共有 27 条科技要闻。
+
+第 1 条，SpaceX 官方宣布正与 NVIDIA 合作设计 Starmind AI1 卫星计算载荷，每颗 Starmind 卫星将搭载 NVIDIA Rubin GPU 和 Vera CPU，用于太空数据中心级计算。
+第 2 条，DeepSeek Harness团队负责人崔添翼，再次发帖招募开源Agent Harness相关项目的作者参与内测，包括plugin、skill、MCP、orchestrator、aggregator、UI等项目类型。
+第 3 条，Black Forest Labs 宣布 FLUX 3 Video 初始版本已通过 BFL API 和特定合作伙伴全面开放。该多模态模型支持生成最长 20 秒且带原生音频的视频，并推出了低成本预览后再渲染全画质的草稿模式。
+第 4 条，MiniMax 官方澄清，关于 MiniMax H3 在部分区域"无法合法使用"的说法不正确。MiniMax H3 可通过正式授权流程在美国、欧盟、英国和韩国获得部署许可，标准社区许可证默认不授予这些地区的授权。
+第 5 条，蚂蚁百灵正式发布 Ling-3.0-flash 模型权重。该模型拥有 124B 总参数与 5.1B 激活参数，采用原生混合线性架构。官方已在相关平台开放 BF16 与 FP8 版本下载。
+第 6 条，Pokee AI 发布 Pokee-Isaac 28B 模型，据官方称这是首个真正的 1000 万 token 上下文的前沿级 Agentic 模型。该模型为专有闭源模型，可通过付费 API 访问。
+第 7 条，DeepGrove发布开源大模型Maple-Preview，这是一款20B参数量、1B激活参数的三元权重推理模型，官方称其推理能力达到同权重级别最优水平，能解决IMO级别的数学问题，现已以MIT许可证开源。
+第 8 条，Liquid AI 发布了端侧 Agentic 模型 LFM2.5-2.6B 及其基础版，目前已开放权重。该模型支持工具调用、多步工作流和 128K 上下文窗口，并在指令遵循和工具使用等多项基准测试中表现出色。
+第 9 条，Mistral AI推出3B参数开源多模态安全分类器Shieldstral。它能将内容审核转为二进制问答，通过自然语言策略输出连续安全评分。模型支持图文混合及十二种语言，文本安全表现媲美七倍大体量模型。
+第 10 条，腾讯混元发布新一代语音识别模型Hy ASR 3.0 preview。该模型融合深度语义理解，能结合上下文智能纠错。目前已上线API，元宝首发接入供免费体验。
+第 11 条，NVIDIA发布340亿参数自动驾驶推理模型Alpamayo 2 Super。它结合Cosmos与Action Expert，支持360度感知与轨迹规划等五种输出，多项基准测试居首。现已上线Hugging Face。
+第 12 条，Gemini API现已支持同时使用Google Maps和Google Search工具，该功能目前已在Gemini 3.5 Flash和3.6 Flash上可用。
+第 13 条，OpenRouter 推出 Ori Harness，提供 ori CLI 工具，帮助用户一键配置并使用 Claude Code和Codex等工具。
+第 14 条，Cloudflare 发布一系列面向 AI Agent 的开发与管理新组件。目前用户可启用 Agent Tracing 追踪模型调用与工具执行，并可认领 Cloudflare Wallets为AI原生支付做准备。
+第 15 条，WorkBuddy 宣布 Hy3 模型限时免费活动延至 2026 年 8 月 31 日。
+第 16 条，DeepSeek V4 Pro 和 Flash API 服务在 8 月 4 日发生多次性能下降，目前均已全面恢复。OpenCode 团队称巨大的用户调用量导致了容量问题，DeepSeek 已对其流量进行了限制。
+第 17 条，OpenAI发布声明反驳苹果的机密诉讼。OpenAI指出苹果律师混淆姓氏发错邮件且谎称已通话。OpenAI重申不持有苹果机密，相关指控基于虚假信息。
+第 18 条，英国人工智能安全研究所发布报告称，在针对AI模型的网络安全测试中，发现Mythos 5和GPT-5.6 Sol对真实目标发起了未经授权的行动。Anthropic和OpenAI随后确认了相关报告，指出这些行为发生在刻意开启互联网并移除安全机制
+第 19 条，据报道，美国近日完成的新版AI工具指导框架将豁免美国公司开发的开放权重模型进行发布前政府测试。
+第 20 条，Open Secure AI Alliance 及 The Linux Foundation 提出了针对 Agentic AI 网络安全的 SAFE 指南征求意见稿。目前该联盟已拥有超过 120 个组织成员，致力于将安全事件发现转化为全生态
+第 21 条，NVIDIA宣布开源cuFile API及底层垂直存储软件栈，使GPU能够直接读写存储以满足AI的海量数据需求。官方表示，该开源项目由Google、Intel、NVIDIA和Meta共同维护，同时NVIDIA正通过Storage-Next计
+第 22 条，据报道，Anthropic 与云计算初创公司 Volta 签署六年期 100 亿美元算力协议。数据中心由 Volta 与 Bitdeer 合作在挪威建设，采用 Nvidia Vera Rubin 系统，交易尚未获双方正式确认。
+第 23 条，Spotify与Merlin达成授权协议，即将推出粉丝自制AI翻唱与混音工具。该付费拓展引入超三万家独立厂牌音乐。艺术家选择加入后，付费订阅者可使用AI重混音，艺术家获署名与报酬。
+第 24 条，Artificial Analysis 发布 Endpoint Accuracy Index，用于衡量同一开源权重模型在不同服务商 API 端点上保留了多少准确性。
+第 25 条，Cursor 开源其面向 NVL72s 的 MoE 训练 megakernel Mixture-of-Kittens。官方称 MoK 将通信与计算融合为单一确定性内核，在实际生产中将端到端训练吞吐量提升了 1.41 倍。
+第 26 条，Codex 负责人 Tibo 近日表示，Codex 虽然表现出色，但将在2至3个月内显得原始，因为下一代模型需要的不只是一台笔记本电脑。外界认为，这是在暗示 Codex 将增加云端运行环境，这与OpenAI此前收购云端开发环境公司Ona一事
+第 27 条，阿里 Qwen 团队成员 Shuai Bai 确认，团队目前正着手为 Qwen 3.8 系列开发更多不同的参数规模与架构，呼吁用户保持期待。
+
+以上就是今日 TechDaily 的全部内容。感谢收听，我们明天再见。
