@@ -1,0 +1,11 @@
+欢迎收听 TechDaily 每日科技快报。今天是 2026-08-23。
+
+今日共有 5 条科技要闻。
+
+第 1 条，Firecrawl 推出编程 Agent 专用检索索引 Firecrawl Developer Index。官方称其覆盖超 7000 万个一手来源，召回率在同类编程索引中最高。
+第 2 条，Codex 负责人 Tibo 发布关于 Codex 用量异常的更新说明，指出部分用户本周缓存命中率低于此前稳定水平，这可能是用量消耗加快的原因。团队正在查看日志和监控面板进行调查，并将于之后再次发布说明。
+第 3 条，加入了OpenAI 的 uv作者Charlie Marsh 表示，他在最新版 Codex CLI 中重做了启动流程，速度提升约 25 倍、可即时响应。
+第 4 条，Cursor官方文档显示，目前关联SuperGrok Heavy仅获得Grok Bot用量，已删除了附赠Cursor Ultra的相关说法。工作人员回应称已付费并成功激活免费Ultra的用户不受影响。
+第 5 条，针对 Claude Code 模型在“high”推理强度档显示“10”的降智质疑，Anthropic 成员 Thariq 称这是 API 服务配置测试造成的数值映射差异。他表示用户所选努力等级不变，内部评估未发现性能回退。
+
+以上就是今日 TechDaily 的全部内容。感谢收听，我们明天再见。
