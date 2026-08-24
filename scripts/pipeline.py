@@ -719,6 +719,7 @@ def retry_pipeline(target_date, skip_tts=False, skip_deploy=False):
 
 def _write_alert(target_date, message):
     """Write alert flag for heartbeat to pick up."""
+    ALERT_DIR.mkdir(parents=True, exist_ok=True)
     alert_file = ALERT_DIR / f"rss-alert-{target_date}.flag"
     alert_data = {
         "date": target_date,
@@ -788,6 +789,18 @@ def run_pipeline(target_date=None, skip_tts=False, skip_deploy=False):
             deploy_no_update(target_date)
             _spawn_retry(target_date, skip_tts, skip_deploy)
         return None
+    
+    # Step 2.5: 对账哨兵（2026-08-24 教训）
+    # 概览区和详细区共用 RSS，条数应一致（数量一致则每条必有正文）。
+    # 不一致 = 解析正则又坏了或 RSS 结构变了 —— 不允许静默发布残缺日报。
+    ov_nums = {o.get('num') for o in data.get('overview', []) if o.get('num')}
+    st_nums = {s.get('num') for s in data.get('stories', []) if s.get('num')}
+    missing = ov_nums - st_nums
+    if missing:
+        msg = f"解析对账失败: 概览有 {sorted(ov_nums)} 但正文缺 {sorted(missing)}（stories 只解析出 {sorted(st_nums)}）。大概率 story_pattern 正则回退/被改坏，或 RSS 结构变化。"
+        print(f"   🚨 {msg}")
+        _write_alert(target_date or data.get('date', ''), msg)
+        raise ValueError(msg)
     
     # Check if parsed data is for the target date
     if target_date and data.get('date') != target_date:
