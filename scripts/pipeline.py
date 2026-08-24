@@ -401,6 +401,12 @@ def deploy_site(subdomain, source_file, audio_file=None, date=None):
     """Deploy via GitHub: copy to public/ → git push → server git pull."""
     print(f"🚀 Deploying to {subdomain}.{DOMAIN} via GitHub...")
     
+    server_user = os.environ.get('SERVER_USER', os.environ.get('DEPLOY_USER', ''))
+    server_host = os.environ.get('SERVER_HOST', os.environ.get('DEPLOY_HOST', ''))
+    if not server_user or not server_host:
+        print("   ❌ No deploy target: set DEPLOY_USER/DEPLOY_HOST (or SERVER_USER/SERVER_HOST) env vars")
+        return False
+    
     if date is None:
         date = Path(source_file).stem
     
@@ -433,8 +439,8 @@ def deploy_site(subdomain, source_file, audio_file=None, date=None):
     print(f"   ✅ Pushed to GitHub")
     
     # 4. Server: git pull + sync
-    server_user = os.environ.get('SERVER_USER', 'ubuntu')
-    server_host = os.environ.get('SERVER_HOST', '43.153.24.30')
+    server_user = os.environ.get('SERVER_USER', os.environ.get('DEPLOY_USER', ''))
+    server_host = os.environ.get('SERVER_HOST', os.environ.get('DEPLOY_HOST', ''))
     sync_result = subprocess.run(
         ["ssh", f"{server_user}@{server_host}", "bash /var/www/sync-from-git.sh"],
         capture_output=True, text=True
@@ -663,8 +669,8 @@ def deploy_no_update(target_date=None):
 
     print(f"📝 Switching homepage to pending (no-update) for {target_date}...")
 
-    server_user = os.environ.get('SERVER_USER', 'ubuntu')
-    server_host = os.environ.get('SERVER_HOST', '43.153.24.30')
+    server_user = os.environ.get('SERVER_USER', os.environ.get('DEPLOY_USER', ''))
+    server_host = os.environ.get('SERVER_HOST', os.environ.get('DEPLOY_HOST', ''))
     remote_dir = f"/var/www/{DEPLOY_SUBDOMAIN}.{DOMAIN}"
 
     # pending.html is already on the server (synced via git); just repoint symlink.
@@ -845,8 +851,8 @@ def run_pipeline(target_date=None, skip_tts=False, skip_deploy=False):
         else:
             # TTS failed but still set audio_url so player shows (audio may 404 but UI is correct)
             # Check if existing audio is on server
-            server_user = os.environ.get('SERVER_USER', 'ubuntu')
-            server_host = os.environ.get('SERVER_HOST', '43.153.24.30')
+            server_user = os.environ.get('SERVER_USER', os.environ.get('DEPLOY_USER', ''))
+            server_host = os.environ.get('SERVER_HOST', os.environ.get('DEPLOY_HOST', ''))
             remote_dir = f"/var/www/{DEPLOY_SUBDOMAIN}.{DOMAIN}"
             check_cmd = [
                 "ssh", f"{server_user}@{server_host}",
@@ -864,8 +870,8 @@ def run_pipeline(target_date=None, skip_tts=False, skip_deploy=False):
             audio_url = _audio_url_with_bust()
             print(f"   ✅ Reusing local audio (bust): {audio_url}")
         else:
-            server_user = os.environ.get('SERVER_USER', 'ubuntu')
-            server_host = os.environ.get('SERVER_HOST', '43.153.24.30')
+            server_user = os.environ.get('SERVER_USER', os.environ.get('DEPLOY_USER', ''))
+            server_host = os.environ.get('SERVER_HOST', os.environ.get('DEPLOY_HOST', ''))
             remote_dir = f"/var/www/{DEPLOY_SUBDOMAIN}.{DOMAIN}"
             
             check_cmd = [
