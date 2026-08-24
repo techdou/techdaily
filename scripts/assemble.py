@@ -256,8 +256,11 @@ def assemble(content, head_html, tail_html, rss_bodies=None):
     glossary_script = build_glossary_injection(glossary)
 
     # Inject audio URL and page date
+    # Cache-bust（2026-08-24）：优先用调用方传入的 audio_url（可能带 ?v=mtime 后缀），
+    # 否则回退拼裸 URL。直接硬拼会绕过 pipeline 的缓存刷新机制，CF 会 HIT 旧音频。
     date_parts = date.split('-')
-    audio_url = f"https://news.techdou.com/{date_parts[0]}/{date_parts[1]}/{date_parts[2]}/audio.mp3"
+    default_audio_url = f"https://news.techdou.com/{date_parts[0]}/{date_parts[1]}/{date_parts[2]}/audio.mp3"
+    audio_url = content.get("audio_url") or default_audio_url
     body_date_attr = f'data-date="{date}"'
 
     # Body template

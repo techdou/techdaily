@@ -548,6 +548,7 @@ def _generate_full_html(data, output_path, glossary, audio_url, rss_xml_bytes):
     # Build content.json
     content = {
         'date': date,
+        'audio_url': audio_url,
         'date_display': date_display,
         'weekday': weekday,
         'issue': date.replace('-', ''),
@@ -843,19 +844,25 @@ def run_pipeline(target_date=None, skip_tts=False, skip_deploy=False):
                 audio_url = expected_audio_url
                 print(f"   ✅ Found existing audio on server: {expected_audio_url}")
     else:
-        # If skipping TTS, check if audio already exists on server
-        server_user = os.environ.get('SERVER_USER', 'ubuntu')
-        server_host = os.environ.get('SERVER_HOST', '43.153.24.30')
-        remote_dir = f"/var/www/{DEPLOY_SUBDOMAIN}.{DOMAIN}"
-        
-        check_cmd = [
-            "ssh", f"{server_user}@{server_host}",
-            f"test -f {remote_dir}/{y}/{m}/{d}/audio.mp3 && echo EXISTS || echo MISSING"
-        ]
-        result = subprocess.run(check_cmd, capture_output=True, text=True)
-        if "EXISTS" in result.stdout:
-            audio_url = expected_audio_url
-            print(f"   ✅ Found existing audio: {expected_audio_url}")
+        # If skipping TTS, prefer local audio (with cache-bust) if it exists;
+        # fallback: check if audio already exists on server (plain URL).
+        local_audio = OUTPUT_DIR / f"{data['date']}_broadcast.mp3"
+        if local_audio.exists():
+            audio_url = _audio_url_with_bust()
+            print(f"   ✅ Reusing local audio (bust): {audio_url}")
+        else:
+            server_user = os.environ.get('SERVER_USER', 'ubuntu')
+            server_host = os.environ.get('SERVER_HOST', '43.153.24.30')
+            remote_dir = f"/var/www/{DEPLOY_SUBDOMAIN}.{DOMAIN}"
+            
+            check_cmd = [
+                "ssh", f"{server_user}@{server_host}",
+                f"test -f {remote_dir}/{y}/{m}/{d}/audio.mp3 && echo EXISTS || echo MISSING"
+            ]
+            result = subprocess.run(check_cmd, capture_output=True, text=True)
+            if "EXISTS" in result.stdout:
+                audio_url = expected_audio_url
+                print(f"   ✅ Found existing audio: {expected_audio_url}")
     
     # Step 6: Generate HTML using assemble.py (full template-head + template-tail)
     html_path = OUTPUT_DIR / f"{data['date']}.html"
