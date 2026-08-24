@@ -228,15 +228,23 @@ def parse_rss(xml_bytes, target_date=None):
     # Extract detailed stories
     stories = []
     # RSS may use <h2> or <h3> for story titles; try both
+    # ⚠️ CRITICAL（2026-08-24 回归修复，勿再丢失）：
+    # 1. <a href> 必须可选——RSS 源部分新闻没有链接（2026-07-10 #5、2026-08-24 #3 glm-5.3-turbo），
+    #    强制要求 <a> 会让该条被静默跳过：详细报道和口播稿同时丢，且无任何报错。
+    # 2. 必须用负向前瞻 (?:(?!</h[23]>).)*? 而非 .*?——后者配 re.DOTALL 会跨 </h2> 边界，
+    #    把概览区内容吞进第一条标题。两层防御，与 assemble.py 的 parse_rss_bodies 同步。
     story_pattern = re.compile(
-        r'<h[23]>\s*<a\s+href="([^"]+)"[^>]*>(.*?)</a>\s*<code[^>]*>#(\d+)</code>\s*</h[23]>',
+        r'<h[23]>\s*((?:(?!</h[23]>).)*?)\s*<code[^>]*>#(\d+)</code>\s*</h[23]>',
         re.DOTALL
     )
     
     for match in story_pattern.finditer(html_content):
-        story_link = match.group(1)
-        story_title = strip_html(match.group(2))
-        story_num = match.group(3)
+        raw_title = match.group(1)
+        story_num = match.group(2)
+        # Extract link if present, otherwise empty
+        link_match = re.search(r'<a\s+href="([^"]+)"', raw_title)
+        story_link = link_match.group(1) if link_match else ""
+        story_title = strip_html(raw_title)
         
         # Find the content after this match until next story or end
         start_pos = match.end()

@@ -97,14 +97,17 @@ def parse_rss_bodies(rss_path):
 
     for part in parts:
         # Match story number in <code>#N</code> after the title link
+        # ⚠️ CRITICAL（2026-08-24 回归修复，勿再丢失）：
+        # 与 pipeline.py 的 story_pattern 保持同步：<a href> 可选 + 负向前瞻防跨标签。
+        # 此处丢修复会导致无链接新闻的正文丢失（页面有卡片但无 body）。
         h2_match = re.search(
-            r'<h[23]>\s*<a\s+href="([^"]+)"[^>]*>(.*?)</a>\s*<code[^>]*>#(\d+)</code>\s*</h[23]>',
+            r'<h[23]>\s*((?:(?!</h[23]>).)*?)\s*<code[^>]*>#(\d+)</code>\s*</h[23]>',
             part, re.DOTALL
         )
         if not h2_match:
             continue
 
-        story_num = h2_match.group(3).zfill(2)  # "1" → "01"
+        story_num = h2_match.group(2).zfill(2)  # "1" → "01"
 
         # Extract body paragraphs (<p> tags), excluding blockquote and related links
         p_matches = re.finditer(r'<p>(.*?)</p>', part, re.DOTALL)
@@ -199,13 +202,19 @@ def build_stories(stories, rss_bodies=None):
             imgs = [f'<img src="{url}" alt="配图" loading="lazy">' for url in s["images"]]
             images_html = f'<div class="{cls}">{"".join(imgs)}</div>'
 
+        # 无链接时渲染纯文本，避免空 <a href="">（2026-08-24 #3 glm-5.3-turbo）
+        if s.get("source_url"):
+            title_html = f'<a href="{s["source_url"]}" target="_blank">{esc(s["title"])}</a>'
+        else:
+            title_html = esc(s["title"])
+
         articles.append(
             f'<article class="story" id="story-{s["id"]}">\n'
             f'  <div class="story-header">\n'
             f'    <div class="story-num">{s["id"]}</div>\n'
             f'    <div class="story-title-block">\n'
             f'      <div class="story-categories"><span class="story-cat">{esc(s["cat"])}</span></div>\n'
-            f'      <h2 class="story-title"><a href="{s["source_url"]}" target="_blank">{esc(s["title"])}</a></h2>\n'
+            f'      <h2 class="story-title">{title_html}</h2>\n'
             f'    </div>\n'
             f'  </div>\n'
             f'  <div class="story-summary">{s["digest"]}</div>\n'
