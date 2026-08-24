@@ -35,9 +35,11 @@ AUDIO_DIR = OUTPUT_DIR
 STATE_FILE = Path.home() / ".openclaw" / "skills" / "daily-news" / "state.json"
 ALERT_DIR = Path.home() / ".openclaw" / "skills" / "daily-news" / "alerts"
 
-# MMX voice
-TTS_VOICE = "Podcast_girl"
-TTS_FORMAT = "mp3"
+# TTS — CosyVoice3 local (via skill: ~/.openclaw/workspace/skills/cosyvoice3-macos)
+# Override with env NEWS_TTS_VOICE (voice bank id, see voice_manager.py list).
+TTS_VOICE = os.environ.get("NEWS_TTS_VOICE", "dou")
+COSYVOICE_VENV_PY = Path.home() / ".openclaw" / "workspace" / "cosyvoice3-repo" / ".venv" / "bin" / "python"
+COSYVOICE_TTS_SCRIPT = Path.home() / ".openclaw" / "workspace" / "skills" / "cosyvoice3-macos" / "scripts" / "tts.py"
 
 # Deploy config
 DEPLOY_SUBDOMAIN = "news"
@@ -330,46 +332,55 @@ def generate_broadcast_script(data):
 
 
 # ========================================
-# STEP 5: TTS (MMX Speech Synthesize)
+# STEP 5: TTS (CosyVoice3 local, voice bank)
 # ========================================
 def synthesize_audio(script, output_path, voice=TTS_VOICE, max_retries=3):
-    """Use MMX CLI to generate MP3 audio with retry."""
-    print(f"🎙️  Synthesizing audio...")
-    
-    # Write script to temp file
+    """Local CosyVoice3 synthesis: tts.py -> wav -> ffmpeg -> mp3."""
+    print(f"🎙️  Synthesizing audio (CosyVoice3, voice={voice})...")
+
+    if not COSYVOICE_VENV_PY.exists() or not COSYVOICE_TTS_SCRIPT.exists():
+        print(f"   ❌ CosyVoice3 skill not found ({COSYVOICE_TTS_SCRIPT})")
+        return False
+
     tmp_txt = f"/tmp/tts_{os.path.basename(output_path)}.txt"
+    tmp_wav = f"/tmp/tts_{os.path.basename(output_path)}.wav"
     with open(tmp_txt, 'w', encoding='utf-8') as f:
         f.write(script)
-    
+
     for attempt in range(1, max_retries + 1):
-        cmd = [
-            "mmx", "speech", "synthesize",
-            "--text-file", tmp_txt,
-            "--voice", voice,
-            "--format", TTS_FORMAT,
-            "--sample-rate", "32000",
-            "--bitrate", "128000",
-            "--out", output_path
-        ]
-        
-        result = subprocess.run(cmd, capture_output=True, text=True)
-        
-        if result.returncode == 0:
+        try:
+            result = subprocess.run(
+                [str(COSYVOICE_VENV_PY), str(COSYVOICE_TTS_SCRIPT),
+                 "--text-file", tmp_txt, "--voice", voice, "-o", tmp_wav],
+                capture_output=True, text=True, timeout=900,
+            )
+            if result.returncode != 0 or not os.path.exists(tmp_wav):
+                raise RuntimeError(result.stderr.strip()[-300:] or "no output file")
+
+            # wav -> mp3 (128kbps, matches previous mmx output profile)
+            subprocess.run(
+                ["ffmpeg", "-y", "-v", "error", "-i", tmp_wav,
+                 "-codec:a", "libmp3lame", "-b:a", "128k", output_path],
+                check=True, capture_output=True,
+            )
             os.unlink(tmp_txt)
+            if os.path.exists(tmp_wav):
+                os.unlink(tmp_wav)
             size_kb = os.path.getsize(output_path) / 1024
             print(f"   ✅ Audio: {output_path} ({size_kb:.1f} KB)")
             return True
-        
-        print(f"   ⚠️  TTS attempt {attempt}/{max_retries} failed: {result.stderr.strip()}")
-        if attempt < max_retries:
-            print(f"   ⏳ Retrying in 10s...")
-            import time
-            time.sleep(10)
-    
-    os.unlink(tmp_txt)
+        except Exception as exc:
+            print(f"   ⚠️  TTS attempt {attempt}/{max_retries} failed: {exc}")
+            if attempt < max_retries:
+                print(f"   ⏳ Retrying in 10s...")
+                import time
+                time.sleep(10)
+
+    for f_ in (tmp_txt, tmp_wav):
+        if os.path.exists(f_):
+            os.unlink(f_)
     print(f"   ❌ TTS failed after {max_retries} attempts. Deploying without audio.")
     return False
-
 
 # ========================================
 # STEP 6: GENERATE HTML
