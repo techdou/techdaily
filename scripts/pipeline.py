@@ -15,6 +15,7 @@ import os
 import re
 import subprocess
 import sys
+import time
 import tempfile
 import urllib.request
 from datetime import datetime, timedelta, timezone
@@ -814,12 +815,19 @@ def run_pipeline(target_date=None, skip_tts=False, skip_deploy=False):
     audio_url = None
     
     y, m, d = data['date'].split('-')
+    # Cache-bust 后缀：Cloudflare 对 mp3 缓存 24h，同日重部署（修复后重新生成音频）
+    # 若不换 URL，CF 会一直 HIT 旧文件（2026-08-24 踩坑）。用 mtime 保证每次重生成音频 URL 变化。
+    
+    def _audio_url_with_bust() -> str:
+        v = int((OUTPUT_DIR / f"{data['date']}_broadcast.mp3").stat().st_mtime) if (OUTPUT_DIR / f"{data['date']}_broadcast.mp3").exists() else int(time.time())
+        return f"https://{DEPLOY_SUBDOMAIN}.{DOMAIN}/{y}/{m}/{d}/audio.mp3?v={v}"
+    
     expected_audio_url = f"https://{DEPLOY_SUBDOMAIN}.{DOMAIN}/{y}/{m}/{d}/audio.mp3"
     
     if not skip_tts:
         success = synthesize_audio(script, str(audio_path))
         if success:
-            audio_url = expected_audio_url
+            audio_url = _audio_url_with_bust()  # 新生成音频必须带 bust 后缀，绕过 CF 旧缓存
         else:
             # TTS failed but still set audio_url so player shows (audio may 404 but UI is correct)
             # Check if existing audio is on server
