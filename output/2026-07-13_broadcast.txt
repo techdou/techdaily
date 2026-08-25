@@ -1,0 +1,11 @@
+欢迎收听 TechDaily 每日科技快报。今天是 2026-07-13。
+
+今日共有 5 条科技要闻。
+
+第 1 条，Anthropic宣布，延长Claude Fable 5促销体验期及Claude Code周限额提升50%至当地时间7月19日。原有规则不变，付费用户最多将50%每周限额用于Claude Fable 5，超限需额度点数或切模型。
+第 2 条，Codex负责人Tibo宣布，临时取消Plus、Business和 Pro 用户的5小时使用限额，并为庆祝活跃用户达到600万执行了一次即时用量重置，同时在网页端和移动端上线使用已储存重置机会的功能。团队还将优化GPT-5.6 Sol的用量
+第 3 条，阶跃推出面向手机与车载的Step Edge端侧模型家族，含基础模型及Audio、GUI、Gen等模型，支持低至0.1秒本地toolcall与全模态本地处理，借端云协同完成复杂任务。
+第 4 条，Codex 负责人 Tibo 分享了一种在 Claude Code 中调用 GPT 5.6 Sol 模型的方法。据其介绍，用户可通过配置 CLIProxyAPI 并设置一个名为“claudex”的命令行别名，即可让 Claude Code 
+第 5 条，近日，社区流传一种通过修改 Codex 配置文件来降低 GPT-5.6 系列模型 token消耗的方法，但 OpenAI Codex 官方工作人员辟谣，称该做法不正确并提醒用户谨慎修改。官方强调，GPT-5.6 系列模型在超过 272K t
+
+以上就是今日 TechDaily 的全部内容。感谢收听，我们明天再见。

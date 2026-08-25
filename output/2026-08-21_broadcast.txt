@@ -1,0 +1,29 @@
+欢迎收听 TechDaily 每日科技快报。今天是 2026-08-21。
+
+今日共有 23 条科技要闻。
+
+第 1 条，OpenRouter 与 OpenCode 上线不公开供应商的 stealth 模型 Ox Alpha。Ox Alpha 支持 1M上下文和文本、图像、视频输入，OpenCode 称在接下来一周内免费。
+第 2 条，Anthropic 上线 AI 学习平台 Claude Academy，课程和教程免费向所有人开放。平台提供 Claude 使用教学，也涵盖与产品模型无关的通用 AI 学习内容。
+第 3 条，Ollama 宣布 Kimi K3 已推送给超过一半云端订阅用户，纳入套餐内用量并继续扩大范围。
+第 4 条，OpenCode 宣布 Muse Spark 1.2 现已在平台免费提供。用户目前可直接在 OpenCode 免费使用该模型。
+第 5 条，Google 官方推出 Antigravity IDE 扩展，覆盖 VS Code、Visual Studio、JetBrains 和 Zed 四款 IDE。个人开发者使用包括免费层级在内的任意 Antigravity 订阅方案即可登录。
+第 6 条，OpenAI 宣布 ChatGPT Work 和 Codex 支持通过只读链接分享对话，目前限桌面端使用。
+第 7 条，ChatGPT 桌面端推出 Apple Messages 插件，可在 Mac 上搜索信息、梳理对话并发送回复。
+第 8 条，OpenAI 开发者账号宣布，ChatGPT Sites 现在可以把 teammates 添加为编辑者，多人共同构建和发布站点，协作者可向同一项目推送更改。
+第 9 条，OpenAI 宣布 Computer History 功能扩展至欧洲经济区、英国和瑞士，目前面向 Mac 端 ChatGPT Pro、Business 和 Enterprise 用户开放。
+第 10 条，OpenAI 宣布 GPT-Image-2 API 开放透明背景功能。官方称可生成适配任意背景的可复用素材，更多透明能力即将推出。
+第 11 条，Exa 宣布在 Codex 和 ChatGPT 中推出 Exa 插件。Exa 称插件可让 Codex 访问超 1000 亿个网站、文档等资源。
+第 12 条，Anthropic 开发者账号 ClaudeDevs 宣布，Claude Code 现已支持将输出风格设置为 Concise。开启后 Claude 会优先呈现结果并缩短回复，用户可通过 /config 或 settings.json 启用。
+第 13 条，Anthropic 宣布 computer use、browser use 工具、Skills API 与 Files API 在 Claude Platform 正式可用。
+第 14 条，TraeWork 上线电脑控制功能，用户可用自然语言让 AI 直接操作电脑桌面跨软件执行任务。目前，Mac 版支持后台运行， Windows 版暂不支持。
+第 15 条，商汤开源发布原生统一多模态模型 SenseNova-U1.5-8B-MoT。官方称该版本在图像生成、文本渲染、原生 4K 生成和图像编辑等六个方面带来提升。
+第 16 条，Liquid AI 发布 LFM2.5 系列三款模型的 DSpark draft model checkpoints，通过投机解码在不改变输出质量的前提下提升推理速度。
+第 17 条，阿里千问近期发布了 GUI 智能体基座模型 Qwen-UI-Agent。根据官方数据，Qwen-UI-Agent 在移动端和电脑端等多项基准测试中得分超越 GPT-5.6 Sol 等模型。
+第 18 条，Grok 官方宣布，Build 模式现已向所有 SuperGrok 和 X Premium 订阅用户开放，覆盖 grok.com、iOS 和 Android。
+第 19 条，Black Forest Labs 推出视频放大工具 FLUX Upscale，可将任意视频重生成至最高原生 4K。工具现已通过 BFL API 和 playground 开放。
+第 20 条，据报道，MiniMax 原研发负责人阿岛已离职。他此前负责M系列模型、Agent及海螺AI等核心业务线。
+第 21 条，Meta 介绍内部评测框架 WildArtifactBench，并公开其中 10 个任务。该框架改用人类与 Agentic 偏好评判的胜率和 Elo 分数，评估多模态 agent 在复杂真实任务上的表现。
+第 22 条，据彭博援引知情人士报道，Anthropic 预期 IPO 规模追平或超越 SpaceX，最快 8 月底公开递交上市申请。
+第 23 条，Anthropic 工作人员称，企业版新 Fable safeguards 将运行在客户自有基础设施上，让客户掌控数据且 Anthropic 零留存。该方案计划秋季推出，目前 30 天留存规定尚未改变。
+
+以上就是今日 TechDaily 的全部内容。感谢收听，我们明天再见。

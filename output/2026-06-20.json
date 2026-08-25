@@ -1,0 +1,140 @@
+{
+  "date": "2026-06-20",
+  "date_display": "2026年6月20日",
+  "weekday": "星期六",
+  "cover_image": "https://assets.juya.uk/imagehub/20260620/202606200851301568907d89_cover_4962.png",
+  "categories": [
+    {"name": "要闻", "first_id": "1"},
+    {"name": "开发生态", "first_id": "3"},
+    {"name": "行业动态", "first_id": "5"},
+    {"name": "其他", "first_id": "8"}
+  ],
+  "sidebar": [
+    {
+      "cat": "要闻",
+      "items": [
+        {"id": "1", "title": "Codex 支持本地与远程主机间交接会话"},
+        {"id": "2", "title": "Anthropic 修复 Claude Code 额度异常 bug"}
+      ]
+    },
+    {
+      "cat": "开发生态",
+      "items": [
+        {"id": "3", "title": "Gemini 3.5 Flash 修复输出循环问题"},
+        {"id": "4", "title": "Cloudflare 推出 AI Agent 临时账户功能"}
+      ]
+    },
+    {
+      "cat": "行业动态",
+      "items": [
+        {"id": "5", "title": "白宫与 Anthropic 谈判转向制定 AI 安全规则"},
+        {"id": "6", "title": "AlphaFold 负责人 John Jumper 加入 Anthropic"},
+        {"id": "7", "title": "欧委会将开发超 4000 亿参数开源模型"}
+      ]
+    },
+    {
+      "cat": "其他",
+      "items": [
+        {"id": "8", "title": "OpenAI Codex 日志写入异常或损耗 SSD 寿命"}
+      ]
+    }
+  ],
+  "briefs": [
+    {"num": "01", "cat": "要闻", "title": "Codex 支持本地与远程主机间交接会话", "story_id": "1"},
+    {"num": "02", "cat": "要闻", "title": "Anthropic 修复 Claude Code 额度异常", "story_id": "2"},
+    {"num": "03", "cat": "开发生态", "title": "Gemini 3.5 Flash 修复输出循环问题", "story_id": "3"},
+    {"num": "04", "cat": "开发生态", "title": "Cloudflare 推出 AI Agent 临时账户", "story_id": "4"},
+    {"num": "05", "cat": "行业动态", "title": "白宫与 Anthropic 谈判转向 AI 安全规则", "story_id": "5"},
+    {"num": "06", "cat": "行业动态", "title": "AlphaFold 负责人 John Jumper 加入 Anthropic", "story_id": "6"},
+    {"num": "07", "cat": "行业动态", "title": "欧委会将开发超 4000 亿参数开源模型", "story_id": "7"},
+    {"num": "08", "cat": "其他", "title": "OpenAI Codex 日志写入异常或损耗 SSD", "story_id": "8"}
+  ],
+  "stories": [
+    {
+      "id": "1",
+      "cat": "要闻",
+      "title": "Codex 宣布支持本地与远程主机间交接会话",
+      "source_url": "https://x.com/guinnesschen/status/2068062280345162047",
+      "digest": "Codex 桌面端更新，现已支持在本地与远程主机之间无缝交接会话。用户可在笔记本上开始工作，合盖前转移至远程主机，稍后切回本地，实现 Mac 与远程主机的无缝切换。",
+      "images": ["https://assets.juya.uk/imagehub/aidaily/49627873-2b16-4925-851a-06f09f6146ee/c81923ec-b15b-411d-87c3-e269f7f6fbdc/m001.gif"],
+      "num": "01"
+    },
+    {
+      "id": "2",
+      "cat": "要闻",
+      "title": "Anthropic 修复 Claude Code 额度异常 bug 并重置受影响用户额度",
+      "source_url": "https://x.com/ClaudeDevs/status/2067802163498352929",
+      "digest": "约 3% 的 Claude Code Max 和 Pro 用户遭遇额度显示错误 bug，导致系统错误显示每周使用限额。官方已修复该问题并重置受影响用户额度，但部分用户反馈实际额度未完全恢复，需通过人工客服解决。",
+      "images": ["https://assets.juya.uk/imagehub/aidaily/49627873-2b16-4925-851a-06f09f6146ee/d272dc63-9efa-45f1-a32b-7dd3b3ff4ab7/m001.png"],
+      "num": "02"
+    },
+    {
+      "id": "3",
+      "cat": "开发生态",
+      "title": "Gemini 3.5 Flash 修复输出循环问题并重置配额",
+      "source_url": "https://x.com/_mohansolo/status/2068054113104069058",
+      "digest": "Antigravity 团队已查明并缓解 Gemini 3.5 Flash 模型中高频出现的输出文本循环问题。新版模型已部署，同时重置所有用户的每周 Gemini 配额，供用户在 Antigravity 中体验修复后的模型。",
+      "images": ["https://assets.juya.uk/imagehub/aidaily/49627873-2b16-4925-851a-06f09f6146ee/20fcfe03-163a-461e-a92b-e854708c9be8/m001.png"],
+      "num": "03"
+    },
+    {
+      "id": "4",
+      "cat": "开发生态",
+      "title": "Cloudflare 推出面向 AI Agent 的临时账户功能",
+      "source_url": "https://blog.cloudflare.com/temporary-accounts/",
+      "digest": "Cloudflare 推出 Temporary Accounts 功能，AI Agent 无需提前注册即可通过 <span class=\"tech-term\" onclick=\"openModal('Wrangler')\">Wrangler</span> CLI 直接部署 Worker，保持 60 分钟活跃状态。开发者可通过认领链接保留资源，解决 Agent 部署代码时的认证阻碍。",
+      "images": ["https://assets.juya.uk/imagehub/aidaily/49627873-2b16-4925-851a-06f09f6146ee/d9e57366-a4ba-4821-b73c-7020cb1027d9/m001.png"],
+      "num": "04"
+    },
+    {
+      "id": "5",
+      "cat": "行业动态",
+      "title": "媒体报道：白宫与 Anthropic 谈判转向制定 AI 安全规则",
+      "source_url": "https://www.politico.com/news/2026/06/18/white-house-talks-with-anthropic-shift-to-setting-ai-security-rules-00967758",
+      "digest": "据 Politico 报道，白宫与 Anthropic 正在制定 AI 模型漏洞评估框架，以评估安全漏洞严重程度并指导政府干预。此前因 <span class=\"tech-term\" onclick=\"openModal('jailbreak')\">jailbreak</span> 争议施加的出口管制目前尚未解除，但谈判正取得进展。",
+      "images": [],
+      "num": "05"
+    },
+    {
+      "id": "6",
+      "cat": "行业动态",
+      "title": "AlphaFold 负责人 John Jumper 离开 DeepMind 加入 Anthropic",
+      "source_url": "https://x.com/JohnJumperSci/status/2068001285173834106",
+      "digest": "AlphaFold 核心负责人、诺贝尔奖得主 John Jumper 在任职近 9 年后离开 Google DeepMind，计划休息后加入 Anthropic。这是继 Transformer 先驱 Noam Shazeer 离职后，DeepMind 近期流失的又一位顶级科学家。",
+      "images": ["https://assets.juya.uk/imagehub/aidaily/49627873-2b16-4925-851a-06f09f6146ee/44a51862-811f-40cf-b8ef-4d70116abfe1/m001.png"],
+      "num": "06"
+    },
+    {
+      "id": "7",
+      "cat": "行业动态",
+      "title": "欧委会将联合 Domyn 开发超 4000 亿参数开源模型",
+      "source_url": "https://digital-strategy.ec.europa.eu/en/news/commission-selects-europa-consortium-winner-frontier-ai-grande-challenge-project-build-european",
+      "digest": "欧洲委员会选定意大利 Domyn 领导的 EUROPA 联盟，计划开发覆盖全部 24 种官方欧盟语言、参数超过 4000 亿的开源前沿 AI 模型，旨在加强欧洲在自有基础设施上独立开发先进 AI 的能力。",
+      "images": [],
+      "num": "07"
+    },
+    {
+      "id": "8",
+      "cat": "其他",
+      "title": "OpenAI Codex 日志写入异常，社区反映或严重损耗 SSD 寿命",
+      "source_url": "https://x.com/bdsqlsz/status/2067964486615810369",
+      "digest": "OpenAI Codex 的 <span class=\"tech-term\" onclick=\"openModal('SQLite')\">SQLite</span> 日志因默认使用全局 TRACE 级别，以约 5 MB/s 速度持续写入磁盘，年写入量推算约 640 TB，可能严重损耗 SSD 寿命。社区已分享多种临时缓解方案，但官方尚未发布修复。",
+      "images": ["https://assets.juya.uk/imagehub/aidaily/49627873-2b16-4925-851a-06f09f6146ee/c55ab017-116b-466f-9282-f1d38873c2c5/m001.png", "https://assets.juya.uk/imagehub/aidaily/49627873-2b16-4925-851a-06f09f6146ee/c55ab017-116b-466f-9282-f1d38873c2c5/m002.png"],
+      "num": "08"
+    }
+  ],
+  "glossary": {
+    "Wrangler": {
+      "tag": "Cloudflare",
+      "def": "Cloudflare 官方命令行工具，用于管理 Workers、KV、R2 等 Cloudflare 服务资源。"
+    },
+    "jailbreak": {
+      "tag": "AI 安全",
+      "def": "指绕过 AI 模型安全限制，使其生成违反使用政策内容的技术手段。"
+    },
+    "SQLite": {
+      "tag": "数据库",
+      "def": "轻量级嵌入式关系数据库引擎，无需服务器进程即可直接访问数据文件。"
+    }
+  }
+}

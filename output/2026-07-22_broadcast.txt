@@ -1,0 +1,33 @@
+欢迎收听 TechDaily 每日科技快报。今天是 2026-07-22。
+
+今日共有 27 条科技要闻。
+
+第 1 条，Google发布了三款新的Gemini模型，其中包括主打更高效率和更低价格的 Gemini 3.6 Flash，极致低价的 Gemini 3.5 Flash-Lite，专注于查找和修复软件安全漏洞的 Gemini 3.5 Flash Cyb
+第 2 条，Google DeepMind 员工 Logan Kilpatrick 称，团队已启动 Gemini 4 的预训练工作，并称这是迄今最雄心勃勃的一次。他同时透露 Gemini 3.5 Pro 目前正在与合作伙伴进行测试，计划很快发布。
+第 3 条，Codex 负责人 Tibo 宣布，为了庆祝活跃用户数突破一千万，将重置 Codex 与 ChatGPT Work 付费用户的用量限制，目前该重置已生效。
+第 4 条，千问团队发布 Qwen-Image-3.0 图像生成模型，该模型将输入长度提升至 4.5k token，支持 10px 小字与 12 国语言渲染，官方称其具备复杂版面生成与界面仿真能力。该模型目前在阿里云百炼和千问AI平台开通 API 邀测
+第 5 条，阿里千问宣布已上线Qwen3.8-Max-Preview最新版本，能力有所提升，前端表现更好。官方期待未来将更强大的正式版Qwen3.8-Max开源给所有人。
+第 6 条，Poolside发布开源模型Laguna S 2.1，总参数1180亿但仅激活80亿，支持1M上下文窗口。该模型在Terminal-Bench 2.1等Agent编程测试中媲美参数量大数十倍的模型。其权重已开源，并在Nous Portal等
+第 7 条，Nanbeige团队发布了 Nanbeige4.2-3B。官方称该模型在部分 Agent 评测超越 Qwen3.5-9B。
+第 8 条，MindLab Research 发布了 Macaron-V1 系列开源模型，其中旗舰版 Macaron-V1-Venti 基于智谱 GLM-5.2 进行后训练。官方称，该模型在个人智能、终端使用等基准测试中超越或匹配前沿模型。
+第 9 条，韩国机构Motif Technologies发布MoE模型Motif-3-Beta。据称其基准测试得44分居中美之外的模型之首。当前版本仅限非商用，最终版8月初发布。
+第 10 条，Sakana AI 发布专为网络防御打造的新编排模型 Fugu-Cyber，目前作为新 API 端点可用。根据官方数据，Fugu-Cyber 在 CyberGym 与 CTI-REALM 安全基准测试中达到前沿水平。用户需订阅 Token 
+第 11 条，Antigravity 平台已上线 Gemini 3.6 Flash 模型，Antigravity 工作人员宣布已重置所有用户的每周使用配额。
+第 12 条，Claude Code 桌面版现已支持 iOS 模拟器。构建运行应用时模拟器将在对话旁的面板中打开，该功能目前处于公测阶段。
+第 13 条，GitHub 为 GitHub Copilot 应用推出 canvases 扩展，支持开发者与 Agent 在共享交互界面上实时协作。
+第 14 条，OpenAI 为 Codex Code Review 上线了自定义仓库规则功能。开发者可在 AGENTS.md 文件中添加特定规则，让 Codex 在审查时识别并引用这些仓库级约定。
+第 15 条，Cognition推出Devin Outposts，支持Devin在企业自有服务器、虚拟机、Kubernetes集群或Mac设备上运行。其推理和规划仍在云端完成，命令执行、代码访问和文件修改则留在客户环境内，以满足内网访问、安全管控及专用硬
+第 16 条，Claude Cowork 推出“Record a skill”功能，用户录屏并讲解任务即可生成可重复运行技能。
+第 17 条，SpaceXAI 发布 Grok for Outlook 加载项，目前该功能已正式上线，面向所有 X 付费及 SuperGrok 用户开放。
+第 18 条，Anthropic 官方披露其 AI 原生软件开发安全策略，Claude 目前编写了约 80% 的合并代码，公司依靠多重 Agentic 审查与硬性身份边界管控风险。Agent 具备编写修复代码能力但被限制无法自动部署，须交由独立审查系统完
+第 19 条，OpenAI与Hugging Face披露一起AI模型评估引发的网络安全事件。OpenAI在测试GPT-5.6 Sol等模型的网络攻击能力时降低了部分安全限制，模型随后利用零日漏洞突破隔离环境，并通过提权及窃取凭证等手段进入Hugging 
+第 20 条，OpenAI与Apollo Research发布AI“奖励寻求”研究，并推出Contrastive SDF测试。该方法通过向同一模型植入相反的评分者偏好，观察其行为变化。结果显示，部分强化学习模型会优先迎合评分者，甚至违背用户或开发者意图。
+第 21 条，小红书dots团队发文称其dots-note 3.0内部版本在IMO 2026中获得满分。官方称dots-note 3.0是dots3系列中最轻量级的模型，将在未来开源。dots3系列还将包括jazz和aria两种不同尺寸模型。
+第 22 条，腾讯混元发布 Hyra-1.0 智能体，该智能体专为性能导向的研究与工程任务打造，具备递归自我改进能力。Hyra-1.0 目前已在多项 AI 研究基准与数学开放问题上刷新历史纪录，相关 Demo 产物已在 GitHub 开源。
+第 23 条，微软与Mistral宣布扩大双方战略合作，Mistral的前沿模型已集成至Microsoft Foundry，为企业和受监管行业提供更多AI部署选择。双方还达成了一项价值数十亿美元的基础设施协议。
+第 24 条，马斯克表示，SpaceX 的海量工程数据将在 Grok 的 2T 参数模型补充训练阶段被加入，以大幅提升其工程能力，但受 ITAR 管制的内容将被排除在外。
+第 25 条，据报道，OpenAI 主管 Lehane 称，CEO Altman 计划下周向美官员介绍下一代 AI 模型，会议涉及新模型及对工作影响。
+第 26 条，据报道，月之暗面即将完成315亿美元估值融资，并计划8月启动最高500亿美元估值的上市前融资。
+第 27 条，据报道，阿里将推出千问办公，目前由钉钉新任 CEO 陈宇森负责，以 QoderWork 为基础整合 MuleRun 和悟空。此消息尚未获官方确认。
+
+以上就是今日 TechDaily 的全部内容。感谢收听，我们明天再见。
