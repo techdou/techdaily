@@ -1,0 +1,33 @@
+欢迎收听 TechDaily 每日科技快报。今天是 2026-08-26。
+
+今日共有 27 条科技要闻。
+
+第 1 条，阿里千问预告将于今日 23:00 开源 Qwen3.8-Flash-Next ，这是基于下一代Qwen4架构构建的多模态MoE模型。
+第 2 条，OpenAI发布了首款自研推理芯片Jalapeño的首批实测结果。该芯片专为语言模型与交互式Agent设计，在多项基准测试中，峰值每瓦性能达对比系统的1.5至1.9倍，端到端延迟降低1.7至3.6倍。OpenAI计划于今年底在内部基础设施中
+第 3 条，Codex 恢复了 Plus 订阅和 Business 订阅原有的 5 小时限额机制，Pro 用户目前不受影响。同时，Codex 重置了付费用户的用量。此外，据用户观察，Codex桌面版开始原生支持显示第三方模型，并在桌面端取消了按 pro
+第 4 条，OpenAI 宣布正式推出 ChatGPT Business Premium 席位，每席定价 100 美元，面向小企业和初创团队，提供更多用量且不设置 5 小时用量限制。
+第 5 条，ChatGPT 官方宣布，ChatGPT Work 现已可在网页端和移动端登录网站，且 ChatGPT 全程看不到用户的用户名或密码。该功能今日起向 Plus、Pro 和 Business 用户逐步推出。
+第 6 条，ChatGPT 浏览器扩展新增支持 Edge、Brave、Opera、Vivaldi 四款浏览器，标签页上下文可直接带入任务供 Codex 使用。
+第 7 条，ChatGPT 更新定时任务，Plus 和 Pro 用户可设置任务在 Slack、Gmail、Github 出现变化时自动响应。定时任务功能正陆续向免费用户开放，最多可创建三个任务，现在还支持分享任务。
+第 8 条，OpenAI 为 ChatGPT 桌面应用内置浏览器和 ChatGPT Sites 添加 WebMCP 支持。官方同步启动为期 10 天的 WebMCP Challenge 黑客松。
+第 9 条，Cursor 宣布将 Auto模式改为按路由模型计费，同步上调 Cursor Models 额度，此外，为回应需求，Cursor 再次提高 Grok 模型的包含额度。
+第 10 条，Command Code 官方宣布其产品现已支持支付宝支付。
+第 11 条，商汤 SenseNova U1.5 Lite 生图模型接入日日新 Token Plan，公测期间每 5 小时免费 1500 次请求，支持生成编辑一体与 4K 无水印输出。
+第 12 条，OpenCode 宣布 Grok 4.6 模型现已上线 OpenCode Go 订阅方案，订阅用户每 5 小时可获得 169 次请求额度，目前即可使用。
+第 13 条，OpenCode 官方确认因遭遇大量滥用而移除首月5美元入门定价，该服务当前起步价已调整为10美元/月。
+第 14 条，Anthropic 宣布 Claude 对话现在与 Claude Cowork 共用同一份记忆，交给 Cowork 的任务可直接沿用对话中积累的背景。
+第 15 条，豆包工作正式发布，这款面向生产力场景的 Agent 产品可自主拆解任务、调用工具完成复杂办公工作，即日起下载电脑版可领 30 天订阅权益。
+第 16 条，千问APP与PC端上线阿里云Token Plan接入功能，用户绑定API Key后，「工作助理」执行任务将直接消耗 Token Plan 额度。
+第 17 条，ChatGPT官方推出Stickers贴纸生成功能，支持将照片或想法生成带透明背景的自定义表情包，并可在iMessage及WhatsApp分享。
+第 18 条，Google Labs 推出实验性协作 vibe coding 工具 Play with Putty，现已开放候补名单。这款工具支持多人实时共同搭建网站和工具，目前仅限美国地区用户加入。
+第 19 条，Perplexity 推出本地 AI Agent「Portable Computer」，可在 NVIDIA DGX Spark 上运行完整 Agent 栈，主打本地处理和隐私，并公布了自研 27B 模型及相关性能测试。
+第 20 条，Apodex 发布 Apodex 1.1 模型家族，主打复杂专业工作的 Agentic 能力；35B 的 Apodex 1.1 mini 开放权重，配套开源工作台 FrontierAgent 同步推出。
+第 21 条，IBM 发布面向企业 Agentic AI 的开源模型系列 Granite 4.2，提供 3B、8B、30B 三种参数规模。
+第 22 条，腾讯开源多模态嵌入模型 WeMM-Embedding，提供 2B、4B、9B 三个版本。模型基于 Qwen3.5，支持文本、图像、视频等输入。
+第 23 条，MiniMax官方发布H3生态集成索引仓库，涵盖从24GB显存本地ComfyUI部署到企业级推理及开发者工具，现已面向开源社区开放。
+第 24 条，苹果发布新款Mac mini与Mac Studio，搭载M6、M5 Pro、M5 Max及M5 Ultra芯片，强化了设备端AI与集群推理能力。
+第 25 条，Anthropic 推出 500 万美元资助计划，资助评估 AI 对用户福祉影响的独立研究。
+第 26 条，Stability AI 宣布完成 7600 万美元 B 轮融资，总融资额达到 2.32 亿美元。
+第 27 条，Shopify CEO Tobi Lütke 称考虑禁用 Claude Code，因其只认 CLAUDE.md、易造成团队配置分裂；Anthropic 工作人员回应称正增强自定义能力，并将支持 AGENTS.md 等配置。
+
+以上就是今日 TechDaily 的全部内容。感谢收听，我们明天再见。
