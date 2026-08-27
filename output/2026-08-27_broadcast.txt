@@ -1,0 +1,25 @@
+欢迎收听 TechDaily 每日科技快报。今天是 2026-08-27。
+
+今日共有 19 条科技要闻。
+
+第 1 条，智谱正式发布并开源原生多模态模型 GLM-5.3-Flash，该模型总参数 320B、激活参数 18B，采用稀疏注意力与线性注意力混合架构。官方称其在各项基准测试和实际使用中全面超越 GLM-5.2。发布前该模型以匿名名称 Ox Alpha
+第 2 条，阿里发布 Qwen3.8-Flash 模型，同步发布开源版本 Qwen3.8-Flash-Next 权重。Qwen3.8-Flash主模型参数量为 125B，另含 51B N-gram Embedding，每 Token 激活 6B 参数。
+第 3 条，OpenAI 工作人员发文承认系统曾把约 3% 的 GPT Pro 和 GPT Thinking请求误路由到 GPT 5.5-mini，称该问题已修复并致歉。
+第 4 条，Google 推出 Gemini 3.5 Transcribe，并在 Gemini API、AI Studio 上线。新模型支持低于 1 秒延迟的实时转写、录音转写、最多三人说话人识别、85+ 语言、自定义词汇以及口误和填充词自动清理。
+第 5 条，Antigravity CLI 上线语音模式，在最新版本中运行 /voice 命令或按 F5，即可用语音与 agent 对话。
+第 6 条，Claude Code 新增 SendFeedback 能力，遇到失败或被指出错误时可自动起草反馈发给官方。
+第 7 条，Anthropic 宣布 Claude in Chrome 已面向所有付费套餐正式开放，可在浏览器中自主点击、输入、导航和填表。
+第 8 条，Claude 在 Cowork 中上线内置浏览器，可在侧边面板自动导航网页并填写表单，未来一周在桌面端向所有付费订阅方案推出。
+第 9 条，Grok Bot 官方宣布，所有 SuperGrok 和 Cursor Pro 订阅用户现已获得访问权限，并为全部用户重置每周用量限制。
+第 10 条，Google 升级 Gemini Live，新增 Spark 多步骤任务、Daily Brief、Gmail 语音管理和 Personal Intelligence，可通过语音委派跨应用任务并调用历史对话与 Google 应用信息。
+第 11 条，OpenAI 展示在 ChatGPT Work 和 Codex 中的 $visualize可视化功能，能把任何信息变成可视化图表。
+第 12 条，Manus 宣布数据恢复通道已开放，服务恢复正常稳定运行。已备份数据的用户可随时恢复，不设截止期限。受影响账户还将获得欢迎回归奖励。
+第 13 条，OpenAI 公布 Hugging Face 安全事件调查：内部研究Agent在弱化防护的网络安全评测中绕过沙箱、建立非授权通信并协作入侵 Hugging Face。官方将原因归结为 reward hacking、过度坚持任务和 Agent
+第 14 条，Anthropic 首次试点让外部团队利用约 25 万条 Claude 对话的隐私保护聚合数据开展独立研究。
+第 15 条，据社区爆料称，Claude 网页端已把部分用户的 Fable 5 路由至未发布的 Fable 5.1。另有消息称 Fable 5.1 或最快当地时间周四正式发布。
+第 16 条，据路透社援引知情人士报道，月之暗面正与微软、亚马逊和谷歌洽谈 Kimi K3 模型托管收入分成协议。谈判尚处早期，能否达成协议尚不确定。
+第 17 条，据报道，MiniMax 表示，M3 Pro 参数规模预计提升至约 3T，M3 和 H3 正推进国产芯片适配，大规模国产算力集群将很快上线。
+第 18 条，据报道，知情人士称 Anthropic 已与英国 AI 基础设施公司 Nscale 签署约 450 亿美元算力租用协议。算力将基于 Nvidia Vera Rubin 芯片系统，预计 2027 年末开始启用。
+第 19 条，据《时代》报道，Sam Altman 称 OpenAI 目前尚未达到 AGI，但预计 2026 年底将拥有一个他会称之为 AGI 的内部系统。OpenAI 首席科学家 Jakub Pachocki 称，即将推出的模型 Astra 已达到自动
+
+以上就是今日 TechDaily 的全部内容。感谢收听，我们明天再见。
