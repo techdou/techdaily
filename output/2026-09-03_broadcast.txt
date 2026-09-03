@@ -1,0 +1,24 @@
+欢迎收听 TechDaily 每日科技快报。今天是 2026-09-03。
+
+今日共有 18 条科技要闻。
+
+第 1 条，Google 发布 Gemini 3.8 Flash 和安全防御版 3.8 Flash Cyber。3.8 Flash 在保持 3.7 Flash 相同速度和首发价格的同时，提升软件工程、智能体和多步推理能力，复杂任务中会增加推理和工具调用
+第 2 条，Meta 发布 Muse Spark 1.3，已在 Muse Code 和 Meta Model API 上线，Agentic 与编码表现提升。Meta 还预告后续将推出更大的模型和 Muse Spark 开放权重版本。
+第 3 条，Qwen发布Qwen3.8-Max-0902模型。官方称，经专业办公与编程后训练，该模型Agent编程能力大增。目前已上线API和相关应用。
+第 4 条，西班牙公司 Multiverse Computing 推出 4380 亿参数推理模型 Quasar 438B，官方称其为 Artificial Analysis 评测中最强的欧洲模型。模型已开放API。
+第 5 条，fal 发布 MiniMax H3 Max Turbo 预览版：速度翻倍、成本减半，已开放试用；fal 称质量约为原版 97%，促销价为期两周。
+第 6 条，Anthropic为Claude Cowork和Claude Code推出后台computer use功能，Claude可在后台操作而无需接管鼠标，仅限macOS 15及以上系统的Pro和Max用户。
+第 7 条，Anthropic 开源 Claude Commerce Agents，为企业提供购物 Agent 和商家 Agent 的参考实现，并配套 Claude Code 插件及零售、旅行、电信等场景示例。
+第 8 条，Perplexity 宣布开源为 Perplexity Computer 混合计算打造的本地推理引擎 Lily，该引擎专为 Apple silicon 上运行 Qwen3.6-35B-A3B 特化，目前已在 GitHub 公开。
+第 9 条，豆包工作本周上新两项功能：多Agents并行和Mac系统下的操作电脑。
+第 10 条，Anthropic 上线 Claude Content Checker，可检查文件是否带有 Claude 签发的 C2PA Content Credential，从而判断 Claude 是否参与过文件的生成或处理。但文本水印无法通过该网页工
+第 11 条，Proximal 团队发布 FrontierSWE v2 基准，共 34 项超长时程任务、每项 20 小时预算。
+第 12 条，谷歌推出 Fairwind Program，向政府机构和可信赖伙伴有限开放其网络防御能力。该项目首批提供 Gemini 3.8 Flash Cyber 用于自主查找和修复漏洞。
+第 13 条，据报道，Astra 采用「recurrent depth」推理方式，在改善成本和性能的同时，也引发模型内部推理更难监控的担忧。OpenAI 首席科学家 Jakub Pachocki 随后澄清称，Astra 等前沿模型的实际计算深度最高仍在 
+第 14 条，美国司法部在纽约时报诉 OpenAI 版权案中提交法律文件，主张用版权文本训练大语言模型属于合理使用。该文件并非裁决，案件仍在法院审理中。
+第 15 条，据报道，智谱入驻天猫开设智谱旗舰店，上架 GLM Coding Plan 订阅套餐。
+第 16 条，WorkBuddy开放平台正式上线，面向智能硬件、行业应用与开发者开放底层Agent能力，首批引入超百家生态伙伴。
+第 17 条，有用户实测发现，OpenAI API 对模型标识 gpt-6-astra 返回 404错误，而不存在的模型名则返回 400错误，据此推测新模型已部署即将发布。
+第 18 条，马斯克宣布 Grok 4.7 模型将于 10 天后推出。他此前曾透露该模型参数达 2.1 万亿，整体优于前代且有望超越竞品，但速度可能略慢。
+
+以上就是今日 TechDaily 的全部内容。感谢收听，我们明天再见。
