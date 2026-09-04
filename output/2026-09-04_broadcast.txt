@@ -1,0 +1,33 @@
+欢迎收听 TechDaily 每日科技快报。今天是 2026-09-04。
+
+今日共有 27 条科技要闻。
+
+第 1 条，OpenAI正式发布最新旗舰模型GPT-6 Astra，官方称其在计算机使用、编程、网络安全和科学等领域达到业界最先进水平。Astra 将在未来几天向 ChatGPT Plus、Pro、Business 和 Enterprise 订阅用户开
+第 2 条，Codex负责人 Tibo 表示，从今天起，ChatGPT 付费订阅用户每有一天无法使用 Astra，就将获得一次自主选择重置时间的 banked reset 作为补偿。团队正全力尽快开放 Astra。
+第 3 条，英伟达宣布已同意以约129亿美元收购Hugging Face。官方承诺保持平台开放、独立和计算中立。
+第 4 条，智谱 GLM Coding Plan 推出夜间畅用活动，9 月 3 日至 20 日每晚 23 点至次日 9 点，GLM-5.3-Flash 在 ZCode 中不消耗额度，在其他套餐支持的 Agent 中额度翻倍。
+第 5 条，Qoder 宣布国际版的 Efficient 模型层级即日起对所有付费订阅用户免费，积分消耗由 0.3 倍降为 0，更新客户端后在模型选择器中选用即可。
+第 6 条，阿里Qoder上线眼镜版，首批接入千问AI眼镜和乐奇AI眼镜。用户语音即可指挥Agent执行任务，千问版已开启定向邀测。
+第 7 条，OpenAI 宣布 Responses API 随 GPT-6 Astra 推出异步函数调用、mid-turn steering 和更改推理强度不再破坏缓存三项新功能。
+第 8 条，Antigravity 工作人员 Varun Mohan 宣布重置 Antigravity 上的 Gemini 配额。
+第 9 条，Google 发布 AI 气象模型 WeatherNext 3，已接入搜索、Gemini 和谷歌地图等产品。官方称其可逐小时更新预报，分辨率最高达 5 公里，为迄今最准确的全球气象模型。
+第 10 条，蚂蚁百灵团队开源金融增强模型 Ling-3.0-flash-Fin，并同步发布金融搜索基准 FinFIRST。
+第 11 条，Microsoft 发布语音转文字模型 MAI-Transcribe-2，目前已在 OpenRouter 上线。官方称该模型在 FLEURS 基准 60 种语言中排名第一。
+第 12 条，Qwen 团队发布并开源自动驾驶视觉-语言基础模型 Qwen-Drive-1.0。模型通过外接 BEV感知头与规划专家，统一 3D感知、驾驶问答与运动规划。
+第 13 条，IFM 发布开源模型家族 K2 Horizon，六款模型覆盖 0.9B 至 375B 参数，官方称权重、训练代码与数据全部开放。
+第 14 条，HUMAIN 官方发布阿拉伯语大模型 HUMAIN-M3，由 HUMAIN 委托、MiniMax 开发，目前以研究预览版上线 HUMAIN Node。MiniMax 称该模型基于 MiniMax-M3 构建，并经超一万亿阿拉伯语 token
+第 15 条，腾讯WorkBuddy正式登陆银河麒麟和统信UOS，并上架应用商店。用户搜索即可一键下载安装，新用户可享2000免费积分。
+第 16 条，NVIDIA 发布 NVIDIA PAIR beta，该应用能把局域网内的 RTX、DGX Spark 和 Mac 设备组成私有本地 AI 推理集群。
+第 17 条，Arena 宣布 Claude Fable 5.1 限时登陆 Direct Mode，开放至太平洋时间 9 月 5 日上午 8 点。
+第 18 条，ChatGPT Site 现已支持邀请特定人员访问站点，并对其他所有人保持私密。这一分享能力面向 Plus、Pro、Business 和 Enterprise 订阅用户开放。
+第 19 条，Google 正式为 Gmail、Docs 和 Keep 推出三项语音对话功能，本周起陆续上线。这些功能目前面向 Google AI 订阅用户。
+第 20 条，SpaceXAI 宣布推出 Grok Bot 企业版。Grok 与 Cursor 企业客户未来两周可免费使用。
+第 21 条，千问团队联合淘天集团开源E-Commerce Bench评测基准，让大模型用10万元本金在模拟淘宝环境中经营网店一年，考察品类调研、定价、库存等长程经营能力。
+第 22 条，据Google官方博客，科学家首次完整绘出成年雄性果蝇的大脑与中枢神经系统。图谱涵盖逾16.6万个神经元，由AI重建数百万张二维图像而成。
+第 23 条，OpenAI宣布投入10亿美元，推出Daybreak for Frontline Defenders全球计划，为资源有限的一线网络防御者提供补贴的Daybreak访问、培训和技术支持。
+第 24 条，ChatGPT、Claude、Grok 等多款 AI 服务此前同时突发故障，目前均已恢复正常。SpaceXAI 称 Grok 故障源于孟菲斯计算中心中断，各服务故障是否相关尚无定论。
+第 25 条，Anthropic 公开 Claude Code 扩展提案 Function Hooks，可用 TypeScript 函数深度定制。相关团队正在 GitHub 征求社区反馈，官方称反响可能决定是否上线。
+第 26 条，OpenAI CEO Sam Altman 近期在播客中首次明确表态，OpenAI将会自研人形机器人本体。他表示还会开发其他形态机器人和数据中心特种机器人。
+第 27 条，据报道，Mira Murati 创立的 Thinking Machines Lab 正洽谈以约 400 亿美元估值融资 10 亿美元。
+
+以上就是今日 TechDaily 的全部内容。感谢收听，我们明天再见。
