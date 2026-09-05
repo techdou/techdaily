@@ -1,0 +1,26 @@
+欢迎收听 TechDaily 每日科技快报。今天是 2026-09-05。
+
+今日共有 20 条科技要闻。
+
+第 1 条，OpenAI 宣布 GPT-6 Astra 已向全部 Plus、Pro、Business、Business Premium 和  Enterprise用户在 ChatGPT Work 和 Codex 中开放，并已在 API 中正式上线。官方
+第 2 条，OpenAI最新官方文档称，GPT-6 Astra 将以 GPT-6 Pro 的名义在ChatGPT中推出。同时明确了 ChatGPT 中的 Pro 模型的使用限制，Pro $200套餐在Chat中每周仅可使用200条GPT-6 Pro消息
+第 3 条，Anthropic 工作人员宣布已重置全部 Claude Max 订阅方案用户的每周额度，以配合 Fable 5.1 发布与漫长周末。
+第 4 条，OpenCode 宣布上线全新“stealth”模型 Omen Alpha，专属 OpenCode Go 订阅用户。订阅用户花 10 美元即可获得 100 美元用量。
+第 5 条，Google 发布音乐生成模型 Lyria 3.5。官方称其人声更富表现力、编曲更丰富，现已在 Gemini 应用和 Gemini API 上线。
+第 6 条，Meta 公开发布 Muse Spark 1.3 的 max reasoning 档位，现已在 Muse Code 和 Meta Model API 上线，官方称其编码与 Agentic 性能显著更强。
+第 7 条，蚂蚁百灵发布面向健康与医疗的 MoE 模型 Ling-3.0-flash-Sante，官方称多项医疗基准成绩居开源模型前列。该模型已上线 OpenRouter 并开启限免。
+第 8 条，蚂蚁百灵发布多模态模型 Ling-3.0-flash-VL，在 Ling-3.0-flash 基础上加入视觉理解与视觉 Agent 能力。并已在 Computrix 平台开放两周免费试用。
+第 9 条，蚂蚁集团 inclusionAI 团队开源图像生成与编辑模型 LLaDA-Image，Base 版与 Turbo 版权重及推理代码已经发布。
+第 10 条，Microsoft AI 正式开放图像模型 MAI-Image-2.6，并同步推出 MAI-Image-2.6-Flash。两款模型现可在 MAI Playground 试用。
+第 11 条，Qoder 宣布 Qwen3.8-Max 与 Qwen3.8-Flash 即日起夜间 4 折，每晚 22:00 至次日 08:00 生效。Qoder 中国版和国际版的个人及企业用户均可参与。
+第 12 条，Codex的Voice语音功能现已支持已有会话，用户可随时切入语音与agent讨论，无需开启新会话。
+第 13 条，GitHub 为 Copilot 推出 Project HydraFusion 功能，在运行时自动编排多供应商模型完成任务。官方称其估算成本较 Opus 5 基线最多降低 67%，任务质量持平或更优。
+第 14 条，Google Gemini 宣布，Daily Brief 即日起向更多美国 Gemini app 用户免费开放。Daily Brief 在后台运行，整合邮件、日历等 Google 应用信息，生成每日待办与优先级列表。
+第 15 条，SpaceXAI 为 Grok Bot  上线 Grok Bot Marketplace，用户可一键为 Grok Bot 添加现成机器人。
+第 16 条，Anthropic宣布，Claude用11天基本自主完成费马大定理首个完整机器检验证明，以Lean 4写成，代码超1300万行，证明已按Apache 2.0协议开源至GitHub。
+第 17 条，Artificial Analysis 发布了 Intelligence Index v4.2 更新，新增 AA-Briefcase 和 GDP.pdf 两项评测，此次更新同时加大了私有测试集权重以防止刷分。
+第 18 条，据路透社援引一项研究报告和知情人士的消息称，一群 OpenAI 智能体今年 5 月劫持了德国开发者维基网站 DseWiki，将其改造成供其他 AI 智能体交流的留言板。报道称 OpenAI 工作人员数周前已得知此事但未公开，OpenAI 回
+第 19 条，据彭博社报道，DeepSeek 拟在内蒙古在建数据中心部署至少 16 万颗 Ascend-950DT 芯片，仅用于推理而非训练。报道称相关企业可能一年以上才能交付全部订单。
+第 20 条，据报道，Anthropic 正寻求自建更多计费、欺诈检测等用途的金融基础设施，可能减少对 Stripe 的依赖。
+
+以上就是今日 TechDaily 的全部内容。感谢收听，我们明天再见。
