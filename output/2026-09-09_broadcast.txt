@@ -1,0 +1,23 @@
+欢迎收听 TechDaily 每日科技快报。今天是 2026-09-09。
+
+今日共有 17 条科技要闻。
+
+第 1 条，OpenAI 发布 Navier–Stokes 千禧年难题的解答：初始光滑、静止的流体可在光滑外力作用下，于有限时间内形成奇点，且总能量保持有限。该结论由尚未发布的下一代内部模型驱动约一万个智能体协作 88 小时得到解答，再由 GPT-6 
+第 2 条，OpenAI发布新一代图像模型ChatGPT Images 2.5，生成延迟较上代最高降五成，光影纹理更自然，且支持精准多轮修改。ChatGPT同步上线Sketch草图生图、模板及评论编辑功能。目前所有ChatGPT、ChatGPT Wor
+第 3 条，DeepSeek 开启 V4.1 Flash 中间版本测试。该版本采用新模型结构，原生支持多模态，速度更快且成本更低。用户保持 base_url 不变，将模型名改为 deepseek-v4.1-flash-expires-on-0910 即
+第 4 条，DeepSeek 宣布2026年9月10日12:00起调整 flash 系列定价。新方案下，空闲时段输入缓存命中单价0.02元、输入缓存未命中单价1元、输出单价4元，高峰时段价格为空闲时段价格的2倍。
+第 5 条，小米MiMo Desktop桌面客户端正式开放邀测，审核通过者可限时限量免费体验MiMo-X-Pro-Preview和MiMo-X-Flash-Preview两款新模型，支持多格式输入和多Agent协作，邀测优先面向MiMo开放平台用户。
+第 6 条，Google DeepMind 发布 AlphaGenome Atlas，用 AI 预测人类基因组全部 90 亿个单字母 DNA 变化的影响。AlphaGenome Atlas 已面向全球科研人员开放，无需编程即可在浏览器中查询。
+第 7 条，蚂蚁百灵团队开源视觉模型 Ling-3.0-flash-VL，BF16 与 FP8 版本已上线，FP4 与 INT4 量化版本即将推出。
+第 8 条，Nex-AGI发布并开源Nex-N2.5系列agentic模型，主打真实环境长程任务。mini与Pro延续多模态底座，Max采用1.6万亿参数纯文本MoE架构。Pro与mini已上线OpenRouter限时免费。
+第 9 条，OpenUI 发布开源权重模型 OUI-1，基于 DiffusionGemma 微调，官方称其在 Generative UI Benchmark 得分 71.7%，为基座模型的 5.5 倍。权重已开放下载。
+第 10 条，Inception Labs 发布 diffusion 模型 Mercury 2.5，官方称智能较 Mercury 2 提升 40%，速度达每秒 1107 tokens。模型已通过 Inception API、OpenRouter 和 Ba
+第 11 条，Meta正式上线个人AI Agent Muse，由Muse Spark 1.3模型驱动，提供移动端和网页客户端。Muse在专属云端虚拟机运行，能用完整浏览器、连接应用并在后台执行任务，关键操作需人工确认。产品现仅向美国18岁以上用户开放。
+第 12 条，视频编辑软件 DaVinci Resolve 最新版支持与 Claude、Codex 等 AI 助手配合，可用提示词完成媒体管理和批量渲染等任务。
+第 13 条，Runway 官方发布 Adobe 插件 Runway Plugins，用户可在 Premiere Pro 和 After Effects 时间线内直接生成、编辑和放大素材。
+第 14 条，数学家 Buckmaster 称，OpenAI 获悉他与 Alpöge 的流体方程研究进展后开展相关研究，并提议由他单独撰文介绍 OpenAI 的证明，因 Alpöge 任职 Anthropic 而排除其署名。他还质疑 Codex 草稿是否
+第 15 条，法国AI公司Mistral宣布完成30亿欧元D轮融资，投后估值超210亿欧元，由三星电子领投，官方称为欧洲科技公司迄今最大股权融资，资金将用于扩大前沿研究、扩充算力并加速国际布局。
+第 16 条，Cognition 宣布完成逾 20 亿美元 E 轮融资，估值 480 亿美元，a16z、Accel 领投。官方称 run-rate 收入已接近 9 亿美元。
+第 17 条，Firmus 与 OpenAI 宣布多年期战略合作，OpenAI 将承包 Firmus 位于马来西亚两处 AI 工厂站点的专用算力。
+
+以上就是今日 TechDaily 的全部内容。感谢收听，我们明天再见。
