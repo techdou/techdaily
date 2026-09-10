@@ -1,0 +1,28 @@
+欢迎收听 TechDaily 每日科技快报。今天是 2026-09-10。
+
+今日共有 22 条科技要闻。
+
+第 1 条，DeepSeek 宣布计划于北京时间 2026 年 9 月 10 日前后正式发布 V4.1 Flash。该模型已于9 月 8 日开启测试。DeepSeek 称，内部及外部多方测试显示，V4.1 Flash 在性能、费用、速度和任务总用时等指
+第 2 条，Codex负责人Tibo表示，Astra需求前所未有，团队正全力支撑，优先保障现有用户体验。若需求持续，可能暂停新的 ChatGPT Pro 档位订阅。但目前该暂停尚未发生，也有用户称 Tibo 是在推销 ChatGPT 订阅。
+第 3 条，OpenAI 状态页显示，部分 Codex 用户遭遇意外的用量额度重置，受影响服务目前已全部恢复。Tibo 表示，受影响时间窗口内使用过额度重置的用户将获得补发和致歉邮件。
+第 4 条，OpenAI更新ChatGPT Voice功能，语音搜索或推理时可调用GPT-5.6与GPT-6 Astra，模型和推理强度与文字聊天控件通用。GPT-Live每日用量上限同步上调，Plus档增至3小时，Pro 200美元档不限量。
+第 5 条，OpenAI 为 ChatGPT 推出 Library 分享功能，可分享文件和文件夹，并在对话中直接使用。分享支持邀请特定联系人并设置查看或编辑权限，也能开放给整个工作区。
+第 6 条，Suno发布新一代音乐模型v6系列，该系列由 Suno 与 Warner Music Group、BMG 和 Believe 等行业伙伴合作开发，包含旗舰v6、主打探索的v6-wild及面向全员开放的v6-mini三款模型，支持用自然语言局
+第 7 条，腾讯混元开源 1.5B 语音生成与编辑基础模型 AuK，模型以统一自然语言指令支持语音合成、编辑、增强与分离。权重与相关代码已公开。
+第 8 条，欧洲端侧AI实验室Desert Ant Labs宣布成立，并发布首批18个覆盖音频、视觉和文本三大方向的专用小模型，其中12个为稳定版、6个为封闭测试版，相关权重已发布。
+第 9 条，OpenCode 宣布，GLM 5.3 Flash 在 OpenCode Go 上的使用限额现已翻倍，用户即刻可享更高额度。
+第 10 条，ClaudeDevs 发布 Claude 平台降本指南，提出提示缓存、指令清理、effort 校准三个降本方向，指导已并入 claude-api skill 并内置于 Claude Code。官方测试显示最高可降约七成成本。
+第 11 条，Unity发布了面向Claude Code的官方插件，一条命令即可安装Unity官方技能与Unity CLI，并通过MCP服务器实时控制Unity编辑器。
+第 12 条，WorkBuddy宣布Hy4 preview限免将于9月10日23:59结束，老用户此后改为夜间闲时免费，新用户首次开启后享14天每日免费额度。
+第 13 条，千问上线大学生和教师专属会员优惠，可连享6个月高级套餐每月9.9元、精英套餐每月25元。需完成身份认证后领取。
+第 14 条，谷歌为 Google AI 订阅方案推出多项新功能，包括 Gmail、Docs、Keep 语音功能、Google Pics、Sheets canvas，以及 Gemini Spark 接入 Chrome 和 Google Photos。各功
+第 15 条，Anthropic 研究员 Jacob Coxon 宣布辞职，称自己过去三年在 OpenAI 和 Anthropic 从事预训练研究，但认为两家公司都在竞相迈向自我改进的超级智能，未能负责任地处理相关风险；他呼吁探索实验室之间的放缓协议，必
+第 16 条，Anthropic 发布了对四起 Claude 模型在第三方网络安全评估中未经授权访问真实系统的对齐评估报告，此前已披露的三起之外又确认了第四起。Anthropic 已与 METR 签署为期八周的独立调查协议。
+第 17 条，Anthropic 经济团队发布了一个经济情景探索工具，用于模拟 AI 对 2030 年美国经济的影响。该工具基于其技术报告 Economic Scenarios for Transformative AI，用户可输入自己对 AI 能力和普
+第 18 条，OpenAI发文介绍Defense Factory，这是一种Agent优先的自动化防御运作，通过AI Agent持续寻找并修复漏洞。相关架构与实践手册现已公开。
+第 19 条，Google开发者博客发文，提出用行为评估检验AI编程Agent的工具调用等具体动作，按选定失败模式、编写灵活断言、批量评估三步推进，称其与端到端基准互补，可支撑安全迭代。
+第 20 条，OpenAI 宣布 Alignment Research Center 创始人 Paul Christiano 加入 OpenAI Foundation 董事会及安全与安保委员会。他在个人声明中表示，AI 能力快速提升可能在近期带来灾难性失
+第 21 条，三星电子宣布与 Mistral AI 达成战略合作，将基于 Mistral Large 等服务为半导体业务开发本地部署的定制 AI 模型。
+第 22 条，据路透社报道，知情人士称 DeepSeek 已聘请中信证券筹备在上海科创板上市，计划今年启动上市进程，募资规模与估值尚未确定。
+
+以上就是今日 TechDaily 的全部内容。感谢收听，我们明天再见。
