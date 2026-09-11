@@ -1,0 +1,5261 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>TechDaily · 2026年9月11日</title>
+<link rel="icon" type="image/svg+xml" href="/assets/logo/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Noto+Serif+SC:wght@400;600;700;900&family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+/**
+ * ============================================================
+ * TechDaily UI Design Enhancement Stylesheet
+ * ============================================================
+ * This file contains all visual enhancements for the TechDaily
+ * newspaper-style tech news page. It is designed to be used
+ * alongside the existing HTML structure.
+ *
+ * Sections:
+ * 1. CSS Custom Properties (Variables)
+ * 2. Global Typography & Base Styles
+ * 3. Floating Navigation
+ * 4. Masthead (Header)
+ * 5. Hero Section
+ * 6. Category Pills
+ * 7. Today's Brief Section
+ * 8. Audio Player
+ * 9. Section Dividers (Decorative)
+ * 10. Stories (Detailed Articles)
+ * 11. Tech Terms & Tooltips
+ * 12. Modal Enhancements
+ * 13. Footer
+ * 14. Back to Top Button
+ * 15. Scroll Animations (Reveal)
+ * 16. Decorative Elements
+ * 17. Keyframes
+ * 18. Responsive Design
+ * 19. Reduced Motion Support
+ * ============================================================
+ */
+
+
+/* ============================================================
+   1. CSS CUSTOM PROPERTIES (VARIABLES)
+   ============================================================ */
+
+:root {
+  /* -- Core Colors (preserved + enhanced) -- */
+  --ink: #1a1a1a;
+  --ink-soft: #2b251f;
+  --ink-muted: #6b6358;
+  --paper: #f5f1e8;
+  --paper-warm: #efe9dc;
+  --paper-card: #fffdf8;
+  --paper-dark: #e0d8c8;
+  --accent: #8b1a1a;
+  --accent-soft: #c44d4d;
+  --accent-bg: rgba(139, 26, 26, 0.06);
+  --rule: #c8c0b0;
+  --rule-soft: #ddd6c8;
+
+  /* -- Typography (preserved) -- */
+  --font-serif: 'Noto Serif SC', 'Playfair Display', Georgia, 'Songti SC', serif;
+  --font-display: 'Playfair Display', 'Noto Serif SC', Georgia, serif;
+  --font-sans: 'DM Sans', -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  --font-mono: 'JetBrains Mono', 'SF Mono', Consolas, 'Courier New', monospace;
+
+  /* -- Layout (enhanced) -- */
+  --max-width: 1280px;
+  --reading-width: 720px;
+
+  /* -- Shadow System (NEW) -- */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.12);
+  --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.16);
+  --shadow-inset: inset 0 1px 3px rgba(0, 0, 0, 0.03);
+
+  /* -- Gradients (NEW) -- */
+  --gradient-warm: linear-gradient(135deg, var(--paper-card) 0%, var(--paper-warm) 100%);
+  --gradient-paper: linear-gradient(180deg, var(--paper-card) 0%, var(--paper) 100%);
+  --gradient-accent: linear-gradient(135deg, var(--accent) 0%, var(--accent-soft) 100%);
+  --gradient-rule: linear-gradient(90deg, transparent 0%, var(--rule) 50%, transparent 100%);
+  --gradient-overlay: linear-gradient(180deg, rgba(26, 26, 26, 0.03) 0%, transparent 100%);
+
+  /* -- Spacing Scale (NEW) -- */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 40px;
+  --space-3xl: 56px;
+
+  /* -- Border Radius (NEW) -- */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-full: 9999px;
+
+  /* -- Transitions (NEW) -- */
+  --transition-fast: 150ms ease;
+  --transition-base: 250ms ease;
+  --transition-slow: 400ms ease;
+  --transition-bounce: 300ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+
+/* ============================================================
+   2. GLOBAL TYPOGRAPHY & BASE STYLES
+   ============================================================ */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  font-family: var(--font-sans);
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* -- Selection Styling (NEW) -- */
+::selection {
+  background: var(--accent);
+  color: var(--paper-card);
+}
+
+::-moz-selection {
+  background: var(--accent);
+  color: var(--paper-card);
+}
+
+/* -- Scrollbar Styling (NEW) -- */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--paper);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--rule);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--ink-muted);
+}
+
+
+/* ============================================================
+   3. FLOATING NAVIGATION
+   ============================================================ */
+
+.float-nav {
+  position: fixed;
+  top: 80px;
+  left: 20px;
+  z-index: 50;
+}
+
+.float-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-full);
+  background: var(--ink);
+  color: var(--paper);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-md);
+  font-size: 1.2rem;
+  transition: all var(--transition-base);
+  position: relative;
+  overflow: hidden;
+}
+
+.float-btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--gradient-accent);
+  opacity: 0;
+  transition: opacity var(--transition-base);
+  border-radius: inherit;
+  z-index: -1;
+}
+
+.float-btn:hover {
+  transform: scale(1.1) rotate(2deg);
+  box-shadow: var(--shadow-lg);
+}
+
+.float-btn:hover::after {
+  opacity: 1;
+}
+
+.float-btn:active {
+  transform: scale(0.96);
+}
+
+/* -- Sidebar -- */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 280px;
+  background: var(--paper-card);
+  box-shadow: 4px 0 32px rgba(0, 0, 0, 0.14);
+  z-index: 300;
+  transform: translateX(-100%);
+  transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  padding: 24px;
+  overflow-y: auto;
+  border-right: 1px solid var(--rule-soft);
+}
+
+.sidebar.active {
+  transform: translateX(0);
+}
+
+.sidebar-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  z-index: 299;
+  display: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.sidebar-overlay.active {
+  display: block;
+  opacity: 1;
+}
+
+.sidebar-title {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  padding-bottom: 14px;
+  border-bottom: 2px solid var(--ink);
+  letter-spacing: 0.01em;
+}
+
+.sidebar-cat {
+  margin-bottom: 18px;
+}
+
+.sidebar-cat-name {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.sidebar-cat-name::before {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  background: var(--accent);
+  border-radius: 50%;
+  opacity: 0.6;
+}
+
+.sidebar-link {
+  display: block;
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+  padding: 5px 0;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  border-left: 2px solid transparent;
+  padding-left: 8px;
+  margin-left: -8px;
+}
+
+.sidebar-link:hover {
+  color: var(--accent);
+  border-left-color: var(--accent-soft);
+  background: var(--accent-bg);
+  border-radius: 0 4px 4px 0;
+}
+
+
+/* ============================================================
+   4. MASTHEAD (HEADER)
+   ============================================================ */
+
+.masthead {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 16px 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 24px rgba(0, 0, 0, 0.14);
+  transition: box-shadow var(--transition-base);
+}
+
+.masthead-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.masthead-brand {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.masthead-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 3.5vw, 2.4rem);
+  font-weight: 900;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.masthead-title .accent {
+  color: var(--accent-soft);
+  text-shadow: 0 0 20px rgba(196, 77, 77, 0.3);
+}
+
+.masthead-sub {
+  font-family: var(--font-serif);
+  font-size: 0.8rem;
+  font-style: italic;
+  opacity: 0.5;
+  letter-spacing: 0.02em;
+}
+
+.masthead-date {
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  opacity: 0.6;
+  text-align: right;
+  letter-spacing: 0.02em;
+  line-height: 1.5;
+}
+
+/* —— 往期回顾导航按钮（v2026-06-25 新增） —— */
+.masthead-nav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+  margin-right: 24px;
+}
+
+.masthead-nav-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 12px;
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  color: var(--paper);
+  text-decoration: none;
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.masthead-nav-link:hover {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.masthead-nav-link:active { transform: scale(0.97); }
+
+.masthead-nav-link svg {
+  width: 12px;
+  height: 12px;
+  opacity: 0.85;
+}
+
+@media (max-width: 767px) {
+  .masthead-nav-link span { display: none; }
+  .masthead-nav { margin-right: 16px; }
+  .masthead-nav-link { padding: 6px 9px; }
+}
+
+
+/* ============================================================
+   5. HERO SECTION
+   ============================================================ */
+
+.hero {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 32px 24px 16px;
+  position: relative;
+}
+
+.hero-cover {
+  width: 100%;
+  max-height: min(42vh, 420px);
+  object-fit: cover;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  transition: box-shadow var(--transition-base);
+  position: relative;
+}
+
+/* -- Hero subtle texture overlay (NEW) -- */
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 32px;
+  left: 24px;
+  right: 24px;
+  bottom: calc(100% - 32px - min(42vh, 420px));
+  background: var(--gradient-overlay);
+  border-radius: var(--radius-md);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.hero-cover:hover {
+  box-shadow: var(--shadow-lg);
+}
+
+.hero-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 16px;
+  padding-bottom: 14px;
+  border-bottom: 3px double var(--ink);
+  flex-wrap: wrap;
+  gap: 10px;
+  position: relative;
+}
+
+/* -- Decorative diamond on hero bar (NEW) -- */
+.hero-bar::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+  width: 8px;
+  height: 8px;
+  background: var(--paper);
+  border: 2px solid var(--ink);
+}
+
+.hero-issue {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--ink-muted);
+  letter-spacing: 0.02em;
+}
+
+
+/* ============================================================
+   6. CATEGORY PILLS
+   ============================================================ */
+
+.cat-nav {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 20px 24px 10px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.cat-pill {
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--accent);
+  background: var(--accent-bg);
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: all var(--transition-base);
+  border: 1px solid transparent;
+  position: relative;
+  overflow: hidden;
+}
+
+.cat-pill::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--gradient-accent);
+  opacity: 0;
+  transition: opacity var(--transition-base);
+  z-index: 0;
+}
+
+.cat-pill span,
+.cat-pill {
+  position: relative;
+  z-index: 1;
+}
+
+.cat-pill:hover {
+  color: white;
+  border-color: var(--accent);
+  transform: scale(1.03);
+  box-shadow: var(--shadow-sm);
+}
+
+.cat-pill:hover::after {
+  opacity: 1;
+}
+
+.cat-pill:active {
+  transform: scale(0.98);
+}
+
+
+/* ============================================================
+   7. TODAY'S BRIEF SECTION
+   ============================================================ */
+
+.brief-section {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 28px 24px 16px;
+}
+
+.brief-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.brief-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.15rem, 2.5vw, 1.6rem);
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  letter-spacing: 0.01em;
+}
+
+.brief-title::before {
+  content: '';
+  display: block;
+  width: 5px;
+  height: clamp(1.15rem, 2.5vw, 1.6rem);
+  background: var(--gradient-accent);
+  border-radius: 3px;
+}
+
+/* -- Brief Grid (equal height cards) -- */
+.brief-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 14px;
+}
+
+/* FIX 2: brief-item 确保 flex 列布局且高度填满 */
+.brief-item {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* FIX 2: 标题区域自适应填充剩余空间 */
+.brief-item .brief-title {
+  flex: 1;
+}
+
+.brief-item {
+  background: var(--paper-card);
+  background: var(--gradient-warm);
+  border: 1px solid var(--rule-soft);
+  border-radius: var(--radius-md);
+  padding: 18px;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+/* -- Subtle corner accent on cards (NEW) -- */
+.brief-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(225deg, var(--paper-dark) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity var(--transition-base);
+  border-radius: 0 0 0 40px;
+}
+
+.brief-item:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-3px);
+  border-color: var(--accent-soft);
+}
+
+.brief-item:hover::before {
+  opacity: 1;
+}
+
+.brief-item:active {
+  transform: translateY(-1px);
+}
+
+.brief-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.brief-num {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: var(--accent);
+  opacity: 0.7;
+  line-height: 1;
+  text-shadow: 0 1px 2px rgba(139, 26, 26, 0.15);
+  transition: all var(--transition-base);
+  min-width: 24px;
+  text-align: center;
+}
+
+.brief-item:hover .brief-num {
+  opacity: 1;
+  transform: scale(1.08);
+  text-shadow: 0 2px 8px rgba(139, 26, 26, 0.25);
+}
+
+.brief-cat {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--accent);
+  background: var(--accent-bg);
+  padding: 3px 8px;
+  border-radius: var(--radius-sm);
+}
+
+.brief-item .brief-title {
+  font-family: var(--font-serif);
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.55;
+  color: var(--ink);
+  letter-spacing: 0.005em;
+  word-break: keep-all;        /* 修正5: 不在单词中间换行 */
+  overflow-wrap: break-word;   /* 修正5: 超长单词整体换行 */
+}
+
+
+/* ============================================================
+   8. AUDIO PLAYER
+   ============================================================ */
+
+.audio-player {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: var(--paper-card);
+  background: var(--gradient-warm);
+  border: 1px solid var(--rule-soft);
+  border-radius: var(--radius-lg);
+  padding: 14px 18px;
+  margin-bottom: 20px;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow var(--transition-base);
+}
+
+.audio-player:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.audio-player.audio-disabled {
+  opacity: 0.55;
+  filter: grayscale(0.4);
+}
+
+.audio-play-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-full);
+  background: var(--accent);
+  background: var(--gradient-accent);
+  border: none;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all var(--transition-base);
+  box-shadow: 0 2px 8px rgba(139, 26, 26, 0.25);
+}
+
+.audio-play-btn:hover {
+  transform: scale(1.08);
+  box-shadow: 0 4px 16px rgba(139, 26, 26, 0.35);
+}
+
+.audio-play-btn:active {
+  transform: scale(0.96);
+}
+
+.audio-play-btn svg {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+}
+
+.audio-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.audio-label {
+  font-weight: 600;
+  font-size: 0.96rem;
+  letter-spacing: 0.01em;
+}
+
+.audio-desc {
+  font-size: 0.8rem;
+  color: var(--ink-muted);
+  margin-top: 3px;
+  letter-spacing: 0.01em;
+}
+
+.audio-progress-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  max-width: 200px;
+}
+
+.audio-track {
+  flex: 1;
+  height: 5px;
+  background: var(--rule-soft);
+  border-radius: 3px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: height var(--transition-fast);
+}
+
+.audio-track:hover {
+  height: 7px;
+}
+
+.audio-fill {
+  height: 100%;
+  background: var(--gradient-accent);
+  width: 0%;
+  transition: width 0.3s ease;
+  border-radius: 3px;
+}
+
+.audio-time {
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  color: var(--ink-muted);
+  white-space: nowrap;
+  min-width: 40px;
+  text-align: right;
+  letter-spacing: 0.02em;
+}
+
+
+/* ============================================================
+   9. SECTION DIVIDERS (Decorative)
+   ============================================================ */
+
+.section-divider {
+  max-width: var(--max-width);
+  margin: 36px auto 10px;
+  padding: 0 24px;
+}
+
+.section-divider-inner {
+  border-top: 1px solid var(--rule);
+  padding-top: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+}
+
+/* -- Center decorative diamond (NEW) -- */
+.section-divider-inner::before {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  background: var(--accent);
+  transform: rotate(45deg);
+  border-radius: 1px;
+}
+
+/* -- Right gradient fade (NEW) -- */
+.section-divider-inner::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--gradient-rule);
+}
+
+.section-label {
+  font-family: var(--font-display);
+  font-size: clamp(1.05rem, 2vw, 1.35rem);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  white-space: nowrap;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+}
+
+.section-label::before {
+  content: '';
+  display: inline-block;
+  width: 5px;
+  height: clamp(1.05rem, 2vw, 1.35rem);
+  background: var(--gradient-accent);
+  border-radius: 3px;
+  margin-right: 0;
+  vertical-align: middle;
+}
+
+/* -- Enhanced decorative divider variant (NEW) -- */
+.section-divider-decorated .section-divider-inner {
+  border-top: none;
+  padding-top: 20px;
+  justify-content: center;
+}
+
+.section-divider-decorated .section-divider-inner::before {
+  display: none;
+}
+
+.section-divider-decorated .section-divider-inner::after {
+  display: none;
+}
+
+.section-divider-line {
+  flex: 1;
+  height: 1px;
+  background: var(--gradient-rule);
+  max-width: 200px;
+}
+
+.section-divider-dots {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  padding: 0 12px;
+}
+
+.section-divider-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--rule);
+}
+
+.section-divider-dot:nth-child(2) {
+  background: var(--accent);
+  width: 7px;
+  height: 7px;
+}
+
+.section-divider-diamond {
+  width: 8px;
+  height: 8px;
+  background: var(--accent);
+  transform: rotate(45deg);
+  border-radius: 1px;
+  opacity: 0.7;
+}
+
+
+/* ============================================================
+   10. STORIES (Detailed Articles)
+   ============================================================ */
+
+.stories {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 16px 24px 48px;
+}
+
+.story {
+  padding: 36px 0;
+  border-bottom: 1px solid var(--rule-soft);
+  position: relative;
+  transition: padding var(--transition-base);
+}
+
+.story:last-child {
+  border-bottom: none;
+}
+
+/* -- Subtle hover highlight on stories (NEW) -- */
+.story::before {
+  content: '';
+  position: absolute;
+  inset: 16px -20px;
+  background: var(--accent-bg);
+  opacity: 0;
+  border-radius: var(--radius-lg);
+  transition: opacity var(--transition-base);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.story:hover::before {
+  opacity: 0.5;
+}
+
+.story > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* -- Story Header -- */
+.story-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+
+/* -- Enhanced Story Number (NEW decorative circle) -- */
+.story-num {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+  font-weight: 900;
+  color: var(--accent);
+  line-height: 0.85;
+  flex-shrink: 0;
+  opacity: 0.8;
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--accent-bg);
+  border-radius: var(--radius-full);
+  border: 2px solid rgba(139, 26, 26, 0.12);
+  transition: all var(--transition-base);
+  text-shadow: 0 1px 2px rgba(139, 26, 26, 0.15);
+}
+
+.story:hover .story-num {
+  opacity: 1;
+  background: var(--accent);
+  color: var(--paper-card);
+  border-color: var(--accent);
+  box-shadow: 0 4px 16px rgba(139, 26, 26, 0.25);
+  transform: scale(1.05);
+}
+
+.story-title-block {
+  flex: 1;
+  padding-top: 4px;
+}
+
+.story-categories {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+
+.story-cat {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--accent);
+  background: var(--accent-bg);
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-fast);
+}
+
+.story-cat:hover {
+  background: var(--accent);
+  color: var(--paper-card);
+}
+
+/* -- Story Title with animated underline (NEW) -- */
+.story-title {
+  font-family: var(--font-serif);
+  font-size: clamp(1.18rem, 2.2vw, 1.55rem);
+  font-weight: 700;
+  line-height: 1.35;
+  letter-spacing: 0.01em;
+}
+
+.story-title a {
+  color: var(--ink);
+  transition: color var(--transition-fast);
+  position: relative;
+  display: inline;
+}
+
+/* -- Animated underline on hover (NEW) -- */
+.story-title a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--gradient-accent);
+  transition: width 0.35s ease;
+  border-radius: 1px;
+}
+
+.story-title a:hover {
+  color: var(--accent);
+}
+
+.story-title a:hover::after {
+  width: 100%;
+}
+
+/* -- Summary Box with italic and decorative quotes (NEW) -- */
+.story-summary {
+  font-family: var(--font-serif);
+  font-size: clamp(0.92rem, 1.4vw, 1.02rem);
+  line-height: 1.75;
+  color: var(--ink-soft);
+  padding: 14px 18px;
+  border-left: 4px solid var(--accent);
+  background: var(--accent-bg);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  margin: 16px 0;
+  position: relative;
+  font-style: italic;
+  letter-spacing: 0.01em;
+}
+
+/* -- Opening quote decoration (NEW) -- */
+.story-summary::before {
+  content: '\201C';
+  position: absolute;
+  top: 4px;
+  left: 10px;
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  color: var(--accent);
+  opacity: 0.12;
+  line-height: 1;
+  pointer-events: none;
+}
+
+/* -- Story Images -- */
+.story-images {
+  display: flex;
+  gap: 14px;
+  margin: 20px 0;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 6px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--rule) transparent;
+  justify-content: center;
+  align-items: center;
+}
+
+.story-images::-webkit-scrollbar {
+  height: 4px;
+}
+
+.story-images::-webkit-scrollbar-thumb {
+  background: var(--rule);
+  border-radius: 2px;
+}
+
+.story-images img {
+  width: auto;
+  max-width: 100%;
+  max-height: 340px;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  border: 1px solid transparent;
+}
+
+.story-images img:hover {
+  transform: scale(1.02) translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--rule-soft);
+}
+
+/* -- Enhanced Story Body Typography (NEW) -- */
+.story-body {
+  font-size: clamp(0.92rem, 1.3vw, 1rem);
+  line-height: 1.9;
+  color: var(--ink-soft);
+  max-width: var(--reading-width);
+  letter-spacing: 0.01em;
+}
+
+/* -- Modern paragraph spacing (replaces text-indent) -- */
+.story-body p {
+  margin-bottom: 1.2em;
+  text-indent: 0;
+}
+
+.story-body p:last-child {
+  margin-bottom: 0;
+}
+
+/* -- First letter styling for first paragraph (NEW) -- */
+/* 修正6: 调整首字下沉样式，避免与正文重叠 */
+.story-body > p:first-of-type::first-letter {
+  font-family: var(--font-display);
+  font-size: 3.0em;            /* 从3.2em略降为3.0em，减少侵占空间 */
+  font-weight: 700;
+  float: left;
+  line-height: 0.85;           /* 从0.8提高到0.85，增加行间距 */
+  margin-right: 8px;           /* 从6px增加到8px，与正文保持更大间距 */
+  margin-top: 2px;             /* 从4px降为2px，减少对上方空间的侵占 */
+  margin-bottom: 2px;          /* 新增：确保下方段落不与首字重叠 */
+  color: var(--accent);
+  text-shadow: 1px 1px 0 rgba(139, 26, 26, 0.15);
+}
+
+/* -- Story body emphasis styling (NEW) -- */
+.story-body strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.story-body em {
+  color: var(--ink-soft);
+  font-style: italic;
+}
+
+
+/* ============================================================
+   11. TECH TERMS & TOOLTIPS
+   ============================================================ */
+
+.tech-term {
+  color: var(--accent);
+  cursor: pointer;
+  font-weight: 500;
+  padding: 0 3px;
+  transition: all var(--transition-fast);
+  border-radius: 3px;
+  white-space: nowrap;
+  display: inline;
+  border-bottom: 1px dashed var(--accent-soft);
+  position: relative;
+}
+
+.tech-term:hover {
+  background: var(--accent);
+  color: var(--paper-card);
+  border-bottom-color: transparent;
+}
+
+/* -- Tooltip on hover (NEW) -- */
+.tech-term[data-tooltip]::before {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%) scale(0.95);
+  background: var(--ink);
+  color: var(--paper-card);
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 0.75rem;
+  font-family: var(--font-sans);
+  font-weight: 400;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: all var(--transition-fast);
+  z-index: 50;
+  box-shadow: var(--shadow-md);
+  letter-spacing: 0.01em;
+}
+
+.tech-term[data-tooltip]::after {
+  content: '';
+  position: absolute;
+  bottom: calc(100% + 3px);
+  left: 50%;
+  transform: translateX(-50%) scale(0.95);
+  border: 5px solid transparent;
+  border-top-color: var(--ink);
+  opacity: 0;
+  transition: all var(--transition-fast);
+  z-index: 50;
+}
+
+.tech-term[data-tooltip]:hover::before,
+.tech-term[data-tooltip]:hover::after {
+  opacity: 1;
+  transform: translateX(-50%) scale(1);
+}
+
+
+/* ============================================================
+   12. MODAL ENHANCEMENTS
+   ============================================================ */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  z-index: 200;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.modal-overlay.active {
+  display: flex;
+  opacity: 1;
+}
+
+.modal {
+  background: var(--paper-card);
+  border-radius: var(--radius-lg);
+  max-width: 340px;
+  width: auto;
+  max-height: 60vh;
+  overflow-y: auto;
+  box-shadow: var(--shadow-xl);
+  animation: modalIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  border: 1px solid var(--rule-soft);
+  position: relative;
+}
+
+/* -- Modal decorative corner (NEW) -- */
+.modal::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--gradient-accent);
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+}
+
+@keyframes modalIn {
+  from {
+    opacity: 0;
+    transform: scale(0.92) translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.modal-header {
+  padding: 22px 24px 14px;
+  border-bottom: 1px solid var(--rule-soft);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
+
+.modal-term {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  color: var(--ink);
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  font-size: 1.6rem;
+  color: var(--ink-muted);
+  cursor: pointer;
+  padding: 6px 10px;
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-fast);
+  line-height: 1;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-close:hover {
+  color: var(--accent);
+  background: var(--accent-bg);
+  transform: rotate(90deg);
+}
+
+.modal-body {
+  padding: 12px 16px 16px;
+  font-size: 0.82rem;
+  line-height: 1.6;
+  color: var(--ink-soft);
+  letter-spacing: 0.01em;
+}
+
+.modal-body .tag {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+  background: var(--paper-dark);
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  margin-bottom: 10px;
+  color: var(--ink-muted);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.modal-body p {
+  margin-bottom: 0.8em;
+}
+
+
+/* ============================================================
+   13. FOOTER
+   ============================================================ */
+
+.footer {
+  background: var(--ink);
+  color: rgba(245, 241, 232, 0.5);
+  padding: 40px 24px;
+  text-align: center;
+  position: relative;
+}
+
+/* -- Decorative top border (NEW) -- */
+.footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 3px;
+  background: var(--gradient-accent);
+  border-radius: 0 0 3px 3px;
+}
+
+.footer-brand {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--paper);
+  letter-spacing: 0.02em;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.footer-brand .accent {
+  color: var(--accent-soft);
+}
+
+.footer-info {
+  font-size: 0.78rem;
+  margin-top: 6px;
+  letter-spacing: 0.02em;
+}
+
+
+/* ============================================================
+   14. BACK TO TOP BUTTON
+   ============================================================ */
+
+.back-to-top {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-full);
+  background: var(--paper-card);
+  color: var(--ink-muted);
+  border: 1px solid var(--rule-soft);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-md);
+  z-index: 150;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(12px);
+  transition: all var(--transition-base);
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+.back-to-top.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.back-to-top:hover {
+  background: var(--accent);
+  color: var(--paper-card);
+  border-color: var(--accent);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg);
+}
+
+.back-to-top:active {
+  transform: translateY(-1px) scale(0.96);
+}
+
+/* -- Progress ring (NEW) -- */
+.back-to-top-ring {
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  border-top-color: var(--accent);
+  opacity: 0;
+  transition: opacity var(--transition-base);
+  transform: rotate(-90deg);
+}
+
+.back-to-top.visible .back-to-top-ring {
+  opacity: 0.4;
+}
+
+
+/* ============================================================
+   15. SCROLL ANIMATIONS (REVEAL)
+   ============================================================ */
+
+/* -- Base reveal -- */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* -- Stagger reveal for child elements (NEW) -- */
+.reveal-stagger {
+  opacity: 1;
+  transform: none;
+}
+
+.reveal-stagger > * {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.reveal-stagger.visible > *:nth-child(1) { transition-delay: 0ms; }
+.reveal-stagger.visible > *:nth-child(2) { transition-delay: 60ms; }
+.reveal-stagger.visible > *:nth-child(3) { transition-delay: 120ms; }
+.reveal-stagger.visible > *:nth-child(4) { transition-delay: 180ms; }
+.reveal-stagger.visible > *:nth-child(5) { transition-delay: 240ms; }
+.reveal-stagger.visible > *:nth-child(6) { transition-delay: 300ms; }
+.reveal-stagger.visible > *:nth-child(7) { transition-delay: 360ms; }
+.reveal-stagger.visible > *:nth-child(8) { transition-delay: 420ms; }
+.reveal-stagger.visible > *:nth-child(9) { transition-delay: 480ms; }
+.reveal-stagger.visible > *:nth-child(10) { transition-delay: 540ms; }
+
+.reveal-stagger.visible > * {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* -- Reveal variants (NEW) -- */
+.reveal-fade {
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+
+.reveal-fade.visible {
+  opacity: 1;
+}
+
+.reveal-scale {
+  opacity: 0;
+  transform: scale(0.96);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.reveal-scale.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-20px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.reveal-left.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+
+/* ============================================================
+   16. DECORATIVE ELEMENTS
+   ============================================================ */
+
+/* -- Ornamental divider line (NEW) -- */
+.ornament-line {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: var(--space-lg) 0;
+}
+
+.ornament-line::before,
+.ornament-line::after {
+  content: '';
+  flex: 1;
+  max-width: 160px;
+  height: 1px;
+  background: var(--gradient-rule);
+}
+
+.ornament-diamond {
+  width: 7px;
+  height: 7px;
+  background: var(--accent);
+  transform: rotate(45deg);
+  border-radius: 1px;
+  opacity: 0.6;
+}
+
+/* -- Decorative section number badge (NEW) -- */
+.section-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background: var(--accent);
+  color: var(--paper-card);
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  font-weight: 700;
+  border-radius: 50%;
+  box-shadow: 0 2px 8px rgba(139, 26, 26, 0.25);
+}
+
+/* -- Quote marks decoration (NEW) -- */
+.quote-open,
+.quote-close {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  line-height: 1;
+  color: var(--accent);
+  opacity: 0.2;
+  display: inline-block;
+  vertical-align: text-top;
+}
+
+.quote-open {
+  margin-right: 2px;
+}
+
+.quote-close {
+  margin-left: 2px;
+}
+
+/* -- Reading progress bar (NEW) -- */
+.reading-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: var(--gradient-accent);
+  z-index: 300;
+  width: 0%;
+  transition: width 0.1s linear;
+  box-shadow: 0 1px 4px rgba(139, 26, 26, 0.25);
+}
+
+
+/* ============================================================
+   17. KEYFRAMES
+   ============================================================ */
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.8;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes rotateIn {
+  from {
+    opacity: 0;
+    transform: rotate(-180deg) scale(0.5);
+  }
+  to {
+    opacity: 1;
+    transform: rotate(0) scale(1);
+  }
+}
+
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  70% {
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+
+/* ============================================================
+   18. RESPONSIVE DESIGN
+   ============================================================ */
+
+/* -- Tablet (768px - 1024px) -- */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .brief-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .story-num {
+    width: 48px;
+    height: 48px;
+    font-size: clamp(1.6rem, 3vw, 2rem);
+  }
+
+  .story-title {
+    font-size: clamp(1.1rem, 2vw, 1.35rem);
+  }
+
+  .story-images img {
+    max-height: 280px;
+  }
+}
+
+/* -- Mobile (max-width: 767px) -- */
+@media (max-width: 767px) {
+  /* Layout adjustments */
+  .float-nav {
+    top: 72px;
+    left: 14px;
+  }
+
+  .float-btn {
+    width: 42px;
+    height: 42px;
+    font-size: 1.1rem;
+  }
+
+  .masthead-inner {
+    padding: 0 16px;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .masthead-sub {
+    display: none;
+  }
+
+  .masthead-title {
+    font-size: clamp(1.3rem, 5vw, 1.8rem);
+    letter-spacing: 0.01em;
+  }
+
+  /* Hero */
+  .hero {
+    padding: 20px 16px 10px;
+  }
+
+  .hero-cover {
+    max-height: 220px;
+    border-radius: var(--radius-sm);
+  }
+
+  .hero-bar {
+    margin-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  .hero-bar::after {
+    width: 6px;
+    height: 6px;
+  }
+
+  /* Category pills */
+  .cat-nav {
+    padding: 14px 16px 6px;
+  }
+
+  .cat-pill {
+    font-size: 0.7rem;
+    padding: 5px 12px;
+  }
+
+  /* Brief section */
+  .brief-section {
+    padding: 20px 16px 10px;
+  }
+
+  .brief-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .brief-item {
+    padding: 16px;
+  }
+
+  .brief-num {
+    font-size: 1.3rem;
+  }
+
+  /* Audio player */
+  .audio-player {
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 12px 14px;
+  }
+
+  .audio-progress-wrap {
+    width: 100%;
+    max-width: none;
+  }
+
+  .audio-play-btn {
+    width: 44px;
+    height: 44px;
+  }
+
+  /* Section dividers */
+  .section-divider {
+    margin: 28px auto 8px;
+    padding: 0 16px;
+  }
+
+  .section-divider-inner {
+    padding-top: 12px;
+  }
+
+  /* Stories */
+  .stories {
+    padding: 10px 16px 32px;
+  }
+
+  .story {
+    padding: 28px 0;
+  }
+
+  .story::before {
+    inset: 8px -10px;
+  }
+
+  .story-num {
+    font-size: 1.4rem;
+    width: 44px;
+    height: 44px;
+  }
+
+  .story-title {
+    font-size: 1.08rem;
+  }
+
+  .story-summary {
+    font-size: 0.9rem;
+    padding: 10px 14px;
+    margin: 12px 0;
+  }
+
+  .story-summary::before {
+    font-size: 2rem;
+  }
+
+  .story-images {
+    gap: 10px;
+    margin: 14px 0;
+  }
+
+  .story-images img {
+    max-height: 220px;
+    border-radius: var(--radius-sm);
+  }
+
+  .story-body {
+    font-size: 0.92rem;
+    line-height: 1.8;
+  }
+
+  .story-body p {
+    margin-bottom: 1em;
+  }
+
+  .story-body > p:first-of-type::first-letter {
+    font-size: 2.8em;
+  }
+
+  /* Modal */
+  .modal {
+    border-radius: var(--radius-md);
+    max-width: calc(100vw - 24px);
+    max-height: 50vh;
+    margin: 0;
+  }
+
+  .modal-header {
+    padding: 12px 14px 8px;
+  }
+
+  .modal-body {
+    padding: 10px 14px 14px;
+    font-size: 0.78rem;
+    line-height: 1.55;
+  }
+
+  .modal-term {
+    font-size: 0.95rem;
+  }
+
+  .modal-overlay {
+    padding: 8px;
+  }
+
+  /* Footer */
+  .footer {
+    padding: 32px 16px;
+  }
+
+  /* Back to top */
+  .back-to-top {
+    bottom: 20px;
+    right: 20px;
+    width: 44px;
+    height: 44px;
+  }
+
+  /* Sidebar */
+  .sidebar {
+    width: 260px;
+    padding: 20px;
+  }
+}
+
+/* -- Small mobile (max-width: 375px) -- */
+@media (max-width: 375px) {
+  .masthead-title {
+    font-size: 1.2rem;
+  }
+
+  .hero-cover {
+    max-height: 160px;
+  }
+
+  .brief-grid {
+    gap: 10px;
+  }
+
+  .brief-item {
+    padding: 14px;
+  }
+
+  .story-num {
+    width: 38px;
+    height: 38px;
+    font-size: 1.2rem;
+  }
+
+  .story-title {
+    font-size: 1rem;
+  }
+
+  .story-body {
+    font-size: 0.9rem;
+    line-height: 1.85;
+  }
+}
+
+
+/* ============================================================
+   19. REDUCED MOTION SUPPORT
+   ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .reveal,
+  .reveal-fade,
+  .reveal-scale,
+  .reveal-left,
+  .reveal-stagger > * {
+    opacity: 1;
+    transform: none;
+  }
+
+  .back-to-top {
+    transition: none;
+  }
+}
+
+
+/* ============================================================
+   20. UTILITY CLASSES
+   ============================================================ */
+
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+
+/* ========================================
+   LAYOUT FIXES OVERRIDES
+   ======================================== */
+
+/* ========================================
+   TechDaily Layout Fixes
+   File: layout-fixes.css
+   ======================================== */
+
+/* ========================================
+   FIX 1: 悬浮球与侧边栏位置调整
+   将悬浮球下移到 header 下方，sidebar 顶部对齐
+   ======================================== */
+
+/* 悬浮球：从 top:20px 改为 86px（header 60-70px + 间距） */
+.float-nav {
+  position: fixed;
+  top: 86px;           /* FIX 1: 下移避免与 masthead 重叠 */
+  left: 20px;
+  z-index: 200;
+}
+
+/* 侧边栏：从 top:0 改为与悬浮球对齐，留出 header 空间 */
+.sidebar {
+  position: fixed;
+  top: 76px;           /* FIX 1: 下移避免被 header 遮挡 */
+  left: 0;
+  bottom: 0;
+  width: 260px;
+  background: var(--paper-card);
+  box-shadow: 4px 0 24px rgba(0,0,0,0.12);
+  z-index: 199;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.sidebar.active { transform: translateX(0); }
+
+.sidebar-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.3);
+  z-index: 198;
+  display: none;
+}
+.sidebar-overlay.active { display: block; }
+
+/* ========================================
+   FIX 2: 侧边栏分类样式优化
+   支持多分类分组呈现
+   ======================================== */
+
+.sidebar-title {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--ink);
+}
+
+/* 分类组容器 */
+.sidebar-cat {
+  margin-bottom: 16px;
+}
+.sidebar-cat:last-child {
+  margin-bottom: 0;
+}
+
+/* 分类名称 */
+.sidebar-cat-name {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--accent);
+  margin-bottom: 6px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--rule-soft);
+}
+
+/* 侧边栏链接 */
+.sidebar-link {
+  display: block;
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+  padding: 4px 0;
+  cursor: pointer;
+  transition: color 0.15s;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  border-bottom: 1px dotted var(--rule-soft);
+}
+.sidebar-link:last-child {
+  border-bottom: none;
+}
+.sidebar-link:hover { color: var(--accent); }
+
+/* ========================================
+   FIX 4: Brief Grid 奇偶适配
+   改用 auto-fit 替代 auto-fill，避免尾部空白列
+   ======================================== */
+
+.brief-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));  /* FIX 4: auto-fit + minmax */
+  grid-auto-rows: 1fr;
+  gap: 16px;
+}
+
+/* ========================================
+   FIX 5: 文章标签区域
+   在标题下方、摘要上方显示关键词标签
+   ======================================== */
+
+/* 标签容器 */
+.story-tags {
+  display: none;  /* REMOVED: 关键词标签已移除 */
+}
+
+/* 单个标签 */
+.story-tag {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--ink-muted);
+  background: var(--paper-dark);
+  padding: 3px 10px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+  border: 1px solid var(--rule-soft);
+}
+
+.story-tag:hover {
+  background: var(--accent-bg);
+  color: var(--accent);
+  border-color: var(--accent-soft);
+}
+
+/* ========================================
+   FIX 3: PC端详细报道两栏布局（最关键）
+   左栏：标题+摘要+正文  |  右栏：图片
+   ======================================== */
+
+/* --- 移动端优先：保持原有单栏布局（默认）--- */
+.story {
+  padding: 40px 0;
+  border-bottom: 1px solid var(--rule-soft);
+}
+.story:last-child { border-bottom: none; }
+
+.story-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 0;  /* tags接管了下方间距 */
+}
+
+.story-num {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+  font-weight: 900;
+  color: var(--accent);
+  line-height: 0.8;
+  flex-shrink: 0;
+  opacity: 0.75;
+}
+
+.story-title-block { flex: 1; }
+
+.story-categories {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 6px;
+}
+
+.story-cat {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--accent);
+  background: var(--accent-bg);
+  padding: 3px 8px;
+  border-radius: 2px;
+}
+
+.story-title {
+  font-family: var(--font-serif);
+  font-size: clamp(1.15rem, 2.2vw, 1.5rem);
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.story-title a {
+  color: var(--ink);
+  transition: color 0.15s;
+}
+.story-title a:hover { color: var(--accent); }
+
+/* Summary box */
+.story-summary {
+  font-family: var(--font-serif);
+  font-size: clamp(0.9rem, 1.4vw, 1rem);
+  line-height: 1.7;
+  color: var(--ink-soft);
+  padding: 10px 14px;
+  border-left: 3px solid var(--accent);
+  background: var(--accent-bg);
+  border-radius: 0 4px 4px 0;
+  margin: 12px 0;
+}
+
+/* 移动端：story-images 保持横向滚动 */
+.story-images {
+  display: flex;
+  gap: 12px;
+  margin: 16px 0;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 4px;
+  justify-content: center;
+  align-items: center;
+}
+
+.story-images img {
+  width: auto;
+  max-width: 100%;
+  max-height: 320px;
+  object-fit: cover;
+  border-radius: 4px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+
+.story-images img:hover { transform: scale(1.02); }
+
+/* story-body - FIX 3: 提升可读性 */
+.story-body {
+  font-size: clamp(0.92rem, 1.3vw, 1.02rem);
+  line-height: 2.0;            /* 修正4: 从1.95提高到2.0 */
+  color: var(--ink-soft);
+  max-width: var(--reading-width);
+}
+
+.story-body p {
+  margin-bottom: 1.8em;        /* 修正4: 从1.6em提高到1.8em */
+  text-indent: 0;
+}
+
+/* ========================================
+   FIX 3 (cont'd): PC端两栏布局 (grid-template-areas)
+   @media (min-width: 1024px) {
+
+  /* PC端详细报道：上下分布（标题→摘要→正文→图片垂直堆叠） */
+  .story {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 40px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .story-header { margin-bottom: 0; }
+
+  .story-summary { margin: 0; }
+
+  .story-body {
+    max-width: var(--reading-width);
+    margin: 0;
+  }
+
+  /* 图片区：上下居中 */
+  .story-images {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin: 8px 0 0 0;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .story-images img {
+    max-width: 100%;
+    height: auto;
+    max-height: 480px;
+    object-fit: contain;
+    border-radius: 8px;
+  }
+
+  /* 多图时横向排列 */
+  .story-images--multiple {
+    flex-direction: row !important;
+    overflow-x: auto !important;
+    overflow-y: visible !important;
+    gap: 12px !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding-bottom: 8px !important;
+    scrollbar-width: thin;
+    scrollbar-color: var(--rule) transparent;
+  }
+
+  .story-images--multiple::-webkit-scrollbar { height: 4px; }
+  .story-images--multiple::-webkit-scrollbar-thumb { background: var(--rule); border-radius: 2px; }
+
+  .story-images--multiple img {
+    flex: 0 0 auto;
+    max-width: 320px;
+    width: auto;
+    height: auto;
+    max-height: 240px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+
+  /* FIX 1: 标题防止被挤成竖排 */
+  .story-title {
+    word-break: keep-all;
+    overflow-wrap: break-word;
+    white-space: normal;
+    min-width: 0;
+  }
+
+  .story-header {
+    min-width: 0;
+  }
+
+}
+
+/* ========================================
+   移动端适配 (< 1024px)
+   ======================================== */
+
+@media (max-width: 1023px) {
+  /* 保持单栏布局，确保 tags 不占用过多空间 */
+  .story-tags {
+    display: none;  /* REMOVED */
+  }
+}
+
+/* ========================================
+   小屏手机适配 (< 768px)
+   ======================================== */
+
+@media (max-width: 768px) {
+  /* FIX 1: 移动端悬浮球位置 */
+  .float-nav {
+    top: 78px;           /* 移动端 header 略小，相应调整 */
+    left: 12px;
+  }
+  .float-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+  }
+
+  /* FIX 1: 移动端侧边栏 */
+  .sidebar {
+    top: 68px;           /* 移动端 header 约55-60px */
+    width: 240px;
+    padding: 16px;
+  }
+
+  /* FIX 4: 移动端 brief-grid 单列 */
+  .brief-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .story {
+    padding: 20px 0;
+  }
+  .story-num { font-size: 1.6rem; }
+  .story-title { font-size: 1.05rem; }
+  .story-summary { font-size: 0.88rem; padding: 8px 12px; }
+  .story-images img { max-height: 220px; }
+  .story-body { font-size: 0.92rem; line-height: 1.85; }
+  .story-body p { margin-bottom: 1.4em; }
+
+  /* FIX 5: 移动端 tags */
+  .story-tags {
+    margin: 6px 0 8px 0;
+    gap: 4px;
+  }
+  .story-tag {
+    font-size: 0.65rem;
+    padding: 2px 8px;
+  }
+}
+
+/* ========================================
+   减弱动画（无障碍）
+   ======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; }
+}
+
+
+/* ========================================
+   DOUKNOW PET STYLES
+   ======================================== */
+
+/**
+ * douknow-pet.css - Styles for DouknowAI (豆懂AI) Pet Party
+ * 
+ * Provides canvas positioning, container styles, and optional
+ * visual enhancements for the pet animation system.
+ */
+
+/* ============================================
+   Pet Party Container
+   ============================================ */
+
+/**
+ * Default container for the pet party canvas.
+ * The canvas covers the full viewport and pets walk freely across the page.
+ * 
+ * Usage: <div id="douknow-pet-party" class="douknow-pet-container"></div>
+ */
+.douknow-pet-container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 250px;
+  pointer-events: none;
+  z-index: 50;
+  overflow: hidden;
+}
+
+/**
+ * Alternative: Full-page overlay mode
+ * Pets can walk anywhere on the page
+ */
+.douknow-pet-container.douknow-pet-container--fullpage {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  bottom: auto;
+}
+
+/**
+ * Alternative: Section-contained mode
+ * Pets walk within a specific section of the page
+ */
+.douknow-pet-container.douknow-pet-container--inline {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  bottom: auto;
+  left: auto;
+}
+
+/* ============================================
+   Canvas Element
+   ============================================ */
+
+.douknow-pet-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  /* Hardware acceleration for smooth rendering */
+  transform: translateZ(0);
+  will-change: contents;
+}
+
+/* ============================================
+   Optional: Section Integration Styles
+   ============================================ */
+
+/**
+ * When integrating into a specific section,
+ * use this wrapper to position pets at the bottom of that section.
+ */
+.douknow-pet-section {
+  position: relative;
+  /* Ensure section has enough space for pets */
+  min-height: 300px;
+}
+
+.douknow-pet-section .douknow-pet-container {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 180px;
+}
+
+/* ============================================
+   Optional: Interactive Mode
+   ============================================ */
+
+/**
+ * When pointer-events are enabled on the canvas,
+ * pets can be clicked for interaction.
+ */
+.douknow-pet-container.douknow-pet-container--interactive {
+  pointer-events: auto;
+}
+
+.douknow-pet-container.douknow-pet-container--interactive .douknow-pet-canvas {
+  pointer-events: auto;
+  cursor: crosshair;
+}
+
+/* ============================================
+   Optional: Loading State
+   ============================================ */
+
+.douknow-pet-container.douknow-pet-container--loading::before {
+  content: '';
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 30px;
+  height: 30px;
+  border: 3px solid rgba(74, 222, 128, 0.2);
+  border-top-color: rgba(74, 222, 128, 0.8);
+  border-radius: 50%;
+  animation: douknow-pet-spin 0.8s linear infinite;
+}
+
+@keyframes douknow-pet-spin {
+  to {
+    transform: translateX(-50%) rotate(360deg);
+  }
+}
+
+/* ============================================
+   Optional: Toggle Button
+   ============================================ */
+
+.douknow-pet-toggle {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  border: 2px solid rgba(74, 222, 128, 0.5);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  z-index: 100;
+  transition: all 0.3s ease;
+  pointer-events: auto;
+}
+
+.douknow-pet-toggle:hover {
+  background: rgba(74, 222, 128, 0.2);
+  border-color: rgba(74, 222, 128, 0.8);
+  transform: scale(1.1);
+}
+
+.douknow-pet-toggle:active {
+  transform: scale(0.95);
+}
+
+.douknow-pet-toggle.douknow-pet-toggle--hidden {
+  opacity: 0.5;
+}
+
+/* ============================================
+   Mobile Adaptations
+   ============================================ */
+
+@media (max-width: 768px) {
+  .douknow-pet-container {
+    height: 180px;
+  }
+
+  .douknow-pet-container.douknow-pet-container--fullpage {
+    height: 100vh;
+  }
+
+  .douknow-pet-section .douknow-pet-container {
+    height: 140px;
+  }
+
+  .douknow-pet-toggle {
+    width: 38px;
+    height: 38px;
+    font-size: 16px;
+    bottom: 15px;
+    right: 15px;
+  }
+}
+
+
+
+/* ========================================
+   FIX 4 (new): 无图片报道自适应布局
+   检测到无图片时自动切换为单栏
+   ======================================== */
+
+.story--no-images .story-images {
+  display: none;
+}
+
+.story--no-images .story-images {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .story--no-images .story-body {
+    max-width: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .douknow-pet-container {
+    height: 150px;
+  }
+
+  .douknow-pet-section .douknow-pet-container {
+    height: 120px;
+  }
+}
+
+/* ============================================
+   Reduced Motion Support
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .douknow-pet-canvas {
+    /* The JS code also checks for this preference */
+    display: none;
+  }
+
+  .douknow-pet-container {
+    display: none;
+  }
+}
+
+/* ============================================
+   Dark Mode Support
+   ============================================ */
+
+@media (prefers-color-scheme: dark) {
+  .douknow-pet-toggle {
+    background: rgba(30, 30, 30, 0.9);
+    border-color: rgba(74, 222, 128, 0.4);
+    color: #fff;
+  }
+}
+
+/* ============================================
+   Print Styles - Hide pets when printing
+   ============================================ */
+
+@media print {
+  .douknow-pet-container,
+  .douknow-pet-toggle {
+    display: none !important;
+  }
+}
+
+
+
+
+/* ========================================
+   FIX 6: 往期回顾下拉导航
+   ======================================== */
+
+.masthead-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.archive-dropdown {
+  position: relative;
+}
+
+.archive-toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: var(--paper);
+  padding: 6px 12px;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.archive-toggle:hover {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.archive-toggle:active { transform: scale(0.97); }
+
+.archive-arrow {
+  width: 12px;
+  height: 12px;
+  transition: transform var(--transition-fast);
+  opacity: 0.7;
+}
+
+.archive-dropdown.open .archive-arrow {
+  transform: rotate(180deg);
+}
+
+.archive-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  width: 200px;
+  background: var(--paper-card);
+  border: 1px solid var(--rule-soft);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  padding: 10px 0;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-6px);
+  transition: all var(--transition-fast);
+  z-index: 110;
+}
+
+.archive-dropdown.open .archive-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.archive-menu-title {
+  font-family: var(--font-display);
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--ink);
+  padding: 0 14px 8px;
+  border-bottom: 1px solid var(--rule-soft);
+  margin-bottom: 6px;
+}
+
+.archive-list {
+  max-height: 240px;
+  overflow-y: auto;
+}
+
+.archive-item {
+  display: block;
+  padding: 7px 14px;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+  text-decoration: none;
+}
+
+.archive-item:hover {
+  background: var(--accent-bg);
+  color: var(--accent);
+}
+
+.archive-item-current {
+  color: var(--accent);
+  font-weight: 600;
+  background: var(--accent-bg);
+}
+
+@media (max-width: 767px) {
+  .masthead-right { gap: 10px; }
+  .archive-label { display: none; }
+  .archive-toggle { padding: 6px 8px; }
+  .archive-menu { right: -40px; width: 180px; }
+}
+
+
+/* ========================================
+   Pet Iframe Embed
+   ======================================== */
+
+.pet-iframe {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;       /* 全页面透明舞台：宠物不再局限在底部 140px */
+  border: none;
+  pointer-events: none; /* 由父页面桥接拖拽，避免 iframe 覆盖正文点击 */
+  z-index: 50;
+  background: transparent;
+  overflow: hidden;
+}
+
+body.pet-dragging {
+  cursor: grabbing;
+  user-select: none;
+}
+
+/* ============================================================
+   TechDaily Template Fix Pack v2
+   目标：修复今日精要标题吞字、详细报道 PC 宽度、多图横向滑动、Tags/Grid 自适应。
+   放在样式表末尾作为最终覆盖层，避免被前面的重复样式覆盖。
+   ============================================================ */
+
+/* 1) 今日精要：区分「栏目标题」与「卡片标题」，避免 .brief-title 复用导致卡片标题被伪元素/弹性布局挤压 */
+.brief-header > .brief-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  flex: 0 0 auto;
+  min-width: 0;
+}
+
+.brief-grid {
+  display: flex !important;
+  flex-wrap: wrap;
+  align-items: stretch;
+  gap: 16px;
+}
+
+.brief-grid > .brief-item {
+  flex: 1 1 280px;
+  min-width: min(100%, 260px);
+  max-width: none;
+  min-height: 132px;
+  box-sizing: border-box;
+}
+
+.brief-item .brief-title {
+  display: block !important;
+  flex: 0 1 auto !important;
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  height: auto;
+  min-height: auto;
+  overflow: visible;
+  text-overflow: clip;
+  white-space: normal;
+  word-break: normal;
+  overflow-wrap: anywhere;
+  line-height: 1.58;
+}
+
+.brief-item .brief-title::before {
+  content: none !important;
+  display: none !important;
+}
+
+.brief-item .tech-term,
+.story-title .tech-term {
+  white-space: normal;
+}
+
+/* Grid 奇偶数自适应：最后一行自动拉伸填满，不再只挤在左侧 */
+@media (min-width: 1180px) {
+  .brief-grid > .brief-item { flex-basis: calc((100% - 48px) / 4); }
+}
+
+@media (min-width: 900px) and (max-width: 1179px) {
+  .brief-grid > .brief-item { flex-basis: calc((100% - 32px) / 3); }
+}
+
+@media (min-width: 640px) and (max-width: 899px) {
+  .brief-grid > .brief-item { flex-basis: calc((100% - 16px) / 2); }
+}
+
+@media (max-width: 639px) {
+  .brief-grid > .brief-item { flex-basis: 100%; }
+}
+
+/* 2) Tags/分类标签：多标签、单双数、长标签都能换行适配 */
+.story-categories,
+.story-tags {
+  display: flex !important;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  max-width: 100%;
+}
+
+.story-tag,
+.story-cat {
+  flex: 0 1 auto;
+  max-width: 100%;
+  white-space: normal;
+  line-height: 1.4;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+
+/* 3) 详细报道：PC 端正文不再锁死 720px，标题、摘要、详细内容跟随容器铺满 */
+.stories {
+  width: 100%;
+  max-width: min(var(--max-width), calc(100vw - 48px));
+  box-sizing: border-box;
+}
+
+.story {
+  width: 100%;
+  max-width: 100%;
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 14px;
+  box-sizing: border-box;
+}
+
+.story-header,
+.story-title-block,
+.story-summary,
+.story-body,
+.story-images {
+  width: 100%;
+  max-width: none !important;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.story-title a {
+  word-break: normal;
+  overflow-wrap: anywhere;
+}
+
+.story-summary {
+  margin: 0;
+}
+
+.story-body {
+  margin: 0;
+  font-size: clamp(0.95rem, 1.05vw, 1.05rem);
+  line-height: 1.95;
+  text-wrap: pretty;
+}
+
+.story-body p {
+  max-width: none;
+}
+
+/* 4) 多图：固定视觉尺寸，一行横向排列，用横向滑块查看 */
+.story-images {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  justify-content: flex-start !important;
+  align-items: stretch !important;
+  gap: 14px;
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x proximity;
+  padding: 8px 4px 14px;
+  margin: 4px 0 0;
+  scrollbar-width: thin;
+  scrollbar-color: var(--rule) transparent;
+}
+
+.story-images::-webkit-scrollbar { height: 6px; }
+.story-images::-webkit-scrollbar-track { background: transparent; }
+.story-images::-webkit-scrollbar-thumb {
+  background: var(--rule);
+  border-radius: 999px;
+}
+
+.story-images img {
+  flex: 0 0 auto !important;
+  width: clamp(240px, 30vw, 360px) !important;
+  height: clamp(160px, 20vw, 240px) !important;
+  max-width: none !important;
+  max-height: none !important;
+  object-fit: cover;
+  scroll-snap-align: start;
+}
+
+.story-images:not(.story-images--multiple) {
+  justify-content: center !important;
+  overflow-x: hidden !important;
+}
+
+.story-images:not(.story-images--multiple) img {
+  width: min(100%, 720px) !important;
+  height: auto !important;
+  max-height: 420px !important;
+  object-fit: contain;
+}
+
+.story--no-images .story-images {
+  display: none !important;
+}
+
+@media (max-width: 767px) {
+  .stories {
+    max-width: 100%;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .story {
+    gap: 12px;
+  }
+
+  .story-images img {
+    width: min(78vw, 320px) !important;
+    height: min(52vw, 220px) !important;
+  }
+
+  .story-images:not(.story-images--multiple) img {
+    width: 100% !important;
+    height: auto !important;
+    max-height: 320px !important;
+  }
+}
+
+/* 5) 悬浮目录层级：确保点开后可点击，不被 pet iframe 或遮罩层误挡 */
+.float-nav { z-index: 310 !important; }
+.sidebar { z-index: 309 !important; }
+.sidebar-overlay { z-index: 308 !important; }
+.pet-iframe { z-index: 120 !important; }
+
+.story-jump-highlight::before {
+  opacity: 0.75 !important;
+  background: rgba(139, 26, 26, 0.055) !important;
+}
+
+
+
+/* ============================================================
+   TechDaily Template Fix Pack v3
+   目标：多图横向铺满+滚轮查看、关键词解释可用、正文更紧凑、图片点击放大、标签居中自适应、pet 舞台优化
+   ============================================================ */
+
+/* 多图容器：整行铺满、横向滚动、滚轮映射到横向滚动 */
+.story-images {
+  width: 100% !important;
+  max-width: 100% !important;
+  padding: 8px 0 14px !important;
+  margin: 6px 0 0 !important;
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+}
+.story-images.story-images--multiple {
+  justify-content: flex-start !important;
+  align-items: stretch !important;
+  gap: 16px !important;
+}
+.story-images.story-images--multiple img {
+  flex: 0 0 min(86vw, 760px) !important;
+  width: min(86vw, 760px) !important;
+  height: clamp(230px, 34vw, 430px) !important;
+  object-fit: cover !important;
+  border-radius: 10px;
+  scroll-snap-align: start;
+  cursor: zoom-in;
+}
+.story-images.story-images--single {
+  justify-content: center !important;
+}
+.story-images.story-images--single img {
+  width: min(100%, 960px) !important;
+  height: clamp(240px, 36vw, 460px) !important;
+  object-fit: cover !important;
+  border-radius: 10px;
+  cursor: zoom-in;
+}
+
+/* 正文更紧凑，修正首字下沉导致的段间距异常 */
+.story {
+  gap: 10px !important;
+  padding: 34px 0 !important;
+}
+.story-header {
+  margin-bottom: 0 !important;
+}
+.story-summary {
+  padding: 9px 13px !important;
+  margin: 0 !important;
+}
+.story-body {
+  line-height: 1.78 !important;
+  letter-spacing: 0.003em !important;
+}
+.story-body p {
+  margin-bottom: 0.88em !important;
+}
+.story-body > p:first-of-type::first-letter {
+  float: none !important;
+  display: inline-block;
+  font-size: 2.15em !important;
+  line-height: 0.96 !important;
+  margin-right: 5px !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  vertical-align: baseline;
+}
+
+/* 标签：随机数量自适应并居中 */
+.story-categories,
+.story-tags {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  justify-content: center !important;
+  align-items: center !important;
+  gap: 8px !important;
+  width: 100%;
+}
+.story-cat,
+.story-tag {
+  text-align: center;
+  border-radius: 999px;
+}
+
+/* tech-term 视觉反馈 */
+.tech-term {
+  cursor: pointer;
+}
+
+/* 图片查看 Lightbox */
+.image-lightbox {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 28px;
+  background: rgba(20, 18, 14, 0.78);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  z-index: 360;
+}
+.image-lightbox.active {
+  display: flex;
+}
+.image-lightbox-inner {
+  position: relative;
+  max-width: min(92vw, 1280px);
+  max-height: 88vh;
+}
+.image-lightbox img {
+  max-width: 100%;
+  max-height: 88vh;
+  width: auto;
+  height: auto;
+  border-radius: 14px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.28);
+}
+.image-lightbox-close {
+  position: absolute;
+  top: -14px;
+  right: -14px;
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.96);
+  color: var(--ink);
+  box-shadow: var(--shadow-md);
+  cursor: pointer;
+  font-size: 20px;
+  line-height: 1;
+}
+.image-lightbox-caption {
+  margin-top: 10px;
+  text-align: center;
+  color: rgba(255,255,255,0.92);
+  font-size: 0.92rem;
+}
+
+/* 关键词解释弹窗内的小标签更清晰 */
+.modal-body .tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+/* pet iframe 舞台更轻，更不干扰正文 */
+.pet-iframe {
+  z-index: 118 !important;
+}
+
+@media (max-width: 767px) {
+  .story { padding: 26px 0 !important; gap: 9px !important; }
+  .story-body { font-size: 0.96rem !important; line-height: 1.74 !important; }
+  .story-body p { margin-bottom: 0.8em !important; }
+  .story-images.story-images--multiple img {
+    flex-basis: 90vw !important;
+    width: 90vw !important;
+    height: clamp(220px, 52vw, 320px) !important;
+  }
+  .story-images.story-images--single img {
+    width: 100% !important;
+    height: clamp(220px, 56vw, 320px) !important;
+  }
+}
+
+/* ============================================================
+   TechDaily Template Fix Pack v5
+   目标：修复今日精要手机端布局（序号与分类同行、减少间距）、
+         音频URL动态注入、403错误页面修复
+   ============================================================ */
+
+/* 手机端：今日精要序号与分类放一行，整体更紧凑 */
+@media (max-width: 767px) {
+  .brief-grid {
+    gap: 6px !important;
+  }
+
+  .brief-item {
+    padding: 8px 10px !important;
+    gap: 0 !important;
+    flex-direction: column !important;
+    min-height: auto !important;
+  }
+
+  /* 序号 + 分类 放在同一行 */
+  .brief-item .brief-head {
+    display: flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    margin-bottom: 2px !important;
+    flex-wrap: nowrap !important;
+  }
+
+  .brief-item .brief-num {
+    font-size: 1.0rem !important;
+    min-width: auto !important;
+    line-height: 1.2;
+  }
+
+  .brief-item .brief-cat {
+    font-size: 0.55rem !important;
+    padding: 1px 5px !important;
+    line-height: 1.2;
+  }
+
+  .brief-item .brief-title {
+    font-size: 0.85rem !important;
+    line-height: 1.35 !important;
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+  }
+
+  /* 音频播放器手机端更紧凑 */
+  .audio-player {
+    padding: 8px 10px !important;
+    margin-bottom: 8px !important;
+    gap: 8px !important;
+  }
+
+  .audio-label {
+    font-size: 0.85rem !important;
+  }
+
+  .audio-desc {
+    font-size: 0.7rem !important;
+  }
+}
+
+@media (max-width: 375px) {
+  .brief-item {
+    padding: 6px 8px !important;
+  }
+  .brief-item .brief-title {
+    font-size: 0.82rem !important;
+  }
+  .brief-item .brief-head {
+    gap: 4px !important;
+  }
+}
+
+</style>
+</head>
+
+<body data-date="2026-09-11">
+<!-- Reading Progress Bar -->
+<div class="reading-progress-container">
+  <div class="reading-progress-bar" id="readingProgressBar"></div>
+</div>
+
+<!-- FLOATING NAV -->
+<div class="float-nav">
+  <button class="float-btn" onclick="toggleSidebar()" title="目录">☰</button>
+</div>
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+<nav class="sidebar" id="sidebar">
+  <div class="sidebar-title">📰 目录</div>
+  <div class="sidebar-cat">
+    <div class="sidebar-cat-name">要闻</div>
+    <span class="sidebar-link" onclick="scrollToStory('1'); toggleSidebar()">1. OpenAI 宣布暂停 ChatGPT Pro 20x 新订阅</span>
+    <span class="sidebar-link" onclick="scrollToStory('2'); toggleSidebar()">2. 深度求索发布并开源 DeepSeek V4.1 Flash</span>
+    <span class="sidebar-link" onclick="scrollToStory('3'); toggleSidebar()">3. DeepSeek Harness 发布 v0.1.5</span>
+    <span class="sidebar-link" onclick="scrollToStory('4'); toggleSidebar()">4. DeepSeek App 与网页端三种模式合并升级</span>
+    <span class="sidebar-link" onclick="scrollToStory('5'); toggleSidebar()">5. DeepSeek开源三个代码仓库</span>
+    <span class="sidebar-link" onclick="scrollToStory('6'); toggleSidebar()">6. Cognition发布SWE-2编程模型</span>
+    <span class="sidebar-link" onclick="scrollToStory('7'); toggleSidebar()">7. 杭州联合智谱推出杭州全城Coding计划</span>
+  </div>
+  <div class="sidebar-cat">
+    <div class="sidebar-cat-name">模型发布</div>
+    <span class="sidebar-link" onclick="scrollToStory('8'); toggleSidebar()">8. 高德推出ABot-Earth 0.7，10分钟可生成公里级3D城市</span>
+    <span class="sidebar-link" onclick="scrollToStory('9'); toggleSidebar()">9. Cohere 发布开源翻译模型 North Small Transla</span>
+    <span class="sidebar-link" onclick="scrollToStory('10'); toggleSidebar()">10. GPT-Live-1 登陆 OpenAI API，支持边听边说与推理委</span>
+  </div>
+  <div class="sidebar-cat">
+    <div class="sidebar-cat-name">开发生态</div>
+    <span class="sidebar-link" onclick="scrollToStory('11'); toggleSidebar()">11. OpenAI 推出 Agents API 公测版，托管云端 Agent</span>
+    <span class="sidebar-link" onclick="scrollToStory('12'); toggleSidebar()">12. Codex 上线官方 Unity 插件</span>
+    <span class="sidebar-link" onclick="scrollToStory('13'); toggleSidebar()">13. Cursor 推出 Projects，以协调 Agent 委派 sub</span>
+    <span class="sidebar-link" onclick="scrollToStory('14'); toggleSidebar()">14. Claude Code 桌面应用支持将任意面板弹出为独立窗口</span>
+    <span class="sidebar-link" onclick="scrollToStory('15'); toggleSidebar()">15. TraeCode 9 月上线模型限时折扣，Seed 系列限时一折</span>
+    <span class="sidebar-link" onclick="scrollToStory('16'); toggleSidebar()">16. Gemini API 文档首个预览版直接上线 AI Studio</span>
+    <span class="sidebar-link" onclick="scrollToStory('17'); toggleSidebar()">17. Nebius 推出免费 AI Builder Program，提供超 </span>
+    <span class="sidebar-link" onclick="scrollToStory('18'); toggleSidebar()">18. Arena 限时免费开放 GPT-Image-2.5 Sunburst</span>
+  </div>
+  <div class="sidebar-cat">
+    <div class="sidebar-cat-name">产品应用</div>
+    <span class="sidebar-link" onclick="scrollToStory('19'); toggleSidebar()">19. Google 推出 Windows 版 Gemini 桌面应用</span>
+    <span class="sidebar-link" onclick="scrollToStory('20'); toggleSidebar()">20. OpenAI 在 ChatGPT Work 推出 Data agent</span>
+    <span class="sidebar-link" onclick="scrollToStory('21'); toggleSidebar()">21. ChatGPT 面向美国 Plus 和 Pro 用户推出股票自选清单功</span>
+    <span class="sidebar-link" onclick="scrollToStory('22'); toggleSidebar()">22. ChatGPT Library 原生接入 Dropbox、Box 和 </span>
+    <span class="sidebar-link" onclick="scrollToStory('23'); toggleSidebar()">23. OpenAI 推出 ChatGPT for Financial Ser</span>
+    <span class="sidebar-link" onclick="scrollToStory('24'); toggleSidebar()">24. Google Labs 向全美用户免费开放 Dreambeans</span>
+    <span class="sidebar-link" onclick="scrollToStory('25'); toggleSidebar()">25. 千问教师节上线智能组卷、教案生成助手等多个教学AI技能</span>
+  </div>
+  <div class="sidebar-cat">
+    <div class="sidebar-cat-name">技术与洞察</div>
+    <span class="sidebar-link" onclick="scrollToStory('26'); toggleSidebar()">26. Cursor 推出 CursorBench 4.0：整体难度提升</span>
+    <span class="sidebar-link" onclick="scrollToStory('27'); toggleSidebar()">27. Anthropic测试AI情报定位与武器开发能力</span>
+  </div>
+  <div class="sidebar-cat">
+    <div class="sidebar-cat-name">行业动态</div>
+    <span class="sidebar-link" onclick="scrollToStory('28'); toggleSidebar()">28. Kimi 启动企业合作伙伴计划</span>
+    <span class="sidebar-link" onclick="scrollToStory('29'); toggleSidebar()">29. ElevenLabs 与 Universal Music Group </span>
+  </div>
+  <div class="sidebar-cat">
+    <div class="sidebar-cat-name">前瞻与传闻</div>
+    <span class="sidebar-link" onclick="scrollToStory('30'); toggleSidebar()">30. 消息称OpenAI在另一道千禧年大奖难题取得实质性进展</span>
+  </div>
+</nav>
+
+<!-- MASTHEAD -->
+<header class="masthead">
+  <div class="masthead-inner">
+    <div class="masthead-brand">
+      <div class="masthead-title">Tech<span class="accent">Daily</span></div>
+      <div class="masthead-sub">— 每日科技快报</div>
+    </div>
+    <div class="masthead-nav">
+      <a href="/archive.html" class="masthead-nav-link archive-link">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="3" cy="3" r="1.5"/><circle cx="3" cy="8" r="1.5"/><circle cx="3" cy="13" r="1.5"/><path d="M7 4h6M7 9h6M7 14h6" stroke-linecap="round"/></svg>
+        <span>往期回顾</span>
+      </a>
+    </div>
+    <div class="masthead-date">2026年9月11日<br><span style="font-family:var(--font-serif);font-style:italic">星期五</span></div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <img class="hero-cover" src="https://assets.juya.uk/imagehub/20260911/202609110918359313466116_cover_c629.png" alt="今日封面" loading="eager">
+  <div class="hero-bar">
+    <span class="hero-issue">第 20260911 期 · 2026年9月11日</span>
+  </div>
+</section>
+
+<!-- CATEGORY PILLS -->
+<div class="cat-nav">
+<span class="cat-pill active" onclick="scrollToStory('1')">要闻</span>
+<span class="cat-pill" onclick="scrollToStory('8')">模型发布</span>
+<span class="cat-pill" onclick="scrollToStory('11')">开发生态</span>
+<span class="cat-pill" onclick="scrollToStory('19')">产品应用</span>
+<span class="cat-pill" onclick="scrollToStory('26')">技术与洞察</span>
+<span class="cat-pill" onclick="scrollToStory('28')">行业动态</span>
+<span class="cat-pill" onclick="scrollToStory('30')">前瞻与传闻</span>
+</div>
+
+<!-- TODAY'S BRIEF -->
+<section class="brief-section" id="brief">
+  <div class="brief-header">
+    <div class="brief-title">今日精要</div>
+  </div>
+  <div class="audio-player" id="audioPlayer">
+    <button class="audio-play-btn" id="playBtn" onclick="togglePlay()">
+      <svg viewBox="0 0 24 24" id="playIcon"><polygon points="5,3 19,12 5,21"/></svg>
+      <svg viewBox="0 0 24 24" id="pauseIcon" style="display:none"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+    </button>
+    <div class="audio-info">
+      <div class="audio-label">🎙 今日精要播报</div>
+      <div class="audio-desc">1-2分钟速览今日 AI 要闻</div>
+    </div>
+    <div class="audio-progress-wrap">
+      <div class="audio-track"><div class="audio-fill" id="progressFill"></div></div>
+      <span class="audio-time" id="audioTime">0:00</span>
+    </div>
+  </div>
+  <div class="brief-grid">
+    <div class="brief-item" onclick="scrollToStory('1')">
+      <div class="brief-head">
+        <span class="brief-num">01</span>
+        <span class="brief-cat">要闻</span>
+      </div>
+      <h3 class="brief-title">OpenAI 宣布暂停 ChatGPT Pro 20x 新订阅</h3>
+    </div>
+    <div class="brief-item" onclick="scrollToStory('2')">
+      <div class="brief-head">
+        <span class="brief-num">02</span>
+        <span class="brief-cat">要闻</span>
+      </div>
+      <h3 class="brief-title">深度求索发布并开源 DeepSeek V4.1 Flash</h3>
+    </div>
+    <div class="brief-item" onclick="scrollToStory('3')">
+      <div class="brief-head">
+        <span class="brief-num">03</span>
+        <span class="brief-cat">要闻</span>
+      </div>
+      <h3 class="brief-title">DeepSeek Harness 发布 v0.1.5</h3>
+    </div>
+    <div class="brief-item" onclick="scrollToStory('4')">
+      <div class="brief-head">
+        <span class="brief-num">04</span>
+        <span class="brief-cat">要闻</span>
+      </div>
+      <h3 class="brief-title">DeepSeek App 与网页端三种模式合并升级</h3>
+    </div>
+    <div class="brief-item" onclick="scrollToStory('5')">
+      <div class="brief-head">
+        <span class="brief-num">05</span>
+        <span class="brief-cat">要闻</span>
+      </div>
+      <h3 class="brief-title">DeepSeek开源三个代码仓库</h3>
+    </div>
+    <div class="brief-item" onclick="scrollToStory('6')">
+      <div class="brief-head">
+        <span class="brief-num">06</span>
+        <span class="brief-cat">要闻</span>
+      </div>
+      <h3 class="brief-title">Cognition发布SWE-2编程模型</h3>
+    </div>
+    <div class="brief-item" onclick="scrollToStory('7')">
+      <div class="brief-head">
+        <span class="brief-num">07</span>
+        <span class="brief-cat">要闻</span>
+      </div>
+      <h3 class="brief-title">杭州联合智谱推出杭州全城Coding计划</h3>
+    </div>
+    <div class="brief-item" onclick="scrollToStory('8')">
+      <div class="brief-head">
+        <span class="brief-num">08</span>
+        <span class="brief-cat">模型发布</span>
+      </div>
+      <h3 class="brief-title">高德推出ABot-Earth 0.7，10分钟可生成公里级3D城市</h3>
+    </div>
+    <div class="brief-item" onclick="scrollToStory('9')">
+      <div class="brief-head">
+        <span class="brief-num">09</span>
+        <span class="brief-cat">模型发布</span>
+      </div>
+      <h3 class="brief-title">Cohere 发布开源翻译模型 North Small Translate</h3>
+    </div>
+    <div class="brief-item" onclick="scrollToStory('10')">
+      <div class="brief-head">
+        <span class="brief-num">10</span>
+        <span class="brief-cat">模型发布</span>
+      </div>
+      <h3 class="brief-title">GPT-Live-1 登陆 OpenAI API，支持边听边说与推理委托</h3>
+    </div>
+    <div class="brief-item" onclick="scrollToStory('11')">
+      <div class="brief-head">
+        <span class="brief-num">11</span>
+        <span class="brief-cat">开发生态</span>
+      </div>
+      <h3 class="brief-title">OpenAI 推出 Agents API 公测版，托管云端 Agent</h3>
+    </div>
+    <div class="brief-item" onclick="scrollToStory('12')">
+      <div class="brief-head">
+        <span class="brief-num">12</span>
+        <span class="brief-cat">开发生态</span>
+      </div>
+      <h3 class="brief-title">Codex 上线官方 Unity 插件</h3>
+    </div>
+    <div class="brief-item" onclick="scrollToStory('13')">
+      <div class="brief-head">
+        <span class="brief-num">13</span>
+        <span class="brief-cat">开发生态</span>
+      </div>
+      <h3 class="brief-title">Cursor 推出 Projects，以协调 Agent 委派 subagent 承接大型工作</h3>
+    </div>
+    <div class="brief-item" onclick="scrollToStory('14')">
+      <div class="brief-head">
+        <span class="brief-num">14</span>
+        <span class="brief-cat">开发生态</span>
+      </div>
+      <h3 class="brief-title">Claude Code 桌面应用支持将任意面板弹出为独立窗口</h3>
+    </div>
+    <div class="brief-item" onclick="scrollToStory('15')">
+      <div class="brief-head">
+        <span class="brief-num">15</span>
+        <span class="brief-cat">开发生态</span>
+      </div>
+      <h3 class="brief-title">TraeCode 9 月上线模型限时折扣，Seed 系列限时一折</h3>
+    </div>
+    <div class="brief-item" onclick="scrollToStory('16')">
+      <div class="brief-head">
+        <span class="brief-num">16</span>
+        <span class="brief-cat">开发生态</span>
+      </div>
+      <h3 class="brief-title">Gemini API 文档首个预览版直接上线 AI Studio</h3>
+    </div>
+    <div class="brief-item" onclick="scrollToStory('17')">
+      <div class="brief-head">
+        <span class="brief-num">17</span>
+        <span class="brief-cat">开发生态</span>
+      </div>
+      <h3 class="brief-title">Nebius 推出免费 AI Builder Program，提供超 400 美元额度与折扣</h3>
+    </div>
+    <div class="brief-item" onclick="scrollToStory('18')">
+      <div class="brief-head">
+        <span class="brief-num">18</span>
+        <span class="brief-cat">开发生态</span>
+      </div>
+      <h3 class="brief-title">Arena 限时免费开放 GPT-Image-2.5 Sunburst</h3>
+    </div>
+    <div class="brief-item" onclick="scrollToStory('19')">
+      <div class="brief-head">
+        <span class="brief-num">19</span>
+        <span class="brief-cat">产品应用</span>
+      </div>
+      <h3 class="brief-title">Google 推出 Windows 版 Gemini 桌面应用</h3>
+    </div>
+    <div class="brief-item" onclick="scrollToStory('20')">
+      <div class="brief-head">
+        <span class="brief-num">20</span>
+        <span class="brief-cat">产品应用</span>
+      </div>
+      <h3 class="brief-title">OpenAI 在 ChatGPT Work 推出 Data agent</h3>
+    </div>
+    <div class="brief-item" onclick="scrollToStory('21')">
+      <div class="brief-head">
+        <span class="brief-num">21</span>
+        <span class="brief-cat">产品应用</span>
+      </div>
+      <h3 class="brief-title">ChatGPT 面向美国 Plus 和 Pro 用户推出股票自选清单功能</h3>
+    </div>
+    <div class="brief-item" onclick="scrollToStory('22')">
+      <div class="brief-head">
+        <span class="brief-num">22</span>
+        <span class="brief-cat">产品应用</span>
+      </div>
+      <h3 class="brief-title">ChatGPT Library 原生接入 Dropbox、Box 和 Sharepoint</h3>
+    </div>
+    <div class="brief-item" onclick="scrollToStory('23')">
+      <div class="brief-head">
+        <span class="brief-num">23</span>
+        <span class="brief-cat">产品应用</span>
+      </div>
+      <h3 class="brief-title">OpenAI 推出 ChatGPT for Financial Services</h3>
+    </div>
+    <div class="brief-item" onclick="scrollToStory('24')">
+      <div class="brief-head">
+        <span class="brief-num">24</span>
+        <span class="brief-cat">产品应用</span>
+      </div>
+      <h3 class="brief-title">Google Labs 向全美用户免费开放 Dreambeans</h3>
+    </div>
+    <div class="brief-item" onclick="scrollToStory('25')">
+      <div class="brief-head">
+        <span class="brief-num">25</span>
+        <span class="brief-cat">产品应用</span>
+      </div>
+      <h3 class="brief-title">千问教师节上线智能组卷、教案生成助手等多个教学AI技能</h3>
+    </div>
+    <div class="brief-item" onclick="scrollToStory('26')">
+      <div class="brief-head">
+        <span class="brief-num">26</span>
+        <span class="brief-cat">技术与洞察</span>
+      </div>
+      <h3 class="brief-title">Cursor 推出 CursorBench 4.0：整体难度提升</h3>
+    </div>
+    <div class="brief-item" onclick="scrollToStory('27')">
+      <div class="brief-head">
+        <span class="brief-num">27</span>
+        <span class="brief-cat">技术与洞察</span>
+      </div>
+      <h3 class="brief-title">Anthropic测试AI情报定位与武器开发能力</h3>
+    </div>
+    <div class="brief-item" onclick="scrollToStory('28')">
+      <div class="brief-head">
+        <span class="brief-num">28</span>
+        <span class="brief-cat">行业动态</span>
+      </div>
+      <h3 class="brief-title">Kimi 启动企业合作伙伴计划</h3>
+    </div>
+    <div class="brief-item" onclick="scrollToStory('29')">
+      <div class="brief-head">
+        <span class="brief-num">29</span>
+        <span class="brief-cat">行业动态</span>
+      </div>
+      <h3 class="brief-title">ElevenLabs 与 Universal Music Group 达成多年期战略合作</h3>
+    </div>
+    <div class="brief-item" onclick="scrollToStory('30')">
+      <div class="brief-head">
+        <span class="brief-num">30</span>
+        <span class="brief-cat">前瞻与传闻</span>
+      </div>
+      <h3 class="brief-title">消息称OpenAI在另一道千禧年大奖难题取得实质性进展</h3>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION DIVIDER -->
+<div class="section-divider">
+  <div class="section-divider-inner">
+    <span class="section-label">详细报道</span>
+  </div>
+</div>
+
+<!-- STORIES -->
+<section class="stories" id="stories">
+<article class="story" id="story-1">
+  <div class="story-header">
+    <div class="story-num">1</div>
+    <div class="story-title-block">
+      <div class="story-categories"><span class="story-cat">要闻</span></div>
+      <h2 class="story-title"><a href="https://x.com/thsottiaux/status/2098113585683808624" target="_blank">OpenAI 宣布暂停 ChatGPT Pro 20x 新订阅</a></h2>
+    </div>
+  </div>
+  <div class="story-summary">Codex 负责人 Tibo 宣布暂停开放 200美元的Pro 新订阅，以保障现有的用户继续使用 Astra。他表示这类订阅对系统压力最大，而其他订阅方案和 API 仍可用，现有账户不受影响。另有用户观察确认，ChatGPT 网页端的 20x Pro 购买入口已显示暂停提示。</div>
+  <div class="story-images story-images--multiple"><img src="https://assets.juya.uk/imagehub/aidaily/c6295606-5a8c-4293-8cbe-4cf2f85b6cbf/4402da87-7292-45e5-8b56-4834e9220cc2/m001_f070359b.png" alt="配图" loading="lazy"><img src="https://assets.juya.uk/imagehub/aidaily/c6295606-5a8c-4293-8cbe-4cf2f85b6cbf/4402da87-7292-45e5-8b56-4834e9220cc2/m002_b924e453.png" alt="配图" loading="lazy"></div>
+  <div class="story-body"><p>Codex 负责人 Tibo 宣布，为确保现有用户获得良好体验并继续访问 Astra，将暂停 200 美元 Pro plan 的新订阅。他表示这类订阅对系统压力最大，团队希望以最小的一步维持尽可能广泛的访问。所有其他订阅方案和 API 仍保持可用，现有账户不受影响，团队正在尽快增加容量。另有用户观察到，ChatGPT 网页端的 Pro 购买入口已显示暂停提示，与这一调整相呼应。</p></div>
+</article>
+<article class="story" id="story-2">
+  <div class="story-header">
+    <div class="story-num">2</div>
+    <div class="story-title-block">
+      <div class="story-categories"><span class="story-cat">要闻</span></div>
+      <h2 class="story-title"><a href="https://mp.weixin.qq.com/s/qg0NU3NNUbp1co2PdkAPAg" target="_blank">深度求索发布并开源 DeepSeek V4.1 Flash</a></h2>
+    </div>
+  </div>
+  <div class="story-summary">DeepSeek 发布并开源原生多模态MoE模型DeepSeek V4.1 Flash。该模型总参数552B，采用Causal Encoder-Decoder结构，输入激活8B、输出激活16B，同时大幅优化KV Cache 对HBM和SSD需求。官方称其各项指标全面超越V4 Pro并计划于 9 月 14 日 12:00 之后下线 V4 Pro，API已同步全面上线取代旧版Flash模型，同时新版 API 定价已生效，仍采用峰谷定价。</div>
+  <div class="story-images story-images--multiple"><img src="https://assets.juya.uk/imagehub/aidaily/c6295606-5a8c-4293-8cbe-4cf2f85b6cbf/9a84c8e6-ee38-4fec-a645-eb2f6fac4f80/m001_e36b5b62.png" alt="配图" loading="lazy"><img src="https://assets.juya.uk/imagehub/aidaily/c6295606-5a8c-4293-8cbe-4cf2f85b6cbf/9a84c8e6-ee38-4fec-a645-eb2f6fac4f80/m002_54ba73dd.png" alt="配图" loading="lazy"><img src="https://assets.juya.uk/imagehub/aidaily/c6295606-5a8c-4293-8cbe-4cf2f85b6cbf/9a84c8e6-ee38-4fec-a645-eb2f6fac4f80/m003_0eff9de9.png" alt="配图" loading="lazy"></div>
+  <div class="story-body"><p>深度求索正式发布并开源DeepSeek V4.1 Flash，同步上线API并下调定价。该模型为552B参数的原生多模态MoE模型，支持100万token上下文，采用Causal Encoder Decoder结构，预填充每token激活8B参数，解码激活16B。</p>
+<p>架构上，模型重点优化KV Cache，采用CSA2等机制将全局KV Cache压缩至每token 890字节，对HBM和SSD需求分别降至上一代的1/4和1/8。训练基于45T多模态语料从头预训练并扩展上下文，支持1到100整数级连续可控推理强度。</p>
+<p>官方称经多方测试，V4.1 Flash在性能、费用、速度、总用时上全面超越V4 Pro，计划有序下线V4 Pro：北京时间2026年9月14日12:00后至V4.1 Pro上线前，V4 Pro请求将路由至V4.1 Flash并按其单价计费。旧模型V4 Flash与V4 Flash Vision Exp现已下线，原模型名暂路由至V4.1 Flash。</p>
+<p>API新定价已生效，仍采用峰谷定价，闲时价格为高峰时段一半。模型在Hugging Face以MIT协议开源。</p></div>
+</article>
+<article class="story" id="story-3">
+  <div class="story-header">
+    <div class="story-num">3</div>
+    <div class="story-title-block">
+      <div class="story-categories"><span class="story-cat">要闻</span></div>
+      <h2 class="story-title"><a href="https://github.com/deepseek-ai/deepseek-harness/releases/tag/dsh-v0.1.5-rc.1" target="_blank">DeepSeek Harness 发布 v0.1.5</a></h2>
+    </div>
+  </div>
+  <div class="story-summary">DeepSeek Harness发布v0.1.5，新增DeepSeek V4.1 Flash模型适配，新会话默认使用该模型，支持保留KV Cache更新该模型系统提示词。并新增 <span class="tech-term" onclick="openModal('Agent')">Agent</span> Teams 等功能。</div>
+  <div class="story-images"><img src="https://assets.juya.uk/imagehub/aidaily/c6295606-5a8c-4293-8cbe-4cf2f85b6cbf/4ae276b1-48aa-4293-a365-c0abc216e55c/m001_739a3362.png" alt="配图" loading="lazy"></div>
+  <div class="story-body"><p>DeepSeek Harness 现已发布 v0.1.5 版本，该版本与 DeepSeek V4.1 Flash 模型训练深度结合，适配覆盖标准模式、程序化工具调用（PTC）模式和极简模式，新增支持文本、图片及会话历史中的系统提示词更新。新会话默认使用该模型，配置文件显式指定模型时以配置值为准；在使用该模型时，DeepSeek Harness 新版本支持在保留已有 KV Cache 的情况下更新系统提示词。新版本还支持上传任意类型文件、右侧 Sidebar 多格式预览，在 Web 左右两侧建立标准化插件扩展入口，优化长会话性能与子 Agent 通信；还上线了实验性 Agent Teams 功能，使用会产生额外 Token 消耗。</p></div>
+</article>
+<article class="story" id="story-4">
+  <div class="story-header">
+    <div class="story-num">4</div>
+    <div class="story-title-block">
+      <div class="story-categories"><span class="story-cat">要闻</span></div>
+      <h2 class="story-title"><a href="https://linux.do/t/topic/2882869" target="_blank">DeepSeek App 与网页端三种模式合并升级</a></h2>
+    </div>
+  </div>
+  <div class="story-summary">DeepSeek App 与网页端已完成更新，将原有的三种模式合并升级，接入新发布的 DeepSeek V4.1 Flash 多模态模型，同时近期上线了未成年人模式和一键登出功能。</div>
+  <div class="story-images story-images--multiple"><img src="https://assets.juya.uk/imagehub/aidaily/c6295606-5a8c-4293-8cbe-4cf2f85b6cbf/9e61b688-8ad7-46e9-b946-a782fcc1a802/m001_5c25c463.png" alt="配图" loading="lazy"><img src="https://assets.juya.uk/imagehub/aidaily/c6295606-5a8c-4293-8cbe-4cf2f85b6cbf/9e61b688-8ad7-46e9-b946-a782fcc1a802/m002_acb26cb3.png" alt="配图" loading="lazy"></div>
+  <div class="story-body"><p>DeepSeek发布V4.1 Flash模型并更新DeepSeek App 与网页端。相关平台已将快速、专家、识图三种模式合并升级并接入该模型，同时上线未成年人模式和一键登出功能。</p></div>
+</article>
+<article class="story" id="story-5">
+  <div class="story-header">
+    <div class="story-num">5</div>
+    <div class="story-title-block">
+      <div class="story-categories"><span class="story-cat">要闻</span></div>
+      <h2 class="story-title"><a href="https://github.com/deepseek-ai/DeepSelect" target="_blank">DeepSeek开源三个代码仓库</a></h2>
+    </div>
+  </div>
+  <div class="story-summary">为方便部署 V4.1 Flash 及后续开源模型，DeepSeek 开源了 deepseek-recipe、DeepSelect、DeepJIT 三个代码仓库，分别用于 API 协议转换与提示词编解码，加速稀疏注意力和采样中的 TopK 算子，以及支持 CUDA/昇腾内核的 JIT 编译与缓存。</div>
+  <div class="story-images story-images--multiple"><img src="https://assets.juya.uk/imagehub/aidaily/c6295606-5a8c-4293-8cbe-4cf2f85b6cbf/cfe04dfc-6845-4d4e-81b6-b91919aeea00/m001_fc3df3a2.png" alt="配图" loading="lazy"><img src="https://assets.juya.uk/imagehub/aidaily/c6295606-5a8c-4293-8cbe-4cf2f85b6cbf/cfe04dfc-6845-4d4e-81b6-b91919aeea00/m002_f464b16f.png" alt="配图" loading="lazy"><img src="https://assets.juya.uk/imagehub/aidaily/c6295606-5a8c-4293-8cbe-4cf2f85b6cbf/cfe04dfc-6845-4d4e-81b6-b91919aeea00/m003_d738da67.png" alt="配图" loading="lazy"><img src="https://assets.juya.uk/imagehub/aidaily/c6295606-5a8c-4293-8cbe-4cf2f85b6cbf/cfe04dfc-6845-4d4e-81b6-b91919aeea00/m004_683aa915.png" alt="配图" loading="lazy"></div>
+  <div class="story-body"><p>DeepSeek 在 GitHub 开源三个代码仓库 deepseek-recipe、DeepSelect 和 DeepJIT，官方工作人员表示这批新仓库用于更容易地部署 V4.1 Flash 以及后续的开源模型。DeepSelect 是 DeepSeek Sparse Attention（DSA）和采样器所用 TopK 内核的高性能实现，官方称相比 torch.topk 提速 2 到 20 倍，已发布 v1.0.0。DeepJIT 是面向 NVIDIA CUDA GPU 和华为昇腾 NPU 的 header-only C++20 JIT 运行时，负责内核的运行时编译、缓存、加载与启动，deepseek-recipe 用于 API 协议转换与提示词编解码。</p></div>
+</article>
+<article class="story" id="story-6">
+  <div class="story-header">
+    <div class="story-num">6</div>
+    <div class="story-title-block">
+      <div class="story-categories"><span class="story-cat">要闻</span></div>
+      <h2 class="story-title"><a href="https://cognition.com/blog/swe-2" target="_blank">Cognition发布SWE-2编程模型</a></h2>
+    </div>
+  </div>
+  <div class="story-summary">Cognition 发布编程模型 SWE-2，该模型基于 Kimi K3 后训练，官方称其在主要评测上与前沿模型得分相当、成本最多低 70%。该模型现已上线 Devin Desktop 和 CLI，Pro、Max、Teams 订阅用户未来一个月内可免费使用。</div>
+  <div class="story-images story-images--multiple"><img src="https://assets.juya.uk/imagehub/aidaily/c6295606-5a8c-4293-8cbe-4cf2f85b6cbf/13588e03-a42d-4ccd-bb20-ba30f9332fbc/m001_5e01af0a.png" alt="配图" loading="lazy"><img src="https://assets.juya.uk/imagehub/aidaily/c6295606-5a8c-4293-8cbe-4cf2f85b6cbf/13588e03-a42d-4ccd-bb20-ba30f9332fbc/m002_f8c1db85.png" alt="配图" loading="lazy"></div>
+  <div class="story-body"><p>Cognition 发布编程模型 SWE-2，官方称这是其迄今最先进的编程模型，基于 2.8 万亿参数的 Kimi K3 后训练，现已在 Devin Desktop 和 CLI 上线，并正在 Devin Web 和 Fusion 上逐步推出。根据官方数据，SWE-2 在 FrontierCode 1.1 Main 得分 50.0%，与 Fable 5.1 差距在一分以内而成本低 64%，官方称其在主要评测上以最多低 70% 的成本达到与近期前沿模型相当的水平。训练方面，Cognition 称首次将 RL 扩展到多万亿参数规模，新增算法可在单次 RL 运行中训练 medium、high、max 全部推理力度档位，这也是其首个支持力度档位的模型。可用性上，官方宣布 Pro、Max 和 Teams 订阅用户未来一个月内可免费使用。</p></div>
+</article>
+<article class="story" id="story-7">
+  <div class="story-header">
+    <div class="story-num">7</div>
+    <div class="story-title-block">
+      <div class="story-categories"><span class="story-cat">要闻</span></div>
+      <h2 class="story-title"><a href="https://docs.bigmodel.cn/cn/coding-plan/hangzhou-rules" target="_blank">杭州联合智谱推出杭州全城Coding计划</a></h2>
+    </div>
+  </div>
+  <div class="story-summary">杭州联合智谱推出杭州全城Coding计划，在杭个人和企业用户可享政府补贴，购买Coding套餐最高可享55%综合补贴。活动自9月10日开始，个人用户每人限享1次，企业用户单家补贴上限为100万元。</div>
+  <div class="story-images story-images--multiple"><img src="https://assets.juya.uk/imagehub/aidaily/c6295606-5a8c-4293-8cbe-4cf2f85b6cbf/c787f581-7ba0-492d-a6ce-c4ac28204f73/m001_88532b62.png" alt="配图" loading="lazy"><img src="https://assets.juya.uk/imagehub/aidaily/c6295606-5a8c-4293-8cbe-4cf2f85b6cbf/c787f581-7ba0-492d-a6ce-c4ac28204f73/m002_1e1e58f5.png" alt="配图" loading="lazy"></div>
+  <div class="story-body"><p>杭州联合智谱推出杭州全城Coding计划，为在杭个人和企业用户提供补贴购买Coding套餐，活动自9月10日开始。个人方面，在杭工作人员及高校在校生可申请，购买季卡享44%综合补贴、年卡享51%综合补贴，每人限享1次且二选一。企业方面，上城区企业购买年卡享55%综合补贴，单家补贴上限原则上100万元，仅支持年度付费，适用未购团队套餐企业及已购企业新增席位。申请需在BigModel平台实名认证并提交表单，个人需提供杭州社保证明或学籍验证。平台承诺证明材料仅用于资格核验，审核后最短期限内删除或匿名化处理。</p></div>
+</article>
+<article class="story" id="story-8">
+  <div class="story-header">
+    <div class="story-num">8</div>
+    <div class="story-title-block">
+      <div class="story-categories"><span class="story-cat">模型发布</span></div>
+      <h2 class="story-title">高德推出ABot-Earth 0.7，10分钟可生成公里级3D城市</h2>
+    </div>
+  </div>
+  <div class="story-summary">高德推出3D原生城市世界模型ABot-Earth 0.7，官方称消费级GPU约10分钟即可生成公里级3D城市，并已用于飞行街景2.0、导航Live等服务。</div>
+  
+  <div class="story-body"><p>高德正式推出新一代3D原生城市世界模型ABot-Earth 0.7，并将这套世界模型用于飞行街景2.0、导航Live、避雷指南等AI服务。模型只需一张卫星图像或一段文字描述即可生成三维城市场景，按照高德公布的数据，在单块消费级GPU上约10分钟可生成公里级3D城市场景，生成效率相比传统方式提升1000倍，并支持从星球、城市到街景地标的连续生成。</p></div>
+</article>
+<article class="story" id="story-9">
+  <div class="story-header">
+    <div class="story-num">9</div>
+    <div class="story-title-block">
+      <div class="story-categories"><span class="story-cat">模型发布</span></div>
+      <h2 class="story-title"><a href="https://x.com/cohere/status/2098081558087270736" target="_blank">Cohere 发布开源翻译模型 North Small Translate</a></h2>
+    </div>
+  </div>
+  <div class="story-summary">Cohere 发布开源机器翻译模型 North Small Translate，官方称其在 WMT 基准超过 DeepL 与 Google Translate。模型<span class="tech-term" onclick="openModal('权重')">权重</span>已上架 Hugging Face，采用非商业许可。</div>
+  <div class="story-images"><img src="https://assets.juya.uk/imagehub/aidaily/c6295606-5a8c-4293-8cbe-4cf2f85b6cbf/4b5b9964-ae9e-40c8-bbb9-405e8d60bbde/m001_9aeec536.png" alt="配图" loading="lazy"></div>
+  <div class="story-body"><p>Cohere 与 Cohere Labs 发布开源权重机器翻译模型 North Small Translate，版本号 North-Small-Translate-1.0，权重已上线 Hugging Face。该模型为稀疏 Mixture-of-Experts 架构，250 亿激活参数、2180 亿总参数，覆盖 50 种语言，上下文为 16K 输入加 16K 输出。官方数据显示，其在 WMT 基准全部语言平均分为 83.6，超过 DeepL、Google Translate 以及 GLM 5.2、Mistral Large 3 等开源模型。模型采用 CC BY-NC 4.0 非商业许可并需遵守 Cohere Labs 使用政策，商用需联系 Cohere 销售团队。官方提供 BF16、FP8 和 NVFP4 W4A16 三种量化版本。</p></div>
+</article>
+<article class="story" id="story-10">
+  <div class="story-header">
+    <div class="story-num">10</div>
+    <div class="story-title-block">
+      <div class="story-categories"><span class="story-cat">模型发布</span></div>
+      <h2 class="story-title"><a href="https://openai.com/index/introducing-gpt-live-1-in-the-api/" target="_blank">GPT-Live-1 登陆 OpenAI API，支持边听边说与推理委托</a></h2>
+    </div>
+  </div>
+  <div class="story-summary"><span class="tech-term" onclick="openModal('OpenAI')">OpenAI</span>宣布GPT-Live-1登陆API，该模型能边听边说并支持即时打断，深度推理与工具调用可委托给后端模型处理。开发者能通过system prompt定制语气风格，模型原生提供ASR转写，支持部署全双工语音<span class="tech-term" onclick="openModal('Agent')">Agent</span>。</div>
+  <div class="story-images"><img src="https://assets.juya.uk/imagehub/aidaily/c6295606-5a8c-4293-8cbe-4cf2f85b6cbf/e9b1b416-ce29-4a63-a133-447c5c3c7c2f/m001_f94d84ac.png" alt="配图" loading="lazy"></div>
+  <div class="story-body"><p>OpenAI 宣布 GPT-Live-1 现已在 API 中开放，为开发者提供构建语音应用和业务流程的自然语音模型。GPT-Live-1 此前率先在 ChatGPT 中推出，以单一模型同时处理倾听和说话，可在用户打断、补充细节或中途改变方向时即时响应，并将深度推理和工具调用委托给 GPT-6 Astra 等后端文本模型或第三方模型。开发者可通过 system prompt 调整语气、语速和会话风格，模型能更好处理背景噪声和静音，原生提供 ASR 转写文本，并支持在电话场景部署全双工语音 Agent。</p></div>
+</article>
+<article class="story" id="story-11">
+  <div class="story-header">
+    <div class="story-num">11</div>
+    <div class="story-title-block">
+      <div class="story-categories"><span class="story-cat">开发生态</span></div>
+      <h2 class="story-title"><a href="https://openai.com/index/introducing-the-agents-api/" target="_blank">OpenAI 推出 Agents API 公测版，托管云端 Agent</a></h2>
+    </div>
+  </div>
+  <div class="story-summary"><span class="tech-term" onclick="openModal('OpenAI')">OpenAI</span>推出<span class="tech-term" onclick="openModal('Agent')">Agent</span>s API公测版，用开源的Codex harness驱动，帮开发者构建并运行云端<span class="tech-term" onclick="openModal('Agent')">Agent</span>。<span class="tech-term" onclick="openModal('OpenAI')">OpenAI</span>负责托管运行agent loop，处理模型调用、上下文管理与编排。该API免收额外费用，仅需为消耗的token和工具付费。</div>
+  <div class="story-images"><img src="https://assets.juya.uk/imagehub/aidaily/c6295606-5a8c-4293-8cbe-4cf2f85b6cbf/530de0d7-9868-44d2-b740-57239b35170e/m001_c1e3449d.png" alt="配图" loading="lazy"></div>
+  <div class="story-body"><p>OpenAI 推出 Agents API 公开测试版，将驱动 Codex 的同一 harness 和基础设施通过 API 提供给开发者，用于构建和运行云端 Agent。开发者通过单次 API 调用指定任务、模型、工具和运行环境，即可创建可用于生产的 Agent，由 OpenAI 在自身基础设施上运行 agent loop，负责模型调用、工具使用、上下文管理和长时间会话的编排。运行环境可选择 OpenAI 托管沙箱、自带基础设施，或接入 Cloudflare、DigitalOcean、Vercel 等合作伙伴提供的沙箱。Agents API 由开源的 Codex harness 驱动，现已面向所有开发者开放，使用本身不收额外费用，只需为 Agent 消耗的 token 和工具付费。</p></div>
+</article>
+<article class="story" id="story-12">
+  <div class="story-header">
+    <div class="story-num">12</div>
+    <div class="story-title-block">
+      <div class="story-categories"><span class="story-cat">开发生态</span></div>
+      <h2 class="story-title"><a href="https://chatgpt.com/plugins/plugins_6aa1c02597c081918e358d72f65bd772" target="_blank">Codex 上线官方 Unity 插件</a></h2>
+    </div>
+  </div>
+  <div class="story-summary">Codex上线Unity插件，内置技能由Unity工程师编写，覆盖项目设置、渲染、物理与AI导航等领域，目前已可在ChatGPT插件页面获取。</div>
+  <div class="story-images"><img src="https://assets.juya.uk/imagehub/aidaily/c6295606-5a8c-4293-8cbe-4cf2f85b6cbf/d11c5d89-e409-4ee7-9d17-daa46bd178db/m001_6df9d156.png" alt="配图" loading="lazy"></div>
+  <div class="story-body"><p>Codex 推出 Unity 插件，目前已在 ChatGPT 插件页面上线。据 Codex 官方工作人员介绍，这是 Unity 官方的 Codex 插件，技能由 Unity 自家工程师提供，覆盖项目设置、包管理与编辑器实时控制、UI、精灵、瓦片地图与文本、着色器、渲染与后处理、物理与 AI 导航、音频、多人游戏与语音聊天、本地化与 Web 性能等多个领域。用户现在即可通过 ChatGPT 插件页面获取该插件。</p></div>
+</article>
+<article class="story" id="story-13">
+  <div class="story-header">
+    <div class="story-num">13</div>
+    <div class="story-title-block">
+      <div class="story-categories"><span class="story-cat">开发生态</span></div>
+      <h2 class="story-title"><a href="https://cursor.com/blog/projects" target="_blank">Cursor 推出 Projects，以协调 Agent 委派 subagent 承接大型工作</a></h2>
+    </div>
+  </div>
+  <div class="story-summary">Cursor推出Projects功能。用户在单一持久会话中与协调<span class="tech-term" onclick="openModal('Agent')">Agent</span>交流，由它向写代码的subagent委派任务，该协调<span class="tech-term" onclick="openModal('Agent')">Agent</span>自身不写代码且永不被阻塞。</div>
+  <div class="story-images"><img src="https://assets.juya.uk/imagehub/aidaily/c6295606-5a8c-4293-8cbe-4cf2f85b6cbf/da4b40a1-5598-4eb3-bf12-a3118bc5b8da/m001_c5959eb1.png" alt="配图" loading="lazy"></div>
+  <div class="story-body"><p>Cursor 宣布推出 Projects功能，改变以往为每个任务创建 chat 的方式，用户改为与一个协调 Agent 在单一持久会话中工作。协调 Agent 自身不写代码，负责向写代码的 subagent 委派任务，可在长达数月的工作中维持上下文，还能设置提醒、按计划运行、跟进 PR 修复 CI、监听 Slack。Projects 默认在云端运行，合上笔记本不会中断，需要本地测试时协调 Agent 会启动本地 Agent；项目内 Agent 共享记忆与产出文件，并在云端与本地机器之间同步。该功能已进入 beta，即日起逐步向所有用户开放，用户可在左侧导航栏新建 Project。</p></div>
+</article>
+<article class="story" id="story-14">
+  <div class="story-header">
+    <div class="story-num">14</div>
+    <div class="story-title-block">
+      <div class="story-categories"><span class="story-cat">开发生态</span></div>
+      <h2 class="story-title"><a href="https://x.com/ClaudeDevs/status/2098090911137972271" target="_blank">Claude Code 桌面应用支持将任意面板弹出为独立窗口</a></h2>
+    </div>
+  </div>
+  <div class="story-summary">Claude Code 桌面应用可将任意面板弹出为独立窗口。diff 或终端拖到第二屏幕后，Claude 仍会在主窗口继续工作。</div>
+  
+  <div class="story-body"><p>Anthropic 开发者账号 ClaudeDevs 介绍，Claude Code 桌面应用现已支持将任意面板弹出为独立窗口。用户可把 diff 面板或终端面板拖到第二块屏幕上查看，Claude 在主窗口继续工作，面板也能随时停靠回原位。应用同时支持多个会话并排或堆叠运行。</p></div>
+</article>
+<article class="story" id="story-15">
+  <div class="story-header">
+    <div class="story-num">15</div>
+    <div class="story-title-block">
+      <div class="story-categories"><span class="story-cat">开发生态</span></div>
+      <h2 class="story-title"><a href="https://mp.weixin.qq.com/s/CoPhdIfDADQ6v3aXWOv4nA" target="_blank">TraeCode 9 月上线模型限时折扣，Seed 系列限时一折</a></h2>
+    </div>
+  </div>
+  <div class="story-summary">TraeCode 推出9月模型限时折扣，Seed-Evolving 和 Seed-2.1-Pro 面向全量用户限时一折。同时 Seed-2.1-Turbo 与 Seed-Code 面向免费用户提供 5 折优惠。</div>
+  <div class="story-images"><img src="https://assets.juya.uk/imagehub/aidaily/c6295606-5a8c-4293-8cbe-4cf2f85b6cbf/ec4da61f-cd94-47f2-a40b-4a54d2a7d165/m001_e251cc19.png" alt="配图" loading="lazy"></div>
+  <div class="story-body"><p>TraeCode推出 9月模型限时折扣，系统将据用户身份、模型类型和时段自动匹配折扣，无需领取或手动配置。具体优惠分三部分：一、Seed-Evolving与Seed-2.1-Pro面向全量用户限时一折，为期两周（即日起至2026年9月24日23:59），前者聚焦Coding与Agent多步骤任务，后者适合长上下文与复杂工程；二、Seed-2.1-Turbo与Seed-Code在会员2.5折基础上，面向免费用户提供5折，适合日常编码及快速修复等高频任务；三、DeepSeek V4-Pro与V4-Flash正式版增加夜间折扣，全量用户每晚22:00至08:00享5折，其中V4-Flash付费用户全时段5折。</p></div>
+</article>
+<article class="story" id="story-16">
+  <div class="story-header">
+    <div class="story-num">16</div>
+    <div class="story-title-block">
+      <div class="story-categories"><span class="story-cat">开发生态</span></div>
+      <h2 class="story-title"><a href="https://ai.studio/docs" target="_blank">Gemini API 文档首个预览版直接上线 AI Studio</a></h2>
+    </div>
+  </div>
+  <div class="story-summary">Google AI Studio 官方宣布，<span class="tech-term" onclick="openModal('Gemini')">Gemini</span> API 文档的首个预览版已直接集成进 AI Studio，开发者可以在 ai.studio/docs 查看。</div>
+  
+  <div class="story-body"><p>Google AI Studio 官方宣布，Gemini API 文档的首个预览版已直接集成进 AI Studio，开发者可通过 ai.studio/docs 查看。Logan Kilpatrick 称这是面向人类和 Agent 的完整集成文档体验，他为此期待了两年半，并表示这只是未来更彻底重构体验的第一步。Philipp Schmid 提到，在任何文档 URL 后附加 .md 可获取 markdown 版本，官方还提供 Docs MCP（npx add-mcp 添加）和 Agent Skills（npx skills add google-gemini/gemini-skills 添加）。</p></div>
+</article>
+<article class="story" id="story-17">
+  <div class="story-header">
+    <div class="story-num">17</div>
+    <div class="story-title-block">
+      <div class="story-categories"><span class="story-cat">开发生态</span></div>
+      <h2 class="story-title"><a href="https://dev.nebius.com/builders" target="_blank">Nebius 推出免费 AI Builder Program，提供超 400 美元额度与折扣</a></h2>
+    </div>
+  </div>
+  <div class="story-summary">Nebius 宣布免费的 Nebius AI Builder Program 上线，提供超过 400 美元的额度与折扣，NVIDIA、LangChain 等伙伴参与，开发者可免费加入。</div>
+  
+  <div class="story-body"><p>Nebius 正式推出免费的 Nebius AI Builder Program，目前面向开发者开放加入。官方称加入后可获得总额超过 400 美元的额度与折扣，具体包括 25 美元 Token Factory 推理额度、25 美元 Tavily 搜索额度、100 美元 LangSmith 观测额度、100 美元 Toloka 评估额度，开发者还可以 1 美元获得认证，并参加免费的 Agentic AI 实操课程。该计划联合 NVIDIA、LangChain、Hugging Face、Cognition、OpenHands、Tavily、Toloka、Composio、Prime Intellect、MiniMax 和阿里巴巴 Qwen 等伙伴，提供 cookbook、可运行示例、工程师 Office Hours 和 Discord 社区。</p></div>
+</article>
+<article class="story" id="story-18">
+  <div class="story-header">
+    <div class="story-num">18</div>
+    <div class="story-title-block">
+      <div class="story-categories"><span class="story-cat">开发生态</span></div>
+      <h2 class="story-title"><a href="https://x.com/arena/status/2098064001263706202" target="_blank">Arena 限时免费开放 GPT-Image-2.5 Sunburst</a></h2>
+    </div>
+  </div>
+  <div class="story-summary"><span class="tech-term" onclick="openModal('OpenAI')">OpenAI</span> 图像模型 GPT-Image-2.5 Sunburst 正在 Arena 限时 72 小时免费开放。免费期至北京时间 9 月 13 日 23 时结束，此后该模型仅在匿名模式下可用。</div>
+  <div class="story-images"><img src="https://assets.juya.uk/imagehub/aidaily/c6295606-5a8c-4293-8cbe-4cf2f85b6cbf/09820179-4df4-4839-9237-a7753f458dff/m001_1f4058c6.png" alt="配图" loading="lazy"></div>
+  <div class="story-body"><p>Arena 宣布 72 小时内用户可在平台 Direct Mode 中按名称直接选用 OpenAI 图像模型 GPT-Image-2.5 Sunburst，全程免费，该窗口目前仍在进行。Arena 称这款模型刚在 Text-to-Image、Image Edit 和 Multi-Image Edit 三个图像榜单排名第一。免费访问至太平洋时间 9 月 13 日上午 8 时（北京时间 9 月 13 日 23 时）结束，此后该模型将以匿名形式保留在 Battle 和 Agent Mode 中。</p></div>
+</article>
+<article class="story" id="story-19">
+  <div class="story-header">
+    <div class="story-num">19</div>
+    <div class="story-title-block">
+      <div class="story-categories"><span class="story-cat">产品应用</span></div>
+      <h2 class="story-title"><a href="https://blog.google/innovation-and-ai/products/gemini-app/gemini-app-now-on-windows/" target="_blank">Google 推出 Windows 版 Gemini 桌面应用</a></h2>
+    </div>
+  </div>
+  <div class="story-summary">Google 推出 Windows 版 <span class="tech-term" onclick="openModal('Gemini')">Gemini</span> 桌面应用，现已面向 Windows 10 和 11 用户上线。部分功能需订阅 Google AI。</div>
+  <div class="story-images"><img src="https://assets.juya.uk/imagehub/aidaily/c6295606-5a8c-4293-8cbe-4cf2f85b6cbf/edded31d-55e7-483e-95a6-4db0fd8b9f50/m001_a5305160.png" alt="配图" loading="lazy"></div>
+  <div class="story-body"><p>Google 正式上线 Windows 版 Gemini 桌面应用，面向全球 Windows 10 和 11 用户开放，可通过官网下载。用户按 Alt + Space 即可在当前工作之上唤起 Gemini 获取即时帮助，也能把多步骤任务交给个人 AI Agent Gemini Spark，或让 Gemini 调用 Gmail 和 Google Drive 的信息起草项目摘要，并用 Nano Banana 与 Gemini Omni 在桌面端生成图片和视频。官方称应用轻量安静、不会拖慢电脑，后续还将逐步推出更多原生桌面能力。兼容性和可用性因情况而异，部分功能需订阅 Google AI 且仅面向 18 岁以上用户。</p></div>
+</article>
+<article class="story" id="story-20">
+  <div class="story-header">
+    <div class="story-num">20</div>
+    <div class="story-title-block">
+      <div class="story-categories"><span class="story-cat">产品应用</span></div>
+      <h2 class="story-title"><a href="https://openai.com/index/put-data-to-work/" target="_blank">OpenAI 在 ChatGPT Work 推出 Data agent</a></h2>
+    </div>
+  </div>
+  <div class="story-summary"><span class="tech-term" onclick="openModal('OpenAI')">OpenAI</span> 在 ChatGPT Work 推出 Data agent，用自然语言即可把公司数据变成答案和交互式仪表盘。Data agent 以插件形式提供，可用的数据连接和使用角色由企业管理员控制。</div>
+  
+  <div class="story-body"><p>OpenAI 在 ChatGPT Work 中推出新的 Data agent，用户通过自然语言对话即可把公司数据转化为答案、交互式仪表盘并执行操作。Data agent 可连接 Amazon Redshift、Datadog、Google BigQuery、ClickHouse、Databricks、MongoDB、Snowflake 等经批准的数据源，并引入 Google Drive 和 SharePoint 的文件，还能在 Tableau、Power BI、Sigma 等 BI 工具中构建和操作仪表盘。查询会沿用所连接账号的既有权限，包括表、行、列级别的限制。使用时需在 ChatGPT Work 的插件目录中安装 Data 插件并完成账号连接，之后与 @Data 对话提问。</p></div>
+</article>
+<article class="story" id="story-21">
+  <div class="story-header">
+    <div class="story-num">21</div>
+    <div class="story-title-block">
+      <div class="story-categories"><span class="story-cat">产品应用</span></div>
+      <h2 class="story-title"><a href="https://x.com/ChatGPT/status/2098141242911785452" target="_blank">ChatGPT 面向美国 Plus 和 Pro 用户推出股票自选清单功能</a></h2>
+    </div>
+  </div>
+  <div class="story-summary">ChatGPT 宣布，股票自选清单功能正面向美国 Plus 和 Pro 用户逐步推出，Chat 会跟踪指定股票并主动推送更新。</div>
+  <div class="story-images"><img src="https://assets.juya.uk/imagehub/aidaily/c6295606-5a8c-4293-8cbe-4cf2f85b6cbf/0a37ffcf-7861-4d9a-81f9-5da149a37fa5/m001_25e5e839.png" alt="配图" loading="lazy"></div>
+  <div class="story-body"><p>据 ChatGPT 官方账号转发的消息，股票自选清单功能正在 ChatGPT 的 Finances 功能中陆续推出，目前面向美国的 Plus 和 Pro 用户。用户告诉 Chat 想关注的股票后，Chat 会持续留意相关动态，并主动推送更新。官方给出的示例指令为“@Finances add Nvidia, Microsoft and Berkshire to my watchlist”。该功能仍处于推出阶段，消息中确认的可用范围暂为美国 Plus 和 Pro 订阅用户。</p></div>
+</article>
+<article class="story" id="story-22">
+  <div class="story-header">
+    <div class="story-num">22</div>
+    <div class="story-title-block">
+      <div class="story-categories"><span class="story-cat">产品应用</span></div>
+      <h2 class="story-title"><a href="https://x.com/ChatGPT/status/2098127115791294703" target="_blank">ChatGPT Library 原生接入 Dropbox、Box 和 Sharepoint</a></h2>
+    </div>
+  </div>
+  <div class="story-summary">ChatGPT 官方账号宣布，Dropbox、Box和 Sharepoint 即日起原生集成到 ChatGPT Library，同时覆盖 ChatGPT 与 ChatGPT Work。该集成本周内向付费用户逐步推出。</div>
+  <div class="story-images"><img src="https://assets.juya.uk/imagehub/aidaily/c6295606-5a8c-4293-8cbe-4cf2f85b6cbf/8d46271d-b5ec-4523-b2c3-07da25709b92/m001_19c81d54.png" alt="配图" loading="lazy"></div>
+  <div class="story-body"><p>ChatGPT 官方账号宣布，Dropbox、Box 和 Sharepoint 已原生集成到 ChatGPT Library 中，同时覆盖 ChatGPT 与 ChatGPT Work，本周内向付费用户陆续推出。Box 方面说明，OpenAI 与 Box 正在把企业内容直接带入 ChatGPT，Box 以 headless 方式在 ChatGPT 中提供企业上下文访问，内容仍由现有的 Box 权限管理、治理和保护。</p></div>
+</article>
+<article class="story" id="story-23">
+  <div class="story-header">
+    <div class="story-num">23</div>
+    <div class="story-title-block">
+      <div class="story-categories"><span class="story-cat">产品应用</span></div>
+      <h2 class="story-title"><a href="https://openai.com/index/introducing-chatgpt-financial-services/" target="_blank">OpenAI 推出 ChatGPT for Financial Services</a></h2>
+    </div>
+  </div>
+  <div class="story-summary"><span class="tech-term" onclick="openModal('OpenAI')">OpenAI</span>推出ChatGPT for Financial Services并已上线，目前面向符合条件的金融机构开放。该产品内置多来源付费金融数据，支持细粒度引用溯源，能用公司模板生成估值模型等文件。</div>
+  
+  <div class="story-body"><p>OpenAI 宣布推出 ChatGPT for Financial Services，这是基于 ChatGPT Work 定制的金融服务版本，目前面向符合条件的金融机构开放，需联系 OpenAI 获取。产品结合 GPT-6 Astra 的推理能力与内置付费金融数据，数据来自 Daloopa、PitchBook、LSEG News 和 Crunchbase，覆盖业绩电话会纪要、财务报表、公司基本面等，由 OpenAI 索引和托管。产品支持细粒度引用溯源，可将图表和论断追溯到具体段落与表格，并可用公司自有 Excel、Word 和 PowerPoint 模板生成估值模型、研究报告和 pitchbook。Morgan Stanley 和 Evercore 作为设计合作伙伴参与了产品打磨，初期聚焦投资银行和股票研究。</p></div>
+</article>
+<article class="story" id="story-24">
+  <div class="story-header">
+    <div class="story-num">24</div>
+    <div class="story-title-block">
+      <div class="story-categories"><span class="story-cat">产品应用</span></div>
+      <h2 class="story-title"><a href="https://blog.google/innovation-and-ai/models-and-research/google-labs/dreambeans-expansion-september-2026/" target="_blank">Google Labs 向全美用户免费开放 Dreambeans</a></h2>
+    </div>
+  </div>
+  <div class="story-summary">Google Labs 宣布个性化每日故事应用 Dreambeans 向美国所有 18 岁以上用户开放。应用覆盖 iOS 和 Android，免费使用且无需订阅。</div>
+  <div class="story-images"><img src="https://assets.juya.uk/imagehub/aidaily/c6295606-5a8c-4293-8cbe-4cf2f85b6cbf/1b1507a1-168c-409c-90f7-10967c0e8838/m001_41f675ce.png" alt="配图" loading="lazy"></div>
+  <div class="story-body"><p>Google Labs 宣布，个性化每日故事应用 Dreambeans 现已向美国所有 18 岁以上账户开放，覆盖 Android 和 iOS，免费提供且无需订阅。Dreambeans 此前于今年 6 月以实验形式推出，基于个性化主题和用户所选 Google 应用的信息生成每日故事合集。此次更新新增 Gemini 应用连接，官方称 Dreambeans 将基于聊天中体现的理解和细节，呈现更有洞察、更个性化的每日故事。</p></div>
+</article>
+<article class="story" id="story-25">
+  <div class="story-header">
+    <div class="story-num">25</div>
+    <div class="story-title-block">
+      <div class="story-categories"><span class="story-cat">产品应用</span></div>
+      <h2 class="story-title"><a href="https://mp.weixin.qq.com/s/sU3_a4Vk5cGpZ1VpEcoC4A" target="_blank">千问教师节上线智能组卷、教案生成助手等多个教学AI技能</a></h2>
+    </div>
+  </div>
+  <div class="story-summary">千问教师节上线智能组卷、找真题试卷、教案生成助手等多个AI技能。更新千问App或PC端后，可在工作助理技能广场安装使用。</div>
+  <div class="story-images"><img src="https://assets.juya.uk/imagehub/aidaily/c6295606-5a8c-4293-8cbe-4cf2f85b6cbf/0e3c1d14-d021-40cb-9ba2-0734f7d2183e/m001_7e3c3204.png" alt="配图" loading="lazy"></div>
+  <div class="story-body"><p>千问在教师节上线智能组卷、找真题试卷、智能组题、教案生成助手等多个AI技能（Skill），据官方介绍，可一站式搞定备课、出题、分析等任务，帮助老师从重复劳动中解放出来。用户将千问App或PC端更新至最新版后，进入「工作助理」技能广场即可找到并安装所需Skill。</p></div>
+</article>
+<article class="story" id="story-26">
+  <div class="story-header">
+    <div class="story-num">26</div>
+    <div class="story-title-block">
+      <div class="story-categories"><span class="story-cat">技术与洞察</span></div>
+      <h2 class="story-title"><a href="https://cursor.com/cursorbench" target="_blank">Cursor 推出 CursorBench 4.0：整体难度提升</a></h2>
+    </div>
+  </div>
+  <div class="story-summary">Cursor推出CursorBench 4.0，评测<span class="tech-term" onclick="openModal('Agent')">Agent</span>在真实模糊多文件任务的表现。新版新增长程问题导致所有模型得分下降。</div>
+  <div class="story-images"><img src="https://assets.juya.uk/imagehub/aidaily/c6295606-5a8c-4293-8cbe-4cf2f85b6cbf/df2993e0-d2e4-4dea-97a2-22fb40898480/m001_bfd24778.png" alt="配图" loading="lazy"></div>
+  <div class="story-body"><p>Cursor 推出 CursorBench 4.0，该基准评测 Agent 在来自真实 Cursor 会话的模糊、多文件任务上的表现，完整结果已在 Cursor 官网公布。根据官网更新日志，新版引入了聚焦 edit、refactor、investigation、intent understanding、managing jobs 与 design adherence 的长程问题；Lee Robinson 表示 CursorBench 4.0 比此前版本更难，所有模型得分因此下降。榜单显示 Fable 5.1 Max 以 51.8% 排名第一，平均每任务成本为 17.28 美元；Grok 4.6 Extra High 得分 41.4%，Lee Robinson 称其得分略有下降但仍属准确评分和比较，并表示 Grok 4.7 即将推出。</p></div>
+</article>
+<article class="story" id="story-27">
+  <div class="story-header">
+    <div class="story-num">27</div>
+    <div class="story-title-block">
+      <div class="story-categories"><span class="story-cat">技术与洞察</span></div>
+      <h2 class="story-title"><a href="https://www.anthropic.com/research/intelligence-targeting-conventional-weapons-capabilities" target="_blank">Anthropic测试AI情报定位与武器开发能力</a></h2>
+    </div>
+  </div>
+  <div class="story-summary"><span class="tech-term" onclick="openModal('Anthropic')">Anthropic</span>的Frontier Red Team发布了新的评测，衡量AI模型在战术情报定位和常规武器开发方面的能力。官方称，前沿模型在部分任务上已接近甚至超越人类专家水平，其威胁情报团队也发现已存在真实滥用案例。</div>
+  
+  <div class="story-body"><p>Anthropic旗下Frontier Red Team发布新评测，测试AI模型在战术情报定位与常规武器开发相关任务上的能力表现。官方称，部分任务此前只有稀缺、受过高强度训练的人类专家才能完成，而模型在这类模拟任务上持续取得进展；其威胁情报团队也报告了威胁行为者已在监控和常规武器开发中滥用AI模型的实际案例。为此，Anthropic的Safeguards团队已部署新分类器，检测并拦截与武器开发相关的请求，官方称这类分类器因底层能力的两用性质将不完全可靠，但认为部署并迭代优于放任风险。Anthropic同时提醒，仅关注专有模型的防护不够，开源权重模型生态紧随其后，该差距不应被误认为安全保障。</p></div>
+</article>
+<article class="story" id="story-28">
+  <div class="story-header">
+    <div class="story-num">28</div>
+    <div class="story-title-block">
+      <div class="story-categories"><span class="story-cat">行业动态</span></div>
+      <h2 class="story-title"><a href="https://mp.weixin.qq.com/s/CdPMweyCatDeWrEB2SJWnA" target="_blank">Kimi 启动企业合作伙伴计划</a></h2>
+    </div>
+  </div>
+  <div class="story-summary">Kimi 正式启动企业合作伙伴计划，联合 IT 服务商与集成商共建前线部署工程师队伍推进企业级 AI 落地。</div>
+  <div class="story-images"><img src="https://assets.juya.uk/imagehub/aidaily/c6295606-5a8c-4293-8cbe-4cf2f85b6cbf/2128a828-b439-4825-9268-7570869728b6/m001_24eb173a.png" alt="配图" loading="lazy"></div>
+  <div class="story-body"><p>Kimi 正式启动企业合作伙伴计划，将与各行业 IT 服务商、集成商共建前线部署工程师（FDE）队伍，深入客户现场，帮助企业把 AI 部署到核心业务。加入计划的伙伴可获得三方面支持：接入 Kimi 模型能力并基于 Agent 运行底座 Kimi Hosted Agents 完成定制开发；项目成果沉淀为可复用行业方案并由双方共同拓展同类客户；从传统软件服务商转型为 AI 软件服务商。目前软件信息服务、云计算、基础设施、通信等多个行业的领先企业已签约加入，包括华胜天成、金山云、亚康股份、亚信科技和中软国际。该计划将持续面向各行业的系统集成商、软件服务商及咨询机构开放，为伙伴提供模型能力、工程师培训认证与联合交付支持。</p></div>
+</article>
+<article class="story" id="story-29">
+  <div class="story-header">
+    <div class="story-num">29</div>
+    <div class="story-title-block">
+      <div class="story-categories"><span class="story-cat">行业动态</span></div>
+      <h2 class="story-title"><a href="https://x.com/ElevenLabs/status/2098049234465620251" target="_blank">ElevenLabs 与 Universal Music Group 达成多年期战略合作</a></h2>
+    </div>
+  </div>
+  <div class="story-summary">ElevenLabs 宣布与 Universal Music Group 达成多年期战略合作。首个产品是面向粉丝的 AI 创作平台，正在开发中，将开放参与合作的艺术家和词曲作者的音乐。</div>
+  
+  <div class="story-body"><p>ElevenLabs 宣布与 Universal Music Group 达成多年期战略合作伙伴关系，这是该公司首次与大型唱片公司建立合作，首个产品目前正在开发中。该产品是一个全新 AI 平台，粉丝可以使用参与合作的艺术家和词曲作者的音乐进行 Remix、mashup、创作新的演绎并添加个性化人声。ElevenLabs 还将同步为艺术家和词曲作者本人打造 AI 音频产品。该公司表示，其音乐模型从一开始就是与艺术家、唱片公司和发行商共同构建的。</p></div>
+</article>
+<article class="story" id="story-30">
+  <div class="story-header">
+    <div class="story-num">30</div>
+    <div class="story-title-block">
+      <div class="story-categories"><span class="story-cat">前瞻与传闻</span></div>
+      <h2 class="story-title"><a href="https://x.com/AndrewCurran_/status/2098083604853342688" target="_blank">消息称OpenAI在另一道千禧年大奖难题取得实质性进展</a></h2>
+    </div>
+  </div>
+  <div class="story-summary">据博主Andrew Curran转述，<span class="tech-term" onclick="openModal('OpenAI')">OpenAI</span>已向《纽约时报》确认在另一道千禧年大奖难题上取得实质性进展，正准备宣布。</div>
+  <div class="story-images"><img src="https://assets.juya.uk/imagehub/aidaily/c6295606-5a8c-4293-8cbe-4cf2f85b6cbf/6c1c0dcf-f026-4ac4-8ae2-15e2c9f4d80d/m001_302af5f7.png" alt="配图" loading="lazy"></div>
+  <div class="story-body"><p>围绕千禧年大奖难题出现新一轮集中传闻，据博主Andrew Curran转述，OpenAI已向《纽约时报》确认在过去五天内在另一道难题上取得“实质性进展”，并正准备宣布。此前爆料者leo称，霍奇猜想已非常接近由OpenAI完成验证，OpenAI与Anthropic之一也接近解决Birch and Swinnerton-Dyer猜想。上述说法均未获官方确认，另有用户质疑相关传闻表述模糊。</p></div>
+</article>
+</section>
+
+<!-- Back to Top -->
+<button class="back-to-top" id="backToTop" onclick="scrollToTop()" aria-label="回到顶部">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg>
+</button>
+
+<footer class="footer">
+  <div class="footer-brand">Tech<span class="accent">Daily</span></div>
+  <div class="footer-info">© 2026 techdou.com</div>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="modal-header"><span class="modal-term" id="modalTerm"></span><button class="modal-close" onclick="closeModal()">&times;</button></div>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
+<!-- Image Lightbox -->
+<div class="image-lightbox" id="imageLightbox" aria-hidden="true">
+  <div class="image-lightbox-inner">
+    <button class="image-lightbox-close" type="button" aria-label="关闭图片预览" onclick="closeImageLightbox()">×</button>
+    <img id="imageLightboxImg" src="" alt="放大预览">
+    <div class="image-lightbox-caption" id="imageLightboxCaption"></div>
+  </div>
+</div>
+
+<!-- DouknowAI Pet -->
+<iframe src="/pet.html?v=5" class="pet-iframe" id="petIframe" title="DouknowAI Pet"></iframe>
+
+<script>window.GLOSSARY = {
+  "蒸馏": {
+    "tag": "Model Training",
+    "def": "Knowledge Distillation，将大模型知识转移到小模型的技术。"
+  },
+  "SFT": {
+    "tag": "Fine-tuning",
+    "def": "Supervised Fine-Tuning，监督微调。"
+  },
+  "RL": {
+    "tag": "RL",
+    "def": "Reinforcement Learning，强化学习。"
+  },
+  "RLHF": {
+    "tag": "Alignment",
+    "def": "基于人类反馈的强化学习。"
+  },
+  "Agent": {
+    "tag": "AI Agent",
+    "def": "能自主感知、规划、调用工具的智能体。"
+  },
+  "权重": {
+    "tag": "Model",
+    "def": "Weights，神经网络中的可学习参数。"
+  },
+  "张量": {
+    "tag": "Math",
+    "def": "Tensor，多维数组，深度学习的基本数据单元。"
+  },
+  "KYC": {
+    "tag": "Compliance",
+    "def": "Know Your Customer，身份验证流程。"
+  },
+  "Token": {
+    "tag": "LLM",
+    "def": "语言模型处理文本的基本单位。"
+  },
+  "出口管制": {
+    "tag": "Policy",
+    "def": "Export Control，政府对技术出口的限制。"
+  },
+  "SOTA": {
+    "tag": "Benchmark",
+    "def": "State-of-the-Art，已知最优成绩。"
+  },
+  "线性融合": {
+    "tag": "Model Merge",
+    "def": "Linear Model Merging，权重按比例混合。"
+  },
+  "fable": {
+    "tag": "AI Model",
+    "def": "Anthropic 前沿模型。"
+  },
+  "Mythos": {
+    "tag": "AI Model",
+    "def": "Anthropic 前沿模型。"
+  },
+  "Seedance": {
+    "tag": "Video",
+    "def": "字节跳动 AI 视频生成模型。"
+  },
+  "剪映": {
+    "tag": "Tool",
+    "def": "字节跳动视频编辑工具。"
+  },
+  "Qwen": {
+    "tag": "Open Model",
+    "def": "阿里通义千问开源模型。"
+  },
+  "Gemini": {
+    "tag": "AI Model",
+    "def": "Google DeepMind 多模态模型。"
+  },
+  "Nex": {
+    "tag": "AI Model",
+    "def": "开源模型公司。"
+  },
+  "Anthropic": {
+    "tag": "Company",
+    "def": "AI 安全公司，Claude 开发者。"
+  },
+  "OpenAI": {
+    "tag": "Company",
+    "def": "ChatGPT 开发者。"
+  }
+};</script>
+<script>window.TechDailyAudioUrl = "https://news.techdou.com/2026/09/11/audio.mp3";</script>
+</body>
+<script>
+
+// ============================================================
+// 1. Runtime Configuration
+// ============================================================
+const CONFIG = window.TechDailyConfig || {
+  scrollOffset: 86,
+  backToTopThreshold: 420,
+  revealThreshold: 0.12
+};
+
+// 术语表兜底：模板生成器未注入 GLOSSARY 时，提供常见 AI/计算机术语解释，不再阻断关键词点击解释。
+const DEFAULT_GLOSSARY = {
+  "Nex": { tag: "模型 / 机构", def: "这里指被新闻提及的开源模型或相关团队名称。文中它被用作对比对象，用来判断某个新模型是否直接继承了原有模型能力与身份特征。" },
+  "Qwen": { tag: "大模型", def: "Qwen 是阿里通义系列大模型。新闻上下文里，它作为被融合的底座模型之一，用来说明 Rio 3.5 的权重来源。" },
+  "权重": { tag: "机器学习", def: "权重是神经网络中存储知识的参数。模型的能力、风格与偏好主要由这些参数决定。" },
+  "Gemini": { tag: "大模型", def: "Gemini 是 Google DeepMind 推出的多模态大模型系列，可处理文本、图像等多种输入。" },
+  "蒸馏": { tag: "训练方法", def: "蒸馏（Distillation）是让小模型或新模型学习大模型行为的一种方法，本质上是把教师模型的输出模式转移给学生模型。" },
+  "线性融合": { tag: "模型合并", def: "线性融合是按一定比例把两个模型的参数逐元素加权合并，例如 0.6 × A + 0.4 × B。" },
+  "On-Policy": { tag: "强化学习", def: "On-Policy 指使用当前策略自己采样的数据进行优化的一类方法，强调“边做边学、按当前策略更新”。" },
+  "SFT": { tag: "训练阶段", def: "SFT 是监督微调（Supervised Fine-Tuning），通常用高质量问答或指令数据，把基础模型调整成更会听指令的助手。" },
+  "RL": { tag: "训练阶段", def: "RL 是强化学习（Reinforcement Learning），通过奖励机制让模型朝更符合目标的方向优化。" },
+  "Token": { tag: "基础概念", def: "Token 是大模型处理文本时的最小片段单位，可以理解为“模型读写时计数的文字块”。" },
+  "KYC": { tag: "合规", def: "KYC 是 Know Your Customer（了解你的客户），指平台通过证件等方式做实名或身份核验。" },
+  "Anthropic": { tag: "AI 公司", def: "Anthropic 是一家专注大模型研发的 AI 公司，以 Claude 系列模型闻名。" },
+  "出口管制": { tag: "政策", def: "出口管制指政府对技术、产品、芯片或模型能力跨境流动设置限制，以控制安全与合规风险。" },
+  "Seedance": { tag: "视频模型", def: "Seedance 是用于视频生成的模型或系列名称，文中讨论的是它的版本与定价策略。" },
+  "张量": { tag: "数学 / 深度学习", def: "张量可以理解为多维数组，是神经网络中表示参数、特征和中间结果的基本数据结构。" },
+  "余弦相似度": { tag: "相似度度量", def: "余弦相似度用来衡量两个向量方向是否接近，越接近 1，说明两者越相似。" },
+  "Mythos": { tag: "模型名", def: "这里指新闻中的一个具体模型名称。模板把它作为术语处理，便于读者点击查看解释。" },
+  "剪映": { tag: "创作工具", def: "剪映是字节跳动推出的视频剪辑与内容创作工具，常与短视频生产场景结合。" },
+  "fable": { tag: "模型 / 项目", def: "这里指新闻语境中的特定模型或项目名称，常与访问权限、平台策略等讨论一起出现。" }
+};
+const GLOSSARY = window.GLOSSARY || DEFAULT_GLOSSARY;
+
+/**
+ * DouknowAI Pet iframe bridge
+ *
+ * 说明：
+ * 1. iframe 保持 pointer-events:none，页面正文链接和按钮不会被透明层挡住。
+ * 2. pet.html 每 80ms 向父页面发送宠物命中区域。
+ * 3. 父页面只在指针落到宠物命中区域时接管拖拽，并通过 postMessage 控制宠物。
+ * 4. 默认运动平面为当前视口；如需指定某个块元素作为宠物活动平面：
+ *    - 给元素添加 data-pet-plane 或 class="pet-plane"
+ *    - 或在 body 上添加 data-pet-plane-selector="#yourBlock"
+ */
+function initPetIframeBridge() {
+  var iframe = document.getElementById('petIframe');
+  if (!iframe || iframe.dataset.bridgeReady === '1') return;
+  iframe.dataset.bridgeReady = '1';
+
+  var petBounds = null;
+  var dragging = false;
+  var activePointerId = null;
+
+  function post(type, payload) {
+    if (!iframe.contentWindow) return;
+    iframe.contentWindow.postMessage(Object.assign({
+      source: 'techdaily-parent',
+      type: type
+    }, payload || {}), '*');
+  }
+
+  function getPoint(e) {
+    return { x: e.clientX, y: e.clientY };
+  }
+
+  function isInsidePet(point) {
+    if (!petBounds) return false;
+    var hitPadding = 8;
+    return point.x >= petBounds.left - hitPadding &&
+      point.x <= petBounds.right + hitPadding &&
+      point.y >= petBounds.top - hitPadding &&
+      point.y <= petBounds.bottom + hitPadding;
+  }
+
+  function findPetPlaneRect() {
+    var selector = document.body ? document.body.getAttribute('data-pet-plane-selector') : '';
+    var plane = null;
+
+    if (selector) {
+      try { plane = document.querySelector(selector); } catch (err) { plane = null; }
+    }
+    if (!plane) plane = document.querySelector('[data-pet-plane], .pet-plane');
+
+    if (!plane) {
+      return { left: 0, top: 0, width: window.innerWidth, height: window.innerHeight };
+    }
+
+    var rect = plane.getBoundingClientRect();
+    var left = Math.max(0, rect.left);
+    var top = Math.max(0, rect.top);
+    var right = Math.min(window.innerWidth, rect.right);
+    var bottom = Math.min(window.innerHeight, rect.bottom);
+
+    // 如果目标块当前几乎不可见，则临时回退到视口，避免宠物被夹在不可见区域。
+    if (right - left < 80 || bottom - top < 80) {
+      return { left: 0, top: 0, width: window.innerWidth, height: window.innerHeight };
+    }
+
+    return { left: left, top: top, width: right - left, height: bottom - top };
+  }
+
+  function syncPetPlane() {
+    post('douknow-pet-surface', { rect: findPetPlaneRect() });
+  }
+
+  window.addEventListener('message', function (event) {
+    if (event.source !== iframe.contentWindow) return;
+    var data = event.data || {};
+    if (data.source === 'douknow-pet' && data.type === 'douknow-pet-bounds') {
+      petBounds = data.bounds;
+    }
+  });
+
+  document.addEventListener('pointerdown', function (e) {
+    var point = getPoint(e);
+    if (!isInsidePet(point)) return;
+
+    dragging = true;
+    activePointerId = e.pointerId;
+    document.body.classList.add('pet-dragging');
+    post('douknow-pet-drag-start', point);
+    e.preventDefault();
+    e.stopPropagation();
+  }, { capture: true, passive: false });
+
+  document.addEventListener('pointermove', function (e) {
+    var point = getPoint(e);
+    post('douknow-pet-pointer', point);
+
+    if (!dragging || e.pointerId !== activePointerId) return;
+    post('douknow-pet-drag-move', point);
+    e.preventDefault();
+    e.stopPropagation();
+  }, { capture: true, passive: false });
+
+  function endDrag(e) {
+    if (!dragging) return;
+    if (e && activePointerId != null && e.pointerId !== activePointerId) return;
+    dragging = false;
+    activePointerId = null;
+    document.body.classList.remove('pet-dragging');
+    post('douknow-pet-drag-end');
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+  }
+
+  document.addEventListener('pointerup', endDrag, { capture: true, passive: false });
+  document.addEventListener('pointercancel', endDrag, { capture: true, passive: false });
+
+  window.addEventListener('resize', syncPetPlane);
+  window.addEventListener('scroll', syncPetPlane, { passive: true });
+  iframe.addEventListener('load', syncPetPlane);
+  setTimeout(syncPetPlane, 120);
+  setInterval(syncPetPlane, 500);
+}
+
+// ============================================================
+// 2. DOM READY INITIALIZATION
+// ============================================================
+
+/**
+ * Initialize all enhancements when DOM is ready.
+ * Uses DOMContentLoaded for reliable execution.
+ */
+document.addEventListener('DOMContentLoaded', function () {
+  initSidebar();
+  initModal();
+  initAudioPlayer();
+  initBackToTop();
+  initReadingProgress();
+  initTechTermTooltips();
+  initScrollReveal();
+  initHoverEnhancers();
+  initKeyboardShortcuts();
+  initStoryNumberAnimation();
+  initArchiveMenu();
+  adaptNoImageStories();
+  adaptMultiImageStories();
+  adaptResponsiveCollections();
+  initStoryImageInteractions();
+  initKeywordExplanations();
+});
+
+
+// ============================================================
+// 3. SIDEBAR NAVIGATION
+// ============================================================
+
+/**
+ * Toggle sidebar open/closed state.
+ * Also toggles the overlay for backdrop click-to-close.
+ */
+function toggleSidebar(forceOpen) {
+  const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('sidebarOverlay');
+  if (!sidebar || !overlay) return;
+
+  const shouldOpen = (typeof forceOpen === 'boolean') ? forceOpen : !sidebar.classList.contains('active');
+  sidebar.classList.toggle('active', shouldOpen);
+  overlay.classList.toggle('active', shouldOpen);
+  document.body.style.overflow = shouldOpen ? 'hidden' : '';
+}
+
+/**
+ * Initialize sidebar event listeners.
+ */
+function initSidebar() {
+  // Overlay click handled by inline onclick
+  // This function is a hook for any additional sidebar initialization
+  const sidebar = document.getElementById('sidebar');
+  if (sidebar) {
+    // Ensure sidebar closes on escape key
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && sidebar.classList.contains('active')) {
+        toggleSidebar();
+      }
+    });
+  }
+}
+
+
+// ============================================================
+// 4. MODAL SYSTEM
+// ============================================================
+
+const modalOverlay = document.getElementById('modalOverlay');
+
+/**
+ * Open the modal with glossary definition for a term.
+ * @param {string} term - The glossary term to display.
+ */
+function openModal(term, e) {
+  var evt = e || window.event;
+  if (evt && typeof evt.stopPropagation === 'function') evt.stopPropagation();
+  const entry = GLOSSARY[term];
+  if (!entry) return;
+
+  const modalTermEl = document.getElementById('modalTerm');
+  const modalBodyEl = document.getElementById('modalBody');
+
+  if (modalTermEl) modalTermEl.textContent = term;
+  if (modalBodyEl) {
+    modalBodyEl.innerHTML =
+      (entry.tag ? '<span class="tag">' + entry.tag + '</span>' : '') +
+      '<p>' + entry.def + '</p>';
+  }
+
+  if (modalOverlay) {
+    modalOverlay.classList.add('active');
+    // Prevent body scroll when modal is open
+    document.body.style.overflow = 'hidden';
+  }
+}
+
+/**
+ * Close the modal overlay.
+ * @param {Event} e - Optional event object for click detection.
+ */
+function closeModal(e) {
+  if (e && e.target !== modalOverlay && !e.target.classList.contains('modal-close')) return;
+  if (modalOverlay) {
+    modalOverlay.classList.remove('active');
+    // Restore body scroll
+    if (!document.getElementById('sidebar').classList.contains('active')) {
+      document.body.style.overflow = '';
+    }
+  }
+}
+
+/**
+ * Initialize modal system with keyboard and accessibility support.
+ */
+function initModal() {
+  if (!modalOverlay) return;
+
+  // Close on overlay click
+  modalOverlay.addEventListener('click', function (e) {
+    if (e.target === modalOverlay) closeModal();
+  });
+
+  // Close on escape key (handled in global keyboard handler)
+  // Focus trap for accessibility
+  modalOverlay.addEventListener('keydown', function (e) {
+    if (e.key === 'Tab') {
+      const focusable = modalOverlay.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+      if (focusable.length === 0) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+
+      if (e.shiftKey && document.activeElement === first) {
+        last.focus();
+        e.preventDefault();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        first.focus();
+        e.preventDefault();
+      }
+    }
+  });
+}
+
+
+// ============================================================
+// 5. AUDIO PLAYER
+// ============================================================
+
+let audioEl = null;
+let isPlaying = false;
+
+/**
+ * Toggle audio playback state.
+ * Creates audio element on first play.
+ */
+function togglePlay() {
+  var btn = document.getElementById('playBtn');
+  if (!btn) return;
+
+  if (!audioEl) {
+    var audioSrc = window.TechDailyAudioUrl || "https://news.techdou.com/broadcast.mp3";
+    if (!audioSrc) { alert("播报音频生成中..."); return; }
+    audioEl = new Audio(audioSrc);
+
+    var timeEl = document.getElementById('audioTime');
+    if (timeEl) timeEl.textContent = '0:00';
+
+    audioEl.addEventListener('error', function () {
+      console.warn('[Audio] 加载失败:', audioSrc);
+      if (timeEl) timeEl.textContent = '0:00';
+    });
+
+    audioEl.addEventListener('loadedmetadata', function () {
+      if (!audioEl.duration || isNaN(audioEl.duration)) return;
+      var m = Math.floor(audioEl.duration / 60);
+      var s = Math.floor(audioEl.duration % 60);
+      if (timeEl) timeEl.textContent = m + ':' + (s < 10 ? '0' : '') + s;
+    });
+
+    audioEl.addEventListener('canplay', function () {
+      if (!audioEl.duration || isNaN(audioEl.duration)) return;
+      var m = Math.floor(audioEl.duration / 60);
+      var s = Math.floor(audioEl.duration % 60);
+      if (timeEl) timeEl.textContent = m + ':' + (s < 10 ? '0' : '') + s;
+    });
+
+    audioEl.addEventListener('timeupdate', function () {
+      if (!audioEl.duration || isNaN(audioEl.duration)) return;
+      var pct = (audioEl.currentTime / audioEl.duration) * 100;
+      var fillEl = document.getElementById('progressFill');
+      if (fillEl) fillEl.style.width = pct + '%';
+      var m = Math.floor(audioEl.currentTime / 60);
+      var s = Math.floor(audioEl.currentTime % 60);
+      var totalM = Math.floor(audioEl.duration / 60);
+      var totalS = Math.floor(audioEl.duration % 60);
+      if (timeEl) timeEl.textContent = m + ':' + (s < 10 ? '0' : '') + s + ' / ' + totalM + ':' + (totalS < 10 ? '0' : '') + totalS;
+    });
+
+    audioEl.addEventListener('ended', function () {
+      isPlaying = false;
+      var playIcon = document.getElementById('playIcon');
+      var pauseIcon = document.getElementById('pauseIcon');
+      var fillEl = document.getElementById('progressFill');
+      if (playIcon) playIcon.style.display = '';
+      if (pauseIcon) pauseIcon.style.display = 'none';
+      if (fillEl) fillEl.style.width = '0%';
+      if (audioEl.duration && !isNaN(audioEl.duration)) {
+        var totalM = Math.floor(audioEl.duration / 60);
+        var totalS = Math.floor(audioEl.duration % 60);
+        if (timeEl) timeEl.textContent = totalM + ':' + (totalS < 10 ? '0' : '') + totalS;
+      }
+    });
+  }
+
+  if (isPlaying) {
+    audioEl.pause();
+    isPlaying = false;
+    var playIcon = document.getElementById('playIcon');
+    var pauseIcon = document.getElementById('pauseIcon');
+    if (playIcon) playIcon.style.display = '';
+    if (pauseIcon) pauseIcon.style.display = 'none';
+  } else {
+    audioEl.play().catch(function(err) { console.warn('[Audio]', err); });
+    isPlaying = true;
+    var playIcon = document.getElementById('playIcon');
+    var pauseIcon = document.getElementById('pauseIcon');
+    if (playIcon) playIcon.style.display = 'none';
+    if (pauseIcon) pauseIcon.style.display = '';
+  }
+}
+
+function initAudioPlayer() {
+  // Audio track click-to-seek
+  var track = document.querySelector('.audio-track');
+  if (track && audioEl) {
+    track.addEventListener('click', function (e) {
+      var rect = track.getBoundingClientRect();
+      var pct = (e.clientX - rect.left) / rect.width;
+      if (audioEl.duration) {
+        audioEl.currentTime = pct * audioEl.duration;
+      }
+    });
+  }
+}
+
+
+// ============================================================
+// 6. SMOOTH SCROLL UTILITIES
+// ============================================================
+
+/**
+ * Scroll to a story element by its number with smooth animation.
+ * @param {string} num - The story number/ID suffix.
+ */
+function scrollToStory(num) {
+  const el = document.getElementById('story-' + num);
+  if (!el) return false;
+
+  // 目录点击时，inline handler 会随后关闭 sidebar；这里延迟一帧，避免 body overflow:hidden 时滚动失效。
+  window.setTimeout(function () {
+    const offset = (window.TechDailyConfig && window.TechDailyConfig.scrollOffset) || CONFIG.scrollOffset || 86;
+    const top = el.getBoundingClientRect().top + window.pageYOffset - offset;
+    window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+
+    el.classList.add('reveal-scale', 'visible', 'story-jump-highlight');
+    window.setTimeout(function () {
+      el.classList.remove('story-jump-highlight');
+    }, 900);
+  }, 80);
+
+  return false;
+}
+
+/**
+ * Scroll to top of page with smooth animation.
+ */
+function scrollToTop() {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+
+// ============================================================
+// 7. BACK TO TOP BUTTON
+// ============================================================
+
+/**
+ * Initialize back-to-top button visibility based on scroll position.
+ */
+function initBackToTop() {
+  var backToTopBtn = document.getElementById('backToTop');
+  if (!backToTopBtn) return;
+
+  var scrollThreshold = CONFIG.backToTopThreshold;
+  var ticking = false;
+
+  function updateBackToTop() {
+    if (window.pageYOffset > scrollThreshold) {
+      backToTopBtn.classList.add('visible');
+    } else {
+      backToTopBtn.classList.remove('visible');
+    }
+    ticking = false;
+  }
+
+  window.addEventListener('scroll', function () {
+    if (!ticking) {
+      requestAnimationFrame(updateBackToTop);
+      ticking = true;
+    }
+  });
+
+  // Initial check
+  updateBackToTop();
+}
+
+
+// ============================================================
+// 8. READING PROGRESS BAR
+// ============================================================
+
+/**
+ * Initialize reading progress bar at top of viewport.
+ * Shows scroll progress from 0% to 100% across the page.
+ */
+function initReadingProgress() {
+  var progressBar = document.getElementById('readingProgressBar') || document.getElementById('readingProgress');
+  if (!progressBar) return;
+
+  var ticking = false;
+
+  function updateProgress() {
+    var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    var docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    if (docHeight <= 0) return;
+    var progress = (scrollTop / docHeight) * 100;
+    progressBar.style.width = progress + '%';
+
+    // Update ring rotation on back-to-top button
+    var ring = document.getElementById('progressRing');
+    if (ring) {
+      ring.style.transform = 'rotate(' + (-90 + progress * 3.6) + 'deg)';
+    }
+
+    ticking = false;
+  }
+
+  window.addEventListener('scroll', function () {
+    if (!ticking) {
+      requestAnimationFrame(updateProgress);
+      ticking = true;
+    }
+  });
+
+  // Initial update
+  updateProgress();
+}
+
+
+// ============================================================
+// 9. TECH TERM TOOLTIP ENHANCEMENT
+// ============================================================
+
+/**
+ * Enhance all tech-term elements with tooltip data attributes.
+ * Extracts short definitions from the GLOSSARY and sets them
+ * as data-tooltip for CSS tooltip display.
+ */
+function initTechTermTooltips() {
+  var terms = document.querySelectorAll('.tech-term');
+  terms.forEach(function (term) {
+    // Get term from onclick attribute
+    var onclick = term.getAttribute('onclick');
+    if (onclick) {
+      var match = onclick.match(/openModal\('([^']+)'\)/);
+      if (match) {
+        var termKey = match[1];
+        var entry = GLOSSARY[termKey];
+        if (entry && !term.getAttribute('data-tooltip')) {
+          // Create a short tooltip (first 20 chars + ...)
+          var shortDef = entry.def.length > 25 ? entry.def.substring(0, 25) + '...' : entry.def;
+          term.setAttribute('data-tooltip', shortDef);
+        }
+        if (entry && !term.getAttribute('data-term')) {
+          term.setAttribute('data-term', termKey);
+        }
+      }
+    }
+  });
+}
+
+
+// ============================================================
+// 10. SCROLL REVEAL ANIMATIONS
+// ============================================================
+
+/**
+ * Initialize IntersectionObserver-based scroll reveal animations.
+ * Adds 'visible' class when elements enter the viewport.
+ */
+function initScrollReveal() {
+  // Base reveal observer
+  var revealObserver = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        // Optionally unobserve after reveal
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: CONFIG.revealThreshold, rootMargin: '0px 0px -40px 0px' });
+
+  // Observe all reveal elements
+  document.querySelectorAll('.brief-item, .story, .reveal, .reveal-fade, .reveal-scale, .reveal-left').forEach(function (el) {
+    if (!el.classList.contains('reveal') &&
+      !el.classList.contains('reveal-fade') &&
+      !el.classList.contains('reveal-scale') &&
+      !el.classList.contains('reveal-left')) {
+      el.classList.add('reveal');
+    }
+    revealObserver.observe(el);
+  });
+
+  // Stagger reveal observer (for grids/lists)
+  var staggerObserver = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        staggerObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.reveal-stagger').forEach(function (el) {
+    staggerObserver.observe(el);
+  });
+
+  // Story number animation on scroll into view
+  var numObserver = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        entry.target.style.animation = 'bounceIn 0.5s ease forwards';
+        numObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  document.querySelectorAll('.story-num').forEach(function (el) {
+    numObserver.observe(el);
+  });
+}
+
+
+// ============================================================
+// 11. HOVER EFFECT ENHANCERS
+// ============================================================
+
+/**
+ * Add enhanced hover interactions to various elements.
+ * Uses event delegation for performance.
+ */
+function initHoverEnhancers() {
+  // Brief item hover: add tilt effect
+  document.querySelectorAll('.brief-item').forEach(function (item) {
+    item.addEventListener('mousemove', function (e) {
+      var rect = item.getBoundingClientRect();
+      var x = e.clientX - rect.left;
+      var y = e.clientY - rect.top;
+      var centerX = rect.width / 2;
+      var centerY = rect.height / 2;
+      var rotateX = (y - centerY) / centerY * -1.5;
+      var rotateY = (x - centerX) / centerX * 1.5;
+      item.style.transform = 'perspective(600px) rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg) translateY(-3px)';
+    });
+
+    item.addEventListener('mouseleave', function () {
+      item.style.transform = '';
+    });
+  });
+
+  // Story card hover: enhance visual feedback
+  document.querySelectorAll('.story').forEach(function (story) {
+    story.addEventListener('mouseenter', function () {
+      var num = story.querySelector('.story-num');
+      if (num) num.style.transition = 'all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)';
+    });
+  });
+}
+
+
+// ============================================================
+// 12. KEYBOARD SHORTCUTS
+// ============================================================
+
+/**
+ * Initialize global keyboard shortcuts.
+ * - Escape: Close modal or sidebar
+ * - 'T' key: Scroll to top
+ */
+function initKeyboardShortcuts() {
+  document.addEventListener('keydown', function (e) {
+    // Escape closes modal or sidebar
+    if (e.key === 'Escape') {
+      var modal = document.getElementById('modalOverlay');
+      var sidebar = document.getElementById('sidebar');
+
+      if (modal && modal.classList.contains('active')) {
+        closeModal();
+      } else if (sidebar && sidebar.classList.contains('active')) {
+        toggleSidebar();
+      }
+    }
+
+    // 'T' or 't' scrolls to top (when not in input)
+    if ((e.key === 't' || e.key === 'T') && !isInputFocused()) {
+      e.preventDefault();
+      scrollToTop();
+    }
+  });
+}
+
+/**
+ * Check if focus is currently in an input field.
+ * @returns {boolean} True if an input element is focused.
+ */
+function isInputFocused() {
+  var tag = document.activeElement.tagName.toLowerCase();
+  return tag === 'input' || tag === 'textarea' || tag === 'select' || document.activeElement.isContentEditable;
+}
+
+
+// ============================================================
+// 13. UTILITY FUNCTIONS
+// ============================================================
+
+/**
+ * Check if the device supports touch events.
+ * @returns {boolean} True if touch is supported.
+ */
+function isTouchDevice() {
+  return window.matchMedia('(pointer: coarse)').matches ||
+    'ontouchstart' in window ||
+    navigator.maxTouchPoints > 0;
+}
+
+/**
+ * Debounce function to limit execution frequency.
+ * @param {Function} func - The function to debounce.
+ * @param {number} wait - Milliseconds to wait.
+ * @returns {Function} Debounced function.
+ */
+function debounce(func, wait) {
+  var timeout;
+  return function () {
+    var context = this;
+    var args = arguments;
+    clearTimeout(timeout);
+    timeout = setTimeout(function () {
+      func.apply(context, args);
+    }, wait);
+  };
+}
+
+/**
+ * Throttle function to limit execution frequency.
+ * @param {Function} func - The function to throttle.
+ * @param {number} limit - Milliseconds between executions.
+ * @returns {Function} Throttled function.
+ */
+function throttle(func, limit) {
+  var inThrottle;
+  return function () {
+    var context = this;
+    var args = arguments;
+    if (!inThrottle) {
+      func.apply(context, args);
+      inThrottle = true;
+      setTimeout(function () {
+        inThrottle = false;
+      }, limit);
+    }
+  };
+}
+
+
+// ============================================================
+// 14. STORY NUMBER ANIMATION
+// ============================================================
+
+/**
+ * Initialize entrance animation for story numbers.
+ * Uses IntersectionObserver for scroll-triggered animation.
+ */
+function initStoryNumberAnimation() {
+  var storyNums = document.querySelectorAll('.story-num');
+
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        // Add a subtle scale animation
+        entry.target.style.transition = 'all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)';
+        entry.target.style.transform = 'scale(1.1)';
+        setTimeout(function () {
+          entry.target.style.transform = 'scale(1)';
+        }, 200);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  storyNums.forEach(function (num) {
+    observer.observe(num);
+  });
+}
+
+
+// ============================================================
+// 15. SECTION DIVIDER ANIMATION
+// ============================================================
+
+/**
+ * Animate section dividers when they scroll into view.
+ */
+function initSectionDividerAnimation() {
+  var dividers = document.querySelectorAll('.section-divider');
+
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '0';
+        entry.target.style.transition = 'opacity 0.6s ease';
+        setTimeout(function () {
+          entry.target.style.opacity = '1';
+        }, 50);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.3 });
+
+  dividers.forEach(function (d) { observer.observe(d); });
+}
+
+
+// ============================================================
+// 16. PREFERS REDUCED MOTION HANDLING
+// ============================================================
+
+/**
+ * Check if user prefers reduced motion and disable animations.
+ * This is handled primarily via CSS media query, but we also
+ * add a class to the body for JavaScript-based animations.
+ */
+if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  document.documentElement.classList.add('reduced-motion');
+}
+
+
+// ============================================================
+// 17. PRINT STYLES HELPER
+// ============================================================
+
+/**
+ * Add print-specific behaviors.
+ * Ensures content is readable when printed.
+ */
+window.addEventListener('beforeprint', function () {
+  // Make all reveal elements visible for printing
+  document.querySelectorAll('.reveal, .reveal-fade, .reveal-scale, .reveal-left, .reveal-stagger > *').forEach(function (el) {
+    el.style.opacity = '1';
+    el.style.transform = 'none';
+  });
+  // Hide floating elements
+  var floatNav = document.querySelector('.float-nav');
+  var backToTop = document.getElementById('backToTop');
+  var progressBar = document.getElementById('readingProgressBar') || document.getElementById('readingProgress');
+  if (floatNav) floatNav.style.display = 'none';
+  if (backToTop) backToTop.style.display = 'none';
+  if (progressBar) progressBar.style.display = 'none';
+});
+
+window.addEventListener('afterprint', function () {
+  // Restore floating elements
+  var floatNav = document.querySelector('.float-nav');
+  var backToTop = document.getElementById('backToTop');
+  var progressBar = document.getElementById('readingProgressBar') || document.getElementById('readingProgress');
+  if (floatNav) floatNav.style.display = '';
+  if (backToTop) backToTop.style.display = '';
+  if (progressBar) progressBar.style.display = '';
+});
+
+
+// ============================================
+// Pet Party Integration
+// ============================================
+
+let petParty = null;
+let petPartyVisible = true;
+
+function scrollToTop() {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  setTimeout(initPetIframeBridge, 120);
+});
+
+
+// ============================================================
+// FIX 3+4: ADAPT NO-IMAGE STORIES
+// ============================================================
+/* 修正3: 改为检测img元素数量，而非children.length，
+   避免.story-images容器存在但无实际图片时误判 */
+function adaptNoImageStories() {
+  document.querySelectorAll('.story').forEach(function (story) {
+    var imgs = story.querySelector('.story-images');
+    var imgCount = imgs ? imgs.querySelectorAll('img').length : 0;
+    if (imgCount === 0) {
+      story.classList.add('story--no-images');
+    }
+  });
+}
+
+// ============================================================
+// FIX 5: ADAPT MULTI-IMAGE STORIES
+// ============================================================
+function adaptMultiImageStories() {
+  document.querySelectorAll('.story-images').forEach(function (imgs) {
+    var imgCount = imgs.querySelectorAll('img').length;
+    imgs.dataset.imageCount = String(imgCount);
+    imgs.classList.toggle('story-images--single', imgCount === 1);
+    imgs.classList.toggle('story-images--multiple', imgCount > 1);
+  });
+}
+
+function adaptResponsiveCollections() {
+  document.querySelectorAll('.brief-grid').forEach(function (grid) {
+    var count = grid.querySelectorAll('.brief-item').length;
+    grid.dataset.count = String(count);
+    grid.classList.toggle('is-odd', count % 2 === 1);
+    grid.classList.toggle('is-even', count > 0 && count % 2 === 0);
+  });
+
+  document.querySelectorAll('.story-categories, .story-tags').forEach(function (box) {
+    var count = box.children.length;
+    box.dataset.count = String(count);
+    box.classList.toggle('is-odd', count % 2 === 1);
+    box.classList.toggle('is-even', count > 0 && count % 2 === 0);
+  });
+}
+
+
+
+// ============================================================
+// FIX 7: IMAGE LIGHTBOX + HORIZONTAL WHEEL SCROLL + TERM ACCESSIBILITY
+// ============================================================
+function openImageLightbox(src, alt) {
+  var box = document.getElementById('imageLightbox');
+  var img = document.getElementById('imageLightboxImg');
+  var caption = document.getElementById('imageLightboxCaption');
+  if (!box || !img) return;
+  img.src = src;
+  img.alt = alt || '放大预览';
+  if (caption) caption.textContent = alt || '';
+  box.classList.add('active');
+  box.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeImageLightbox() {
+  var box = document.getElementById('imageLightbox');
+  var img = document.getElementById('imageLightboxImg');
+  if (!box || !img) return;
+  box.classList.remove('active');
+  box.setAttribute('aria-hidden', 'true');
+  img.src = '';
+  if (!document.getElementById('sidebar').classList.contains('active') && !(window.modalOverlay && modalOverlay.classList.contains('active'))) {
+    document.body.style.overflow = '';
+  }
+}
+
+function initStoryImageInteractions() {
+  document.querySelectorAll('.story-images').forEach(function (wrap) {
+    var hasOverflow = function () { return wrap.scrollWidth > wrap.clientWidth + 2; };
+
+    wrap.addEventListener('wheel', function (e) {
+      if (!hasOverflow()) return;
+      var mostlyVertical = Math.abs(e.deltaY) >= Math.abs(e.deltaX);
+      if (!mostlyVertical) return;
+      wrap.scrollLeft += e.deltaY;
+      e.preventDefault();
+    }, { passive: false });
+
+    wrap.querySelectorAll('img').forEach(function (img) {
+      img.setAttribute('tabindex', '0');
+      img.setAttribute('role', 'button');
+      img.setAttribute('aria-label', (img.alt || '图片') + '，点击放大查看');
+      img.addEventListener('click', function () { openImageLightbox(img.currentSrc || img.src, img.alt || '图片预览'); });
+      img.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          openImageLightbox(img.currentSrc || img.src, img.alt || '图片预览');
+        }
+      });
+    });
+  });
+
+  var box = document.getElementById('imageLightbox');
+  if (box && !box.dataset.bound) {
+    box.dataset.bound = '1';
+    box.addEventListener('click', function (e) {
+      if (e.target === box) closeImageLightbox();
+    });
+  }
+}
+
+function initKeywordExplanations() {
+  document.querySelectorAll('.tech-term').forEach(function (term) {
+    term.setAttribute('role', 'button');
+    term.setAttribute('tabindex', '0');
+    var termKey = term.getAttribute('data-term') || term.textContent.trim();
+    term.addEventListener('keydown', function (e) {
+      if ((e.key === 'Enter' || e.key === ' ') && GLOSSARY[termKey]) {
+        e.preventDefault();
+        openModal(termKey, e);
+      }
+    });
+  });
+}
+
+// ============================================================
+// FIX 6: ARCHIVE DROPDOWN
+// ============================================================
+function toggleArchive() {
+  var dropdown = document.getElementById('archiveDropdown');
+  if (!dropdown) return;
+  dropdown.classList.toggle('open');
+}
+
+function initArchiveMenu() {
+  var listEl = document.getElementById('archiveList');
+  if (!listEl) return;
+
+  // Determine page date: from body data-date, URL path, or fallback to today
+  var pageDate = null;
+  var bodyDate = document.body ? document.body.getAttribute('data-date') : '';
+  if (bodyDate && /^\d{4}-\d{2}-\d{2}$/.test(bodyDate)) {
+    pageDate = new Date(bodyDate + 'T00:00:00');
+  }
+  if (!pageDate || isNaN(pageDate.getTime())) {
+    var pathMatch = window.location.pathname.match(/\/([0-9]{4})\/([0-9]{2})\/([0-9]{2})/);
+    if (pathMatch) {
+      pageDate = new Date(pathMatch[1] + '-' + pathMatch[2] + '-' + pathMatch[3] + 'T00:00:00');
+    }
+  }
+  if (!pageDate || isNaN(pageDate.getTime())) {
+    pageDate = new Date();
+  }
+
+  var html = '';
+  for (var i = 0; i < 7; i++) {
+    var d = new Date(pageDate);
+    d.setDate(d.getDate() - i);
+    var y = d.getFullYear();
+    var m = String(d.getMonth() + 1).padStart(2, '0');
+    var day = String(d.getDate()).padStart(2, '0');
+    var dateStr = y + '年' + m + '月' + day + '日';
+    var urlPath = '/' + y + '/' + m + '/' + day + '/';
+    var weekDays = ['日', '一', '二', '三', '四', '五', '六'];
+    var weekDay = weekDays[d.getDay()];
+    if (i === 0) {
+      html += '<span class="archive-item archive-item-current">' + dateStr + ' 星期' + weekDay + ' ✓</span>';
+    } else {
+      html += '<a class="archive-item" href="' + urlPath + '">' + dateStr + ' 星期' + weekDay + '</a>';
+    }
+  }
+  listEl.innerHTML = html;
+}
+
+document.addEventListener('click', function (e) {
+  var dropdown = document.getElementById('archiveDropdown');
+  if (dropdown && !dropdown.contains(e.target)) {
+    dropdown.classList.remove('open');
+  }
+});
+
+document.addEventListener('keydown', function (e) {
+  if (e.key === 'Escape') {
+    var box = document.getElementById('imageLightbox');
+    if (box && box.classList.contains('active')) closeImageLightbox();
+  }
+});
+
+</script>
+</body>
+

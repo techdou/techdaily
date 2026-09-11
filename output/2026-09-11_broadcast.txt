@@ -1,0 +1,36 @@
+欢迎收听 TechDaily 每日科技快报。今天是 2026-09-11。
+
+今日共有 30 条科技要闻。
+
+第 1 条，Codex 负责人 Tibo 宣布暂停开放 200美元的Pro 新订阅，以保障现有的用户继续使用 Astra。他表示这类订阅对系统压力最大，而其他订阅方案和 API 仍可用，现有账户不受影响。另有用户观察确认，ChatGPT 网页端的 20
+第 2 条，DeepSeek 发布并开源原生多模态MoE模型DeepSeek V4.1 Flash。该模型总参数552B，采用Causal Encoder-Decoder结构，输入激活8B、输出激活16B，同时大幅优化KV Cache 对HBM和SSD
+第 3 条，DeepSeek Harness发布v0.1.5，新增DeepSeek V4.1 Flash模型适配，新会话默认使用该模型，支持保留KV Cache更新该模型系统提示词。并新增 Agent Teams 等功能。
+第 4 条，DeepSeek App 与网页端已完成更新，将原有的三种模式合并升级，接入新发布的 DeepSeek V4.1 Flash 多模态模型，同时近期上线了未成年人模式和一键登出功能。
+第 5 条，为方便部署 V4.1 Flash 及后续开源模型，DeepSeek 开源了 deepseek-recipe、DeepSelect、DeepJIT 三个代码仓库，分别用于 API 协议转换与提示词编解码，加速稀疏注意力和采样中的 TopK 算
+第 6 条，Cognition 发布编程模型 SWE-2，该模型基于 Kimi K3 后训练，官方称其在主要评测上与前沿模型得分相当、成本最多低 70%。该模型现已上线 Devin Desktop 和 CLI，Pro、Max、Teams 订阅用户未来一
+第 7 条，杭州联合智谱推出杭州全城Coding计划，在杭个人和企业用户可享政府补贴，购买Coding套餐最高可享55%综合补贴。活动自9月10日开始，个人用户每人限享1次，企业用户单家补贴上限为100万元。
+第 8 条，高德推出3D原生城市世界模型ABot-Earth 0.7，官方称消费级GPU约10分钟即可生成公里级3D城市，并已用于飞行街景2.0、导航Live等服务。
+第 9 条，Cohere 发布开源机器翻译模型 North Small Translate，官方称其在 WMT 基准超过 DeepL 与 Google Translate。模型权重已上架 Hugging Face，采用非商业许可。
+第 10 条，OpenAI宣布GPT-Live-1登陆API，该模型能边听边说并支持即时打断，深度推理与工具调用可委托给后端模型处理。开发者能通过system prompt定制语气风格，模型原生提供ASR转写，支持部署全双工语音Agent。
+第 11 条，OpenAI推出Agents API公测版，用开源的Codex harness驱动，帮开发者构建并运行云端Agent。OpenAI负责托管运行agent loop，处理模型调用、上下文管理与编排。该API免收额外费用，仅需为消耗的token
+第 12 条，Codex上线Unity插件，内置技能由Unity工程师编写，覆盖项目设置、渲染、物理与AI导航等领域，目前已可在ChatGPT插件页面获取。
+第 13 条，Cursor推出Projects功能。用户在单一持久会话中与协调Agent交流，由它向写代码的subagent委派任务，该协调Agent自身不写代码且永不被阻塞。
+第 14 条，Claude Code 桌面应用可将任意面板弹出为独立窗口。diff 或终端拖到第二屏幕后，Claude 仍会在主窗口继续工作。
+第 15 条，TraeCode 推出9月模型限时折扣，Seed-Evolving 和 Seed-2.1-Pro 面向全量用户限时一折。同时 Seed-2.1-Turbo 与 Seed-Code 面向免费用户提供 5 折优惠。
+第 16 条，Google AI Studio 官方宣布，Gemini API 文档的首个预览版已直接集成进 AI Studio，开发者可以在 ai.studio/docs 查看。
+第 17 条，Nebius 宣布免费的 Nebius AI Builder Program 上线，提供超过 400 美元的额度与折扣，NVIDIA、LangChain 等伙伴参与，开发者可免费加入。
+第 18 条，OpenAI 图像模型 GPT-Image-2.5 Sunburst 正在 Arena 限时 72 小时免费开放。免费期至北京时间 9 月 13 日 23 时结束，此后该模型仅在匿名模式下可用。
+第 19 条，Google 推出 Windows 版 Gemini 桌面应用，现已面向 Windows 10 和 11 用户上线。部分功能需订阅 Google AI。
+第 20 条，OpenAI 在 ChatGPT Work 推出 Data agent，用自然语言即可把公司数据变成答案和交互式仪表盘。Data agent 以插件形式提供，可用的数据连接和使用角色由企业管理员控制。
+第 21 条，ChatGPT 宣布，股票自选清单功能正面向美国 Plus 和 Pro 用户逐步推出，Chat 会跟踪指定股票并主动推送更新。
+第 22 条，ChatGPT 官方账号宣布，Dropbox、Box和 Sharepoint 即日起原生集成到 ChatGPT Library，同时覆盖 ChatGPT 与 ChatGPT Work。该集成本周内向付费用户逐步推出。
+第 23 条，OpenAI推出ChatGPT for Financial Services并已上线，目前面向符合条件的金融机构开放。该产品内置多来源付费金融数据，支持细粒度引用溯源，能用公司模板生成估值模型等文件。
+第 24 条，Google Labs 宣布个性化每日故事应用 Dreambeans 向美国所有 18 岁以上用户开放。应用覆盖 iOS 和 Android，免费使用且无需订阅。
+第 25 条，千问教师节上线智能组卷、找真题试卷、教案生成助手等多个AI技能。更新千问App或PC端后，可在工作助理技能广场安装使用。
+第 26 条，Cursor推出CursorBench 4.0，评测Agent在真实模糊多文件任务的表现。新版新增长程问题导致所有模型得分下降。
+第 27 条，Anthropic的Frontier Red Team发布了新的评测，衡量AI模型在战术情报定位和常规武器开发方面的能力。官方称，前沿模型在部分任务上已接近甚至超越人类专家水平，其威胁情报团队也发现已存在真实滥用案例。
+第 28 条，Kimi 正式启动企业合作伙伴计划，联合 IT 服务商与集成商共建前线部署工程师队伍推进企业级 AI 落地。
+第 29 条，ElevenLabs 宣布与 Universal Music Group 达成多年期战略合作。首个产品是面向粉丝的 AI 创作平台，正在开发中，将开放参与合作的艺术家和词曲作者的音乐。
+第 30 条，据博主Andrew Curran转述，OpenAI已向《纽约时报》确认在另一道千禧年大奖难题上取得实质性进展，正准备宣布。
+
+以上就是今日 TechDaily 的全部内容。感谢收听，我们明天再见。
