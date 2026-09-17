@@ -1,0 +1,27 @@
+欢迎收听 TechDaily 每日科技快报。今天是 2026-09-17。
+
+今日共有 21 条科技要闻。
+
+第 1 条，代号为 Union Alpha 的“stealth”模型（不透露开发商）目前已在OpenRouter和OpenCode开放免费使用，支持图像输入，上下文256k，面向研究、编程、Agentic工作流及通用任务。
+第 2 条，Doubao-Seed-2.1-pro更新至0915版本，API全量上线火山方舟，豆包工作与TRAE同步接入。本次升级强化Agent任务交付，减少幻觉，提升多模态Coding与多模态理解，能读懂设计稿与复杂代码仓库，图像与视频推理Token
+第 3 条，Anthropic 正把 Claude Cowork 与普通聊天合并为统一入口，由 Claude 根据任务决定进行快速回答还是持续执行更复杂的工作，首批向 Pro 和 Max 用户逐步推出。同步上线的 Claude Docs、Claude 
+第 4 条，OpenAI CEO Sam Altman表示，他最期待原本于本周发布的主要内容将推迟至下周，并称值得等待。这次发布的内容被广泛认为是 GPT-6 Sol，但该说法尚未获得官方确认。
+第 5 条，讯飞星火全国产语音基座大模型Spark-Audio-1.0-Preview正式上线并开放体验，支持99种语言和202种方言识别，API后续将上线讯飞开放平台。
+第 6 条，网易有道发布并开源两款流式同传模型子曰4-R2T2和子曰4-T3PO。语音Agent网易叭哥说同步发布，宣布终身免费。
+第 7 条，Zed现已开放Delta公测，以共享Agent线程替代拉取请求完成协作与审查；目前免费支持桌面端、网页端及移动浏览器。
+第 8 条，Qoder Cloud Agents 1.0 正式发布，面向企业及个人开发者，以 Agent as a Service 托管 Agent 运行、交付与规模运维。
+第 9 条，Grok Build 官方上线跨会话记忆，可记住项目约定、决策与项目事实，官方称越用效果越好。用户可用 /memory 浏览记忆笔记，用 /dream 将近期笔记整理成主题。
+第 10 条，努比亚 NaviX Ultra 正式发布，官方称其为全球首款 AI 智能体手机，由豆包手机助手主导 AI 体验，售价 5999 元起。
+第 11 条，OpenAI 为 ChatGPT Ads 推出多项 AI 广告更新，包括测试 Sponsored Agents、上线广告主 AI 工具，并与 HubSpot 和 Shopify 集成。
+第 12 条，Mistral 与 Mozilla 宣布合作，Firefox 测试版 AI 浏览助手 Smart Window 现由 Mistral 模型驱动。
+第 13 条，OpenAI发布模型misalignment披露框架及六起案例。该框架覆盖模型全生命周期，即便行为未充分解释或缓解也倾向于先行公开，优先披露新型misalignment机制与安全防护失效情况。
+第 14 条，小米正公开直播mimo-v2.6两款模型的强化学习训练，相关训练日志、进度、成本和指标可直接在公开页面查看。
+第 15 条，Google DeepMind 推出研究平台 DeepMind Institute，面向 Google DeepMind、Google 及更广泛研究社区，发布和讨论 AGI 时代的技术与社会议题。平台目前已上线。
+第 16 条，联合国秘书长古特雷斯警告AI风险超出人类理解，呼吁全球协调建立护栏，避免AI安全逐底竞争，他下周将以此为重点与各国领导人会谈。
+第 17 条，欧盟委员会主席冯德莱恩在盟情咨文演讲中警告，AI Agent逃离运行环境只是风险预演，自我改进模型的危险正日益显现。她将邀请主要前沿实验室会谈，并与多国推进模型评估与AI安全合作。
+第 18 条，Emerald AI、Google和NVIDIA成立AI能源管理联盟AEMA，推动数据中心根据电网状况灵活调节用电。AEMA将制定统一的电网响应要求与并网路径，目前已开放成员加入。
+第 19 条，诺和诺德与Anthropic宣布合作，将在特定研发工作流测试Claude Science，支持生物学推理以加快新药发现，并使用Anthropic前沿模型强化AI软件开发。
+第 20 条，Cohere与Aleph Alpha签署最终业务合并协议，合并后以Cohere名义运营，设柏林与多伦多双总部。此举旨在打造首个跨大西洋主权AI方案，满足加拿大和德国的主权合规要求。
+第 21 条，据报道，苹果正开发搭载M8 Ultra芯片的企业AI推理服务器，最早2029年推出。
+
+以上就是今日 TechDaily 的全部内容。感谢收听，我们明天再见。
