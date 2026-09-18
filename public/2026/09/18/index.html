@@ -3390,7 +3390,45 @@ body.pet-dragging {
 <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
 <nav class="sidebar" id="sidebar">
   <div class="sidebar-title">📰 目录</div>
-
+  <div class="sidebar-cat">
+    <div class="sidebar-cat-name">开发生态</div>
+    <span class="sidebar-link" onclick="scrollToStory('1'); toggleSidebar()">1. Claude Code 重构 Projects，支持协调并行云端线程</span>
+    <span class="sidebar-link" onclick="scrollToStory('2'); toggleSidebar()">2. ChatGPT桌面版Windows端现已支持Appshots功能</span>
+    <span class="sidebar-link" onclick="scrollToStory('3'); toggleSidebar()">3. Kimi Code 桌面端发布</span>
+    <span class="sidebar-link" onclick="scrollToStory('4'); toggleSidebar()">4. Kimi开放平台推出联网搜索 Basic、Pro及网页读取接口</span>
+    <span class="sidebar-link" onclick="scrollToStory('5'); toggleSidebar()">5. TRAE 国际版上线新版订阅套餐</span>
+  </div>
+  <div class="sidebar-cat">
+    <div class="sidebar-cat-name">产品应用</div>
+    <span class="sidebar-link" onclick="scrollToStory('6'); toggleSidebar()">6. ChatGPT进入Microsoft Word，支持起草校对与格式检查</span>
+    <span class="sidebar-link" onclick="scrollToStory('7'); toggleSidebar()">7. ChatGPT向所有用户开放响应可视化功能</span>
+    <span class="sidebar-link" onclick="scrollToStory('8'); toggleSidebar()">8. OpenAI推出Astra for Law，已向部分律所开放</span>
+    <span class="sidebar-link" onclick="scrollToStory('9'); toggleSidebar()">9. Kimi上线金融行业解决方案，开放9项金融技能</span>
+    <span class="sidebar-link" onclick="scrollToStory('10'); toggleSidebar()">10. Meta 上线 Muse for Mac 桌面端</span>
+    <span class="sidebar-link" onclick="scrollToStory('11'); toggleSidebar()">11. Google Labs发布家庭AI Agent新版CC</span>
+  </div>
+  <div class="sidebar-cat">
+    <div class="sidebar-cat-name">模型发布</div>
+    <span class="sidebar-link" onclick="scrollToStory('12'); toggleSidebar()">12. Union Alpha揭晓为Pareto 26.9，正推进付费接入</span>
+    <span class="sidebar-link" onclick="scrollToStory('13'); toggleSidebar()">13. 千问上线Qwen3.8-Omni-Flash，支持1M长上下文</span>
+    <span class="sidebar-link" onclick="scrollToStory('14'); toggleSidebar()">14. PrismML发布 Ternary Bonsai 2 27B，模型约5</span>
+    <span class="sidebar-link" onclick="scrollToStory('15'); toggleSidebar()">15. Jina AI发布jina-ocr-v1视觉文档解析模型</span>
+    <span class="sidebar-link" onclick="scrollToStory('16'); toggleSidebar()">16. Anthropic测试版LSVP向生命科学团队开放</span>
+  </div>
+  <div class="sidebar-cat">
+    <div class="sidebar-cat-name">技术与洞察</div>
+    <span class="sidebar-link" onclick="scrollToStory('17'); toggleSidebar()">17. Anthropic提出三类指标衡量前沿AI开发速度</span>
+    <span class="sidebar-link" onclick="scrollToStory('18'); toggleSidebar()">18. 智谱用GLM-5.3优化自身推理系统，吞吐提升3.2倍</span>
+    <span class="sidebar-link" onclick="scrollToStory('19'); toggleSidebar()">19. Epoch AI推出外部AI基准审查体系，首批15项结果公布</span>
+  </div>
+  <div class="sidebar-cat">
+    <div class="sidebar-cat-name">前瞻与传闻</div>
+    <span class="sidebar-link" onclick="scrollToStory('20'); toggleSidebar()">20. 报道称OpenAI接近解决霍奇猜想</span>
+  </div>
+  <div class="sidebar-cat">
+    <div class="sidebar-cat-name">其他</div>
+    <span class="sidebar-link" onclick="scrollToStory('21'); toggleSidebar()">21. UN System Data Commons 上线支持 AI Agen</span>
+  </div>
 </nav>
 
 <!-- MASTHEAD -->
@@ -3420,7 +3458,12 @@ body.pet-dragging {
 
 <!-- CATEGORY PILLS -->
 <div class="cat-nav">
-
+<span class="cat-pill active" onclick="scrollToStory('1')">开发生态</span>
+<span class="cat-pill" onclick="scrollToStory('6')">产品应用</span>
+<span class="cat-pill" onclick="scrollToStory('12')">模型发布</span>
+<span class="cat-pill" onclick="scrollToStory('17')">技术与洞察</span>
+<span class="cat-pill" onclick="scrollToStory('20')">前瞻与传闻</span>
+<span class="cat-pill" onclick="scrollToStory('21')">其他</span>
 </div>
 
 <!-- TODAY'S BRIEF -->
@@ -3443,7 +3486,153 @@ body.pet-dragging {
     </div>
   </div>
   <div class="brief-grid">
-
+    <div class="brief-item" onclick="scrollToStory('1')">
+      <div class="brief-head">
+        <span class="brief-num">01</span>
+        <span class="brief-cat">开发生态</span>
+      </div>
+      <h3 class="brief-title">Claude Code 重构 Projects，支持协调并行云端线程</h3>
+    </div>
+    <div class="brief-item" onclick="scrollToStory('2')">
+      <div class="brief-head">
+        <span class="brief-num">02</span>
+        <span class="brief-cat">开发生态</span>
+      </div>
+      <h3 class="brief-title">ChatGPT桌面版Windows端现已支持Appshots功能</h3>
+    </div>
+    <div class="brief-item" onclick="scrollToStory('3')">
+      <div class="brief-head">
+        <span class="brief-num">03</span>
+        <span class="brief-cat">开发生态</span>
+      </div>
+      <h3 class="brief-title">Kimi Code 桌面端发布</h3>
+    </div>
+    <div class="brief-item" onclick="scrollToStory('4')">
+      <div class="brief-head">
+        <span class="brief-num">04</span>
+        <span class="brief-cat">开发生态</span>
+      </div>
+      <h3 class="brief-title">Kimi开放平台推出联网搜索 Basic、Pro及网页读取接口</h3>
+    </div>
+    <div class="brief-item" onclick="scrollToStory('5')">
+      <div class="brief-head">
+        <span class="brief-num">05</span>
+        <span class="brief-cat">开发生态</span>
+      </div>
+      <h3 class="brief-title">TRAE 国际版上线新版订阅套餐</h3>
+    </div>
+    <div class="brief-item" onclick="scrollToStory('6')">
+      <div class="brief-head">
+        <span class="brief-num">06</span>
+        <span class="brief-cat">产品应用</span>
+      </div>
+      <h3 class="brief-title">ChatGPT进入Microsoft Word，支持起草校对与格式检查</h3>
+    </div>
+    <div class="brief-item" onclick="scrollToStory('7')">
+      <div class="brief-head">
+        <span class="brief-num">07</span>
+        <span class="brief-cat">产品应用</span>
+      </div>
+      <h3 class="brief-title">ChatGPT向所有用户开放响应可视化功能</h3>
+    </div>
+    <div class="brief-item" onclick="scrollToStory('8')">
+      <div class="brief-head">
+        <span class="brief-num">08</span>
+        <span class="brief-cat">产品应用</span>
+      </div>
+      <h3 class="brief-title">OpenAI推出Astra for Law，已向部分律所开放</h3>
+    </div>
+    <div class="brief-item" onclick="scrollToStory('9')">
+      <div class="brief-head">
+        <span class="brief-num">09</span>
+        <span class="brief-cat">产品应用</span>
+      </div>
+      <h3 class="brief-title">Kimi上线金融行业解决方案，开放9项金融技能</h3>
+    </div>
+    <div class="brief-item" onclick="scrollToStory('10')">
+      <div class="brief-head">
+        <span class="brief-num">10</span>
+        <span class="brief-cat">产品应用</span>
+      </div>
+      <h3 class="brief-title">Meta 上线 Muse for Mac 桌面端</h3>
+    </div>
+    <div class="brief-item" onclick="scrollToStory('11')">
+      <div class="brief-head">
+        <span class="brief-num">11</span>
+        <span class="brief-cat">产品应用</span>
+      </div>
+      <h3 class="brief-title">Google Labs发布家庭AI Agent新版CC</h3>
+    </div>
+    <div class="brief-item" onclick="scrollToStory('12')">
+      <div class="brief-head">
+        <span class="brief-num">12</span>
+        <span class="brief-cat">模型发布</span>
+      </div>
+      <h3 class="brief-title">Union Alpha揭晓为Pareto 26.9，正推进付费接入</h3>
+    </div>
+    <div class="brief-item" onclick="scrollToStory('13')">
+      <div class="brief-head">
+        <span class="brief-num">13</span>
+        <span class="brief-cat">模型发布</span>
+      </div>
+      <h3 class="brief-title">千问上线Qwen3.8-Omni-Flash，支持1M长上下文</h3>
+    </div>
+    <div class="brief-item" onclick="scrollToStory('14')">
+      <div class="brief-head">
+        <span class="brief-num">14</span>
+        <span class="brief-cat">模型发布</span>
+      </div>
+      <h3 class="brief-title">PrismML发布 Ternary Bonsai 2 27B，模型约5.9GB</h3>
+    </div>
+    <div class="brief-item" onclick="scrollToStory('15')">
+      <div class="brief-head">
+        <span class="brief-num">15</span>
+        <span class="brief-cat">模型发布</span>
+      </div>
+      <h3 class="brief-title">Jina AI发布jina-ocr-v1视觉文档解析模型</h3>
+    </div>
+    <div class="brief-item" onclick="scrollToStory('16')">
+      <div class="brief-head">
+        <span class="brief-num">16</span>
+        <span class="brief-cat">模型发布</span>
+      </div>
+      <h3 class="brief-title">Anthropic测试版LSVP向生命科学团队开放</h3>
+    </div>
+    <div class="brief-item" onclick="scrollToStory('17')">
+      <div class="brief-head">
+        <span class="brief-num">17</span>
+        <span class="brief-cat">技术与洞察</span>
+      </div>
+      <h3 class="brief-title">Anthropic提出三类指标衡量前沿AI开发速度</h3>
+    </div>
+    <div class="brief-item" onclick="scrollToStory('18')">
+      <div class="brief-head">
+        <span class="brief-num">18</span>
+        <span class="brief-cat">技术与洞察</span>
+      </div>
+      <h3 class="brief-title">智谱用GLM-5.3优化自身推理系统，吞吐提升3.2倍</h3>
+    </div>
+    <div class="brief-item" onclick="scrollToStory('19')">
+      <div class="brief-head">
+        <span class="brief-num">19</span>
+        <span class="brief-cat">技术与洞察</span>
+      </div>
+      <h3 class="brief-title">Epoch AI推出外部AI基准审查体系，首批15项结果公布</h3>
+    </div>
+    <div class="brief-item" onclick="scrollToStory('20')">
+      <div class="brief-head">
+        <span class="brief-num">20</span>
+        <span class="brief-cat">前瞻与传闻</span>
+      </div>
+      <h3 class="brief-title">报道称OpenAI接近解决霍奇猜想</h3>
+    </div>
+    <div class="brief-item" onclick="scrollToStory('21')">
+      <div class="brief-head">
+        <span class="brief-num">21</span>
+        <span class="brief-cat">其他</span>
+      </div>
+      <h3 class="brief-title">UN System Data Commons 上线支持 AI Agent</h3>
+    </div>
   </div>
 </section>
 
@@ -3456,7 +3645,309 @@ body.pet-dragging {
 
 <!-- STORIES -->
 <section class="stories" id="stories">
-
+<article class="story" id="story-1">
+  <div class="story-header">
+    <div class="story-num">1</div>
+    <div class="story-title-block">
+      <div class="story-categories"><span class="story-cat">开发生态</span></div>
+      <h2 class="story-title"><a href="https://claude.com/blog/projects-redesigned" target="_blank">Claude Code 重构 Projects，支持协调并行云端线程</a></h2>
+    </div>
+  </div>
+  <div class="story-summary">Claude重构Projects功能为持续对话形态，向Pro和Max用户逐步公测。该功能可协调多个并行云端线程，共享记忆并持续执行长周期<span class="tech-term" onclick="openModal('Agent')">Agent</span>ic工作。每个线程独立处理代码或文档，用户离线后任务继续，适配跨仓库开发及迁移场景。</div>
+  <div class="story-images"><img src="https://assets.juya.uk/imagehub/aidaily/5eba7b90-ae73-40ec-94b2-8fdfccf963d5/acc14ed0-cb70-4462-ba85-e660aee86798/m001_6fa56388.gif" alt="配图" loading="lazy"></div>
+  <div class="story-body"><p><strong>Claude</strong> 在 <strong>Claude Code</strong> 中重新设计 <strong>Projects</strong>，将项目从资料文件夹改为一个持续对话，由 <strong>Claude</strong> 根据用户目标拆分任务、启动并协调多个并行云端线程，审查结果并汇总交付；每个线程都是独立的 <strong>Claude Code</strong> 云端会话，可在各自分支处理代码、运行测试和提交 <code>拉取请求</code>，也能处理上传的文档。</p>
+<p><strong>Projects</strong> 适合跨仓库开发、迁移、持续接收任务及其他长周期 <code>Agentic</code> 工作，用户可在项目主对话和 <code>Overview</code> 中查看、指导或接手各线程，离开电脑后任务仍会继续。</p>
+<p>目前该功能在 <strong>Pro</strong> 和 <strong>Max</strong> 订阅方案中处于公测并逐步开放，优先覆盖使用过云端会话且没有现有网页端或 <strong>Cowork</strong> 项目的账号，尚未向 <strong>Team</strong> 和 <strong>Enterprise</strong> 订阅方案开放；未看到入口的用户可加入候补名单。</p></div>
+</article>
+<article class="story" id="story-2">
+  <div class="story-header">
+    <div class="story-num">2</div>
+    <div class="story-title-block">
+      <div class="story-categories"><span class="story-cat">开发生态</span></div>
+      <h2 class="story-title"><a href="https://x.com/OpenAIDevs/status/2100726653366534560" target="_blank">ChatGPT桌面版Windows端现已支持Appshots功能</a></h2>
+    </div>
+  </div>
+  <div class="story-summary">ChatGPT桌面版Windows端现已支持Appshots功能，可直接通过快捷键向ChatGPT提供应用上下文，辅助调试、复刻界面和提取数据，减少复制粘贴。</div>
+  <div class="story-images"><img src="https://assets.juya.uk/imagehub/aidaily/5eba7b90-ae73-40ec-94b2-8fdfccf963d5/92f3791a-1dd6-4e00-b204-0c31fe6c15e8/m001_741f459a.gif" alt="配图" loading="lazy"></div>
+  <div class="story-body"><p><strong>ChatGPT</strong>桌面版Windows端现已支持<code>Appshots</code>功能，让用户直接通过快捷键把正在使用的应用内容作为上下文提供给<strong>ChatGPT</strong>，以减少补充背景所需的时间和复制粘贴操作。<code>Appshots</code>可用于调试问题、获取希望复刻的界面，以及从其他应用中提取数据。</p></div>
+</article>
+<article class="story" id="story-3">
+  <div class="story-header">
+    <div class="story-num">3</div>
+    <div class="story-title-block">
+      <div class="story-categories"><span class="story-cat">开发生态</span></div>
+      <h2 class="story-title"><a href="https://www.kimi.com/code/docs/kimi-code-desktop/getting-started.html" target="_blank">Kimi Code 桌面端发布</a></h2>
+    </div>
+  </div>
+  <div class="story-summary">Kimi Code 桌面端已发布，可让 <span class="tech-term" onclick="openModal('Agent')">Agent</span> 在图形界面读写本地项目。用户可接入官方或第三方模型，并用终端和内置浏览器验证结果。</div>
+  <div class="story-images"><img src="https://assets.juya.uk/imagehub/aidaily/5eba7b90-ae73-40ec-94b2-8fdfccf963d5/78f1f1da-939c-41f3-a975-74326587bf08/m001_72fe5429.png" alt="配图" loading="lazy"></div>
+  <div class="story-body"><p><strong>Kimi Code</strong> 桌面端目前已发布，用户可在图形界面打开本地项目，通过对话让 <code>Agent</code> 阅读和修改代码，并借助改动面板、文件预览、终端及内置浏览器检查结果。</p>
+<p>用户登录 <strong>Kimi</strong> 账号后，可使用账号权限范围内的官方模型，也可接入第三方模型供应商。</p>
+<p>空会话则必须先选择本地工作区才能发送任务。</p></div>
+</article>
+<article class="story" id="story-4">
+  <div class="story-header">
+    <div class="story-num">4</div>
+    <div class="story-title-block">
+      <div class="story-categories"><span class="story-cat">开发生态</span></div>
+      <h2 class="story-title"><a href="https://platform.kimi.com/docs/guide/web-search-best-practice" target="_blank">Kimi开放平台推出联网搜索 Basic、Pro及网页读取接口</a></h2>
+    </div>
+  </div>
+  <div class="story-summary">Kimi开放平台升级联网搜索，推出Basic、Pro和网页读取三个独立REST接口，现已按次计费，失败或空结果不收费。</div>
+  <div class="story-images"><img src="https://assets.juya.uk/imagehub/aidaily/5eba7b90-ae73-40ec-94b2-8fdfccf963d5/20f747da-0e8a-4d56-a86a-f6281bc4bbcc/m001_882f74c7.png" alt="配图" loading="lazy"></div>
+  <div class="story-body"><p><strong>Kimi开放平台</strong>现已面向开发者提供<code>联网搜索 Basic</code>、<code>联网搜索 Pro</code>和<code>网页读取</code>三个相互独立的<code>REST</code>接口，用于为<code>AI</code>应用、联网问答<code>Agent</code>和<code>RAG</code>提供结构化搜索结果、相关正文片段或指定网页正文。</p>
+<p><code>联网搜索 Pro</code>针对专业知识搜索和事实类查询提升，能够读取正文并筛选与问题最相关的片段，同时返回来源权威性等级；<code>Basic</code>可返回结构化搜索结果和可选网页正文，<code>网页读取</code>则用于提取指定<code>URL</code>的标题及<code>Markdown</code>正文。</p>
+<p>三个接口按次独立计费，<code>Basic</code>和<code>网页读取</code>均为<strong>10 元/千次</strong>，<code>Pro</code>为<strong>15 元/千次</strong>，只有请求成功并返回有效结果或正文时才收费。</p></div>
+</article>
+<article class="story" id="story-5">
+  <div class="story-header">
+    <div class="story-num">5</div>
+    <div class="story-title-block">
+      <div class="story-categories"><span class="story-cat">开发生态</span></div>
+      <h2 class="story-title"><a href="https://docs.trae.ai/ide/new-plans-and-billing?_lang=zh" target="_blank">TRAE 国际版上线新版订阅套餐</a></h2>
+    </div>
+  </div>
+  <div class="story-summary">TRAE 国际版上线新版订阅套餐，老 Pro+ 和 Ultra 用户升级后仍按原价扣费，但月度额度分别降至 $60 和 $200，老用户不升级则暂不能使用新增模型。</div>
+  <div class="story-images"><img src="https://assets.juya.uk/imagehub/aidaily/5eba7b90-ae73-40ec-94b2-8fdfccf963d5/f8ed60e6-691b-4664-80db-d6a581672805/m001_5d0a6f15.png" alt="配图" loading="lazy"></div>
+  <div class="story-body"><p><strong>TRAE</strong> 国际版公布新版订阅套餐与老用户升级策略，新版套餐分为 <strong>Free、Lite、Pro、Pro+ 和 Ultra</strong> 五档，<strong>Pro+ 连续包月 $60/月、Ultra $200/月</strong>，对应 <code>Dollar Usage</code> 额度分别为 <strong>$60/月和 $200/月</strong>。</p>
+<p>按官方规则，老 <strong>Pro+</strong> 和 <strong>Ultra</strong> 连续包月用户升级后仍按原价 <strong>$30/月、$100/月</strong> 扣费，但月度额度将从 <strong>$90/月、$400/月</strong> 下调至新版标准，其中 <strong>Ultra</strong> 额度减半。</p>
+<p>原 <strong>Pro+</strong> 和 <strong>Ultra</strong> 年订阅用户若不提前升级，到期前暂不开放新增模型，到期后重新购买或提前升级均可按新版年订阅 <strong>5 折</strong>付费。</p>
+<p>随新版套餐上线的新增模型包括 <code>GPT-6-Astra</code>、<code>GPT-5.5</code> 和 <code>GLM-5.2</code> 等。</p>
+<p>有论坛用户发帖批评称等了 <strong>5 个月</strong>没有新模型，认为老用户权益未获保障。</p></div>
+</article>
+<article class="story" id="story-6">
+  <div class="story-header">
+    <div class="story-num">6</div>
+    <div class="story-title-block">
+      <div class="story-categories"><span class="story-cat">产品应用</span></div>
+      <h2 class="story-title"><a href="https://x.com/ChatGPT/status/2100661995762798916" target="_blank">ChatGPT进入Microsoft Word，支持起草校对与格式检查</a></h2>
+    </div>
+  </div>
+  <div class="story-summary"><span class="tech-term" onclick="openModal('OpenAI')">OpenAI</span> 推出 ChatGPT for Word，用户可直接在 Word 侧边栏中生成初稿、总结文档、修改和校对内容。该功能面向包括 Free 在内的所有 ChatGPT 套餐开放，但受套餐用量限制。Business 和 Enterprise 用户还可在 Word 中限时免费体验 GPT-5.6 Sol。</div>
+  <div class="story-images"><img src="https://assets.juya.uk/imagehub/aidaily/5eba7b90-ae73-40ec-94b2-8fdfccf963d5/f3635e7c-bba0-4be7-918e-f83e84b85279/m001_c4c9c30d.gif" alt="配图" loading="lazy"></div>
+  <div class="story-body"><p><strong>OpenAI</strong> 推出 <code>ChatGPT for Word</code>，将 <strong>ChatGPT</strong> 直接集成到 <strong>Microsoft Word</strong> 的侧边栏中。</p>
+<p>用户可以在当前文档内把笔记整理成初稿、总结全文、修改选中文本、校对内容，并调整标题、编号和格式，无需在 <strong>Word</strong> 与 <strong>ChatGPT</strong> 之间来回复制粘贴；<strong>Word</strong> 与此前的 <strong>Excel</strong>、<strong>PowerPoint</strong> 共用同一套 <code>Microsoft 加载项</code>。</p>
+<p>该功能面向所有 <strong>ChatGPT</strong> 套餐开放，包括 <strong>Free</strong>，但受各套餐用量限制约束。</p>
+<p><strong>Business</strong> 和 <strong>Enterprise</strong> 用户还可在 <strong>9 月 17 日至 30 日</strong> 期间，在 <strong>Word</strong> 中限时免费体验 <code>GPT-5.6 Sol</code>，期间的使用不会计入其常规使用额度。</p></div>
+</article>
+<article class="story" id="story-7">
+  <div class="story-header">
+    <div class="story-num">7</div>
+    <div class="story-title-block">
+      <div class="story-categories"><span class="story-cat">产品应用</span></div>
+      <h2 class="story-title"><a href="https://x.com/JustinBleuel/status/2100656867257041109" target="_blank">ChatGPT向所有用户开放响应可视化功能</a></h2>
+    </div>
+  </div>
+  <div class="story-summary">ChatGPT已向所有用户开放响应可视化功能，用户可通过 Visualize 插件，直接生成交互式内容。</div>
+  <div class="story-images"><img src="https://assets.juya.uk/imagehub/aidaily/5eba7b90-ae73-40ec-94b2-8fdfccf963d5/0bf50bf2-7ab5-41c7-9bdb-708e47f472ed/m001_f5e3a4e7.gif" alt="配图" loading="lazy"></div>
+  <div class="story-body"><p><strong>ChatGPT</strong>目前已向全部用户开放响应可视化功能，用户可通过 <code>.visualize</code> 插件，或直接要求 <strong>ChatGPT</strong> 制作迷你应用、模拟和游戏，让聊天模型以交互形式回答。</p>
+<p>用户无需手动选择插件，只要输入“<code>Visualize</code>”并描述需求即可生成内容。</p>
+<p>官方展示的用途包括理解储蓄情况、探索太阳系和学习新游戏；他还表示，迷你应用的状态可延续至后续提示词。</p></div>
+</article>
+<article class="story" id="story-8">
+  <div class="story-header">
+    <div class="story-num">8</div>
+    <div class="story-title-block">
+      <div class="story-categories"><span class="story-cat">产品应用</span></div>
+      <h2 class="story-title"><a href="https://openai.com/index/astra-for-law/" target="_blank">OpenAI推出Astra for Law，已向部分律所开放</a></h2>
+    </div>
+  </div>
+  <div class="story-summary"><span class="tech-term" onclick="openModal('OpenAI')">OpenAI</span>推出法律AI平台Astra for Law，该平台整合GPT-6 Astra与Legal Search Index，可检索超2.3亿个网址中的美国判例法与法规，目前向部分律所开放，API接入即将提供。<span class="tech-term" onclick="openModal('OpenAI')">OpenAI</span>同步推出法律相关的26款合作伙伴插件和47款社区插件。</div>
+  <div class="story-images story-images--multiple"><img src="https://assets.juya.uk/imagehub/aidaily/5eba7b90-ae73-40ec-94b2-8fdfccf963d5/69715bf1-0e5f-4a13-85d2-6a87da2536ef/m001_1e809f4a.gif" alt="配图" loading="lazy"><img src="https://assets.juya.uk/imagehub/aidaily/5eba7b90-ae73-40ec-94b2-8fdfccf963d5/69715bf1-0e5f-4a13-85d2-6a87da2536ef/m002_d079d1f2.gif" alt="配图" loading="lazy"></div>
+  <div class="story-body"><p><strong>OpenAI</strong>推出<code>Astra for Law</code>，供律师事务所和法律科技公司围绕自身专业知识构建AI产品与工作流。</p>
+<p>平台将<code>GPT-6 Astra</code>与法律分析及写作指令、深度工作设置和<code>Legal Search Index</code>结合，可检索超过<strong>2.3亿</strong>个网址中的美国判例法、成文法、法规、法院规则和行政决定，并持续加入新来源。</p>
+<p><strong>OpenAI</strong>还推出<strong>26款</strong>合作伙伴插件和<strong>47款</strong>社区插件，并与律所构建协议分析、并购尽调和IPO准备工具。</p>
+<p><code>Astra for Law</code>目前通过<code>Trusted Access</code>在<code>ChatGPT</code>和<code>Codex</code>中向部分律所提供，符合条件的律所可获得扩展的隐私与治理控制，<code>API</code>接入即将开放。</p></div>
+</article>
+<article class="story" id="story-9">
+  <div class="story-header">
+    <div class="story-num">9</div>
+    <div class="story-title-block">
+      <div class="story-categories"><span class="story-cat">产品应用</span></div>
+      <h2 class="story-title"><a href="https://www.kimi.com/news/kimi-financial-industry-ai-solution" target="_blank">Kimi上线金融行业解决方案，开放9项金融技能</a></h2>
+    </div>
+  </div>
+  <div class="story-summary">Kimi上线金融行业解决方案，整合10余项数据源、9项金融技能与5项合规措施，将数据处理和初稿制作压缩至小时级。网页端、Kimi Work与Kimi Code均已开放。</div>
+  <div class="story-images"><img src="https://assets.juya.uk/imagehub/aidaily/5eba7b90-ae73-40ec-94b2-8fdfccf963d5/f01b7460-891f-4b9d-8912-9a2a3510ab2a/m001_b6e64d35.png" alt="配图" loading="lazy"></div>
+  <div class="story-body"><p><strong>Kimi</strong>目前已全面上线金融行业解决方案，面向金融机构、专业知识工作者、开发者及普通用户，将专业数据获取、分析建模和成果交付连接为完整工作流，以应对金融业务对时效性、信息整合、准确性和合规性的要求。</p>
+<p>方案覆盖持仓早报、财报点评、项目筛选、深度研究和组合复盘等任务，官方称，已落地的机构合作将过去以天计的资料处理和初稿制作压缩至小时级。</p>
+<p>所有用户可在kimi.com安装体验<strong>9项</strong>金融技能和<strong>10多项</strong>数据源插件；专业知识工作者和开发者还可通过<code>Kimi Work</code>与<code>Kimi Code</code>调用相关能力，企业则可使用<code>Kimi托管智能体</code>获得可配置、可审计的运行环境。</p>
+<p>目前已有<strong>数十家</strong>券商、商业银行、风险投资基金及投研数据机构基于<code>Kimi模型</code>、<code>Kimi企业版</code>和<code>Kimi Work</code>开展业务创新或共建金融方案。</p></div>
+</article>
+<article class="story" id="story-10">
+  <div class="story-header">
+    <div class="story-num">10</div>
+    <div class="story-title-block">
+      <div class="story-categories"><span class="story-cat">产品应用</span></div>
+      <h2 class="story-title"><a href="https://ai.meta.com/muse/download" target="_blank">Meta 上线 Muse for Mac 桌面端</a></h2>
+    </div>
+  </div>
+  <div class="story-summary">Meta 的 Muse 应用现已登陆 Mac，可作为个人 <span class="tech-term" onclick="openModal('Agent')">Agent</span> 在电脑上直接替用户完成任务。该应用目前仍仅限美国地区。</div>
+  <div class="story-images"><img src="https://assets.juya.uk/imagehub/aidaily/5eba7b90-ae73-40ec-94b2-8fdfccf963d5/fae9dbc1-41ed-43ee-94f2-3ebe5f223105/m001_7975e459.png" alt="配图" loading="lazy"></div>
+  <div class="story-body"><p><strong>Muse</strong> 现已作为独立应用登陆 <strong>Mac</strong>，该应用定位为个人 <code>Agent</code>，可在用户电脑上直接完成任务，覆盖应用、文件、日历、笔记和信息，所有操作均需用户明确许可，用户可自行控制其访问范围。</p>
+<p>应用可从 <strong>Meta</strong> 官网下载，其目前仍仅限美国地区。</p></div>
+</article>
+<article class="story" id="story-11">
+  <div class="story-header">
+    <div class="story-num">11</div>
+    <div class="story-title-block">
+      <div class="story-categories"><span class="story-cat">产品应用</span></div>
+      <h2 class="story-title"><a href="http://labs.google/cc" target="_blank">Google Labs发布家庭AI Agent新版CC</a></h2>
+    </div>
+  </div>
+  <div class="story-summary">Google Labs发布家庭AI <span class="tech-term" onclick="openModal('Agent')">Agent</span>新版CC，最多支持5名成员协同处理日程与待办。成员能在Google Chat中指派其制定餐食计划或整理购物清单。</div>
+  <div class="story-images"><img src="https://assets.juya.uk/imagehub/aidaily/5eba7b90-ae73-40ec-94b2-8fdfccf963d5/8ed244ed-3018-49fe-84d6-c1f32c2ae513/m001_058cd9fc.gif" alt="配图" loading="lazy"></div>
+  <div class="story-body"><p><strong>Google Labs</strong>发布面向家庭的新版<code>CC AI Agent</code>，希望帮助家庭减少处理日常事务的时间。</p>
+<p>新版CC最多支持<strong>5名</strong>成员，可通过共享邮件简报、<strong>Google Calendar</strong>、<strong>Tasks</strong>和<strong>Google Chat</strong>同步日程与待办，并协助制定餐食计划、整理购物清单及填写文书。</p>
+<p>CC还能区分全家共享信息与个人信息，并在用户指导下完成相关任务。</p>
+<p>目前，该服务仅面向美国<strong>18岁以上</strong>用户，符合条件者可加入候补名单，现有CC用户也可升级。</p></div>
+</article>
+<article class="story" id="story-12">
+  <div class="story-header">
+    <div class="story-num">12</div>
+    <div class="story-title-block">
+      <div class="story-categories"><span class="story-cat">模型发布</span></div>
+      <h2 class="story-title"><a href="https://x.com/unionalphaai/status/2100722366200557603" target="_blank">Union Alpha揭晓为Pareto 26.9，正推进付费接入</a></h2>
+    </div>
+  </div>
+  <div class="story-summary">Union Alpha 现已揭晓为 Unbiased 的 Pareto 26.9，它是一个多模型协同处理任务并在必要时调用更强模型的系统。原定一周的免费测试提前结束，付费接入正在推进。</div>
+  <div class="story-images"><img src="https://assets.juya.uk/imagehub/aidaily/5eba7b90-ae73-40ec-94b2-8fdfccf963d5/0a01e9ae-d469-4f5d-8f48-16038c2de24f/m001_bf8db8f0.png" alt="配图" loading="lazy"></div>
+  <div class="story-body"><p><strong>OpenRouter</strong>、<strong>OpenCode</strong>和<strong>Cloudflare</strong>以<strong>Union Alpha</strong>名义隐身测试的产品是<code>Pareto 26.9</code>，隐身期因社区识别和使用需求而提前结束。</p>
+<p>此次测试用于收集真实用户反馈、了解规模化运行问题，并为计划下月公开发布的<code>26.10</code>做准备。</p>
+<p><strong>OpenRouter</strong>表示，用户目前仍可继续使用；<strong>TheUnbiasedCo</strong>正与各网关协调开放<code>26.9</code>付费接入，每百万<code>Token</code>的输入、缓存和输出价格分别为<strong>2.50美元</strong>、<strong>0.25美元</strong>和<strong>7.50美元</strong>。</p>
+<p>该公司称，<code>Pareto</code>并非单一<code>权重模型</code>，而是由多个模型协同完成任务，并由一套机制检查结果，在需要时调用更强模型。</p></div>
+</article>
+<article class="story" id="story-13">
+  <div class="story-header">
+    <div class="story-num">13</div>
+    <div class="story-title-block">
+      <div class="story-categories"><span class="story-cat">模型发布</span></div>
+      <h2 class="story-title"><a href="https://qwenlm.github.io/zh/blog/qwen3.8-omni-flash/" target="_blank">千问上线Qwen3.8-Omni-Flash，支持1M长上下文</a></h2>
+    </div>
+  </div>
+  <div class="story-summary">千问发布原生全模态模型 <span class="tech-term" onclick="openModal('Qwen')">Qwen</span>3.8-Omni-Flash，支持1M长上下文。该模型强化音视频<span class="tech-term" onclick="openModal('Agent')">Agent</span>工作流，能围绕长音视频完成理解规划与工具调用，用于视频剪辑和翻译等场景。其评测得分较前代提升超25%，已上线千问AI平台。</div>
+  <div class="story-images story-images--multiple"><img src="https://assets.juya.uk/imagehub/aidaily/5eba7b90-ae73-40ec-94b2-8fdfccf963d5/d51ef92b-d9be-4b80-99c7-8513854a2419/m001_9275d97d.png" alt="配图" loading="lazy"><img src="https://assets.juya.uk/imagehub/aidaily/5eba7b90-ae73-40ec-94b2-8fdfccf963d5/d51ef92b-d9be-4b80-99c7-8513854a2419/m002_2ca1997c.gif" alt="配图" loading="lazy"></div>
+  <div class="story-body"><p><code>Qwen3.8-Omni-Flash</code>目前已上线<strong>千问</strong><code>AI</code>平台，支持文本、图像、音频和视频输入及<strong>1M</strong>长上下文，重点提升真实生产力场景中的全模态<code>Agent</code>能力。</p>
+<p>模型可围绕长音视频完成按需理解、任务规划、工具调用和结果交付，覆盖视频剪辑、音乐视频创作、短剧翻译、电影解说、会议处理、研究报告生成及音视频对话等场景。</p>
+<p>官方称，其在累计<strong>29项</strong>评测中较<code>Qwen3.5-Omni-Plus</code>平均得分提升<strong>超过25%</strong>，<code>API</code>每小时音频输入价格降幅<strong>超过98%</strong>，每小时音视频输入价格降幅<strong>超过93%</strong>。千问还扩展了<code>Qwen-MM-Plugins</code>，并开源<code>Qwen-Live Harness</code>，分别支持长程音视频工作流与实时、持续的全模态交互。</p></div>
+</article>
+<article class="story" id="story-14">
+  <div class="story-header">
+    <div class="story-num">14</div>
+    <div class="story-title-block">
+      <div class="story-categories"><span class="story-cat">模型发布</span></div>
+      <h2 class="story-title"><a href="https://prismml.com/news/bonsai-2-27b" target="_blank">PrismML发布 Ternary Bonsai 2 27B，模型约5.9GB</a></h2>
+    </div>
+  </div>
+  <div class="story-summary">PrismML发布Ternary Bonsai 2 27B模型，体积约5.9GB，采用ternary g128<span class="tech-term" onclick="openModal('权重')">权重</span>缩小部署体积约9倍，在14项思考模式基准中保留了98.2%的FP16综合性能。</div>
+  <div class="story-images"><img src="https://assets.juya.uk/imagehub/aidaily/5eba7b90-ae73-40ec-94b2-8fdfccf963d5/14bf7faa-bfe4-47b7-8c6f-6c129a358597/m001_a92ac4e0.png" alt="配图" loading="lazy"></div>
+  <div class="story-body"><p><strong>PrismML</strong>发布基于<code>Qwen3.8-27B</code>的<code>Ternary Bonsai 2 27B</code>，通过<code>ternary g128</code>权重和配套低比特内核缩小部署体积，重点改善首代发布后的模型质量。官方称，其约<strong>5.9GB</strong>的主要版本比<code>FP16</code>基线小约<strong>9倍</strong>，在<strong>14项</strong>思考模式基准中保留<strong>98.2%</strong>的<code>FP16</code>综合性能，并加强<code>Agentic编码</code>、多模态推理和长周期工具使用表现。</p>
+<p>模型支持<strong>262K token</strong>上下文，提供<code>GGUF</code>和<code>MLX</code>版本，可在<code>CUDA</code>、<code>Metal</code>及<code>CPU</code>环境运行，但<code>GGUF</code>文件必须使用<strong>PrismML</strong>的<code>llama.cpp</code>分支，不能直接使用原版<code>llama.cpp</code>。</p>
+<p>模型目前已可下载，采用<strong>Apache 2.0</strong>许可。</p></div>
+</article>
+<article class="story" id="story-15">
+  <div class="story-header">
+    <div class="story-num">15</div>
+    <div class="story-title-block">
+      <div class="story-categories"><span class="story-cat">模型发布</span></div>
+      <h2 class="story-title"><a href="https://huggingface.co/jinaai/jina-ocr-v1" target="_blank">Jina AI发布jina-ocr-v1视觉文档解析模型</a></h2>
+    </div>
+  </div>
+  <div class="story-summary">Jina AI发布并开源34亿参数视觉文档解析模型jina-ocr-v1，可将PDF、扫描件等转为Markdown。模型基于DeepSeek-OCR训练，结合FastMTP提升效率，支持25种语言并针对低预算GPU优化。</div>
+  <div class="story-images"><img src="https://assets.juya.uk/imagehub/aidaily/5eba7b90-ae73-40ec-94b2-8fdfccf963d5/f42f40d8-7a00-44f5-b00d-1be776cbd9ca/m001_a51b20a0.png" alt="配图" loading="lazy"></div>
+  <div class="story-body"><p><strong>Jina AI</strong>发布<code>端到端视觉文档解析模型</code> <code>jina-ocr-v1</code>，用于将<code>PDF</code>、扫描件、表格、图表和发票等内容解析为整洁的<code>Markdown</code>。模型基于<code>DeepSeek-OCR</code>进行后训练，共有<strong>34亿参数</strong>，每个token约激活<strong>5.7亿参数</strong>，并通过<code>FastMTP</code>推测解码提升处理效率，强化了<strong>25种语言</strong>支持，面向<code>NVIDIA L4</code>等低预算GPU优化。</p>
+<p>用户目前可通过<strong>Jina Reader</strong>的<code>x-respond-with</code>、托管<code>API</code>或<code>Hugging Face</code>获取和使用，也可借助<code>Transformers</code>或<code>vLLM</code>在本地运行；其中<code>FastMTP</code>仅支持<code>vLLM</code>，模型权重采用<code>CC BY-NC 4.0</code>许可，商业使用需联系<strong>Jina AI</strong>。</p></div>
+</article>
+<article class="story" id="story-16">
+  <div class="story-header">
+    <div class="story-num">16</div>
+    <div class="story-title-block">
+      <div class="story-categories"><span class="story-cat">模型发布</span></div>
+      <h2 class="story-title"><a href="https://www.anthropic.com/news/life-sciences-verification-program" target="_blank">Anthropic测试版LSVP向生命科学团队开放</a></h2>
+    </div>
+  </div>
+  <div class="story-summary"><span class="tech-term" onclick="openModal('Anthropic')">Anthropic</span>开放生命科学验证计划测试版申请，提供更宽松的生物研究模型访问。通过审核资质的团队可获得Standard Use或High-risk Use授权，用于药物发现等曾被拦截的任务。该计划目前支持第一方API控制台及Claude Enterprise和Team方案。</div>
+  <div class="story-images"><img src="https://assets.juya.uk/imagehub/aidaily/5eba7b90-ae73-40ec-94b2-8fdfccf963d5/59186777-22b0-4384-9edb-00371e855bd3/m001_b98ca7ba.png" alt="配图" loading="lazy"></div>
+  <div class="story-body"><p><strong>Anthropic</strong>已开放生命科学验证计划申请，面向学术实验室、初创公司、制药企业等团队和机构，以测试版提供 <code>Mythos 5.1</code>、<code>Opus 5</code> 和 <code>Sonnet 5</code> 的生命科学工作访问权限。</p>
+<p>该计划通过审核申请者的研究资质、安全标准和伦理监督，为药物发现、研究生物学、临床开发及制造等通常会被通用 <code>Fable</code> 模型拦截的任务提供更宽松的生物学分类器，并按照需求分为 <code>Standard Use</code> 和 <code>High-risk Use</code>。</p>
+<p>获批权限可用于 <code>Claude Science</code>、<code>Claude.ai</code>、<code>Claude Code</code> 和 <code>API</code>，但目前仅支持第一方 <code>API</code> 控制台以及 <code>Claude Enterprise</code> 和 <code>Team</code> 订阅方案，不支持个人订阅方案、第三方平台或启用 <code>BAA</code> 的组织。</p>
+<p><strong>Anthropic</strong>已通过早期访问计划接入数十家机构，并计划逐步向个人 <code>Pro</code> 和 <code>Max</code> 订阅方案扩展。</p></div>
+</article>
+<article class="story" id="story-17">
+  <div class="story-header">
+    <div class="story-num">17</div>
+    <div class="story-title-block">
+      <div class="story-categories"><span class="story-cat">技术与洞察</span></div>
+      <h2 class="story-title"><a href="https://www.anthropic.com/institute/measuring-pace-of-ai-development" target="_blank">Anthropic提出三类指标衡量前沿AI开发速度</a></h2>
+    </div>
+  </div>
+  <div class="story-summary"><span class="tech-term" onclick="openModal('Anthropic')">Anthropic</span>提出三类指标衡量前沿AI实验室的研发状况，覆盖研发自动化、<span class="tech-term" onclick="openModal('Agent')">Agent</span>监督和算力分配。其内部数据显示，Claude主导了26%的研发工作，但尚未完全自主运行。<span class="tech-term" onclick="openModal('Anthropic')">Anthropic</span>计划引入独立第三方核验相关数据。</div>
+  <div class="story-images"><img src="https://assets.juya.uk/imagehub/aidaily/5eba7b90-ae73-40ec-94b2-8fdfccf963d5/3ef593cb-f1e8-4271-9d47-ecdefa569f02/m001_64516497.png" alt="配图" loading="lazy"></div>
+  <div class="story-body"><p><strong>Anthropic</strong>提出一套面向前沿<code>AI实验室</code>的测量工具，希望让公众、第三方和政府了解实验室内部<code>AI开发</code>速度，指标覆盖<code>Claude</code>参与<code>AI研发</code>的自动化程度、内部<code>Agent</code>监督情况和研发算力分配。</p>
+<p>根据<strong>Anthropic</strong>披露的内部统计，<code>Claude</code>尚未在任何被测<code>AI研发</code>工作中完全自主运行，但已主导<strong>26%</strong>的工作，参与协作或达到更高自动化水平的工作占比超过<strong>90%</strong>；其最常用内部平台同时约有<strong>3万个</strong>研究与工程<code>Agent</code>运行。</p>
+<p><strong>Anthropic</strong>还称，所检查的一周内，约<strong>6%</strong>的<code>AI研发算力</code>用于安全工作，<code>AI驱动的AI研发算力</code>中约<strong>12%</strong>用于安全工作。</p>
+<p>上述数据是<strong>Anthropic</strong>内部测量结果，公司认为其他前沿<code>AI开发者</code>也可按公开方法披露同类指标，并计划让多家独立第三方评估机构接触其内部流程、系统和数据，核验安全实践、报告事件及监督关键指标。</p></div>
+</article>
+<article class="story" id="story-18">
+  <div class="story-header">
+    <div class="story-num">18</div>
+    <div class="story-title-block">
+      <div class="story-categories"><span class="story-cat">技术与洞察</span></div>
+      <h2 class="story-title"><a href="https://z.ai/blog/glm-built-its-inference-infrastructure" target="_blank">智谱用GLM-5.3优化自身推理系统，吞吐提升3.2倍</a></h2>
+    </div>
+  </div>
+  <div class="story-summary">智谱称GLM-5.3驱动的Infra <span class="tech-term" onclick="openModal('Agent')">Agent</span>在不到两周内，完成GLM-5.3-Flash在超十万块国产AI加速器集群的生产部署，端到端吞吐量提升3.2倍。部署中，Infra <span class="tech-term" onclick="openModal('Agent')">Agent</span>靠稠密反馈机制分析并修改代码，人类工程师负责设定目标与审查，最终单token成本可比主流NVIDIA GPU。</div>
+  <div class="story-images story-images--multiple"><img src="https://assets.juya.uk/imagehub/aidaily/5eba7b90-ae73-40ec-94b2-8fdfccf963d5/92239c10-2d2d-4f7c-bfd5-d3e17c5ed7a3/m001_16a80453.png" alt="配图" loading="lazy"><img src="https://assets.juya.uk/imagehub/aidaily/5eba7b90-ae73-40ec-94b2-8fdfccf963d5/92239c10-2d2d-4f7c-bfd5-d3e17c5ed7a3/m002_dae25744.png" alt="配图" loading="lazy"></div>
+  <div class="story-body"><p><strong>智谱</strong>披露，由<code>GLM-5.3</code>驱动的<code>Infra Agent</code>参与建设<code>GLM-5.3-Flash</code>推理基础设施，使模型从首次在国产加速卡跑通到承载全部生产流量用时<strong>不到两周</strong>，端到端吞吐量提升至初始基线的<strong>3.2倍</strong>。</p>
+<p>目前，<code>GLM-5.3-Flash</code>的全部生产推理运行在<strong>超过10万块</strong>国产<code>AI加速器</code>组成的集群上，并支持<strong>100万</strong><code>token</code>上下文和多模态请求。</p>
+<p>面对显存容量、带宽、软件生态、算子及文档等限制，<strong>智谱</strong>通过内存与通信优化、混合精度缓存、架构分离和稠密反馈机制推进部署。</p>
+<p><strong>智谱</strong>称，<code>Infra Agent</code>主要负责分析、提出假设和修改代码，人类工程师仍负责设定目标、搭建反馈环境及审查高风险变更。</p></div>
+</article>
+<article class="story" id="story-19">
+  <div class="story-header">
+    <div class="story-num">19</div>
+    <div class="story-title-block">
+      <div class="story-categories"><span class="story-cat">技术与洞察</span></div>
+      <h2 class="story-title"><a href="https://epoch.ai/data/benchmark-reviews-documentation" target="_blank">Epoch AI推出外部AI基准审查体系，首批15项结果公布</a></h2>
+    </div>
+  </div>
+  <div class="story-summary">Epoch AI推出外部AI基准审查体系，首批评估15项基准，其中4项通过、9项有缺陷、2项信息不足。</div>
+  <div class="story-images"><img src="https://assets.juya.uk/imagehub/aidaily/5eba7b90-ae73-40ec-94b2-8fdfccf963d5/0a4c16f6-4ff4-4a88-ba45-880f89c7a0fa/m001_44cf4c09.png" alt="配图" loading="lazy"></div>
+  <div class="story-body"><p><strong>Epoch AI</strong> 推出面向外部<code>AI</code>基准的<code>Benchmark Reviews</code>审查体系，通过统一量表检查任务、评分逻辑和运行配置，以帮助公众判断基准质量并推动开发者改进。</p>
+<p>首批覆盖不同领域和错误类型的<strong>15项</strong>基准，<strong>4项</strong>获评<code>Verified</code>，<strong>9项</strong>获评<code>Flawed</code>，另有<strong>2项</strong>因资料不足被标为<code>Not enough info</code>。</p>
+<p>审查结果及限制会公开展示；涉及私有资料时，只披露可评估范围和通用错误类型，不公布任务级分析。</p>
+<p><strong>Epoch AI</strong>不审查自身创建的基准，未来将优先考虑影响力、传播范围和能力覆盖多样性，并可能委托外部机构审查自有基准。</p></div>
+</article>
+<article class="story" id="story-20">
+  <div class="story-header">
+    <div class="story-num">20</div>
+    <div class="story-title-block">
+      <div class="story-categories"><span class="story-cat">前瞻与传闻</span></div>
+      <h2 class="story-title"><a href="https://the-decoder.com/openai-reportedly-closes-in-on-solving-the-hodge-conjecture-its-second-millennium-prize-problem/" target="_blank">报道称OpenAI接近解决霍奇猜想</a></h2>
+    </div>
+  </div>
+  <div class="story-summary">据报道，<span class="tech-term" onclick="openModal('OpenAI')">OpenAI</span>正研究千禧年大奖难题霍奇猜想，已接近解决该问题。受此前Navier-Stokes问题公关风波影响，<span class="tech-term" onclick="openModal('OpenAI')">OpenAI</span>希望谨慎处理对外信息，相关成果公告可能推迟。</div>
+  
+  <div class="story-body"><p><strong>The Information</strong>报道称，<strong>OpenAI</strong>目前正研究千禧年大奖难题<code>霍奇猜想</code>，并已接近获得解答；这一猜想涉及形状的某些<code>几何性质</code>能否通过更简单的<code>代数构件</code>描述。</p>
+<p>知情人士称，<strong>OpenAI</strong>员工预计很快会有结果，但公司在经历此前<code>Navier-Stokes问题</code>引发的公关风波后，希望谨慎处理对外信息，因此公告可能需要更长时间。</p>
+<p>目前相关进展尚未获得<strong>OpenAI</strong>正式确认。</p></div>
+</article>
+<article class="story" id="story-21">
+  <div class="story-header">
+    <div class="story-num">21</div>
+    <div class="story-title-block">
+      <div class="story-categories"><span class="story-cat">其他</span></div>
+      <h2 class="story-title"><a href="https://data.un.org/" target="_blank">UN System Data Commons 上线支持 AI Agent</a></h2>
+    </div>
+  </div>
+  <div class="story-summary">联合国推出 UN System Data Commons，把分散的全球统计数据整合成可搜索的知识图谱。平台支持自然语言搜索与交互式可视化，AI <span class="tech-term" onclick="openModal('Agent')">Agent</span>也能通过MCP获取数据并生成图表。</div>
+  <div class="story-images"><img src="https://assets.juya.uk/imagehub/aidaily/5eba7b90-ae73-40ec-94b2-8fdfccf963d5/f9fc47d7-49c6-4796-8659-f33476956c82/m001_701638f5.png" alt="配图" loading="lazy"></div>
+  <div class="story-body"><p><strong>联合国系统</strong>推出开源平台 <strong>UN System Data Commons</strong>，将不同<strong>联合国系统</strong>组织分散、格式不一的全球统计数据整合为可搜索的 <code>AI-ready</code> <code>知识图谱</code>。</p>
+<p>该平台基于 Google 的 <code>Data Commons</code> 构建，获 <strong>Google.org</strong> 向<strong>联合国基金会</strong>提供支持，可自动关联指标、时间线和地理边界，并通过<code>自然语言</code>返回相关数据与<code>交互式可视化</code>。</p>
+<p>研究人员、管理者、记者和政策分析人员等用户目前可访问平台，也可按地点及健康、教育等主题浏览数据。</p>
+<p>平台还支持 <code>AI</code> 助手通过 <code>MCP</code> 获取数据并制作图表、信息图或报告草稿，但用户引用关键数字前仍需检查底层来源。</p>
+<p><strong>联合国系统</strong>计划在未来一年继续增加数据集，目标是在 <strong>2027 年</strong>前纳入其统计数据集的 <strong>80%</strong>。</p></div>
+</article>
 </section>
 
 <!-- Back to Top -->
@@ -3575,7 +4066,7 @@ body.pet-dragging {
     "def": "ChatGPT 开发者。"
   }
 };</script>
-<script>window.TechDailyAudioUrl = "https://news.techdou.com/2026/09/18/audio.mp3?v=1789696883";</script>
+<script>window.TechDailyAudioUrl = "https://news.techdou.com/2026/09/18/audio.mp3?v=1789698210";</script>
 </body>
 <script>
 
