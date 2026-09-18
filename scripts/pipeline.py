@@ -200,9 +200,13 @@ def parse_rss(xml_bytes, target_date=None):
     cover_image = cover_match.group(1) if cover_match else ""
     
     # Extract overview sections (h3 + ul)
+    # ⚠️ CRITICAL（2026-09-18 回归修复，勿再丢失）：
+    # 标题标签必须容忍属性——RSS 源自 2026-09-18 起给 <h2>/<h3> 加 id 锚点
+    # （如 <h3 id="s9">），裸 <h3> 正则会全部落空，静默产出 0 条新闻的空日报。
+    # 所有标题正则一律写 <h[23][^>]*>。
     overview = []
-    h3_pattern = r'<h3>(.*?)</h3>'
-    ul_pattern = r'<h3>.*?</h3>\s*<ul>(.*?)</ul>'
+    h3_pattern = r'<h3[^>]*>(.*?)</h3>'
+    ul_pattern = r'<h3[^>]*>.*?</h3>\s*<ul>(.*?)</ul>'
     
     categories = re.findall(h3_pattern, html_content, re.DOTALL)
     uls = re.findall(ul_pattern, html_content, re.DOTALL)
@@ -234,8 +238,10 @@ def parse_rss(xml_bytes, target_date=None):
     #    强制要求 <a> 会让该条被静默跳过：详细报道和口播稿同时丢，且无任何报错。
     # 2. 必须用负向前瞻 (?:(?!</h[23]>).)*? 而非 .*?——后者配 re.DOTALL 会跨 </h2> 边界，
     #    把概览区内容吞进第一条标题。两层防御，与 assemble.py 的 parse_rss_bodies 同步。
+    # 3. <h[23]> 必须容忍属性（2026-09-18 回归修复）——RSS 源给标题加了 id 锚点
+    #    （<h3 id="s9">），裸标签正则零命中。与概览区正则同一防御。
     story_pattern = re.compile(
-        r'<h[23]>\s*((?:(?!</h[23]>).)*?)\s*<code[^>]*>#(\d+)</code>\s*</h[23]>',
+        r'<h[23][^>]*>\s*((?:(?!</h[23]>).)*?)\s*<code[^>]*>#(\d+)</code>\s*</h[23]>',
         re.DOTALL
     )
     
@@ -807,6 +813,18 @@ def run_pipeline(target_date=None, skip_tts=False, skip_deploy=False):
         print(f"   🚨 {msg}")
         _write_alert(target_date or data.get('date', ''), msg)
         raise ValueError(msg)
+
+    # 零命中哨兵（2026-09-18 教训）：概览与正文双零也能通过对账（空集相等），
+    # 但那是空日报。解析出 0 条 = 正则与 RSS 结构不匹配，禁止发布，走 no-update + 重试。
+    if not st_nums:
+        msg = f"解析零命中: overview={len(data.get('overview', []))} stories={len(data.get('stories', []))}。解析正则与 RSS 结构不匹配（如标题标签新增属性），已切换待更新页并安排重试。"
+        print(f"   \U0001f6a8 {msg}")
+        _write_alert(target_date or data.get('date', ''), msg)
+        if not skip_deploy:
+            print("\U0001f504 Deploying no-update page and spawning retry...")
+            deploy_no_update(target_date)
+            _spawn_retry(target_date, skip_tts, skip_deploy)
+        return None
     
     # Check if parsed data is for the target date
     if target_date and data.get('date') != target_date:

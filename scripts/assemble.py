@@ -100,8 +100,10 @@ def parse_rss_bodies(rss_path):
         # ⚠️ CRITICAL（2026-08-24 回归修复，勿再丢失）：
         # 与 pipeline.py 的 story_pattern 保持同步：<a href> 可选 + 负向前瞻防跨标签。
         # 此处丢修复会导致无链接新闻的正文丢失（页面有卡片但无 body）。
+        # 标题标签必须容忍属性（2026-09-18 回归修复）——RSS 源给标题加了 id 锚点，
+        # 裸标签正则零命中。与 pipeline.py 的 story_pattern 同一写法。
         h2_match = re.search(
-            r'<h[23]>\s*((?:(?!</h[23]>).)*?)\s*<code[^>]*>#(\d+)</code>\s*</h[23]>',
+            r'<h[23][^>]*>\s*((?:(?!</h[23]>).)*?)\s*<code[^>]*>#(\d+)</code>\s*</h[23]>',
             part, re.DOTALL
         )
         if not h2_match:
