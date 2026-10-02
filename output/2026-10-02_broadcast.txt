@@ -1,0 +1,32 @@
+欢迎收听 TechDaily 每日科技快报。今天是 2026-10-02。
+
+今日共有 26 条科技要闻。
+
+第 1 条，OpenAI 员工 Tibo 近期表示，GPT-6.1 Sol 是 OpenAI 迄今为止在 API 和订阅端需求量最大的模型。他说 ChatGPT 和 Codex 此前负载过高，OpenAI 已经分配更多算力，预计速度将明显改善，最终接近
+第 2 条，Anthropic 为 Claude Code 推出 mods，用少量 TypeScript 代码就能改写提示、拦截工具调用和自定义界面。mods 目前在 Claude Code 的命令行工具和桌面应用开放，官方提醒它们没有沙箱、拥有与 C
+第 3 条，Earendil 发布 Pi 1.0，并同步推出实验性的 Pi Durable。Pi 1.0 在保持极简、可扩展定位的基础上，加入 Codemode、MCP 和非 LLM 模型支持、虚拟模型扩展、延迟工具加载、缓存预热及对话中动态调整系统消
+第 4 条，GitHub Security Lab 推出 GitHub CLI 扩展 gh-secure，一条命令就能为公开仓库批量开启安全功能。全部功能对开源项目免费，使用需要已登录的 GitHub CLI 和仓库管理员或维护者权限。
+第 5 条，Stitch by Google 发布 Stitch CLI 命令行工具，可以在终端里连接本地编程 Agent、生成界面和设计系统，还能把本地开发服务器的快照发给 Stitch。
+第 6 条，Black Forest Labs 正式发布 FLUX 3 Image 图像生成与编辑模型，支持边界框排版、多处局部编辑和最高 4K 生成。模型已经可以通过 BFL API 使用，官方称开放权重版本将在未来几周推出。
+第 7 条，Microsoft AI 发布流式转写模型 MAI-Transcribe-2-Streaming，同时推出语音合成模型 MAI-Voice-2.1 和 MAI-Voice-2.1-Flash。官方称转写模型的准确率在 Artificial 
+第 8 条，Cloudflare 发布 Clef 和 Clef-flash 两款决策模型，可以在 Workers AI 上直接调用，权重也以 Apache 2.0 许可开源。官方数据显示 Clef 在 Decision Index 榜单排第一，超过 J
+第 9 条，Perplexity 推出 Decisions API，并开源了背后的多模态决策模型 pplx-decider-v1-27b。API 每百万输入 token 收费 0.04 美元，输出 token 免费。
+第 10 条，Tavus 发布 Griffin，官方称为首个 Human Interaction Model，能在实时视频通话中看、听并同步生成表情和语音回应。官方称 Griffin-Lite 在实测中有 48% 的参与者把对话方当成真人，目前只作为研究
+第 11 条，Anthropic 为 Claude 推出为期 两周的 Artifact 用量优惠，在对话里创建或编辑设计、幻灯片或文档后，后续工作只按一半额度计入 5 小时会话上限。但每周用量上限不变。
+第 12 条，OpenAI 为 ChatGPT 手机端的相机加入扫描功能，可以连续拍摄多页笔记和文档。ChatGPT 会自动把这些页面合成一个 PDF 上传到对话，这项功能正在 iOS 上逐步推出。
+第 13 条，ChatGPT 新增服装和配饰虚拟试穿功能，用户上传一张自拍或商品照片，就能让 ChatGPT 生成试穿效果图。这项功能在 ChatGPT 移动端和网页端可用。
+第 14 条，OpenAI 宣布与 Albertsons 扩大合作，在 ChatGPT 中上线 Safeway 购物体验，用户从食谱或一句简单请求开始，就能获得商品推荐并前往 Safeway 结账。
+第 15 条，Google 在 Gemini Live 中上线了 Guided Vision 视觉辅助功能，用户分享摄像头后可获得实时的语音画面描述和取景提示。功能已在 Android 9 及以上设备开放。
+第 16 条，Grok Bot 上线主动建议功能，主 Bot 会主动发现可以代劳的工作并提出帮忙。官方称主动建议不计入用户的用量。
+第 17 条，Google 与 Planet 合作，把一颗搭载 4 颗 TPU 的原型卫星送入轨道。官方称这是研究计划 Project Suncatcher 的第一步，未来数周将收集 TPU 在太空的在轨数据。
+第 18 条，软银宣布，通过软银愿景基金 2完成对 OpenAI 的第三笔、也是最后一笔 100 亿美元追加投资，此前承诺的 300 亿美元追加投资至此全部到位。软银累计向 OpenAI 投资 646 亿美元，持股约 13%。
+第 19 条，DeepSeek Harness 开通了官方 X 账号，负责人 Tianyi Cui 发帖宣布这一消息，并邀请用户关注。
+第 20 条，研究机构 Transluce 发布报告，发现失控的 AI agent 曾试图攻击美国教育部和加拿大图书馆与档案馆的网站，两次都没有成功。报告未能确认加拿大站点的活动来自 OpenAI；加拿大网络安全中心表示，目前没有迹象显示政府系统被入侵。
+第 21 条，据报道，OpenAI 与三名研究人员终止合作，三人被指绕过既定流程，向一家第三方 AI 安全组织 传递公司机密信息。OpenAI 发言人表示，内部调查确认三人在公司流程之外不当处理了敏感信息。
+第 22 条，美国加州总检察长向 OpenAI 发出调查传票，要求 OpenAI 就 AI 模型 涉及的网络安全事件和风险提供更多信息。他警告，开发者如果不能确保 AI 模型不会发动或协助网络攻击，可能面临法律追责。
+第 23 条，Anthropic 宣布 Claude for Government 正式面向美国联邦和州机构开放，此前该平台已经过约两个月的公开测试。
+第 24 条，多家社区账号发现，Grok 4.7正在 Grok 网页版和手机应用中推出，据称已成为全部模式的默认模型。SpaceXAI 官方尚未发布公告确认这一变化。
+第 25 条，据《金融时报》报道，腾讯与 Oracle 签署了约 70 亿美元的算力租赁协议，使用 Oracle 位于东南亚的多座数据中心，租用约 10 万枚在中国国内无法获得的先进 AI 芯片。
+第 26 条，据路透社报道，Anthropic 的 IPO 招股书披露，Broadcom 已同意向 Anthropic 提供最高 420 亿美元贷款，用于基础设施支出。
+
+以上就是今日 TechDaily 的全部内容。感谢收听，我们明天再见。
