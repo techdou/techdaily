@@ -1,0 +1,10 @@
+欢迎收听 TechDaily 每日科技快报。今天是 2026-10-05。
+
+今日共有 4 条科技要闻。
+
+第 1 条，Codex 负责人 Tibo 表示，未来 28 天内团队每天要么上线一项对多数 Codex 和 Work 用户有实际价值的明显改进，要么完整重置一次用量额度。
+第 2 条，DeepSeek Harness 近日发布 v0.2.1-alpha.1 预发布版本，新增实验性 Claude Code Mods 兼容层，但目前无法让所有 Claude Code Mods 无缝运行。DeepSeek Harness 组成
+第 3 条，马斯克在 X 平台回复网友提问时表示，SpaceXAI 将更名为 SpaceXSI。此前特朗普已签署行政令，要求美国行政部门在官方文件中使用 Super Intelligence 和 SI 替代 Artificial Intelligenc
+第 4 条，据报道，Nvidia 投资的 AI 初创公司 Reflection 正准备近期发布首个开放权重模型，预计将与中国顶尖开放模型竞争，发布时间与性能均未公布。
+
+以上就是今日 TechDaily 的全部内容。感谢收听，我们明天再见。
