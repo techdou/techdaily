@@ -13,8 +13,11 @@
 
 set -e
 
-REMOTE="${DEPLOY_SERVER:?Error: DEPLOY_SERVER not set}"
-WEBROOT="${DEPLOY_PATH:?Error: DEPLOY_PATH not set}"
+REMOTE="${DEPLOY_SERVER:-ubuntu@100.86.23.97}"
+WEBROOT="${DEPLOY_PATH:-/var/www/news.techdou.com}"
+# Guard: the public IP is rate-limited by server SSH protection (2026-10-08);
+# always deploy via the Tailscale interface.
+[[ "$REMOTE" == *43.153.24.30* ]] && REMOTE="ubuntu@100.86.23.97"
 
 echo "🔄 Switching homepage to pending (no-update)..."
 ssh "$REMOTE" "sudo ln -sfn pending.html ${WEBROOT}/index.html"

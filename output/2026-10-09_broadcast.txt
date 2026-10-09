@@ -1,0 +1,36 @@
+欢迎收听 TechDaily 每日科技快报。今天是 2026-10-09。
+
+今日共有 30 条科技要闻。
+
+第 1 条，OpenAI 为 GPT-6.1 Sol 推出 Ultrafast 模式，在API 中面向所有用户开放，定价为标准模式的 6 倍，Codex 和 ChatGPT Work 中主要面向 Pro 500 订阅用户开放。
+第 2 条，OpenAI 正在 ChatGPT 桌面应用的 Codex 中推出更快的 steering，用户在任务运行时发送追加消息，Codex 能更快响应调整。OpenAI Codex 团队成员 Tibo 表示，steering 已改进为即时生效，可
+第 3 条，阶跃星辰宣布 Step 5 Preview 模型上线 OpenRouter 和 OpenCode 等多个平台，提供为期一周的免费访问。官方称这款模型面向 Agent 和专业工作，任务成本明显更低。
+第 4 条，Vercel 在 AI Gateway 上线匿名模型 Glyph Cluster，面向已购买 AI Gateway 额度的 Pro 和 Enterprise 订阅方案团队，匿名期内免费使用。官方介绍，这是一个面向编程和长上下文分析的推理模型
+第 5 条，Anthropic 为 Claude 推出 Dashboards 和 Motion 两项 beta 功能。Claude Dashboards 把公司数据做成随数据更新的仪表盘，付费订阅方案可用；Claude Motion 把报告和想法做成动
+第 6 条，Google Cloud 发布面向工作的通用 Agent “Gemini agent”，把问答、知识工作、图像与媒体创作、编写和运行代码放进同一个 Agent 和同一套 API。Gemini agent 在云端持续运行，关掉电脑后，耗时数小
+第 7 条，WorkBuddy 上线独立文件浏览器。在电脑上右键本地文件，选择用 WorkBuddy 打开，就能在独立窗口里查看 Word、Excel 等文档，并直接让 AI 分析和修改。官方称功能无需单独下载，更新 WorkBuddy 后即可使用。
+第 8 条，JetBrains 发布开源编程模型 Mellum2.1，架构与 Mellum2 相同，改动几乎全部集中在以强化学习为主的后训练上。JetBrains 自测显示，Mellum2.1 在 SWE-bench Verified 上的得分从 Me
+第 9 条，Hugging Face 的生物学研究团队开源了基因注释模型 Carbon-A，可以直接从 DNA 序列中找出蛋白编码区。团队还发布了用 Carbon-A 构建的注释数据库。该团队称已在猫、鸡等常见物种中，为部分新预测的基因找到 RNA 层
+第 10 条，LightOn 发布端到端 OCR 模型系列 LightOnOCR-3，一次模型调用就能完成文字转录、版面定位、图像描述和图表数据提取。
+第 11 条，Odyssey 发布基础世界模型 Odyssey-3，可以根据提示实时生成交互式环境，研究预览目前免费开放体验。Odyssey 称，Odyssey-3 Pro 在 Physics-IQ Verified 的 video-to-video 基
+第 12 条，Grok Imagine 宣布，视频生成模型 Video 1.5 Lite 已在 Grok Imagine API 上线，支持文本生成视频和图像生成视频。
+第 13 条，Ghostty 作者发布通用终端协议 OSC 7501，让任何程序都能用一条转义序列告诉终端自己的状态以及原因。Herdr 开发者表示将支持 OSC 7501，另有引用帖称 Amp 和 tuios 已接入。
+第 14 条，字节跳动 Seed 团队联合多所高校发表论文，发现 DeepSeek-V4 系列模型的长文本检索准确率，会随信息位置周期性波动。研究发现，这与模型采用的分块 KV 缓存压缩有关，即使平均成绩较高，也可能在特定位置出现明显的检索弱点。
+第 15 条，Epoch AI 推出 Epoch Automation Reports 评测，用取自 Epoch AI 日常工作的 11 个真实任务测试六个模型。官方称，Claude Fable 5.1 和 GPT-6 Astra 总体领先，但仍不足以完
+第 16 条，OpenAI 一次性公开700多篇 AI 生成的数学手稿后，陶哲轩担任主席的人类数学协会发表声明，呼吁数学家停止与 OpenAI 合作。人类数学协会指责 OpenAI 违背科学研究的核心规范，称这次发布展示的是权力。发布次日，OpenAI 
+第 17 条，谷歌与贝斯以色列女执事医疗中心在真实门诊开展的 AMIE（谷歌的研究型对话式诊断 AI 系统）研究，已在《柳叶刀》发表。患者就诊前先与 AMIE 文字交流，AMIE 的鉴别诊断在九成病例中包含医生的最终诊断。谷歌称 AMIE 仍是研究系统，
+第 18 条，Anthropic 更新了 Claude 的使用政策，新版 11 月 12 日生效，最受关注的新增条款是把对 Claude 持续且无必要的辱骂和虐待列为违规行为。官方说明这条规定只针对极端情况，平时对 AI 发火、争论或者做模型测试，都不算
+第 19 条，Anthropic 启动 Cyber Mission，为保护关键基础设施和开源软件的防御者提供工具、研究和资源。首批举措之一是 Critical Infrastructure Defense Program，向保护电网、供水和交通系统的服务
+第 20 条，白宫宣布，美国联邦科研计划 Genesis Mission 获得十一家行业伙伴合计 24 亿美元的科研工具与算力额度承诺。其中 NVIDIA 承诺 10 亿美元，AMD 承诺 5 亿美元，OpenAI 承诺 2 亿美元，Anthropic 
+第 21 条，据金融时报报道，OpenAI 最近告诉投资者，截至九月底的年化营收接近五百亿美元。这个数字比上月媒体报道的接近七百亿美元少了约两百亿美元。金融时报援引知情人士称，差异源于投资者拿 OpenAI 与 Anthropic 直接对比，而 Anth
+第 22 条，此前被 OpenAI 解雇的三名安全研究员发表公开信，否认在公司既定流程之外不当处理敏感信息，并警告突然的解雇正在 OpenAI 内部造成寒蝉效应。OpenAI 的内部备忘录称解雇与提出安全顾虑无关，OpenAI 发言人则称调查发现了违反公
+第 23 条，OpenAI 封禁了来自俄罗斯和伊朗的两批 ChatGPT 账号，OpenAI官方称这两伙人借假记者身份和暗中操控的研究机构，把政治宣传送上真实媒体。
+第 24 条，Manus 母公司蝴蝶效应宣布完成超过 5 亿美元新一轮融资，官方称，本轮由博裕投资和IDG 资本领投，腾讯、红杉中国等老股东继续跟投。
+第 25 条，AI 评测平台 Arena 宣布完成 2 亿美元 B 轮融资，估值 31 亿美元。Arena 同时发布 Alignment Index 预览版，衡量 AI 模型在真实使用中越权行动、谎报任务完成等偏离人类价值观的行为。
+第 26 条，韩国多家银行近期遭到网络攻击，安全公司 CrowdStrike 发布报告称，攻击疑似由一名讲中文的人员实施，攻击者使用了名为 ARTEX 的开源 AI 渗透工具，以 DeepSeek v4.1-flash 为主模型，辅以智谱 GLM-5.3
+第 27 条，据报道，德国搜索引擎 Ecosia 放弃法国 AI 公司 Mistral，改用中国的 Qwen 等开源模型。Ecosia 创始人兼 CEO 表示，Mistral 的模型质量已落后竞争对手一年，切换后成本大约降低一半，性能也有所提升。
+第 28 条，Harness 公司宣布收购 Augment Code 的部分资产，包括 Cosmos、Auggie CLI 和 Code Context Engine，相关团队一并加入 Harness。
+第 29 条，彭博社报道称，Alphabet 旗下 AI 药物研发公司 Isomorphic Labs，正就新一轮融资进行早期谈判，估值至少 400 亿美元，可能达到 500 亿美元。这轮融资尚未敲定，细节仍可能变化。
+第 30 条，阶跃终端宣布，旗下首款大模型原生智能体手机将于10月13日晚7点在上海发布，这场发布会以STEPX Neo命名。官方称，这款手机的诞生将是智能体第一次走进物理世界。
+
+以上就是今日 TechDaily 的全部内容。感谢收听，我们明天再见。
